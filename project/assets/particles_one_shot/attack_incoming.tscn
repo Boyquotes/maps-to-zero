@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmvyyu3s4ey55"]
+
+[ext_resource type="Texture2D" uid="uid://by8aarbg5wgud" path="res://assets/particle_sprites/attack_incoming.png" id="1_3s6va"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t2g3x"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_f3gqd"]
+offsets = PackedFloat32Array(0.00954654, 0.529833, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hlph1"]
+gradient = SubResource("Gradient_f3gqd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ot8oq"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_hlph1")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="AttackIncoming" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_t2g3x")
+emitting = false
+amount = 16
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 120
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ot8oq")
+texture = ExtResource("1_3s6va")

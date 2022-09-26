@@ -1,0 +1,225 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+_global_script_classes=[{
+"base": "CharacterBody2D",
+"class": &"Actor2D",
+"language": &"GDScript",
+"path": "res://sidescroller/core/actor_2d.gd"
+}, {
+"base": "State",
+"class": &"Actor2DState",
+"language": &"GDScript",
+"path": "res://states/core/actor_2d_state.gd"
+}, {
+"base": "Node",
+"class": &"ActorResources",
+"language": &"GDScript",
+"path": "res://sidescroller/core/actor_resources.gd"
+}, {
+"base": "Marker2D",
+"class": &"ActorTransformer2D",
+"language": &"GDScript",
+"path": "res://sidescroller/core/actor_2d_transformer.gd"
+}, {
+"base": "Actor2DState",
+"class": &"AnimationState",
+"language": &"GDScript",
+"path": "res://states/actor_2d_states/animation.gd"
+}, {
+"base": "Node",
+"class": &"AsepriteImportData",
+"language": &"GDScript",
+"path": "res://addons/aseprite_importer/classes/AsepriteImportData.gd"
+}, {
+"base": "Node",
+"class": &"AsepriteImporter",
+"language": &"GDScript",
+"path": "res://addons/aseprite_importer/classes/AsepriteImporter.gd"
+}, {
+"base": "Actor2DState",
+"class": &"Behavior2DScript",
+"language": &"GDScript",
+"path": "res://states/core/behavior_2d_script.gd"
+}, {
+"base": "Node",
+"class": &"EditorTheme",
+"language": &"GDScript",
+"path": "res://addons/aseprite_importer/classes/EditorTheme.gd"
+}, {
+"base": "Marker2D",
+"class": &"FootstepEmitter",
+"language": &"GDScript",
+"path": "res://sidescroller/core/footstep_emitter.gd"
+}, {
+"base": "Node",
+"class": &"GameUtilities",
+"language": &"GDScript",
+"path": "res://core/game_utilities.gd"
+}, {
+"base": "Area2D",
+"class": &"Hitbox",
+"language": &"GDScript",
+"path": "res://sidescroller/core/hitbox.gd"
+}, {
+"base": "Node2D",
+"class": &"Interactable",
+"language": &"GDScript",
+"path": "res://core/triggers/interactable.gd"
+}, {
+"base": "Node2D",
+"class": &"Interaction",
+"language": &"GDScript",
+"path": "res://core/triggers/interaction.gd"
+}, {
+"base": "Node",
+"class": &"Music",
+"language": &"GDScript",
+"path": "res://core/music.gd"
+}, {
+"base": "Marker2D",
+"class": &"ParticleSpawner",
+"language": &"GDScript",
+"path": "res://sidescroller/core/particle_spawner.gd"
+}, {
+"base": "Marker2D",
+"class": &"Particles2DQueue",
+"language": &"GDScript",
+"path": "res://sidescroller/core/particles_2d_queue.gd"
+}, {
+"base": "Marker2D",
+"class": &"Spawner2D",
+"language": &"GDScript",
+"path": "res://sidescroller/core/spawner_2d.gd"
+}, {
+"base": "Node",
+"class": &"State",
+"language": &"GDScript",
+"path": "res://states/core/state.gd"
+}, {
+"base": "Node",
+"class": &"StateMachine",
+"language": &"GDScript",
+"path": "res://states/core/state_machine.gd"
+}, {
+"base": "Node",
+"class": &"StateTransition2D",
+"language": &"GDScript",
+"path": "res://states/core/state_transition_2d.gd"
+}, {
+"base": "Node",
+"class": &"StateTransitionRequirement",
+"language": &"GDScript",
+"path": "res://states/core/state_transition_requirement.gd"
+}, {
+"base": "Node",
+"class": &"TargetManager",
+"language": &"GDScript",
+"path": "res://sidescroller/core/target_manager.gd"
+}]
+_global_script_class_icons={
+"Actor2D": "",
+"Actor2DState": "",
+"ActorResources": "",
+"ActorTransformer2D": "",
+"AnimationState": "",
+"AsepriteImportData": "",
+"AsepriteImporter": "",
+"Behavior2DScript": "",
+"EditorTheme": "",
+"FootstepEmitter": "",
+"GameUtilities": "",
+"Hitbox": "",
+"Interactable": "",
+"Interaction": "",
+"Music": "",
+"ParticleSpawner": "",
+"Particles2DQueue": "",
+"Spawner2D": "",
+"State": "",
+"StateMachine": "",
+"StateTransition2D": "",
+"StateTransitionRequirement": "",
+"TargetManager": ""
+}
+
+[application]
+
+config/name="Bad End"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.0", "Vulkan Clustered")
+
+[autoload]
+
+GlobalVariables="*res://core/global_variables.gd"
+MusicManager="*res://core/music_manager.tscn"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/aseprite_importer/plugin.cfg", "res://addons/smoothing/plugin.cfg")
+
+[input]
+
+move_left={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194319,"unicode":0,"echo":false,"script":null)
+]
+}
+move_right={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194321,"unicode":0,"echo":false,"script":null)
+]
+}
+move_up={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"unicode":0,"echo":false,"script":null)
+]
+}
+move_down={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"unicode":0,"echo":false,"script":null)
+]
+}
+jump={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194320,"unicode":0,"echo":false,"script":null)
+]
+}
+stomp={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"unicode":0,"echo":false,"script":null)
+]
+}
+action_1={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"unicode":0,"echo":false,"script":null)
+]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Floors/Walls"
+2d_physics/layer_2="Agents"
+2d_physics/layer_3="Hitboxes/Hurtboxes"
+2d_physics/layer_4="Triggers"
+2d_physics/layer_5="PlayerStoppers"
+2d_physics/layer_6="OneWayFloors"
+2d_physics/layer_7="AIStoppers"
+2d_physics/layer_8="Background Jump Area"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
