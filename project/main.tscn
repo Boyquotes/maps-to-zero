@@ -1,21 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bda8vhitsmtj5"]
+[gd_scene load_steps=4 format=3 uid="uid://b26ahwphkhc5i"]
 
+[ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
 [ext_resource type="PackedScene" uid="uid://cjj14c7n0y063" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
-[ext_resource type="PackedScene" uid="uid://b1lceq3lf3v4k" path="res://assets/stages/splash_start_small_cave.tscn" id="2_p8j2h"]
-[ext_resource type="PackedScene" uid="uid://dplfpijtyul8s" path="res://sidescroller/actors_2d/kanna.tscn" id="3_bo36h"]
+[ext_resource type="PackedScene" uid="uid://dw3g5pxi0kexq" path="res://assets/stages/horizon_hills_small_cave.tscn" id="2_p8j2h"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_gh6ur")
+player_actor = ExtResource("2_kneeq")
+initial_stage = ExtResource("2_p8j2h")
 
-[node name="Alisa" parent="." instance=ExtResource("2_kneeq")]
+[node name="CameraTransformer" type="RemoteTransform2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(-712, 512)
-team = null
+remote_path = NodePath("../GameplayCamera")
 
-[node name="RemoteTransform2d" type="RemoteTransform2D" parent="Alisa"]
-remote_path = NodePath("../../Camera2d")
-
-[node name="Splash Start Small Cave" parent="." instance=ExtResource("2_p8j2h")]
-
-[node name="Camera2d" type="Camera2D" parent="."]
+[node name="GameplayCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(-712, 512)
 current = true
 limit_left = -800
@@ -29,5 +29,19 @@ drag_top_margin = 0.3
 drag_bottom_margin = 0.3
 editor_draw_limits = true
 
-[node name="Kanna" parent="." instance=ExtResource("3_bo36h")]
-position = Vector2(-304, 528)
+[node name="TransitionCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-712, 512)
+limit_left = -800
+limit_top = -500
+limit_right = 2700
+limit_bottom = 600
+smoothing_enabled = true
+smoothing_speed = 6.0
+drag_vertical_enabled = true
+drag_top_margin = 0.3
+drag_bottom_margin = 0.3
+editor_draw_limits = true
+
+[node name="ActorsParent" type="Node2D" parent="."]
+unique_name_in_owner = true

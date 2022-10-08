@@ -9,7 +9,8 @@ func exit() -> void:
 	set_process_input(false)
 
 func _input(event:InputEvent) -> void:
-	actor_2d.unhandled_input(event)
+	if not actor.cutscene_mode:
+		actor.unhandled_input(event)
 
 func get_input_direction() -> Vector2:
 	var input_direction_x: float = (

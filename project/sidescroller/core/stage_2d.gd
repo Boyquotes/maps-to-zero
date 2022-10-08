@@ -1,20 +1,19 @@
+class_name Stage
 extends Node2D
-
 
 @export var song : Music.Songs
 
-@onready var stage_enter_triggers := $StageEnterTriggers
+var normal_entry: bool = true
+
+var entry_points: Array
 
 func _ready():
-	# First handle any stage enter triggers
-	for trigger in stage_enter_triggers.get_children():
-		if trigger.is_ready:
-			trigger.trigger()
-			return # Return, prioritize the first triggers over later ones
+	for entry_point in $EntryPoints.get_children():
+		entry_points.append(entry_point)
 	
-	# If no special triggers needs to be triggered, play stage as normal
-	start_gameplay()
-
+	if normal_entry:
+		start_gameplay()
 
 func start_gameplay() -> void:
-	MusicManager.play(song)
+	if song != Music.Songs.NULL:
+		MusicManager.play(song)

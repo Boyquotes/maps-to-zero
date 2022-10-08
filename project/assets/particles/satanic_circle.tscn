@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnx7bsblp3r8m"]
+
+[ext_resource type="Texture2D" uid="uid://c3w2pp4upjuvf" path="res://assets/particle_sprites/white_round_4x4.png" id="1_2jfsp"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5hfqs"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 480.58
+initial_velocity_max = 480.58
+orbit_velocity_min = 0.9
+orbit_velocity_max = 1.1
+
+[node name="Satanic Circle" type="GPUParticles2D"]
+fixed_fps = 244
+visibility_rect = Rect2(-500, -500, 1000, 1000)
+trail_enabled = true
+trail_section_subdivisions = 8
+process_material = SubResource("ParticleProcessMaterial_5hfqs")
+texture = ExtResource("1_2jfsp")

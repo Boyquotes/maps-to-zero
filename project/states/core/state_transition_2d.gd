@@ -1,7 +1,7 @@
 class_name StateTransition2D
 extends Node
 
-var actor_2d: Actor2D
+var actor: Actor2D
 var state: Actor2DState
 
 
@@ -12,7 +12,7 @@ func _ready():
 	state.state_transitions.append(self)
 	await state.ready
 	await owner.ready
-	actor_2d = state.actor_2d
+	actor = state.actor
 
 
 func enter(_msg:={}) -> void:

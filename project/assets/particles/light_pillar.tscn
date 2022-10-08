@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfejlk051uykd"]
+
+[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="1_5di8k"]
+
+[sub_resource type="Curve" id="Curve_bnlej"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.219072, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_huvtv"]
+curve = SubResource("Curve_bnlej")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ddcb8"]
+emission_shape = 3
+emission_box_extents = Vector3(4, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 420.0
+initial_velocity_max = 420.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_huvtv")
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 1
+
+[node name="LightPillar" type="GPUParticles2D"]
+amount = 32
+visibility_rect = Rect2(-500, -500, 1000, 1000)
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_ddcb8")
+texture = ExtResource("1_5di8k")

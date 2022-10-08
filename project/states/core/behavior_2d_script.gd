@@ -1,4 +1,4 @@
-# Boilerplate class to get full autocompletion and type checks for the actor_2d` when coding the player's states.
+# Boilerplate class to get full autocompletion and type checks for the actor` when coding the player's states.
 # Without this, we have to run the game to see typos and other errors the compiler could otherwise catch while scripting.
 class_name Behavior2DScript
 extends Actor2DState
@@ -13,4 +13,4 @@ func get_input_direction() -> Vector2:
 	return Vector2.ZERO
 
 func simulate_input(event: InputEvent) -> void:
-	actor_2d.unhandled_input(event)
+	actor.unhandled_input(event)

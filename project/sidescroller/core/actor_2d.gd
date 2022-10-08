@@ -28,13 +28,30 @@ signal defeated
 		attack_can_go_to_next = value
 		if value and state_transition_request_buffer:
 			request_state_transition(state_transition_request_buffer)
+@export var cutscene_mode: bool:
+	set(value):
+		if not is_ready:
+			await ready
+		cutscene_mode = value
+		
+		input_state_machine.set_physics_process(not cutscene_mode)
+		state_machine.set_process(not cutscene_mode)
+		state_machine.set_physics_process(not cutscene_mode)
+		
+		set_collision_layer_value(2, not cutscene_mode)
+		if value:
+			input_state_machine.transition_to("CutsceneMode")
+		else:
+			input_state_machine.transition_to(input_state_machine.get_node(input_state_machine.initial_state).name)
 
+@onready var input_state_machine: StateMachine = $InputStateMachine
 @onready var state_machine: StateMachine = $StateMachine
 @onready var gravity = 2 * jump_max_height / pow(jump_max_height_time, 2)
 @onready var background_jump_area: Area2D = $BackgroundJumpArea
 @onready var resources: ActorResources = $Resources
 @onready var inner: Node2D = $Inner
 @onready var target_manager: TargetManager = $TargetManager
+@onready var animation_player: AnimationPlayer = $Inner/Visuals/AnimationPlayer
 
 var state_transition_request_buffer
 var target:
@@ -52,12 +69,16 @@ var look_direction : Vector2 :
 			$Inner.scale.x = abs($Inner.scale.x)
 		elif sign(value.x) == -1:
 			$Inner.scale.x = -abs($Inner.scale.x)
+	get:
+		return look_direction if not is_equal_approx(look_direction.x, 0) else Vector2.RIGHT
+var is_ready: bool = false
 
 
 func _ready():
 	resources.set_max_resource(ActorResources.Type.HP, max_hp)
 	resources.set_resource(ActorResources.Type.HP, max_hp)
 	resources.resource_depleted.connect(_on_resource_depleted)
+	is_ready = true
 
 func _physics_process(_delta):
 	move_and_slide()
@@ -69,7 +90,9 @@ func play_animation(animation_name : String = "", \
 					_custom_blend : float = -1.0, \
 					_custom_speed : float = 1.0, \
 					_from_end : bool = false) -> void:
-	$Inner/Visuals/AnimationPlayer.play(animation_name)
+	animation_player.play("RESET")
+	await animation_player.animation_finished
+	animation_player.play(animation_name)
 
 
 func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Type.HP, hitbox: Hitbox=null) -> void:
@@ -95,3 +118,11 @@ func request_state_transition(target_state_name : String, msg: Dictionary = {}) 
 
 func _on_state_machine_transitioned(_to_state, _from_state):
 	state_transition_request_buffer = null
+
+
+func _on_tree_entered():
+	GameManager.actors[str(name)] = self
+
+
+func _on_tree_exited():
+	GameManager.actors.erase(str(name))

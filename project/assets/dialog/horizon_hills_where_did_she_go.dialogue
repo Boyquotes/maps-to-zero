@@ -1,0 +1,36 @@
+~ start
+Alisa: Where did she go?
+Alisa: Actually, where did I go?
+Alisa: Where am I?
+Alisa: I really need to pay attention to where I'm going.
+Alisa: I always space out when I'm lost and alone.
+Alisa: Which is all the time.
+Alisa: Although I guess I really shouldn't inside a dark cave.
+Alisa: Couldn't be bothered summoning me in a five-star hotel?
+Alisa: Now how do I get out of here?
+
+do DialogUtilities.animate("1")
+
+Alisa: Hey what's that?
+Alisa: I bet I could climb up there.
+Alisa: Maybe jump off the wall like I'm a ninja.
+Alisa: That would be badass.
+
+do DialogUtilities.animate("end")
+
+~ frog_encounter
+Alisa: Ugh.
+Alisa: Ooooow.
+Alisa: Damnit, the imps always made parkour look so easy.
+Alisa: At least I didn't hit my face.
+
+do DialogUtilities.animate("1")
+
+Alisa: Oh hi there!
+Alisa: You're kind of cute!
+
+do DialogUtilities.animate("2")
+
+Alisa: Ack!?
+
+do DialogUtilities.animate("3")

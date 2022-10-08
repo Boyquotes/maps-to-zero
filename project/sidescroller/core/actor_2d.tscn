@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jeq8j260q55w"]
+[gd_scene load_steps=13 format=3 uid="uid://jeq8j260q55w"]
 
 [ext_resource type="Script" path="res://sidescroller/core/actor_2d.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://bcjo12ardh7ia" path="res://states/core/state_machine.tscn" id="2_550gp"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bh28jb2q4opu" path="res://states/core/state.tscn" id="3_ljg6w"]
 [ext_resource type="Script" path="res://states/actor_2d_states/idle.gd" id="4_c2pic"]
 [ext_resource type="Script" path="res://states/actor_2d_states/run.gd" id="5_q4uhh"]
+[ext_resource type="Script" path="res://states/behavior_2d_states/idle_input.gd" id="5_suckp"]
 [ext_resource type="Script" path="res://states/actor_2d_states/air.gd" id="6_d0dbr"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_resources.gd" id="8_gowqb"]
 [ext_resource type="PackedScene" uid="uid://b0ds8nwujcw6g" path="res://sidescroller/core/actor_2d_interface.tscn" id="9_dm5po"]
@@ -46,6 +47,9 @@ monitoring = false
 
 [node name="InputStateMachine" parent="." instance=ExtResource("2_550gp")]
 
+[node name="CutsceneMode" type="Node" parent="InputStateMachine"]
+script = ExtResource("5_suckp")
+
 [node name="StateMachine" parent="." instance=ExtResource("2_550gp")]
 initial_state = NodePath("Idle")
 
@@ -82,3 +86,6 @@ flags = 51
 
 [node name="TargetManager" type="Node" parent="."]
 script = ExtResource("11_bqsqr")
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

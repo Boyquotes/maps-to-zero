@@ -14,8 +14,8 @@ func _ready():
 	add_child(coyote_timer)
 
 func enter(_msg := {}) -> void:
-	actor_2d.velocity = Vector2.ZERO
-	actor_2d.play_animation(animation)
+	actor.velocity = Vector2.ZERO
+	actor.play_animation(animation)
 
 func exit() -> void:
 	super.exit()
@@ -30,11 +30,11 @@ func handle_input(event: InputEvent) -> void:
 func update(_delta: float) -> void:
 	# If you have platforms that break when standing on them, you need that check for 
 	# the character to fall.
-	if not actor_2d.is_on_floor() and coyote_timer.time_left <= 0:
+	if not actor.is_on_floor() and coyote_timer.time_left <= 0:
 		coyote_timer.start(coyote_time)
-	if not is_equal_approx(actor_2d.input_direction.x, 0):
+	if not is_equal_approx(actor.input_direction.x, 0):
 		state_machine.transition_to("Run")
 
 func _on_coyote_timeout():
-	if not actor_2d.is_on_floor():
+	if not actor.is_on_floor():
 		state_machine.transition_to("Air")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw8tey8ysf7gm"]
+[gd_scene load_steps=2 format=3 uid="uid://biu718yt8qg58"]
 
 [ext_resource type="Script" path="res://sidescroller/core/stage_2d.gd" id="1_nykvv"]
 
@@ -6,4 +6,4 @@
 script = ExtResource("1_nykvv")
 song = 1
 
-[node name="StageEnterTriggers" type="Node2D" parent="."]
+[node name="EntryPoints" type="Node2D" parent="."]

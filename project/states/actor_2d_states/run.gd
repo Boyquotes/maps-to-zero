@@ -15,7 +15,7 @@ func _ready():
 	add_child(coyote_timer)
 
 func enter(_msg := {}) -> void:
-	actor_2d.play_animation(animation)
+	actor.play_animation(animation)
 
 func exit() -> void:
 	super.exit()
@@ -31,21 +31,21 @@ func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
 	# although in production, your states will tend to be more complex and duplicate code
 	# much more rare.
-	if not actor_2d.is_on_floor() and coyote_timer.time_left <= 0:
+	if not actor.is_on_floor() and coyote_timer.time_left <= 0:
 		coyote_timer.start(coyote_time)
 	
 	# We move the run-specific input code to the state.
-	var old_velocity = actor_2d.velocity
-	actor_2d.velocity.x = actor_2d.speed * actor_2d.input_direction.x
-	actor_2d.velocity.y += actor_2d.gravity * delta
+	var old_velocity = actor.velocity
+	actor.velocity.x = actor.speed * actor.input_direction.x
+	actor.velocity.y += actor.gravity * delta
 	
-	if sign(actor_2d.velocity.x) != 0 \
-			and sign(old_velocity.x) != sign(actor_2d.velocity.x):
-		actor_2d.look_direction = Vector2(sign(actor_2d.velocity.x), 0)
+	if sign(actor.velocity.x) != 0 \
+			and sign(old_velocity.x) != sign(actor.velocity.x):
+		actor.look_direction = Vector2(sign(actor.velocity.x), 0)
 	
-	if is_equal_approx(actor_2d.input_direction.x, 0.0):
+	if is_equal_approx(actor.input_direction.x, 0.0):
 		state_machine.transition_to("Idle")
 
 func _on_coyote_timeout():
-	if not actor_2d.is_on_floor():
+	if not actor.is_on_floor():
 		state_machine.transition_to("Air")

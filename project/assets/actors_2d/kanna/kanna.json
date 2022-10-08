@@ -528,36 +528,36 @@
     "duration": 50
    },
    "kanna 66.aseprite": {
-    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "frame": { "x": 384, "y": 896, "w": 128, "h": 128 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 50
+    "duration": 100
    },
    "kanna 67.aseprite": {
-    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "frame": { "x": 512, "y": 896, "w": 128, "h": 128 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 50
+    "duration": 100
    },
    "kanna 68.aseprite": {
-    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "frame": { "x": 640, "y": 896, "w": 128, "h": 128 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 50
+    "duration": 100
    },
    "kanna 69.aseprite": {
-    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "frame": { "x": 768, "y": 896, "w": 128, "h": 128 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
     "sourceSize": { "w": 128, "h": 128 },
-    "duration": 50
+    "duration": 100
    },
    "kanna 70.aseprite": {
     "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
@@ -568,6 +568,38 @@
     "duration": 50
    },
    "kanna 71.aseprite": {
+    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 50
+   },
+   "kanna 72.aseprite": {
+    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 50
+   },
+   "kanna 73.aseprite": {
+    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 50
+   },
+   "kanna 74.aseprite": {
+    "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+    "sourceSize": { "w": 128, "h": 128 },
+    "duration": 50
+   },
+   "kanna 75.aseprite": {
     "frame": { "x": 256, "y": 896, "w": 128, "h": 128 },
     "rotated": false,
     "trimmed": false,
@@ -598,7 +630,32 @@
    { "name": "attack", "from": 49, "to": 50, "direction": "forward" },
    { "name": "spin_attack_windup", "from": 51, "to": 54, "direction": "forward" },
    { "name": "spin_attack", "from": 55, "to": 59, "direction": "forward" },
-   { "name": "spin_attack_recover", "from": 60, "to": 64, "direction": "forward" }
+   { "name": "spin_attack_recover", "from": 60, "to": 64, "direction": "forward" },
+   { "name": "clap", "from": 66, "to": 69, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Alice" },
+   { "name": "Tail", "group": "Alice" },
+   { "name": "Tail", "group": "Tail", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arm L", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Leg L", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Leg R", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Torso", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Skirt", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arm R", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Shirt", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Head", "group": "Alice" },
+   { "name": "Head Shape", "group": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "Eye L", "group": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "Eye R", "group": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "Bangs", "group": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "Horns", "group": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arm Front", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Weapons", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "Tail Front", "group": "Alice", "opacity": 255, "blendMode": "normal" },
+   { "name": "FX", "group": "Alice", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
   ]
  }
 }

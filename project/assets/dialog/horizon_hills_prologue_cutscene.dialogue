@@ -1,0 +1,70 @@
+~ start
+
+Demon Girl: Hahaha! I must thank thee for summoning me here! I am-
+do DialogUtilities.animate("A")
+Demon Girl: Ignore that.
+Demon Girl: Hahaha! I must thank you for summoning me here!
+Demon Girl: I am Alisa, and nothing can stop me!
+do DialogUtilities.animate("B")
+Dragon Girl: Oh that was a wonderful performance!
+Dragon Girl: You can call me Kanna.
+Alisa: Kanna, huh? Thou must be brave to partake in the ritual of demon summoning!
+Alisa: Luckily for you, I am a benevolent benefactor, and the terms of our contract will not come at a great cost to you!
+Kanna: Yay! I've been wanting a new friend for a while now!
+do DialogUtilities.animate("C")
+Alisa: ...What?
+Kanna: Yup. I'm so glad the summoning worked just the way the lady said it would!
+Alisa: So you're telling me you summoned a demon because you wanted a friend?
+Kanna: Yes!
+Alisa: Are you nuts!?
+Alisa: You really are lucky I'm such a nice person!
+Alisa: What do you think a monster would have done!?
+Alisa: What then, huh?
+Kanna: I'd probably just beat it up if it was being mean.
+Alisa: Beat it up? What are- okay nevermind.
+do DialogUtilities.animate("D")
+Alisa: Hey, can you turn this thing off?
+Alisa: It's distracting.
+Kanna: I don't know how.
+Kanna: The lady never told me.
+Alisa: What do you mean you don't know how?
+Alisa: Are you telling me you summoned a demon without knowing how to turn off the portal?
+Kanna: Is that a problem?
+Kanna: I thought it would close automatically after the demon I made a pact with came through.
+Alisa: No! That's not how that works!
+Alisa: Any demon can come through this portal! You need to close it right now!
+Kanna: But I was under the impression that demons want to come here.
+Kanna: Why would I want to close it?
+do DialogUtilities.animate("E")
+Alisa: Because all demons are assholes!
+Kanna: But aren't you a demon?
+Alisa: Yeah.
+Kanna: Then wouldn't that make you-?
+Alisa: I didn't stutter did I?
+do DialogUtilities.animate("F")
+Alisa: Look, you need to close it.
+Kanna: Do you know how to close it?
+Alisa: No. I'm the demon here, I make the contract, you summon me. That's the deal.
+Kanna: Hmm okay.
+Kanna: Well if it's really that important to you, then we can find the lady that taught me how to do this.
+Alisa: What do you mean find? We don't have all day here.
+Kanna: Oh no, she just taught me how to summon a few minutes ago.
+Kanna: She should still be here in the forest somewhere.
+Kanna: If we run we might catch up to her!
+Kanna: Let's go!
+do DialogUtilities.animate("G")
+Alisa: Unbelievable.
+do DialogUtilities.animate("H")
+Alisa: What's this?
+Alisa: Did she drop it?
+Alisa: I don't see a name on it.
+Alisa: Well, it's mine now.
+Alisa: Adequate compensation for wasting my time.
+Alisa: I'll have to ask her for more later.
+Alisa: What's her name again?
+Alisa: I forgot.
+do DialogUtilities.animate("I")
+Alisa: Eh, I'm sure leaving this thing open isn't actually a big deal.
+Alisa: I made extra sure to hide the portal on my end.
+Alisa: There's absolutely no way anyone else can get through.
+do DialogUtilities.animate("end")

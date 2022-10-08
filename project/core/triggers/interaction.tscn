@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba53mt4vexnws"]
-
-[ext_resource type="Script" path="res://core/triggers/interaction.gd" id="1_evn6a"]
-
-[node name="Interaction" type="Node2D"]
-script = ExtResource("1_evn6a")

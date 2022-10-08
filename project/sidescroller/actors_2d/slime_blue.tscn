@@ -1,16 +1,15 @@
-[gd_scene load_steps=44 format=3 uid="uid://dvljl755mg41f"]
+[gd_scene load_steps=43 format=3 uid="uid://dvljl755mg41f"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://bkt2ed1pbpeg6" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="PackedScene" uid="uid://bs0gp3yw8bchi" path="res://sidescroller/core/footstep_emitter.tscn" id="4_1rf3w"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_xdjc1"]
-[ext_resource type="PackedScene" uid="uid://cikohc2m3w31e" path="res://assets/particles_one_shot/jump_default.tscn" id="5_kaqgl"]
+[ext_resource type="PackedScene" path="res://assets/particles_one_shot/jump_default.tscn" id="5_kaqgl"]
 [ext_resource type="AudioStream" uid="uid://dotkti5wd4f1g" path="res://assets/sfx/slime_bounce_2.wav" id="5_ljt1y"]
 [ext_resource type="AudioStream" uid="uid://clv0c1odiv1fu" path="res://assets/sfx/bloody_slash.wav" id="6_6tgu8"]
 [ext_resource type="Texture2D" uid="uid://dqqahi7ap14wb" path="res://assets/actors_2d/slime_blue/slime_blue.png" id="6_pe401"]
 [ext_resource type="Script" path="res://sidescroller/core/particles_2d_queue.gd" id="6_s07aa"]
-[ext_resource type="Script" path="res://states/behavior_2d_states/idle_input.gd" id="8_6jswc"]
 [ext_resource type="AudioStream" uid="uid://be45afr4o5hmv" path="res://assets/sfx/slime_bounce.wav" id="8_27be6"]
 [ext_resource type="Script" path="res://states/state_transitions_2d/input_key_transition.gd" id="11_d4qx0"]
 [ext_resource type="Script" path="res://states/actor_2d_states/attack.gd" id="11_ta8im"]
@@ -229,7 +228,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-21, -0.25, 0, 0.3, -17.5, -21, -0.3, -18.5, 0.25, 0),
+"points": PackedFloat32Array(-21, -0.25, 0, 0.1, -34.5, -21, -0.1, -27.5, 0.25, 0),
 "times": PackedFloat32Array(0, 0.3)
 }
 tracks/4/type = "method"
@@ -248,6 +247,7 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_hnukp"]
+length = 0.05
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -313,6 +313,7 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ejapp"]
+length = 0.45
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -320,10 +321,10 @@ tracks/0/path = NodePath("Sprite2d:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Rect2(256, 128, 128, 128)]
+"values": [Rect2(0, 384, 128, 128), Rect2(128, 384, 128, 128), Rect2(256, 384, 128, 128), Rect2(384, 384, 128, 128), Rect2(512, 384, 128, 128), Rect2(640, 384, 128, 128), Rect2(0, 512, 128, 128), Rect2(128, 512, 128, 128), Rect2(256, 512, 128, 128)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -332,10 +333,10 @@ tracks/1/path = NodePath("Sprite2d:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -781,7 +782,7 @@ libraries = {
 
 [node name="AttackSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/Attack" index="1"]
 position = Vector2(0, 16)
-stream = ExtResource("5_ljt1y")
+stream = ExtResource("6_6tgu8")
 bus = &"Sfx"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
@@ -801,11 +802,8 @@ script = ExtResource("14_ahw5i")
 [node name="CollisionShape2d" parent="Inner/Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_l4vct")
 
-[node name="InputStateMachine" parent="." index="4"]
-initial_state = NodePath("IdleInput")
-
-[node name="IdleInput" type="Node" parent="InputStateMachine" index="0"]
-script = ExtResource("8_6jswc")
+[node name="IdleInput" type="Node" parent="InputStateMachine" index="1"]
+script = ExtResource("17_mim31")
 
 [node name="Wait" type="Node" parent="InputStateMachine/IdleInput" index="0"]
 script = ExtResource("16_is8xi")
@@ -815,7 +813,7 @@ next_state = "Bounce"
 script = ExtResource("18_j5f6b")
 next_state = "Attack"
 
-[node name="Bounce" type="Node" parent="InputStateMachine" index="1"]
+[node name="Bounce" type="Node" parent="InputStateMachine" index="2"]
 script = ExtResource("17_mim31")
 
 [node name="Wait" type="Node" parent="InputStateMachine/Bounce" index="0"]
@@ -827,7 +825,7 @@ wait_time = 0.3
 script = ExtResource("18_j5f6b")
 next_state = "Attack"
 
-[node name="Attack" type="Node" parent="InputStateMachine" index="2"]
+[node name="Attack" type="Node" parent="InputStateMachine" index="3"]
 script = ExtResource("19_knn7c")
 finished_to_state = "IdleInput"
 
@@ -855,8 +853,10 @@ inputs = {
 }
 
 [node name="Air" parent="StateMachine" index="2"]
+jump_off_animation = "jump"
 jump_animation = "bounce"
 fall_animation = "bounce"
+background_jump_off_animation = "background_jump"
 background_jump_animation = "bounce"
 background_fall_animation = "bounce"
 background_jumps_max = 1

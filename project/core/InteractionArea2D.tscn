@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ylanwo4pov0m"]
+
+[ext_resource type="Script" path="res://core/interaction_area_2d.gd" id="1_nqcao"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tlhih"]
+
+[node name="InteractionArea2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("1_nqcao")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tlhih")
+}
+
+[node name="InteractionEnabledVisuals" type="Node2D" parent="."]
+visible = false

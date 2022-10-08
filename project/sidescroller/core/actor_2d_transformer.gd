@@ -1,45 +1,77 @@
 class_name ActorTransformer2D
 extends Marker2D
 
-@export_enum(Right, Left) var source_direction:
+
+@export var actor_name: String = ""
+@export var center_offset: Vector2
+
+@export_enum(Right, Left) var look_direction:
 	set(value):
+		if not actor:
+			return
 		match value:
 			0:
-				owner.look_direction = Vector2.RIGHT
+				actor.look_direction = Vector2.RIGHT
 			1:
-				owner.look_direction = Vector2.LEFT
+				actor.look_direction = Vector2.LEFT
+			_:
+				actor.look_direction = Vector2.RIGHT
+@export var move_with_look_direction: bool = true
 
 @export var active := false:
 	set(value):
+		active = value
+		if not actor:
+			return
 		if value == true:
-			last_frame_position = position
+#			actor.look_direction = scale
+			last_frame_position = position - center_offset
+			actor.cutscene_mode = true
 			set_physics_process(true)
 		else:
-			owner.velocity = Vector2.ZERO
+#			actor.look_direction = scale
+			actor.velocity = Vector2.ZERO
 			set_physics_process(false)
+			actor.cutscene_mode = false
 
 @export var animation := "":
 	set(value):
-		if owner and owner.has_node("Inner/Visuals/AnimationPlayer"):
-			owner.inner.get_node("Visuals/AnimationPlayer").play(value)
+		if actor and actor.animation_player:
+			actor.animation_player.play(value)
 
 var last_frame_position : Vector2
+var actor: Actor2D
 
 
 func _ready():
-	assert(owner is Actor2D)
+	if actor_name == "":
+		actor = owner
+	else:
+		actor = GameManager.actors[actor_name]
+	assert(actor is Actor2D)
 	set_physics_process(false)
 
 
 func _physics_process(delta):
-	if not last_frame_position.is_equal_approx(position):
-		var position_delta = position - last_frame_position
-		position_delta.x *= sign(owner.look_direction.x)
-		owner.velocity = position_delta / delta
+	if not last_frame_position.is_equal_approx(position - center_offset):
+		var position_delta = (position - center_offset) - last_frame_position
+		if move_with_look_direction:
+			position_delta.x *= sign(actor.look_direction.x)
+		actor.velocity = position_delta / delta
 	else:
-		owner.velocity = Vector2.ZERO
-	last_frame_position = position
+		actor.velocity = Vector2.ZERO
+	last_frame_position = position - center_offset
 	
-	owner.rotation = rotation
-#	owner.inner.scale = scale
-#	owner.inner.scale.x *= sign(owner.look_direction.x)
+	actor.rotation = rotation
+#	actor.inner.scale = scale
+
+
+func actor_queue_free() -> void:
+	set_physics_process(false)
+	actor.queue_free()
+
+
+func teleport() -> void:
+	last_frame_position = position - center_offset
+	actor.velocity = Vector2.ZERO
+	actor.global_position = global_position - center_offset
