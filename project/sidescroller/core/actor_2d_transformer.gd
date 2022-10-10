@@ -49,6 +49,8 @@ func _ready():
 	else:
 		actor = GameManager.actors[actor_name]
 	assert(actor is Actor2D)
+	actor.tree_exited.connect(func():
+		queue_free())
 	set_physics_process(false)
 
 

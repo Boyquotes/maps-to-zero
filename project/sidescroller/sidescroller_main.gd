@@ -15,6 +15,7 @@ var player: Actor2D
 func _ready():
 	GameManager.gameplay_camera = gameplay_camera
 	GameManager.transition_camera = transition_camera
+	GameManager._sidescroller_main = self
 	
 	player = player_actor.instantiate()
 	GameManager.player = player
@@ -24,10 +25,10 @@ func _ready():
 	camera_transformer.position = Vector2.ZERO
 	camera_transformer.remote_path = camera_transformer.get_path_to(gameplay_camera)
 	
-	change_level(initial_stage, initial_stage_enter_point)
+	change_stage(initial_stage, initial_stage_enter_point)
 
 
-func change_level(stage_scene: PackedScene, player_entry_point: int) -> void:
+func change_stage(stage_scene: PackedScene, player_entry_point: int) -> void:
 	if currently_loaded_stage and is_instance_valid(currently_loaded_stage):
 		for actor in actors_parent.get_children():
 			if actor == player:

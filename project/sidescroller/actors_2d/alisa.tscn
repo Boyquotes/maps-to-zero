@@ -2409,6 +2409,7 @@ inputs = {
 [node name="InteractionAreaActivator2D" type="Area2D" parent="." index="8"]
 collision_layer = 8
 collision_mask = 0
+monitoring = false
 script = ExtResource("22_okp5b")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="InteractionAreaActivator2D" index="0"]

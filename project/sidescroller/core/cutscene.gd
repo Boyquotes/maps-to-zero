@@ -14,6 +14,8 @@ func _ready():
 	set_process_input(false)
 
 func start(_dummy_var=null) -> void:
+	if _dummy_var:
+		print_debug(_dummy_var.get_parent().name)
 	assert ($AnimationPlayer.has_animation("start"))
 	$AnimationPlayer.play("start")
 	$AnimationPlayer.animation_finished.connect(_on_animation_finished)

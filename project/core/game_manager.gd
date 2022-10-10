@@ -3,12 +3,24 @@ extends Node
 signal screen_transition_finished
 
 var actors := {}
+var actors_original_cutscene_mode_value := {}
+var _sidescroller_main
+
 var cutscene_mode: bool:
 	set(value):
 		cutscene_mode = value
 		if value:
+			actors_original_cutscene_mode_value.clear()
+			for actor in actors.values():
+				actors_original_cutscene_mode_value[actor] = actor.cutscene_mode
+				actor.cutscene_mode = true
 			show_cutscene_bars(1.0)
 		else:
+			for actor in actors.values():
+				if actors_original_cutscene_mode_value.has(actor):
+					actor.cutscene_mode = actors_original_cutscene_mode_value[actor]
+				else:
+					actor.cutscene_mode = false
 			hide_cutscene_bars(1.0)
 
 var player: Actor2D
@@ -70,3 +82,8 @@ func screen_transition(animation: Enums.ScreenTransition, duration:=1.0) -> void
 	animation_player.play(dict[animation])
 	await animation_player.animation_finished
 	screen_transition_finished.emit()
+
+
+func request_stage_change(stage_file_path: String, player_entry_point := 0) -> void:
+	var stage = load(stage_file_path)
+	_sidescroller_main.change_stage(stage, player_entry_point)

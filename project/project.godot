@@ -54,6 +54,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://states/core/behavior_2d_script.gd"
 }, {
+"base": "Trigger",
+"class": &"CameraSettingsTrigger",
+"language": &"GDScript",
+"path": "res://core/camera_limits_trigger.gd"
+}, {
 "base": "Node2D",
 "class": &"Cutscene",
 "language": &"GDScript",
@@ -94,11 +99,6 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://core/interactable.gd"
 }, {
-"base": "Node2D",
-"class": &"Interaction",
-"language": &"GDScript",
-"path": "res://core/interaction.gd"
-}, {
 "base": "Area2D",
 "class": &"InteractionArea2D",
 "language": &"GDScript",
@@ -129,11 +129,6 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://sidescroller/core/player_transformer.gd"
 }, {
-"base": "Reference",
-"class": &"SaveGameAsJSON",
-"language": &"GDScript",
-"path": "res://core/save_game_as_json.gd"
-}, {
 "base": "Marker2D",
 "class": &"Spawner2D",
 "language": &"GDScript",
@@ -143,6 +138,11 @@ _global_script_classes=[{
 "class": &"Stage",
 "language": &"GDScript",
 "path": "res://sidescroller/core/stage_2d.gd"
+}, {
+"base": "Trigger",
+"class": &"StageChangeTrigger",
+"language": &"GDScript",
+"path": "res://core/stage_change_trigger.gd"
 }, {
 "base": "Node2D",
 "class": &"StageEntryPoint",
@@ -178,6 +178,11 @@ _global_script_classes=[{
 "class": &"Trail2D",
 "language": &"GDScript",
 "path": "res://addons/Trail/trail_2d.gd"
+}, {
+"base": "Node2D",
+"class": &"Trigger",
+"language": &"GDScript",
+"path": "res://core/trigger.gd"
 }]
 _global_script_class_icons={
 "Actor2D": "",
@@ -189,6 +194,7 @@ _global_script_class_icons={
 "AsepriteImporter": "",
 "AudioStreamPlayer2DExtended": "",
 "Behavior2DScript": "",
+"CameraSettingsTrigger": "",
 "Cutscene": "",
 "DialogNode": "",
 "EditorTheme": "",
@@ -197,23 +203,23 @@ _global_script_class_icons={
 "GameUtilities": "",
 "Hitbox": "",
 "Interactable": "",
-"Interaction": "",
 "InteractionArea2D": "",
 "InteractionAreaActivator2D": "",
 "Music": "",
 "ParticleSpawner": "",
 "Particles2DQueue": "",
 "PlayerTransformer": "",
-"SaveGameAsJSON": "",
 "Spawner2D": "",
 "Stage": "",
+"StageChangeTrigger": "",
 "StageEntryPoint": "",
 "State": "",
 "StateMachine": "",
 "StateTransition2D": "",
 "StateTransitionRequirement": "",
 "TargetManager": "",
-"Trail2D": ""
+"Trail2D": "",
+"Trigger": ""
 }
 
 [application]

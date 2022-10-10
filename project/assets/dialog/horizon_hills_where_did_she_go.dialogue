@@ -34,3 +34,37 @@ do DialogUtilities.animate("2")
 Alisa: Ack!?
 
 do DialogUtilities.animate("3")
+
+~ falling
+
+Alisa: AAAAAAAAH!
+
+do DialogUtilities.animate("1")
+
+Alisa: *Inhale*
+
+do DialogUtilities.animate("2")
+
+Alisa: *Sharp inhale*
+Alisa: Mmmmmf!
+
+do DialogUtilities.animate("3")
+
+Alisa: *Cough* *Cough* *Cough*
+
+do DialogUtilities.animate("4")
+
+Alisa: Kill. I need to kill. All of them.
+Alisa: They need to die.
+Alisa: *Cough* *Cough*
+Alisa: Ack.
+Alisa: Gross.
+
+do DialogUtilities.animate("5")
+
+Alisa: I need to get out of here.
+Alisa: Oh my god.
+Alisa: That was... Unpleasant.
+Alisa: Very, very unpleasant.
+
+do DialogUtilities.animate("end")

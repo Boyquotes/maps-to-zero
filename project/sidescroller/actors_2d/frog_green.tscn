@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://rpgywc8txax1"]
+[gd_scene load_steps=42 format=3 uid="uid://rpgywc8txax1"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://bkt2ed1pbpeg6" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -17,9 +17,11 @@
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="13_enrk8"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="13_q36hh"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_2d_transformer.gd" id="14_ahw5i"]
+[ext_resource type="Script" path="res://states/behavior_2d_states/idle_input.gd" id="16_0g0ad"]
 [ext_resource type="Script" path="res://states/state_transitions_2d/wait.gd" id="16_is8xi"]
 [ext_resource type="Script" path="res://states/behavior_2d_states/move_to_target_input.gd" id="17_mim31"]
 [ext_resource type="Script" path="res://states/state_transitions_2d/close_to_target.gd" id="18_j5f6b"]
+[ext_resource type="Script" path="res://states/state_transitions_2d/far_from_target.gd" id="19_20f4a"]
 [ext_resource type="Script" path="res://states/behavior_2d_states/animation_behavior.gd" id="19_knn7c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvr6v"]
@@ -657,10 +659,18 @@ script = ExtResource("14_ahw5i")
 shape = SubResource("CircleShape2D_l4vct")
 
 [node name="InputStateMachine" parent="." index="4"]
-initial_state = NodePath("IdleInput")
+initial_state = NodePath("WaitForTarget")
 
-[node name="IdleInput" type="Node" parent="InputStateMachine" index="1"]
-script = ExtResource("17_mim31")
+[node name="WaitForTarget" type="Node" parent="InputStateMachine" index="1"]
+script = ExtResource("16_0g0ad")
+
+[node name="CloseToTarget" type="Node" parent="InputStateMachine/WaitForTarget" index="0"]
+script = ExtResource("18_j5f6b")
+next_state = "IdleInput"
+distance_closer_than = 30.0
+
+[node name="IdleInput" type="Node" parent="InputStateMachine" index="2"]
+script = ExtResource("16_0g0ad")
 
 [node name="Wait" type="Node" parent="InputStateMachine/IdleInput" index="0"]
 script = ExtResource("16_is8xi")
@@ -671,7 +681,12 @@ wait_time = 2.0
 script = ExtResource("18_j5f6b")
 next_state = "Attack"
 
-[node name="Bounce" type="Node" parent="InputStateMachine" index="2"]
+[node name="FarFromTarget" type="Node" parent="InputStateMachine/IdleInput" index="2"]
+script = ExtResource("19_20f4a")
+next_state = "WaitForTarget"
+distance_greater_than = 30.0
+
+[node name="Bounce" type="Node" parent="InputStateMachine" index="3"]
 script = ExtResource("17_mim31")
 
 [node name="Wait" type="Node" parent="InputStateMachine/Bounce" index="0"]
@@ -683,7 +698,7 @@ wait_time = 0.3
 script = ExtResource("18_j5f6b")
 next_state = "Attack"
 
-[node name="Attack" type="Node" parent="InputStateMachine" index="3"]
+[node name="Attack" type="Node" parent="InputStateMachine" index="4"]
 script = ExtResource("19_knn7c")
 finished_to_state = "IdleInput"
 

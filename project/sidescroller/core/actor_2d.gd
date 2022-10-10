@@ -42,7 +42,7 @@ signal defeated
 		if value:
 			input_state_machine.transition_to("CutsceneMode")
 		else:
-			input_state_machine.transition_to(input_state_machine.get_node(input_state_machine.initial_state).name)
+			input_state_machine.enter_initial_state()
 
 @onready var input_state_machine: StateMachine = $InputStateMachine
 @onready var state_machine: StateMachine = $StateMachine

@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://b26ahwphkhc5i"]
+[gd_scene load_steps=6 format=3 uid="uid://c54gi7bnxpys3"]
 
 [ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
 [ext_resource type="PackedScene" uid="uid://cjj14c7n0y063" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
-[ext_resource type="PackedScene" uid="uid://dw3g5pxi0kexq" path="res://assets/stages/horizon_hills_small_cave.tscn" id="2_p8j2h"]
+[ext_resource type="PackedScene" uid="uid://dw3g5pxi0kexq" path="res://assets/stages/horizon_hills_small_cave.tscn" id="3_5wts8"]
+[ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
+[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="4_lcacx"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gh6ur")
 player_actor = ExtResource("2_kneeq")
-initial_stage = ExtResource("2_p8j2h")
+initial_stage = ExtResource("3_5wts8")
 
 [node name="CameraTransformer" type="RemoteTransform2D" parent="."]
 unique_name_in_owner = true
@@ -18,10 +20,7 @@ remote_path = NodePath("../GameplayCamera")
 unique_name_in_owner = true
 position = Vector2(-712, 512)
 current = true
-limit_left = -800
-limit_top = -500
-limit_right = 2700
-limit_bottom = 600
+zoom = Vector2(0.5, 0.5)
 smoothing_enabled = true
 smoothing_speed = 6.0
 drag_vertical_enabled = true
@@ -45,3 +44,37 @@ editor_draw_limits = true
 
 [node name="ActorsParent" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="DebugInfo" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Control" type="Control" parent="DebugInfo"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_lcacx")
+
+[node name="FPS Counter" type="Label" parent="DebugInfo/Control"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+offset_right = 40.0
+offset_bottom = -22.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "FPS"
+script = ExtResource("4_78hp4")
+
+[node name="Work In Progress Label" type="Label" parent="DebugInfo/Control"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "Work In Progress - Nothing you see is final!"

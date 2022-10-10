@@ -4,9 +4,13 @@ extends Node
 @onready var original_volume := audio_stream_player.volume_db
 
 var tween: Tween
+var current_song: Music.Songs
 
 
 func play(song : Music.Songs, previous_song_fade_out_time:=0.0) -> void:
+	if song == current_song:
+		return
+	
 	if tween:
 		tween.stop()
 	
@@ -22,6 +26,7 @@ func play(song : Music.Songs, previous_song_fade_out_time:=0.0) -> void:
 
 
 func play_song(song: Music.Songs) -> void:
+	current_song = song
 	audio_stream_player.volume_db = original_volume
 	
 	if song != Music.Songs.SILENCE:

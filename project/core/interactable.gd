@@ -15,8 +15,8 @@ var is_ready : bool:
 
 
 func _ready() -> void:
-	for child in $Interactions.get_children():
-		assert(child is Interaction)
+	for child in $Triggers.get_children():
+		assert(child is Trigger)
 		interactions.append(child)
 
 
