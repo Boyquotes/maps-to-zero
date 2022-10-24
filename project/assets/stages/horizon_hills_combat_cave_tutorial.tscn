@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://11ojiqxy4nva"]
+[gd_scene load_steps=102 format=3 uid="uid://11ojiqxy4nva"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
 [ext_resource type="TileSet" uid="uid://biqaeficpfbro" path="res://assets/tilesets/horizon_hills_tileset.tres" id="2_k34v3"]
@@ -60,6 +60,8 @@
 [ext_resource type="PackedScene" uid="uid://rpgywc8txax1" path="res://sidescroller/actors_2d/frog_green.tscn" id="58_0oknn"]
 [ext_resource type="Script" path="res://core/animation_trigger.gd" id="59_4c7wp"]
 [ext_resource type="Script" path="res://core/camera_limits_trigger.gd" id="59_dvpg6"]
+[ext_resource type="Script" path="res://core/screen_transition_trigger.gd" id="59_jd0nj"]
+[ext_resource type="Texture2D" uid="uid://c3gbrhrbk6fgv" path="res://assets/other_sprites/vomit_puddle.png" id="60_ctnkc"]
 [ext_resource type="PackedScene" uid="uid://dvljl755mg41f" path="res://sidescroller/actors_2d/slime_blue.tscn" id="60_v3pv8"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="62_d6e3w"]
 
@@ -69,12 +71,16 @@ script/source = "extends Stage
 @onready var alisa_falling_cutscene = %\"Alisa Falling Cutscene\"
 
 func _ready():
+	if player_respawning:
+		super._ready()
+		return
 	set_process_input(false)
 	normal_entry = false
 	super._ready()
 	
 	if not SaveData.horizon_hills_alisa_falling_cutscene_watched:
 		alisa_falling_cutscene.start()
+		SaveData.horizon_hills_alisa_falling_cutscene_watched = true
 		alisa_falling_cutscene.get_node(\"AnimationPlayer\").animation_started.connect(_on_alisa_falling_cutscene_anim_started)
 	else:
 		alisa_falling_cutscene.queue_free()
@@ -536,6 +542,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VomitPuddle:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_id3l0"]
 resource_name = "5"
@@ -708,6 +726,18 @@ tracks/10/path = NodePath("Camera2d:current")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("VomitPuddle:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -940,6 +970,18 @@ tracks/9/keys = {
 "method": &"start_gameplay"
 }]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("VomitPuddle:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_7dh0e"]
 resource_name = "start"
@@ -1043,6 +1085,20 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ScreenTransitionTrigger")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t0e35"]
 _data = {
@@ -1060,6 +1116,9 @@ _data = {
 "start": SubResource("Animation_7dh0e")
 }
 
+[sub_resource type="Animation" id="Animation_3akfi"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_pe1ek"]
 resource_name = "enter"
 tracks/0/type = "method"
@@ -1076,9 +1135,6 @@ tracks/0/keys = {
 "method": &"trigger"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_3akfi"]
-length = 0.001
 
 [sub_resource type="Animation" id="Animation_sayhi"]
 resource_name = "exit"
@@ -1101,6 +1157,9 @@ size = Vector2(932, 416)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxgrg"]
 size = Vector2(1100, 64)
+
+[sub_resource type="Animation" id="Animation_vichm"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_vbrp7"]
 resource_name = "enter"
@@ -1129,9 +1188,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_vichm"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_q180t"]
 resource_name = "exit"
 
@@ -1147,6 +1203,9 @@ size = Vector2(1100, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_es8yl"]
 size = Vector2(64, 792)
+
+[sub_resource type="Animation" id="Animation_cmki7"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_wl2wf"]
 resource_name = "enter"
@@ -1175,9 +1234,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_cmki7"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_irm15"]
 resource_name = "exit"
 
@@ -1202,6 +1258,7 @@ song = 3
 position = Vector2(-1616, -128)
 script = ExtResource("18_xcy3n")
 transition_animation = 2
+transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint" index="0"]
 libraries = {
@@ -1219,6 +1276,7 @@ animation = "walk"
 position = Vector2(-1080, 424)
 script = ExtResource("18_xcy3n")
 transition_animation = 2
+transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint2" index="0"]
 libraries = {
@@ -1633,7 +1691,6 @@ script = ExtResource("19_42ykc")
 center_offset = Vector2(0, 16)
 look_direction = 0
 move_with_look_direction = false
-active = true
 animation = "stand"
 
 [node name="FrogGreenTransformer" type="Marker2D" parent="Alisa Falling Cutscene" index="3"]
@@ -1642,7 +1699,7 @@ script = ExtResource("6_b021w")
 actor_name = "FrogGreen"
 move_with_look_direction = false
 active = true
-animation = "idle"
+animation = "attack"
 
 [node name="Line2d" type="Line2D" parent="Alisa Falling Cutscene/FrogGreenTransformer" index="0"]
 visible = false
@@ -1668,6 +1725,17 @@ offset_top = -232.0
 offset_right = -1216.0
 offset_bottom = -192.0
 text = "Press 'Z' to attack!"
+
+[node name="ScreenTransitionTrigger" type="Node2D" parent="Alisa Falling Cutscene" index="7"]
+script = ExtResource("59_jd0nj")
+transition = 2
+duration = 1.0
+
+[node name="VomitPuddle" type="Sprite2D" parent="Alisa Falling Cutscene" index="8"]
+visible = false
+position = Vector2(-1160, -157)
+scale = Vector2(2, 2)
+texture = ExtResource("60_ctnkc")
 
 [node name="Room" type="Node2D" parent="." index="4"]
 position = Vector2(-2456, 96)
@@ -1826,6 +1894,8 @@ position = Vector2(-1464, -168)
 script = ExtResource("62_d6e3w")
 stage_file_path = "res://assets/stages/horizon_hills_small_cave.tscn"
 destination_entry_point = 1
+screen_transition = 1
+transition_duration = 0.5
 
 [node name="Area2d" type="Area2D" parent="StageChangeTrigger" index="0"]
 collision_layer = 0
@@ -1840,6 +1910,8 @@ position = Vector2(-928, 384)
 script = ExtResource("62_d6e3w")
 stage_file_path = "res://assets/stages/horizon_hills_small_cave.tscn"
 destination_entry_point = 2
+screen_transition = 1
+transition_duration = 0.5
 
 [node name="Area2d" type="Area2D" parent="StageChangeTrigger2" index="0"]
 collision_layer = 0

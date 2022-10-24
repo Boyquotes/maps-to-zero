@@ -29,7 +29,6 @@ func change_zoom() -> void:
 	tweener.tween_property(GameManager.gameplay_camera, "zoom", zoom, tween_duration)
 
 func trigger(_dummy_var=null) -> void:
-	print_debug(get_parent().name)
 	change_limits()
 	change_zoom()
 	super.trigger(_dummy_var)
@@ -42,7 +41,7 @@ func trigger(_dummy_var=null) -> void:
 @export var line_width := 2.0
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not Engine.is_editor_hint():
 		return
 	queue_redraw()

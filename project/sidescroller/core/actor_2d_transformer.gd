@@ -22,22 +22,27 @@ extends Marker2D
 	set(value):
 		active = value
 		if not actor:
-			return
+			await ready
+		
 		if value == true:
 #			actor.look_direction = scale
 			last_frame_position = position - center_offset
 			actor.cutscene_mode = true
+			if keep_actor_collision_on_active:
+				actor.set_collision_layer_value(2, true)
 			set_physics_process(true)
 		else:
 #			actor.look_direction = scale
 			actor.velocity = Vector2.ZERO
-			set_physics_process(false)
 			actor.cutscene_mode = false
+			set_physics_process(false)
 
 @export var animation := "":
 	set(value):
 		if actor and actor.animation_player:
 			actor.animation_player.play(value)
+
+@export var keep_actor_collision_on_active := true
 
 var last_frame_position : Vector2
 var actor: Actor2D
@@ -55,13 +60,13 @@ func _ready():
 
 
 func _physics_process(delta):
-	if not last_frame_position.is_equal_approx(position - center_offset):
+	if last_frame_position.is_equal_approx(position - center_offset):
+		actor.velocity = Vector2.ZERO
+	else:
 		var position_delta = (position - center_offset) - last_frame_position
 		if move_with_look_direction:
 			position_delta.x *= sign(actor.look_direction.x)
 		actor.velocity = position_delta / delta
-	else:
-		actor.velocity = Vector2.ZERO
 	last_frame_position = position - center_offset
 	
 	actor.rotation = rotation

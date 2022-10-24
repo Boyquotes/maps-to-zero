@@ -4,7 +4,7 @@ extends Node2D
 @export var song : Music.Songs
 
 var normal_entry: bool = true
-
+var player_respawning: bool = false
 var entry_points: Array
 
 func _ready():
@@ -12,8 +12,12 @@ func _ready():
 		entry_points.append(entry_point)
 	
 	if normal_entry:
-		start_gameplay()
+		if not player_respawning:
+			start_gameplay()
 
-func start_gameplay() -> void:
+func start_gameplay() -> void:\
+	start_music()
+
+func start_music() -> void:
 	if song != Music.Songs.NULL:
 		MusicManager.play(song)

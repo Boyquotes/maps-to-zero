@@ -129,6 +129,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://sidescroller/core/player_transformer.gd"
 }, {
+"base": "Node",
+"class": &"PopupFactory",
+"language": &"GDScript",
+"path": "res://core/popups/popup_factory.gd"
+}, {
+"base": "Trigger",
+"class": &"ScreenTransitionTrigger",
+"language": &"GDScript",
+"path": "res://core/screen_transition_trigger.gd"
+}, {
 "base": "Marker2D",
 "class": &"Spawner2D",
 "language": &"GDScript",
@@ -183,6 +193,11 @@ _global_script_classes=[{
 "class": &"Trigger",
 "language": &"GDScript",
 "path": "res://core/trigger.gd"
+}, {
+"base": "Control",
+"class": &"YesNoMenu",
+"language": &"GDScript",
+"path": "res://core/popups/yes_no_menu.gd"
 }]
 _global_script_class_icons={
 "Actor2D": "",
@@ -209,6 +224,8 @@ _global_script_class_icons={
 "ParticleSpawner": "",
 "Particles2DQueue": "",
 "PlayerTransformer": "",
+"PopupFactory": "",
+"ScreenTransitionTrigger": "",
 "Spawner2D": "",
 "Stage": "",
 "StageChangeTrigger": "",
@@ -219,14 +236,15 @@ _global_script_class_icons={
 "StateTransitionRequirement": "",
 "TargetManager": "",
 "Trail2D": "",
-"Trigger": ""
+"Trigger": "",
+"YesNoMenu": ""
 }
 
 [application]
 
 config/name="Re:Write My Dead Line"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.0", "Vulkan Clustered")
+config/features=PackedStringArray("4.0")
 
 [autoload]
 
@@ -245,7 +263,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/aseprite_importer/plugin.cfg", "res://addons/smoothing/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/Trail/plugin.cfg")
+enabled=PackedStringArray("res://addons/Trail/plugin.cfg", "res://addons/aseprite_importer/plugin.cfg", "res://addons/smoothing/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
 
 [input]
 
@@ -284,6 +302,11 @@ action_1={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"unicode":0,"echo":false,"script":null)
 ]
 }
+action_2={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"unicode":0,"echo":false,"script":null)
+]
+}
 interact={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":71,"unicode":0,"echo":false,"script":null)
@@ -292,6 +315,11 @@ interact={
 skip_cutscene={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"unicode":0,"echo":false,"script":null)
+]
+}
+debug={
+"deadzone": 0.5,
+"events": [null, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"unicode":0,"echo":false,"script":null)
 ]
 }
 

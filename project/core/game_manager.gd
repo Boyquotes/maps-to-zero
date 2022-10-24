@@ -5,6 +5,7 @@ signal screen_transition_finished
 var actors := {}
 var actors_original_cutscene_mode_value := {}
 var _sidescroller_main
+var popup_canvas: CanvasLayer
 
 var cutscene_mode: bool:
 	set(value):
@@ -27,6 +28,7 @@ var player: Actor2D
 var gameplay_camera: Camera2D
 var transition_camera: Camera2D
 
+
 func show_cutscene_bars(duration:= 1.0) -> void:
 	if is_equal_approx(duration, 0.0):
 		$CutsceneBars/Control/AnimationPlayer.play("showing")
@@ -45,7 +47,7 @@ func hide_cutscene_bars(duration:= 1.0) -> void:
 func enable_gameplay_camera_current(transition_time := 1.0) -> void:
 	set_gameplay_camera_current(true, transition_time)
 
-func set_gameplay_camera_current(value: bool, transition_time := 1.0) -> void:
+func set_gameplay_camera_current(value: bool, _transition_time := 1.0) -> void:
 	if value:
 #		var current_camera = get_viewport().get_camera_2d()
 #		transition_camera.global_position = current_camera.global_position
@@ -86,4 +88,10 @@ func screen_transition(animation: Enums.ScreenTransition, duration:=1.0) -> void
 
 func request_stage_change(stage_file_path: String, player_entry_point := 0) -> void:
 	var stage = load(stage_file_path)
+	SaveData.stage_file_path = stage_file_path
 	_sidescroller_main.change_stage(stage, player_entry_point)
+
+
+func reload() -> void:
+	var stage = load(SaveData.stage_file_path)
+	_sidescroller_main.change_stage(stage, 0, true)

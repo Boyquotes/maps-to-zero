@@ -7,7 +7,7 @@ extends Marker2D
 
 @export_enum(Right, Left) var look_direction:
 	set(value):
-		if not player:
+		if not player or not active:
 			return
 		match value:
 			0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://dghxp4auj11kw"]
 
 [ext_resource type="Script" path="res://addons/aseprite_importer/interface/spritesheet_inspector/SpritesheetView.gd" id="2"]
 
@@ -19,8 +19,11 @@ PanelContainer/styles/panel = SubResource("1")
 
 [node name="SpritesheetView" type="Container"]
 texture_filter = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("2")
 script = ExtResource("2")
 

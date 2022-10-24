@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=3 uid="uid://dw3g5pxi0kexq"]
+[gd_scene load_steps=140 format=3 uid="uid://c3txc1psco3c7"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
 [ext_resource type="TileSet" uid="uid://biqaeficpfbro" path="res://assets/tilesets/horizon_hills_tileset.tres" id="2_k34v3"]
@@ -72,6 +72,8 @@
 [ext_resource type="Texture2D" uid="uid://gb4pkjhgk8le" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_013.png" id="50_pqycf"]
 [ext_resource type="Texture2D" uid="uid://b307hx4g82awq" path="res://assets/stage_objects/horizon_hills_cave/001_ground.png" id="51_1ljen"]
 [ext_resource type="Texture2D" uid="uid://c0qhq36n2toxm" path="res://assets/stage_objects/horizon_hills_cave/001_ceiling.png" id="52_g3u14"]
+[ext_resource type="Script" path="res://core/screen_transition_trigger.gd" id="64_w0sse"]
+[ext_resource type="PackedScene" uid="uid://cvac36akscmw" path="res://sidescroller/actors_2d/dark_knight.tscn" id="65_jnd0g"]
 [ext_resource type="Script" path="res://core/camera_limits_trigger.gd" id="73_mtabc"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="74_nxpc0"]
 
@@ -82,29 +84,42 @@ script/source = "extends Stage
 @onready var alisa_summoned_cutscene = %\"Alisa Summoning Cutscene\"
 @onready var where_did_she_go_cutscene = %\"Where Did She Go Cutscene\"
 @onready var alisa_getting_choked_by_frog_cutscene = %\"Alisa Getting Choked By Frog Cutscene\"
+@onready var seeing_demon_cutscene = %\"Seeing Demon Cutscene\"
 @onready var demon_portal = %DemonPortal
 
 func _ready():
+	if player_respawning:
+		super._ready()
+		return
 	normal_entry = false
 	super._ready()
 	
-	if SaveData.horizon_hills_alisa_summoned:
-		alisa_summoned_cutscene.queue_free()
-		where_did_she_go_cutscene.queue_free()
-		alisa_getting_choked_by_frog_cutscene.queue_free()
-	
+#	if SaveData.horizon_hills_alisa_summoned:
+#		alisa_summoned_cutscene.queue_free()
+#		where_did_she_go_cutscene.queue_free()
+#		alisa_getting_choked_by_frog_cutscene.queue_free()
+#
 	if SaveData.horizon_hills_demon_portal_open:
 		demon_portal.visible = true
 	else:
 		demon_portal.visible = false
+#
+#	if SaveData.horizon_hills_alisa_summoned == false:
+#		alisa_summoned_cutscene.finished.connect(_on_alisa_summoned_cutscene_finished)
+#		where_did_she_go_cutscene.get_node(\"Cutscene\").finished.connect(_on_where_did_she_go_cutscene_finished)
+#		seeing_demon_cutscene.queue_free()
+#		alisa_summoned_cutscene.start()
+#	elif SaveData.horizon_hills_alisa_summoned and SaveData.horizon_hills_alisa_falling_cutscene_watched:
+#		alisa_summoned_cutscene.queue_free()
+#		seeing_demon_cutscene.finished.connect(_on_seeing_demon_cutscene_finished)
+#		seeing_demon_cutscene.start()
+#	else:
+#		normal_entry = true
+#		super._ready()
 	
-	if SaveData.horizon_hills_alisa_summoned == false:
-		alisa_summoned_cutscene.finished.connect(_on_alisa_summoned_cutscene_finished)
-		where_did_she_go_cutscene.get_node(\"Cutscene\").finished.connect(_on_where_did_she_go_cutscene_finished)
-		alisa_summoned_cutscene.start()
-	else:
-		normal_entry = true
-		super._ready()
+	alisa_summoned_cutscene.queue_free()
+	seeing_demon_cutscene.finished.connect(_on_seeing_demon_cutscene_finished)
+	seeing_demon_cutscene.start()
 
 
 func _on_alisa_summoned_cutscene_finished() -> void:
@@ -114,6 +129,10 @@ func _on_alisa_summoned_cutscene_finished() -> void:
 
 func _on_where_did_she_go_cutscene_finished() -> void:
 	SaveData.base_background_jumps += 1
+
+
+func _on_seeing_demon_cutscene_finished() -> void:
+	pass
 "
 
 [sub_resource type="Animation" id="Animation_771j0"]
@@ -226,6 +245,68 @@ _data = {
 "enter": SubResource("Animation_1jycl")
 }
 
+[sub_resource type="Animation" id="Animation_i3uwk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerTransformer:look_direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTransformer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-64, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerTransformer:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["walk"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTransformer:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerTransformer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
 [sub_resource type="Animation" id="Animation_ym2g4"]
 resource_name = "enter"
 tracks/0/type = "value"
@@ -289,68 +370,6 @@ tracks/4/keys = {
 "args": [],
 "method": &"teleport"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_i3uwk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerTransformer:look_direction")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTransformer:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-64, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["walk"]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerTransformer:active")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerTransformer")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b4fdi"]
@@ -1663,7 +1682,7 @@ tracks/22/path = NodePath(".:cutscene_mode")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
-"times": PackedFloat32Array(3),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -2752,6 +2771,20 @@ tracks/21/keys = {
 
 [sub_resource type="Animation" id="Animation_74rtw"]
 resource_name = "end"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../StageChangeTrigger2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_fxkjx"]
 resource_name = "start"
@@ -2915,6 +2948,596 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40847"]
 size = Vector2(40, 144)
 
+[sub_resource type="Animation" id="Animation_txh1a"]
+resource_name = "1"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerTransformer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 2, 1),
+"update": 0,
+"values": [Vector2(-240, -144), Vector2(-216, -144), Vector2(-192, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTransformer:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.6, 0.9, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["walk", "fall", "idle", "stand"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2d:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(1.6, 1.6), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DarkKnightTransformer:look_direction")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.8, 2.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, 1]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DialogNode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"resume"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_6pb60"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerTransformer:look_direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTransformer:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerTransformer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-192, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTransformer:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DarkKnightTransformer:look_direction")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DarkKnightTransformer:active")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DarkKnightTransformer:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["stand"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:cutscene_mode")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Camera2d:current")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Camera2d:zoom")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Camera2d:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-256, -152)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../DemonPortal:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_28dcp"]
+resource_name = "end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerTransformer:look_direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTransformer:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerTransformer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-192, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTransformer:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerTransformer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DarkKnightTransformer:look_direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DarkKnightTransformer:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:cutscene_mode")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.0],
+"method": &"enable_gameplay_current_camera"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("MusicTrigger")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("DarkKnightTransformer:active")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_bp7c0"]
+resource_name = "start"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkKnightTransformer:look_direction")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DarkKnightTransformer:active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DarkKnightTransformer:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTransformer:active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerTransformer:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.99748),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["walk", "stand"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerTransformer:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-320, -144), Vector2(-240, -144)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerTransformer:look_direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:cutscene_mode")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Camera2d:current")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Camera2d:zoom")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(1.6, 1.6)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Camera2d:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(-256, -152), Vector2(-112, -96)]
+}
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("DialogNode")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start"
+}]
+}
+tracks/12/type = "method"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("SilenceTrigger")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/13/type = "method"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("DarkKnightTransformer")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
+}
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("PlayerTransformer")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
+}
+tracks/15/type = "animation"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../DemonPortal/MagicCircleFx/AnimationPlayer")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"clips": PackedStringArray("show"),
+"times": PackedFloat32Array(0)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("../DemonPortal:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/17/type = "method"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("ScreenTransitionTrigger")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvosp"]
+_data = {
+"1": SubResource("Animation_txh1a"),
+"RESET": SubResource("Animation_6pb60"),
+"end": SubResource("Animation_28dcp"),
+"start": SubResource("Animation_bp7c0")
+}
+
 [sub_resource type="Animation" id="Animation_32e8i"]
 length = 0.001
 tracks/0/type = "value"
@@ -2956,7 +3579,7 @@ _data = {
 size = Vector2(20, 314)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u0s02"]
-size = Vector2(521, 389)
+size = Vector2(636.5, 389)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1s1i3"]
 size = Vector2(978, 314)
@@ -3046,6 +3669,90 @@ tracks/3/keys = {
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Satanic Circle:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pentagram/LightPillar:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Pentagram:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pentagram2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Satanic Circle:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_xskwk"]
 resource_name = "loop"
@@ -3098,10 +3805,126 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.6, 1.2)
 }
 
+[sub_resource type="Animation" id="Animation_pupk4"]
+resource_name = "show"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pentagram/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["loop", -1, 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pentagram2/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["loop"],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Satanic Circle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pentagram/LightPillar:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pentagram:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Pentagram2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Satanic Circle:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r4ocy"]
 _data = {
 "RESET": SubResource("Animation_0n85v"),
-"loop": SubResource("Animation_xskwk")
+"loop": SubResource("Animation_xskwk"),
+"show": SubResource("Animation_pupk4")
 }
 
 [sub_resource type="Animation" id="Animation_2y348"]
@@ -3197,6 +4020,7 @@ song = 3
 position = Vector2(2496, -128)
 script = ExtResource("18_xcy3n")
 transition_animation = 2
+transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint" index="0"]
 libraries = {
@@ -3214,6 +4038,7 @@ animation = "walk"
 position = Vector2(-768, -120)
 script = ExtResource("18_xcy3n")
 transition_animation = 2
+transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint2" index="0"]
 libraries = {
@@ -3232,6 +4057,7 @@ animation = "walk"
 position = Vector2(-768, 392)
 script = ExtResource("18_xcy3n")
 transition_animation = 2
+transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint3" index="0"]
 libraries = {
@@ -3615,6 +4441,7 @@ actor_name = "Kanna"
 center_offset = Vector2(0, 16)
 move_with_look_direction = false
 animation = "walk"
+keep_actor_collision_on_active = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Alisa Summoning Cutscene" index="4"]
 layer = 128
@@ -3781,7 +4608,65 @@ animation = "idle"
 [node name="Camera2d" type="Camera2D" parent="Alisa Getting Choked By Frog Cutscene" index="9"]
 position = Vector2(-160, -80)
 
-[node name="ShowCaveBackground" parent="." index="6" instance=ExtResource("3_vbix6")]
+[node name="Seeing Demon Cutscene" type="Node2D" parent="." index="6"]
+unique_name_in_owner = true
+position = Vector2(-512, 544)
+script = ExtResource("5_fukcy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Seeing Demon Cutscene" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_kvosp")
+}
+
+[node name="Camera2d" type="Camera2D" parent="Seeing Demon Cutscene" index="1"]
+position = Vector2(-256, -152)
+zoom = Vector2(3, 3)
+limit_left = -850
+limit_top = 240
+limit_right = 300
+limit_bottom = 910
+limit_smoothed = true
+editor_draw_limits = true
+
+[node name="PlayerTransformer" type="Marker2D" parent="Seeing Demon Cutscene" index="2"]
+position = Vector2(-192, 0)
+script = ExtResource("19_42ykc")
+center_offset = Vector2(0, 16)
+animation = "idle"
+
+[node name="DarkKnightTransformer" type="Marker2D" parent="Seeing Demon Cutscene" index="3"]
+position = Vector2(192, 0)
+script = ExtResource("6_b021w")
+actor_name = "DarkKnight"
+center_offset = Vector2(0, 32)
+look_direction = 1
+move_with_look_direction = false
+active = true
+animation = "stand"
+
+[node name="ScreenTransitionTrigger" type="Node2D" parent="Seeing Demon Cutscene" index="4"]
+script = ExtResource("64_w0sse")
+transition = 2
+duration = 1.0
+
+[node name="SilenceTrigger" type="Node2D" parent="Seeing Demon Cutscene" index="5"]
+script = ExtResource("10_ibitu")
+song = 1
+previous_song_fade_out_time = 3.0
+
+[node name="MusicTrigger" type="Node2D" parent="Seeing Demon Cutscene" index="6"]
+script = ExtResource("10_ibitu")
+song = 6
+
+[node name="DialogNode" type="Node" parent="Seeing Demon Cutscene" index="7"]
+script = ExtResource("11_r6rca")
+dialog = ExtResource("12_oaay3")
+title = "dark_knight_encounter"
+animation_player_node_path = NodePath("../AnimationPlayer")
+
+[node name="DarkKnight" parent="Seeing Demon Cutscene" index="8" instance=ExtResource("65_jnd0g")]
+
+[node name="ShowCaveBackground" parent="." index="7" instance=ExtResource("3_vbix6")]
 position = Vector2(1584, -64)
 
 [node name="Animation" type="Node2D" parent="ShowCaveBackground/Triggers" index="0"]
@@ -3809,10 +4694,10 @@ position = Vector2(-2351, -61.5)
 shape = SubResource("RectangleShape2D_u0s02")
 
 [node name="CollisionShape2d3" type="CollisionShape2D" parent="ShowCaveBackground/Trigger" index="2"]
-position = Vector2(-2064, 512)
+position = Vector2(-2121.75, 512)
 shape = SubResource("RectangleShape2D_u0s02")
 
-[node name="ShowForestBackground" parent="." index="7" instance=ExtResource("3_vbix6")]
+[node name="ShowForestBackground" parent="." index="8" instance=ExtResource("3_vbix6")]
 position = Vector2(1744, -64)
 
 [node name="Animation" type="Node2D" parent="ShowForestBackground/Triggers" index="0"]
@@ -3834,16 +4719,15 @@ libraries = {
 "": SubResource("AnimationLibrary_qqmy0")
 }
 
-[node name="DemonPortal" type="Node2D" parent="." index="8"]
+[node name="DemonPortal" type="Node2D" parent="." index="9"]
 unique_name_in_owner = true
-visible = false
+z_index = -2
 
 [node name="MagicCircleSfx" type="AudioStreamPlayer2D" parent="DemonPortal" index="0"]
 position = Vector2(-512, 544)
 stream = ExtResource("6_ylnwo")
 
 [node name="MagicCircleFx" type="Node2D" parent="DemonPortal" index="1"]
-visible = false
 position = Vector2(-512, 544)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DemonPortal/MagicCircleFx" index="0"]
@@ -3861,7 +4745,6 @@ visible = false
 emitting = false
 
 [node name="Pentagram" type="Node2D" parent="DemonPortal/MagicCircleFx" index="3"]
-visible = false
 position = Vector2(0, -80)
 scale = Vector2(0.4, 0.4)
 
@@ -3897,7 +4780,6 @@ rotation = 5.34071
 local_coords = true
 
 [node name="Pentagram2" type="Node2D" parent="DemonPortal/MagicCircleFx" index="4"]
-visible = false
 position = Vector2(0, -80)
 rotation = -0.628319
 scale = Vector2(0.4, 0.4)
@@ -3934,7 +4816,6 @@ rotation = 5.34071
 local_coords = true
 
 [node name="Satanic Circle" parent="DemonPortal/MagicCircleFx" index="5" instance=ExtResource("7_lt84o")]
-visible = false
 
 [node name="ExaminePortalInteractable" parent="DemonPortal" index="2" instance=ExtResource("3_vbix6")]
 position = Vector2(-512, 544)
@@ -3959,14 +4840,14 @@ texture = ExtResource("16_iewvy")
 shape = SubResource("RectangleShape2D_m5d7u")
 disabled = true
 
-[node name="CameraSettingsTrigger" type="Node2D" parent="." index="9"]
+[node name="CameraSettingsTrigger" type="Node2D" parent="." index="10"]
 script = ExtResource("73_mtabc")
 
 [node name="TopLeft" type="Marker2D" parent="CameraSettingsTrigger" index="0"]
 position = Vector2(-792, -424)
 
 [node name="BottomRight" type="Marker2D" parent="CameraSettingsTrigger" index="1"]
-position = Vector2(2704, 592)
+position = Vector2(2704, 616)
 
 [node name="Area2d" type="Area2D" parent="CameraSettingsTrigger" index="2"]
 collision_layer = 8
@@ -3977,11 +4858,13 @@ monitorable = false
 position = Vector2(960, 88)
 shape = SubResource("RectangleShape2D_aqax7")
 
-[node name="StageChangeTrigger" type="Node2D" parent="." index="10"]
+[node name="StageChangeTrigger" type="Node2D" parent="." index="11"]
 position = Vector2(-896, 376)
 script = ExtResource("74_nxpc0")
 stage_file_path = "res://assets/stages/horizon_hills_combat_cave_tutorial.tscn"
 destination_entry_point = 1
+screen_transition = 1
+transition_duration = 0.5
 
 [node name="Area2d" type="Area2D" parent="StageChangeTrigger" index="0"]
 collision_layer = 0
@@ -3992,11 +4875,13 @@ monitorable = false
 position = Vector2(8, 4)
 shape = SubResource("RectangleShape2D_fm4if")
 
-[node name="StageChangeTrigger2" type="Node2D" parent="." index="11"]
+[node name="StageChangeTrigger2" type="Node2D" parent="." index="12"]
 position = Vector2(-904, -176)
 script = ExtResource("74_nxpc0")
 stage_file_path = "res://assets/stages/horizon_hills_combat_cave_tutorial.tscn"
 destination_entry_point = 0
+screen_transition = 1
+transition_duration = 0.5
 
 [node name="Area2d" type="Area2D" parent="StageChangeTrigger2" index="0"]
 collision_layer = 0

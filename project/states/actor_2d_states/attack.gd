@@ -4,7 +4,6 @@ extends Actor2DState
 enum AirState { RISE, FALL }
 var state : AirState
 
-@export var attack_animation := "attack"
 @export var next_state := "Idle"
 
 

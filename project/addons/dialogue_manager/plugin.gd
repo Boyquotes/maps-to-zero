@@ -154,13 +154,12 @@ func update_import_paths(from_path: String, to_path: String) -> void:
 			main_view.pristine_text = main_view.code_edit.text
 
 		# Open the file and update the path
-		var file = File.new()
-		file.open(dependent.path, File.READ)
+		var file = FileAccess.open(dependent.path, FileAccess.READ)
 		var text = file.get_as_text().replace(from_path, to_path)
-		file.close()
-		file.open(dependent.path, File.WRITE)
+		file = null
+		file = FileAccess.open(dependent.path, FileAccess.WRITE)
 		file.store_string(text)
-		file.close()
+		file = null
 	
 	save_dialogue_cache()
 
@@ -179,11 +178,10 @@ func update_dialogue_file_cache() -> void:
 	var cache: Dictionary = {}
 	
 	# Open our cache file if it exists
-	var file: File = File.new()
-	if file.file_exists(DialogueConstants.CACHE_PATH):
-		file.open(DialogueConstants.CACHE_PATH, File.READ)
+	if FileAccess.file_exists(DialogueConstants.CACHE_PATH):
+		var file = FileAccess.open(DialogueConstants.CACHE_PATH, FileAccess.READ)
 		cache = JSON.parse_string(file.get_as_text())
-		file.close()
+		file = null
 	
 	# Scan for dialogue files
 	var current_files: PackedStringArray = _get_dialogue_files_in_filesystem()
@@ -199,18 +197,17 @@ func update_dialogue_file_cache() -> void:
 
 ## Persist the cache
 func save_dialogue_cache() -> void:
-	var file: File = File.new()
-	file.open(DialogueConstants.CACHE_PATH, File.WRITE)
+	var file = FileAccess.open(DialogueConstants.CACHE_PATH, FileAccess.WRITE)
 	file.store_string(JSON.stringify(dialogue_file_cache))
-	file.close()
+	file = null
 
 
 ## Recursively find any dialogue files in a directory
 func _get_dialogue_files_in_filesystem(path: String = "res://") -> PackedStringArray:
 	var files: PackedStringArray = []
 	
-	var dir = Directory.new()
-	if dir.open(path) == OK:
+	var dir = DirAccess.open(path)
+	if dir != null:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":

@@ -3,6 +3,30 @@ class_name Actor2D
 
 signal defeated
 
+var save_data: Dictionary:
+	set(data):
+		max_hp = data.max_hp
+		speed = data.speed
+		jump_max_height = data.jump_max_height
+		jump_max_height_time = data.jump_max_height_time
+		max_falling_speed = data.max_falling_speed
+		team = data.team
+		gravity = data.gravity
+		self.look_direction = data.look_direction
+		resources = data.resources
+	get:
+		var data = {}
+		data.max_hp = max_hp
+		data.speed = speed / GlobalVariables.TILE_SIZE.x
+		data.jump_max_height = jump_max_height / GlobalVariables.TILE_SIZE.y
+		data.jump_max_height_time = jump_max_height_time
+		data.max_falling_speed = max_falling_speed / GlobalVariables.TILE_SIZE.y
+		data.team = team
+		data.gravity = gravity
+		data.look_direction = look_direction
+		data.resources = resources
+		return data
+
 @export var max_hp := 100.0
 @export var speed = 18: # In terms of tiles/sec
 	get:
@@ -30,19 +54,27 @@ signal defeated
 			request_state_transition(state_transition_request_buffer)
 @export var cutscene_mode: bool:
 	set(value):
+		cutscene_mode = value
 		if not is_ready:
 			await ready
-		cutscene_mode = value
+			await get_tree().create_timer(0.1).timeout
+		GameManager.actors_original_cutscene_mode_value[self] = value
 		
-		input_state_machine.set_physics_process(not cutscene_mode)
+		input_enabled = not cutscene_mode
+		
 		state_machine.set_process(not cutscene_mode)
 		state_machine.set_physics_process(not cutscene_mode)
 		
 		set_collision_layer_value(2, not cutscene_mode)
+		velocity = Vector2.ZERO
+@export var input_enabled: bool:
+	set(value):
+		input_enabled = value
 		if value:
-			input_state_machine.transition_to("CutsceneMode")
-		else:
 			input_state_machine.enter_initial_state()
+		else:
+			input_state_machine.transition_to("CutsceneMode")
+		input_state_machine.set_physics_process(value)
 
 @onready var input_state_machine: StateMachine = $InputStateMachine
 @onready var state_machine: StateMachine = $StateMachine
@@ -78,6 +110,7 @@ func _ready():
 	resources.set_max_resource(ActorResources.Type.HP, max_hp)
 	resources.set_resource(ActorResources.Type.HP, max_hp)
 	resources.resource_depleted.connect(_on_resource_depleted)
+	await get_tree().create_timer(0.1).timeout
 	is_ready = true
 
 func _physics_process(_delta):

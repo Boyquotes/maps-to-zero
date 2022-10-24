@@ -15,6 +15,8 @@ signal finished_typing()
 ## When off, the label will grow in height as the text types out
 @export var start_with_full_height: bool = true
 
+@onready var sfx : AudioStreamPlayer = $AudioStreamPlayer
+
 
 var dialogue_line: Dictionary:
 	set(next_dialogue_line):
@@ -118,6 +120,8 @@ func type_next(delta: float, seconds_needed: float) -> void:
 	else:
 #		visible_ratio += percent_per_index
 		visible_characters += 1
+		if sfx:
+			sfx.play()
 		seconds_needed += seconds_per_step * (1.0 / get_speed(visible_characters))
 		if seconds_needed > delta:
 			waiting_seconds += seconds_needed

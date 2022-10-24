@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dvljl755mg41f"]
+[gd_scene load_steps=46 format=3 uid="uid://dvljl755mg41f"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://bkt2ed1pbpeg6" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dqqahi7ap14wb" path="res://assets/actors_2d/slime_blue/slime_blue.png" id="6_pe401"]
 [ext_resource type="Script" path="res://sidescroller/core/particles_2d_queue.gd" id="6_s07aa"]
 [ext_resource type="AudioStream" uid="uid://be45afr4o5hmv" path="res://assets/sfx/slime_bounce.wav" id="8_27be6"]
+[ext_resource type="Texture2D" uid="uid://cje3ay8whfyjf" path="res://assets/actors_2d/slime_blue/attack.png" id="9_177pj"]
 [ext_resource type="Script" path="res://states/state_transitions_2d/input_key_transition.gd" id="11_d4qx0"]
 [ext_resource type="Script" path="res://states/actor_2d_states/attack.gd" id="11_ta8im"]
 [ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="12_om4q0"]
@@ -114,10 +115,34 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AttackSprite:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AttackSprite:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_ki2ou"]
 length = 0.9
-step = 0.05
+step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -179,6 +204,30 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Vector2(2, 0.5), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.175),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AttackSprite:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.075, 0.1, 0.125, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_5mlto"]
@@ -249,7 +298,7 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_hnukp"]
-length = 0.05
+length = 0.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -748,26 +797,36 @@ texture = ExtResource("6_pe401")
 region_enabled = true
 region_rect = Rect2(256, 128, 128, 128)
 
-[node name="FootstepEmitter" parent="Inner/Visuals" index="2" instance=ExtResource("4_1rf3w")]
+[node name="AttackSprite" type="Sprite2D" parent="Inner/Visuals" index="2"]
+visible = false
+material = SubResource("ShaderMaterial_hf4h6")
+position = Vector2(-8, 16)
+scale = Vector2(1.5, 1)
+z_index = 10
+texture = ExtResource("9_177pj")
+hframes = 3
+vframes = 2
+
+[node name="FootstepEmitter" parent="Inner/Visuals" index="3" instance=ExtResource("4_1rf3w")]
 position = Vector2(0, 8)
 
-[node name="BounceSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="3"]
+[node name="BounceSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="4"]
 position = Vector2(0, 16)
 stream = ExtResource("8_27be6")
 bus = &"Sfx"
 
-[node name="JumpParticles" type="Marker2D" parent="Inner/Visuals" index="4"]
+[node name="JumpParticles" type="Marker2D" parent="Inner/Visuals" index="5"]
 position = Vector2(0, 8)
 script = ExtResource("6_s07aa")
 particles = ExtResource("5_kaqgl")
 queue_count = 4
 
-[node name="AttackIncomingSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="5"]
+[node name="AttackIncomingSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="6"]
 position = Vector2(0, 16)
 stream = ExtResource("13_q36hh")
 bus = &"Sfx"
 
-[node name="AttackIncomingMarker" type="Marker2D" parent="Inner/Visuals" index="6"]
+[node name="AttackIncomingMarker" type="Marker2D" parent="Inner/Visuals" index="7"]
 position = Vector2(40, -16)
 script = ExtResource("6_s07aa")
 particles = ExtResource("12_q4oum")
@@ -784,7 +843,7 @@ libraries = {
 
 [node name="AttackSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/Attack" index="1"]
 position = Vector2(0, 16)
-stream = ExtResource("6_6tgu8")
+stream = ExtResource("5_ljt1y")
 bus = &"Sfx"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
@@ -871,10 +930,7 @@ inputs = {
 }
 
 [node name="Air" parent="StateMachine" index="2"]
-jump_off_animation = "jump"
 jump_animation = "bounce"
-fall_animation = "bounce"
-background_jump_off_animation = "background_jump"
 background_jump_animation = "bounce"
 background_fall_animation = "bounce"
 background_jumps_max = 1

@@ -6,14 +6,19 @@ signal finished
 @export var cutscene_mode: bool = false:
 	set(value):
 		cutscene_mode = value
-		GameManager.cutscene_mode = value
+		if _is_ready:
+			GameManager.cutscene_mode = value
 
 var skipping: bool = false
+var _is_ready: bool = false
 
 func _ready():
 	set_process_input(false)
+	await get_tree().create_timer(1.1).timeout
+	_is_ready = true
 
 func start(_dummy_var=null) -> void:
+	_is_ready = true
 	if _dummy_var:
 		print_debug(_dummy_var.get_parent().name)
 	assert ($AnimationPlayer.has_animation("start"))

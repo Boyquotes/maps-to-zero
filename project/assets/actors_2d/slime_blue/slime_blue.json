@@ -262,6 +262,11 @@
    { "name": "attack", "from": 18, "to": 19, "direction": "forward" },
    { "name": "bounce", "from": 20, "to": 21, "direction": "forward" },
    { "name": "defeat", "from": 22, "to": 30, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "slime", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
   ]
  }
 }

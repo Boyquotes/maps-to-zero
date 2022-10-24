@@ -32,9 +32,8 @@ static func get_user_config() -> Dictionary:
 		run_resource_path = "",
 		is_running_test_scene = false
 	}
-	var file = File.new()
-	if file.file_exists(DialogueConstants.USER_CONFIG_PATH):
-		file.open(DialogueConstants.USER_CONFIG_PATH, File.READ)
+	if FileAccess.file_exists(DialogueConstants.USER_CONFIG_PATH):
+		var file = FileAccess.open(DialogueConstants.USER_CONFIG_PATH, FileAccess.READ)
 		user_config.merge(JSON.parse_string(file.get_as_text()), true)
 		file.close()
 	
@@ -42,10 +41,9 @@ static func get_user_config() -> Dictionary:
 
 
 static func save_user_config(user_config: Dictionary) -> void:
-	var file = File.new()
-	file.open(DialogueConstants.USER_CONFIG_PATH, File.WRITE)
+	var file = FileAccess.open(DialogueConstants.USER_CONFIG_PATH, FileAccess.WRITE)
 	file.store_string(JSON.stringify(user_config))
-	file.close()
+	file = null
 
 
 static func set_user_value(key: String, value):

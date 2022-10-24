@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7wjbfsk34e2o"]
+[gd_scene load_steps=7 format=3 uid="uid://c7wjbfsk34e2o"]
 
 [ext_resource type="Script" path="res://core/dialog/dialog_balloon.gd" id="1_wm8ij"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="2_h2w7d"]
+[ext_resource type="AudioStream" uid="uid://c1ct1l8nw1ff0" path="res://assets/sfx/typewriter_key_press.wav" id="4_5v0ap"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5d24i"]
 content_margin_left = 40.0
@@ -45,13 +46,13 @@ metadata/_edit_layout_mode = 1
 offset_left = 20.0
 offset_top = 10.0
 offset_right = 620.0
-offset_bottom = 119.0
-theme_override_constants/separation = 10
+offset_bottom = 109.0
+theme_override_constants/separation = 2
 
 [node name="CharacterLabel" type="RichTextLabel" parent="Balloon/Margin/VBox"]
 modulate = Color(1, 1, 1, 0.501961)
 offset_right = 600.0
-offset_bottom = 23.0
+offset_bottom = 13.0
 mouse_filter = 1
 bbcode_enabled = true
 text = "Character"
@@ -61,22 +62,26 @@ scroll_active = false
 [node name="DialogueLabel" parent="Balloon/Margin/VBox" instance=ExtResource("2_a8ve6")]
 anchors_preset = 0
 anchor_right = 0.0
-offset_top = 33.0
+offset_top = 15.0
 offset_right = 600.0
-offset_bottom = 56.0
+offset_bottom = 28.0
 grow_horizontal = 1
 text = "Dialogue"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Balloon/Margin/VBox/DialogueLabel"]
+stream = ExtResource("4_5v0ap")
+bus = &"Sfx"
+
 [node name="Responses" type="VBoxContainer" parent="Balloon/Margin/VBox"]
-offset_top = 66.0
+offset_top = 30.0
 offset_right = 600.0
-offset_bottom = 66.0
+offset_bottom = 30.0
 theme_override_constants/separation = 2
 
 [node name="ResponseTemplate" type="RichTextLabel" parent="Balloon/Margin/VBox"]
-offset_top = 76.0
+offset_top = 32.0
 offset_right = 600.0
-offset_bottom = 109.0
+offset_bottom = 55.0
 theme_override_styles/focus = SubResource("StyleBoxFlat_5d24i")
 theme_override_styles/normal = SubResource("StyleBoxFlat_oj3c8")
 bbcode_enabled = true

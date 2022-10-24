@@ -68,3 +68,22 @@ Alisa: Eh, I'm sure leaving this thing open isn't actually a big deal.
 Alisa: I made extra sure to hide the portal on my end.
 Alisa: There's absolutely no way anyone else can get through.
 do DialogUtilities.animate("end")
+
+~ dark_knight_encounter
+
+Alisa: What the?
+Alisa: I've been here before.
+Alisa: Damnit! I walked in a circle.
+Alisa: This was just a gigantic waste of time.
+Alisa: *Grumble*
+
+do DialogUtilities.animate("1")
+
+Alisa: Oh, uh.
+Alisa: Hello there.
+Dark Knight: ...
+Alisa: Can I help you?
+Dark Knight: ...No.
+Alisa: Eep!
+
+do DialogUtilities.animate("end")

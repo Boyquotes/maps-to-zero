@@ -966,8 +966,6 @@ script = ExtResource("12_ib0ho")
 next_state = "Attack"
 
 [node name="Air" parent="StateMachine" index="2"]
-jump_off_animation = "jump"
-background_jump_off_animation = "background_jump"
 background_jumps_max = 1
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

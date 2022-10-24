@@ -95,7 +95,6 @@ func physics_update(delta: float) -> void:
 	actor.velocity.y += actor.gravity * delta
 	actor.velocity.y = min(actor.velocity.y, actor.max_falling_speed)
 	
-	
 	if actor.velocity.y < 0:
 		if state != AirState.RISE:
 			state = AirState.RISE
