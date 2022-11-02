@@ -999,7 +999,6 @@ queue_count = 4
 shape = SubResource("CircleShape2D_l4vct")
 
 [node name="Air" parent="StateMachine" index="2"]
-background_jump_off_animation = "background_jump"
 background_jumps_max = 1
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=102 format=3 uid="uid://11ojiqxy4nva"]
+[gd_scene load_steps=102 format=3 uid="uid://t3w1gu4v3fdh"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
 [ext_resource type="TileSet" uid="uid://biqaeficpfbro" path="res://assets/tilesets/horizon_hills_tileset.tres" id="2_k34v3"]
+[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="3_ml5pu"]
 [ext_resource type="Script" path="res://sidescroller/core/parallax_layer_group.gd" id="4_86nda"]
 [ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="5_fukcy"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stage_objects/horizon_hills_cave/008_background.png" id="5_rfjll"]
@@ -22,7 +23,6 @@
 [ext_resource type="Texture2D" uid="uid://cgmxq5jci6hm1" path="res://assets/stage_objects/horizon_hills_cave/004_arch_01.png" id="18_jp48f"]
 [ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="18_xcy3n"]
 [ext_resource type="Texture2D" uid="uid://d1pocaudoqlhb" path="res://assets/stage_objects/horizon_hills_cave/004_arch_02.png" id="19_8gl62"]
-[ext_resource type="Script" path="res://sidescroller/core/player_transformer.gd" id="19_42ykc"]
 [ext_resource type="Resource" uid="uid://cdrkaxemecn13" path="res://assets/dialog/horizon_hills_where_did_she_go.dialogue" id="20_c0bev"]
 [ext_resource type="Texture2D" uid="uid://i38egi7bvejg" path="res://assets/stage_objects/horizon_hills_cave/003_ceiling.png" id="20_jhxgb"]
 [ext_resource type="Texture2D" uid="uid://ibgron3bop7l" path="res://assets/stage_objects/horizon_hills_cave/003_ground.png" id="21_lf2as"]
@@ -59,7 +59,7 @@
 [ext_resource type="Texture2D" uid="uid://c0qhq36n2toxm" path="res://assets/stage_objects/horizon_hills_cave/001_ceiling.png" id="52_g3u14"]
 [ext_resource type="PackedScene" uid="uid://rpgywc8txax1" path="res://sidescroller/actors_2d/frog_green.tscn" id="58_0oknn"]
 [ext_resource type="Script" path="res://core/animation_trigger.gd" id="59_4c7wp"]
-[ext_resource type="Script" path="res://core/camera_limits_trigger.gd" id="59_dvpg6"]
+[ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="59_dvpg6"]
 [ext_resource type="Script" path="res://core/screen_transition_trigger.gd" id="59_jd0nj"]
 [ext_resource type="Texture2D" uid="uid://c3gbrhrbk6fgv" path="res://assets/other_sprites/vomit_puddle.png" id="60_ctnkc"]
 [ext_resource type="PackedScene" uid="uid://dvljl755mg41f" path="res://sidescroller/actors_2d/slime_blue.tscn" id="60_v3pv8"]
@@ -121,22 +121,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTransformer:active")
+tracks/1/path = NodePath("PlayerTransformer:look_direction")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:look_direction")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -160,38 +148,40 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTransformer:active")
+tracks/1/path = NodePath("PlayerTransformer:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": ["walk", "idle"]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:animation")
+tracks/2/path = NodePath("PlayerTransformer:look_direction")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["walk", "idle"]
+"values": [1]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerTransformer:look_direction")
+tracks/3/path = NodePath("PlayerTransformer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
 }
 tracks/4/type = "method"
 tracks/4/imported = false
@@ -200,11 +190,14 @@ tracks/4/path = NodePath("PlayerTransformer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"teleport"
+"method": &"enable"
+}, {
+"args": [],
+"method": &"disable"
 }]
 }
 
@@ -244,34 +237,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:active")
+tracks/2/path = NodePath("PlayerTransformer:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerTransformer:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 1, 1.1, 1.2, 1.4),
 "transitions": PackedFloat32Array(2, 1, 1, 0.5, 1),
 "update": 0,
 "values": [Vector2(-1144, -696), Vector2(-1152, -160), Vector2(-1168, -176), Vector2(-1184, -160), Vector2(-1200, -160)]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerTransformer")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTransformer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -279,25 +260,25 @@ tracks/4/keys = {
 "method": &"teleport"
 }]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Camera2d:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera2d:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.5, 1.5),
 "transitions": PackedFloat32Array(1, -2, 1),
 "update": 0,
 "values": [Vector2(-1232, -464), Vector2(-1232, -464), Vector2(-1232, -160)]
 }
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("DialogNode")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DialogNode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(2),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -305,53 +286,67 @@ tracks/6/keys = {
 "method": &"resume"
 }]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FrogGreenTransformer:look_direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("FrogGreenTransformer:look_direction")
+tracks/7/path = NodePath("FrogGreenTransformer:animation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": ["idle"]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("FrogGreenTransformer:animation")
+tracks/8/path = NodePath("FrogGreenTransformer:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["idle"]
+"update": 0,
+"values": [Vector2(-1344, -160)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("FrogGreenTransformer:position")
+tracks/9/path = NodePath("PlayerTransformer:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1344, -160)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerTransformer:rotation")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [3.14159, -1.5708]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("PlayerTransformer")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_5fh2a"]
@@ -686,19 +681,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("FrogGreenTransformer:active")
+tracks/7/path = NodePath(".:cutscene_mode")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath(".:cutscene_mode")
+tracks/8/path = NodePath("RichTextLabel:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -710,7 +705,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("RichTextLabel:visible")
+tracks/9/path = NodePath("Camera2d:current")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -722,22 +717,10 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Camera2d:current")
+tracks/10/path = NodePath("VomitPuddle:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("VomitPuddle:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -845,70 +828,58 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerTransformer:active")
+tracks/0/path = NodePath("PlayerTransformer:look_direction")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [1]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTransformer:look_direction")
+tracks/1/path = NodePath("PlayerTransformer:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": ["idle"]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:animation")
+tracks/2/path = NodePath("PlayerTransformer:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["idle"]
+"update": 0,
+"values": [Vector2(-1216, -160)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerTransformer:position")
+tracks/3/path = NodePath("PlayerTransformer:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-1216, -160)]
+"values": [0.0]
 }
-tracks/4/type = "value"
+tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerTransformer:rotation")
+tracks/4/path = NodePath("FrogGreenTransformer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("FrogGreenTransformer")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -916,25 +887,25 @@ tracks/5/keys = {
 "method": &"actor_queue_free"
 }]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".:cutscene_mode")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:cutscene_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -942,13 +913,13 @@ tracks/7/keys = {
 "method": &"enable_gameplay_current_camera"
 }]
 }
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerTransformer")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("PlayerTransformer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -956,13 +927,13 @@ tracks/8/keys = {
 "method": &"teleport"
 }]
 }
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("..")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("..")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -970,17 +941,31 @@ tracks/9/keys = {
 "method": &"start_gameplay"
 }]
 }
-tracks/10/type = "value"
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("VomitPuddle:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("VomitPuddle:visible")
+tracks/10/path = NodePath("PlayerTransformer")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [{
+"args": [],
+"method": &"disable"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_7dh0e"]
@@ -1014,7 +999,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:active")
+tracks/2/path = NodePath("Camera2d:current")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1026,46 +1011,22 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Camera2d:current")
+tracks/3/path = NodePath("FrogGreenTransformer/Line2d:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("FrogGreenTransformer/Line2d:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("FrogGreenTransformer:active")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("FrogGreenTransformer")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FrogGreenTransformer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1073,30 +1034,58 @@ tracks/6/keys = {
 "method": &"teleport"
 }]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("RichTextLabel:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RichTextLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ScreenTransitionTrigger")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("PlayerTransformer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable"
+}]
+}
 tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("ScreenTransitionTrigger")
+tracks/8/path = NodePath("FrogGreenTransformer")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [null],
-"method": &"trigger"
+"args": [],
+"method": &"enable"
 }]
 }
 
@@ -1267,9 +1256,9 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint" index="1"]
 scale = Vector2(-1, 1)
-script = ExtResource("19_42ykc")
+script = ExtResource("3_ml5pu")
+actor_name = "PLAYER"
 look_direction = 1
-move_with_look_direction = false
 animation = "walk"
 
 [node name="StageEntryPoint2" type="Node2D" parent="EntryPoints" index="1"]
@@ -1285,14 +1274,14 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint2" index="1"]
 scale = Vector2(-1, 1)
-script = ExtResource("19_42ykc")
+script = ExtResource("3_ml5pu")
+actor_name = "PLAYER"
 look_direction = 1
-move_with_look_direction = false
 animation = "walk"
 
-[node name="HorizonHillsSmallCaveBackground" type="Node" parent="." index="1"]
-script = ExtResource("4_86nda")
+[node name="HorizonHillsSmallCaveBackground" type="Node2D" parent="." index="1"]
 visible = false
+script = ExtResource("4_86nda")
 
 [node name="Skybox" type="CanvasLayer" parent="HorizonHillsSmallCaveBackground" index="0"]
 layer = -100
@@ -1687,19 +1676,18 @@ editor_draw_limits = true
 [node name="PlayerTransformer" type="Marker2D" parent="Alisa Falling Cutscene" index="2"]
 position = Vector2(-1152, -160)
 rotation = 3.14159
-script = ExtResource("19_42ykc")
-center_offset = Vector2(0, 16)
+script = ExtResource("3_ml5pu")
+actor_name = "PLAYER"
 look_direction = 0
-move_with_look_direction = false
 animation = "stand"
 
 [node name="FrogGreenTransformer" type="Marker2D" parent="Alisa Falling Cutscene" index="3"]
 position = Vector2(-1344, -160)
 script = ExtResource("6_b021w")
-actor_name = "FrogGreen"
 move_with_look_direction = false
+actor_name = "FrogGreen"
+animation = "idle"
 active = true
-animation = "attack"
 
 [node name="Line2d" type="Line2D" parent="Alisa Falling Cutscene/FrogGreenTransformer" index="0"]
 visible = false
@@ -1892,7 +1880,7 @@ position = Vector2(-3192, 672)
 [node name="StageChangeTrigger" type="Node2D" parent="." index="18"]
 position = Vector2(-1464, -168)
 script = ExtResource("62_d6e3w")
-stage_file_path = "res://assets/stages/horizon_hills_small_cave.tscn"
+stage_id = "HORIZON_HILLS_SMALL_CAVE"
 destination_entry_point = 1
 screen_transition = 1
 transition_duration = 0.5
@@ -1908,7 +1896,7 @@ shape = SubResource("RectangleShape2D_n7w0q")
 [node name="StageChangeTrigger2" type="Node2D" parent="." index="19"]
 position = Vector2(-928, 384)
 script = ExtResource("62_d6e3w")
-stage_file_path = "res://assets/stages/horizon_hills_small_cave.tscn"
+stage_id = "HORIZON_HILLS_SMALL_CAVE"
 destination_entry_point = 2
 screen_transition = 1
 transition_duration = 0.5

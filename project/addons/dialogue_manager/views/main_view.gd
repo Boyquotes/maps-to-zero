@@ -6,11 +6,20 @@ const DialogueConstants = preload("res://addons/dialogue_manager/constants.gd")
 const DialogueParser = preload("res://addons/dialogue_manager/components/parser.gd")
 const DialogueSettings = preload("res://addons/dialogue_manager/components/settings.gd")
 
+const ITEM_SAVE = 100
+const ITEM_SAVE_AS = 101
+const ITEM_CLOSE = 102
+const ITEM_CLOSE_ALL = 103
+const ITEM_CLOSE_OTHERS = 104
+const ITEM_COPY_PATH = 200
+const ITEM_SHOW_IN_FILESYSTEM = 201
+
 
 @onready var parse_timer := $ParseTimer
 
 # Dialogs
 @onready var new_dialog: FileDialog = $NewDialog
+@onready var save_dialog: FileDialog = $SaveDialog
 @onready var open_dialog: FileDialog = $OpenDialog
 @onready var export_dialog: FileDialog = $ExportDialog
 @onready var import_dialog: FileDialog = $ImportDialog
@@ -18,11 +27,12 @@ const DialogueSettings = preload("res://addons/dialogue_manager/components/setti
 @onready var settings_dialog: AcceptDialog = $SettingsDialog
 @onready var settings_view := $SettingsDialog/SettingsView
 @onready var build_error_dialog: AcceptDialog = $BuildErrorDialog
+@onready var close_confirmation_dialog: ConfirmationDialog = $CloseConfirmationDialog
 
 # Toolbar
-@onready var current_file_button: Button = %CurrentFileButton
 @onready var new_button: Button = %NewButton
 @onready var open_button: MenuButton = %OpenButton
+@onready var save_all_button: Button = %SaveAllButton
 @onready var test_button: Button = %TestButton
 @onready var search_button: Button = %SearchButton
 @onready var insert_button: MenuButton = %InsertButton
@@ -35,6 +45,9 @@ const DialogueSettings = preload("res://addons/dialogue_manager/components/setti
 @onready var search_and_replace := %SearchAndReplace
 
 # Code editor
+@onready var content: HSplitContainer = %Content
+@onready var files_list := %FilesList
+@onready var files_popup_menu: PopupMenu = %FilesPopupMenu
 @onready var title_list := %TitleList
 @onready var code_edit := %CodeEdit
 @onready var errors_panel := %ErrorsPanel
@@ -46,32 +59,42 @@ var editor_plugin: EditorPlugin
 var current_file_path: String = "":
 	set(next_current_file_path):
 		current_file_path = next_current_file_path
-		current_file_button.text = get_nice_file(current_file_path)
+		files_list.current_file_path = current_file_path
 		if current_file_path == "":
-			current_file_button.disabled = true
-			current_file_button.text = "No file open"
+			save_all_button.disabled = true
 			test_button.disabled = true
 			search_button.disabled = true
 			insert_button.disabled = true
 			translations_button.disabled = true
+			content.dragger_visibility = SplitContainer.DRAGGER_HIDDEN
+			files_list.hide()
 			title_list.hide()
 			code_edit.hide()
 		else:
-			current_file_button.disabled = false
 			test_button.disabled = false
 			search_button.disabled = false
 			insert_button.disabled = false
 			translations_button.disabled = false
+			content.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
+			files_list.show()
 			title_list.show()
 			code_edit.show()
+			
+			code_edit.text = open_buffers[current_file_path].text
+			code_edit.errors = []
+			code_edit.clear_undo_history()
+			code_edit.set_cursor(DialogueSettings.get_caret(current_file_path))
+			code_edit.grab_focus()
+			
+			_on_code_edit_text_changed()
+			
+			errors_panel.errors = []
+			code_edit.errors = []
 	get:
 		return current_file_path
 
-# Keep a copy of the text at the last save
-var pristine_text: String = ""
-
-# A reference to the color palette
-var colors: Dictionary = {}
+# A reference to the currently open files and their last saved text
+var open_buffers: Dictionary = {}
 
 
 func _ready() -> void:
@@ -87,7 +110,7 @@ func _ready() -> void:
 		# Save everything
 		DialogueSettings.set_user_value("just_refreshed", {
 			current_file_path = current_file_path,
-			current_file_content = code_edit.text
+			open_buffers = open_buffers
 		})
 		return true
 	
@@ -106,36 +129,50 @@ func _ready() -> void:
 	
 	code_edit.main_view = self
 	code_edit.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY if DialogueSettings.get_setting("wrap_lines", false) else TextEdit.LINE_WRAPPING_NONE
+	
+	save_all_button.disabled = true
+	
+	close_confirmation_dialog.add_button("Discard", true, "discard")
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not visible: return
+	
+	if event is InputEventKey and event.is_pressed():
+		match event.as_text():
+			"Ctrl+Alt+S":
+				save_file(current_file_path)
+			"Ctrl+W":
+				get_viewport().set_input_as_handled()
+				close_file(current_file_path)
 
 
 func apply_changes() -> void:
-	save_file()
+	save_files()
 
 
 # Load back to the previous buffer regardless of if it was actually saved
 func load_from_version_refresh(just_refreshed: Dictionary) -> void:
+	if just_refreshed.has("current_file_content"):
+		# We just loaded from a version before multiple buffers
+		var file: FileAccess = FileAccess.open(just_refreshed.current_file_path, FileAccess.READ)
+		var file_text: String = file.get_as_text()
+		open_buffers[just_refreshed.current_file_path] = {
+			pristine_text = file_text,
+			text = just_refreshed.current_file_content
+		}
+	else:
+		open_buffers = just_refreshed.open_buffers
+		
 	editor_plugin.get_editor_interface().edit_resource(load(just_refreshed.current_file_path))
-	pristine_text = code_edit.text
-	code_edit.text = just_refreshed.current_file_content
-	_on_code_edit_text_changed()
 
 
-# Open a dialogue resource for editing
-func open_resource(resource: Resource) -> void:
-	open_file(resource.resource_path)
-
-
-func open_file(path: String) -> void:
-	# It's the same resource so do nothing
-	if current_file_path == path: return
+func new_file(path: String, content: String = "") -> void:
+	if open_buffers.has(path):
+		remove_file_from_open_buffers(path)
 	
-	# Save the current resource
-	save_file()
-	
-	# Create the file if it doesn't exist
-	var file = File.new()
-	if not file.file_exists(path):
-		file.open(path, File.WRITE)
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	if content == "":
 		file.store_string("\n".join([
 			"~ this_is_a_node_title",
 			"",
@@ -149,58 +186,102 @@ func open_file(path: String) -> void:
 			"- End the conversation => END",
 			"Nathan: For more information see the online documentation."
 		]))
-		file.close()
-		editor_plugin.get_editor_interface().get_resource_filesystem().scan()
-	
-	# Open the new resource
-	self.current_file_path = path
-	if current_file_path != "":
-		file = File.new()
-		file.open(current_file_path, File.READ)
+	else:
+		file.store_string(content)
+		
+	editor_plugin.get_editor_interface().get_resource_filesystem().scan()
+
+
+# Open a dialogue resource for editing
+func open_resource(resource: Resource) -> void:
+	open_file(resource.resource_path)
+
+
+func open_file(path: String) -> void:
+	if not open_buffers.has(path):
+		var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 		var text = file.get_as_text()
-		file.close()
 		
-		code_edit.text = text
-		code_edit.errors = []
-		code_edit.clear_undo_history()
-		code_edit.set_cursor(DialogueSettings.get_caret(current_file_path))
-		code_edit.grab_focus()
-		
-		pristine_text = text
-		
-		_on_code_edit_text_changed()
-		
-		DialogueSettings.add_recent_file(path)
-		build_open_menu()
+		open_buffers[path] = {
+			cursor = Vector2.ZERO,
+			text = text,
+			pristine_text = text
+		}
 	
-	errors_panel.errors = []
-	code_edit.errors = []
+	DialogueSettings.add_recent_file(path)
+	build_open_menu()
+	
+	files_list.files = open_buffers.keys()
+	files_list.select_file(path)
+	
+	self.current_file_path = path
 
 
-# Save the current file
-func save_file() -> void:
-	# Don't bother saving if there is nothing to save
-	if pristine_text == code_edit.text: return
-	if current_file_path == "": return
-	
-	# Save the current resource
-	var file = File.new()
-	file.open(current_file_path, File.WRITE)
-	file.store_string(code_edit.text)
-	file.close()
-	
-	pristine_text = code_edit.text
-	update_current_file_button()
-	
+func show_file_in_filesystem(path: String) -> void:
+	var file_system = editor_plugin.get_editor_interface().get_file_system_dock()
+	file_system.navigate_to_path(path)
+
+
+# Save any open files
+func save_files() -> void:
+	for path in open_buffers:
+		save_file(path)
+		
 	# Make sure we reimport/recompile the changes
 	editor_plugin.get_editor_interface().get_resource_filesystem().scan()
+	save_all_button.disabled = true
+
+
+# Save a file
+func save_file(path: String) -> void:
+	var buffer = open_buffers[path]
+		
+	files_list.mark_file_as_unsaved(path, false)
+	save_all_button.disabled = files_list.unsaved_files.size() == 0
+	
+	# Don't bother saving if there is nothing to save
+	if buffer.text == buffer.pristine_text:
+		return
+		
+	buffer.pristine_text = buffer.text
+	
+	# Save the current text
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(buffer.text)
+	file.flush()
+
+
+func close_file(file: String) -> void:
+	if not file in open_buffers.keys(): return
+	
+	var buffer = open_buffers[file]
+	
+	if buffer.text == buffer.pristine_text:
+		remove_file_from_open_buffers(file)
+	else:
+		close_confirmation_dialog.dialog_text = "Save changes to '%s'?" % file.get_file()
+		close_confirmation_dialog.popup_centered()
+
+
+func remove_file_from_open_buffers(file: String) -> void:
+	if not file in open_buffers.keys(): return
+	
+	var current_index = open_buffers.keys().find(file)
+	
+	open_buffers.erase(file)
+	if open_buffers.size() == 0:
+		self.current_file_path = ""
+	else:
+		current_index = clamp(current_index, 0, open_buffers.size() - 1)
+		self.current_file_path = open_buffers.keys()[current_index]
+	files_list.files = open_buffers.keys()
 
 
 # Apply theme colors and icons to the UI
 func apply_theme() -> void:
 	if is_instance_valid(editor_plugin) and is_instance_valid(code_edit):
 		var editor_settings = editor_plugin.get_editor_interface().get_editor_settings()
-		colors = {
+		code_edit.colors = {
 			background = editor_settings.get_setting("text_editor/theme/highlighting/background_color"),
 			current_line = editor_settings.get_setting("text_editor/theme/highlighting/current_line_color"),
 			error_line = editor_settings.get_setting("text_editor/theme/highlighting/mark_color"),
@@ -216,23 +297,31 @@ func apply_theme() -> void:
 			comments = editor_settings.get_setting("text_editor/theme/highlighting/comment_color"),
 			jumps = Color(editor_settings.get_setting("text_editor/theme/highlighting/control_flow_keyword_color"), 0.7),
 		}
-		code_edit.colors = colors
-	
-		current_file_button.icon = get_theme_icon("Filesystem", "EditorIcons")
+		
 		new_button.icon = get_theme_icon("New", "EditorIcons")
 		new_button.tooltip_text = "Start a new file"
+		
 		open_button.icon = get_theme_icon("Load", "EditorIcons")
 		open_button.tooltip_text = "Open a file"
+		
+		save_all_button.icon = get_theme_icon("Save", "EditorIcons")
+		save_all_button.tooltip_text = "Save all files"
+		
 		test_button.icon = get_theme_icon("PlayScene", "EditorIcons")
 		test_button.tooltip_text = "Test dialogue"
+		
 		search_button.icon = get_theme_icon("Search", "EditorIcons")
 		search_button.tooltip_text = "Search for text"
+		
 		insert_button.icon = get_theme_icon("RichTextEffect", "EditorIcons")
 		insert_button.text = "Insert"
+		
 		translations_button.icon = get_theme_icon("Translation", "EditorIcons")
 		translations_button.text = "Translations"
+		
 		settings_button.icon = get_theme_icon("Tools", "EditorIcons")
 		settings_button.tooltip_text = "Settings"
+		
 		docs_button.icon = get_theme_icon("Help", "EditorIcons")
 		docs_button.text = "Docs"
 		
@@ -282,21 +371,6 @@ func build_open_menu() -> void:
 	if menu.index_pressed.is_connected(_on_open_menu_index_pressed):
 		menu.index_pressed.disconnect(_on_open_menu_index_pressed)
 	menu.index_pressed.connect(_on_open_menu_index_pressed)
-
-
-# Show the current file name and a saved indicator
-func update_current_file_button() -> void:
-	var unsaved_indicator: String = "*" if pristine_text != code_edit.text else ""
-	current_file_button.text = get_nice_file(current_file_path) + unsaved_indicator
-
-
-# Shorten a path to just its parent folder and filename
-func get_nice_file(file: String) -> String:
-	var bits = file.replace("res://", "").split("/")
-	if bits.size() == 1:
-		return bits[0]
-	else:
-		return "%s/%s" % [bits[bits.size() - 2], bits[bits.size() - 1]]
 
 
 # Get the last place a CSV, etc was exported
@@ -386,13 +460,13 @@ func generate_translations_keys() -> void:
 
 # Export dialogue and responses to CSV
 func export_translations_to_csv(path: String) -> void:
-	var file = File.new()
+	var file: FileAccess
 	
 	# If the file exists, open it first and work out which keys are already in it
 	var existing_csv = {}
 	var commas = []
-	if file.file_exists(path):
-		file.open(path, File.READ)
+	if FileAccess.file_exists(path):
+		file = FileAccess.open(path, FileAccess.READ)
 		var is_first_line = true
 		var line: Array
 		while !file.eof_reached():
@@ -404,10 +478,9 @@ func export_translations_to_csv(path: String) -> void:
 			# Make sure the line isn't empty before adding it
 			if line.size() > 0 and line[0].strip_edges() != "":
 				existing_csv[line[0]] = line
-		file.close()
 		
 	# Start a new file
-	file.open(path, File.WRITE)
+	file = FileAccess.open(path, FileAccess.WRITE)
 	
 	if not file.file_exists(path):
 		file.store_csv_line(["keys", "en"])
@@ -444,8 +517,6 @@ func export_translations_to_csv(path: String) -> void:
 	for line in lines_to_save:
 		file.store_csv_line(line)
 	
-	file.close()
-	
 	editor_plugin.get_editor_interface().get_resource_filesystem().scan()
 	editor_plugin.get_editor_interface().get_file_system_dock().navigate_to_path(path)
 
@@ -454,21 +525,18 @@ func export_translations_to_csv(path: String) -> void:
 func import_translations_from_csv(path: String) -> void:
 	var cursor: Vector2 = code_edit.get_cursor()
 
-	# Open the CSV file and build a dictionary of the known keys
-	var file := File.new()
-	
-	if not file.file_exists(path): return
+	if not FileAccess.file_exists(path): return
 
+	# Open the CSV file and build a dictionary of the known keys
 	var keys: Dictionary = {}
-	file.open(path, File.READ)
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	var csv_line: Array
 	while !file.eof_reached():
 		csv_line = file.get_csv_line()
 		if csv_line.size() > 1:
 			keys[csv_line[0]] = csv_line[1]
-	file.close()
 	
-	var parser = DialogueParser.new()
+	var parser: DialogueParser = DialogueParser.new()
 	
 	# Now look over each line in the dialogue and replace the content for matched keys
 	var lines: PackedStringArray = code_edit.text.split("\n")
@@ -509,7 +577,7 @@ func import_translations_from_csv(path: String) -> void:
 func export_translations_to_po(path: String) -> void:
 	var id_str: Dictionary = {}
 	
-	var parser = DialogueParser.new()
+	var parser: DialogueParser = DialogueParser.new()
 	parser.parse(code_edit.text)
 	var dialogue = parser.get_data().lines
 	parser.free()
@@ -522,13 +590,13 @@ func export_translations_to_po(path: String) -> void:
 
 		id_str[line.translation_key] = line.text
 
-	var file = File.new()
+	var file: FileAccess
 
 	# If the file exists, keep content except for known entries.
 	var existing_po: String = ""
-	var already_existing_keys := PackedStringArray([])
+	var already_existing_keys: PackedStringArray = PackedStringArray([])
 	if file.file_exists(path):
-		file.open(path, File.READ)
+		file = FileAccess.open(path, FileAccess.READ)
 		var line: String
 		while !file.eof_reached():
 			line = file.get_line().strip_edges()
@@ -557,7 +625,6 @@ func export_translations_to_po(path: String) -> void:
 						existing_po += line + "\n"
 			else: # keep old lines
 				existing_po += line + "\n"
-		file.close()
 
 	# Godot requires the config in the PO regardless of whether it constains anything relevant.
 	if !("" in already_existing_keys):
@@ -572,9 +639,8 @@ func export_translations_to_po(path: String) -> void:
 	existing_po = existing_po.trim_suffix("\n")
 
 	# Start a new file
-	file.open(path, File.WRITE)
+	file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(existing_po)
-	file.close()
 
 	editor_plugin.get_editor_interface().get_resource_filesystem().scan()
 	editor_plugin.get_editor_interface().get_file_system_dock().navigate_to_path(path)
@@ -610,6 +676,10 @@ func _on_open_menu_index_pressed(index: int) -> void:
 			build_open_menu()
 		_:
 			open_file(item)
+
+
+func _on_files_list_file_selected(file_path: String) -> void:
+	self.current_file_path = file_path
 
 
 func _on_insert_button_menu_id_pressed(id: int) -> void:
@@ -652,16 +722,17 @@ func _on_main_view_visibility_changed() -> void:
 		code_edit.grab_focus()
 
 
-func _on_current_file_button_pressed() -> void:
-	var file_system = editor_plugin.get_editor_interface().get_file_system_dock()
-	file_system.navigate_to_path(current_file_path)
-
-
 func _on_new_button_pressed() -> void:
 	new_dialog.popup_centered()
 
 
 func _on_new_dialog_file_selected(path: String) -> void:
+	new_file(path)
+	open_file(path)
+
+
+func _on_save_dialog_file_selected(path: String) -> void:
+	new_file(path, code_edit.text)
 	open_file(path)
 
 
@@ -671,11 +742,20 @@ func _on_open_button_about_to_popup() -> void:
 
 func _on_open_dialog_file_selected(path: String) -> void:
 	open_file(path)
+	
+
+func _on_save_all_button_pressed() -> void:
+	save_files()
 
 
 func _on_code_edit_text_changed() -> void:
 	title_list.titles = code_edit.get_titles()
-	update_current_file_button()
+	
+	var buffer = open_buffers[current_file_path]
+	buffer.text = code_edit.text
+	files_list.mark_file_as_unsaved(current_file_path, buffer.text != buffer.pristine_text)
+	save_all_button.disabled = open_buffers.values().filter(func(d): return d.text != d.pristine_text).size() == 0
+	
 	parse_timer.start(1)
 
 
@@ -768,3 +848,62 @@ func _on_settings_dialog_confirmed() -> void:
 
 func _on_docs_button_pressed() -> void:
 	OS.shell_open("https://github.com/nathanhoad/godot_dialogue_manager")
+
+
+func _on_files_list_file_popup_menu_requested(at_position: Vector2) -> void:
+	files_popup_menu.position = Vector2(get_viewport().position) + files_list.global_position + at_position
+	files_popup_menu.popup()
+
+
+func _on_files_popup_menu_about_to_popup() -> void:
+	files_popup_menu.clear()
+	
+	files_popup_menu.add_item("Save", ITEM_SAVE, KEY_MASK_CTRL | KEY_MASK_ALT | KEY_S)
+	files_popup_menu.add_item("Save As...", ITEM_SAVE_AS, KEY_MASK_CTRL | KEY_MASK_ALT | KEY_S)
+	files_popup_menu.add_item("Close", ITEM_CLOSE, KEY_MASK_CTRL | KEY_W)
+	files_popup_menu.add_item("Close All", ITEM_CLOSE_ALL)
+	files_popup_menu.add_item("Close Other Files", ITEM_CLOSE_OTHERS)
+	files_popup_menu.add_separator()
+	files_popup_menu.add_item("Copy File Path", ITEM_COPY_PATH)
+	files_popup_menu.add_item("Show in FileSystem", ITEM_SHOW_IN_FILESYSTEM)
+
+
+func _on_files_popup_menu_id_pressed(id: int) -> void:
+	match id:
+		ITEM_SAVE:
+			save_file(current_file_path)
+		ITEM_SAVE_AS:
+			save_dialog.popup_centered()
+		ITEM_CLOSE:
+			close_file(current_file_path)
+		ITEM_CLOSE_ALL:
+			for path in open_buffers.keys():
+				close_file(path)
+		ITEM_CLOSE_OTHERS:
+			for path in open_buffers.keys():
+				if path != current_file_path:
+					close_file(path)
+		
+		ITEM_COPY_PATH:
+			DisplayServer.clipboard_set(current_file_path)
+		ITEM_SHOW_IN_FILESYSTEM:
+			show_file_in_filesystem(current_file_path)
+
+
+func _on_code_edit_external_file_requested(path: String, title: String) -> void:
+	open_file(path)
+	if title != "":
+		code_edit.go_to_title(title)
+	else:
+		code_edit.set_caret_line(0)
+
+
+func _on_close_confirmation_dialog_confirmed() -> void:
+	save_file(current_file_path)
+	remove_file_from_open_buffers(current_file_path)
+
+
+func _on_close_confirmation_dialog_custom_action(action: StringName) -> void:
+	if action == "discard":
+		remove_file_from_open_buffers(current_file_path)
+	close_confirmation_dialog.hide()

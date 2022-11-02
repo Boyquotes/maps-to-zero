@@ -14,6 +14,12 @@ func _ready():
 	add_child(coyote_timer)
 
 func enter(_msg := {}) -> void:
+	if not actor.is_on_floor():
+		state_machine.transition_to("Air")
+		return
+	elif not is_equal_approx(actor.input_direction.x, 0):
+		state_machine.transition_to("Run")
+		return
 	actor.velocity = Vector2.ZERO
 	actor.play_animation(animation)
 

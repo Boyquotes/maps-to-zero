@@ -25,6 +25,8 @@ func change_limits() -> void:
 	tweener.tween_property(GameManager.gameplay_camera, "limit_bottom", get_limit_bottom(), tween_duration)
 
 func change_zoom() -> void:
+	if GameManager.sidescroller_main.respawn_cutscene_playing:
+		await GameManager.sidescroller_main.respawn_cutscene_finished
 	var tweener = create_tween()
 	tweener.tween_property(GameManager.gameplay_camera, "zoom", zoom, tween_duration)
 

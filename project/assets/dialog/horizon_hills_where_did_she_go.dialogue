@@ -17,6 +17,7 @@ Alisa: Maybe jump off the wall like I'm a ninja.
 Alisa: That would be badass.
 
 do DialogUtilities.animate("end")
+do DialogUtilities.end()
 
 ~ frog_encounter
 Alisa: Ugh.
@@ -34,6 +35,7 @@ do DialogUtilities.animate("2")
 Alisa: Ack!?
 
 do DialogUtilities.animate("3")
+do DialogUtilities.end()
 
 ~ falling
 
@@ -68,3 +70,4 @@ Alisa: That was... Unpleasant.
 Alisa: Very, very unpleasant.
 
 do DialogUtilities.animate("end")
+do DialogUtilities.end()

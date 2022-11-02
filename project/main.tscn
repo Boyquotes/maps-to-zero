@@ -1,133 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://c54gi7bnxpys3"]
+[gd_scene load_steps=8 format=3 uid="uid://dkcdmvd684dv7"]
 
 [ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
 [ext_resource type="PackedScene" uid="uid://cjj14c7n0y063" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
-[ext_resource type="PackedScene" uid="uid://c3txc1psco3c7" path="res://assets/stages/horizon_hills_small_cave.tscn" id="3_5wts8"]
 [ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="4_lcacx"]
 [ext_resource type="PackedScene" uid="uid://bwahsuvk654r6" path="res://core/popups/yes_no_menu.tscn" id="6_1kvbx"]
 
-[sub_resource type="Animation" id="Animation_6mgcs"]
+[sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/PlayerDefeatedScreen:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/PlayerDefeatedScreen:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer/YesButton")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"grab_focus"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/MessageLabel:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(2, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
-[sub_resource type="Animation" id="Animation_vraci"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/PlayerDefeatedScreen:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/PlayerDefeatedScreen:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_uj8vi"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ons8l"]
 _data = {
-"RESET": SubResource("Animation_vraci"),
-"player_defeated": SubResource("Animation_6mgcs")
+"player_defeated": SubResource("Animation_jgklv")
 }
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gh6ur")
 player_actor = ExtResource("2_kneeq")
-initial_stage = ExtResource("3_5wts8")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "RESET"
-libraries = {
-"": SubResource("AnimationLibrary_uj8vi")
-}
+initial_stage_id = "HORIZON_HILLS_CAVE_ENTRANCE"
 
 [node name="CameraTransformer" type="RemoteTransform2D" parent="."]
 unique_name_in_owner = true
@@ -224,5 +114,10 @@ theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Ouch! Game Over!
 Retry?[/center]"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ons8l")
+}
 
 [editable path="CanvasLayer/PlayerDefeatedScreen/YesNoMenu"]

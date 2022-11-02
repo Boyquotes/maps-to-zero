@@ -4,6 +4,7 @@ extends Node
 signal dialogue()
 signal mutation()
 signal dialogue_finished()
+signal bridge_get_next_dialogue_line_completed(line)
 
 
 const DialogueConstants = preload("res://addons/dialogue_manager/constants.gd")
@@ -125,6 +126,14 @@ func show_example_dialogue_balloon(resource: Resource, title: String = "0", extr
 	balloon.start(resource, title, extra_game_states)
 
 
+### Dotnet bridge
+
+
+func _bridge_get_next_dialogue_line(resource: Resource, key: String, extra_game_states: Array = []) -> void:
+	var line = await get_next_dialogue_line(resource, key, extra_game_states)
+	emit_signal("bridge_get_next_dialogue_line_completed", line)
+
+
 ### Helpers
 
 
@@ -225,6 +234,23 @@ func create_dialogue_line(data: Dictionary) -> Dictionary:
 				time = markers.time,
 				responses = []
 			}
+			
+		DialogueConstants.TYPE_RESPONSE:
+			return {
+				type = DialogueConstants.TYPE_DIALOGUE,
+				next_id = data.next_id,
+				character = "",
+				character_replacements = [],
+				text = "",
+				text_replacements = [],
+				translation_key = "",
+				pauses = {},
+				speeds = [],
+				inline_mutations = [],
+				time = null,
+				responses = []
+			}
+			
 		DialogueConstants.TYPE_MUTATION:
 			return {
 				type = DialogueConstants.TYPE_MUTATION,
@@ -369,7 +395,11 @@ func get_state_value(property: String):
 # Set a value on the current scene or game state
 func set_state_value(property: String, value) -> void:
 	for state in get_game_states():
-		if has_property(state, property):
+		if typeof(state) == TYPE_DICTIONARY:
+			if state.has(property):
+				state[property] = value
+				return
+		elif has_property(state, property):
 			state.set(property, value)
 			return
 	
@@ -408,6 +438,28 @@ func resolve(tokens: Array):
 							caller["value"] = caller.value.has(args[0])
 						"get":
 							caller["value"] = caller.value.get(args[0])
+						"keys":
+							caller["value"] = caller.value.keys()
+						"values":
+							caller["value"] = caller.value.values()
+						"size":
+							caller["value"] = caller.value.size()
+						"clear":
+							caller["value"] = caller.value.clear()
+						_:
+							caller["value"] = null
+					tokens.remove_at(i)
+					tokens.remove_at(i-1)
+					i -= 2
+				elif typeof(caller.value) == TYPE_ARRAY:
+					caller["type"] = "value"
+					match function_name:
+						"append":
+							caller["value"] = caller.value.append(args[0])
+						"size":
+							caller["value"] = caller.value.size()
+						"clear":
+							caller["value"] = caller.value.clear()
 						_:
 							caller["value"] = null
 					tokens.remove_at(i)
@@ -434,6 +486,24 @@ func resolve(tokens: Array):
 							"get":
 								token["type"] = "value"
 								token["value"] = state.get(args[0])
+								found = true
+							"keys":
+								token["type"] = "value"
+								token["value"] = state.keys()
+								found = true
+							"values":
+								token["type"] = "value"
+								token["value"] = state.values()
+								found = true
+							"size":
+								token["type"] = "value"
+								token["value"] = state.size()
+								found = true
+					elif typeof(state) == TYPE_ARRAY:
+						match function_name:
+							"size":
+								token["type"] = "value"
+								token["value"] = state.size()
 								found = true
 					elif state.has_method(function_name):
 						token["type"] = "value"
@@ -662,7 +732,11 @@ func resolve(tokens: Array):
 						lhs.value[lhs.property] = value
 					else:
 						lhs.value.set(lhs.property, value)
-				"dictionary", "array":
+				"dictionary":
+					value = apply_operation(token.value, lhs.value.get(lhs.key, null), tokens[i+1].value)
+					lhs.value[lhs.key] = value
+				"array":
+					assert(lhs.key < lhs.value.size(), "Array index is out of bounds.")
 					value = apply_operation(token.value, lhs.value[lhs.key], tokens[i+1].value)
 					lhs.value[lhs.key] = value
 				_:
@@ -760,7 +834,7 @@ func apply_operation(operator: String, first_value, second_value):
 
 # Check if a dialogue line contains meaningful information
 func is_valid(line: Dictionary) -> bool:
-	if line.size() == 0:
+	if line.size() == 0 or not line.has("type"):
 		return false
 	if line.type == DialogueConstants.TYPE_MUTATION and line.mutation == null:
 		return false

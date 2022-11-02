@@ -1,0 +1,14 @@
+[remap]
+
+importer="dialogue_manager_compiler_3"
+type="Resource"
+uid="uid://cq02uvxvtduv6"
+path="res://.godot/imported/horizon_hills_prologue.dialogue-ceb13149d7c3959425ae15d73cbded2c.tres"
+
+[deps]
+
+source_file="res://assets/dialog/horizon_hills_prologue.dialogue"
+dest_files=["res://.godot/imported/horizon_hills_prologue.dialogue-ceb13149d7c3959425ae15d73cbded2c.tres"]
+
+[params]
+

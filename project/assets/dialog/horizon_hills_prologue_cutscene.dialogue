@@ -68,6 +68,7 @@ Alisa: Eh, I'm sure leaving this thing open isn't actually a big deal.
 Alisa: I made extra sure to hide the portal on my end.
 Alisa: There's absolutely no way anyone else can get through.
 do DialogUtilities.animate("end")
+do DialogUtilities.end()
 
 ~ dark_knight_encounter
 
@@ -87,3 +88,4 @@ Dark Knight: ...No.
 Alisa: Eep!
 
 do DialogUtilities.animate("end")
+do DialogUtilities.end()

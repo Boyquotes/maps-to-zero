@@ -21,6 +21,8 @@ var is_waiting_for_input: bool = false
 ## The current line
 var dialogue_line: Dictionary:
 	set(next_dialogue_line):
+		is_waiting_for_input = false
+		
 		if next_dialogue_line.size() == 0:
 			queue_free()
 			return
@@ -60,8 +62,9 @@ var dialogue_line: Dictionary:
 		balloon.visible = true
 		
 		dialogue_label.modulate.a = 1
-		dialogue_label.type_out()
-		await dialogue_label.finished_typing
+		if not dialogue_line.text.is_empty():
+			dialogue_label.type_out()
+			await dialogue_label.finished_typing
 		
 		# Wait for input
 		if dialogue_line.responses.size() > 0:

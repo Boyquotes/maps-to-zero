@@ -8,6 +8,7 @@ const DialogueSettings = preload("res://addons/dialogue_manager/components/setti
 
 var IMPORT_REGEX: RegEx = RegEx.create_from_string("import \"(?<path>[^\"]+)\" as (?<prefix>[^\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\-\\=\\+\\{\\}\\[\\]\\;\\:\\\"\\'\\,\\.\\<\\>\\?\\/\\s]+)")
 var VALID_TITLE_REGEX: RegEx = RegEx.create_from_string("^[^\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\-\\=\\+\\{\\}\\[\\]\\;\\:\\\"\\'\\,\\.\\<\\>\\?\\/\\s]+$")
+var BEGINS_WITH_NUMBER_REGEX: RegEx = RegEx.create_from_string("^\\d")
 var TRANSLATION_REGEX: RegEx = RegEx.create_from_string("\\[ID:(?<tr>.*?)\\]")
 var MUTATION_REGEX: RegEx = RegEx.create_from_string("(do|set) (?<mutation>.*)")
 var CONDITION_REGEX: RegEx = RegEx.create_from_string("(if|elif) (?<condition>.*)")
@@ -34,7 +35,7 @@ var TOKEN_DEFINITIONS: Dictionary = {
 	DialogueConstants.TOKEN_BOOL: RegEx.create_from_string("^(true|false)"),
 	DialogueConstants.TOKEN_NOT: RegEx.create_from_string("^(not( |$)|!)"),
 	DialogueConstants.TOKEN_AND_OR: RegEx.create_from_string("^(and|or)( |$)"),
-	DialogueConstants.TOKEN_STRING: RegEx.create_from_string("^\".*?\""),
+	DialogueConstants.TOKEN_STRING: RegEx.create_from_string("^(\".*?\"|\'.*?\')"),
 	DialogueConstants.TOKEN_VARIABLE: RegEx.create_from_string("^[a-zA-Z_][a-zA-Z_0-9]+"),
 	DialogueConstants.TOKEN_COMMENT: RegEx.create_from_string("^#.*")
 }
@@ -152,9 +153,9 @@ func parse(text: String) -> int:
 			if ": " in l:
 				var first_child: Dictionary = { 
 					type = DialogueConstants.TYPE_DIALOGUE, 
-					next_id = line.get("next_id"),
-					next_id_after = line.get("next_id_after"),
-					replacements = line.get("replacements"),
+					next_id = line.next_id,
+					next_id_after = line.next_id_after,
+					text_replacements = line.text_replacements,
 					translation_key = line.get("translation_key")
 				}
 				
@@ -184,6 +185,9 @@ func parse(text: String) -> int:
 			else:
 				line["type"] = DialogueConstants.TYPE_TITLE
 				line["text"] = extract_title(raw_line)
+				# Titles can't have numbers as the first letter (unless they are external titles which get replaced with hashes)
+				if id >= _imported_line_count and BEGINS_WITH_NUMBER_REGEX.search(line.text):
+					add_error(id, DialogueConstants.ERR_TITLE_BEGINS_WITH_NUMBER)
 				# Only import titles are allowed to have "/" in them
 				var valid_title = VALID_TITLE_REGEX.search(raw_line.replace("/", "").substr(2).strip_edges())
 				if not valid_title:
@@ -398,9 +402,10 @@ func prepare(text: String, include_imported_titles_hashes: bool = true) -> void:
 					if "/" in title:
 						if include_imported_titles_hashes == false:
 							titles.erase(title)
-						var bits = title.split("/")
-						title = imported_titles[bits[0]] + "/" + bits[1]
-						titles[title] = next_nonempty_line_id
+						var bits: PackedStringArray = title.split("/")
+						if imported_titles.has(bits[0]):
+							title = imported_titles[bits[0]] + "/" + bits[1]
+							titles[title] = next_nonempty_line_id
 					elif first_title == "":
 						first_title = next_nonempty_line_id
 				else:
@@ -477,12 +482,9 @@ func get_line_after_line(id: int, indent_size: int, line: Dictionary) -> String:
 	var next_nonempty_line_id = get_next_nonempty_line_id(id)
 	if next_nonempty_line_id != DialogueConstants.ID_NULL \
 		and indent_size <= get_indent(raw_lines[next_nonempty_line_id.to_int()]):
-		# The next line is a title so we can end here
+		# The next line is a title so we need the next nonempty line after that
 		if is_title_line(raw_lines[next_nonempty_line_id.to_int()]):
-			if line.type == DialogueConstants.TYPE_GOTO:
-				return DialogueConstants.ID_NULL
-			else:
-				return get_next_nonempty_line_id(next_nonempty_line_id.to_int())
+			return get_next_nonempty_line_id(next_nonempty_line_id.to_int())
 		# Otherwise it's a normal line
 		else:
 			return next_nonempty_line_id
@@ -679,7 +681,6 @@ func import_content(path: String, prefix: String, known_imports: Dictionary) -> 
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open(path, FileAccess.READ)
 		var content: PackedStringArray = file.get_as_text().split("\n")
-		file.close()
 		
 		var imported_titles: Dictionary = {}
 		
@@ -779,7 +780,7 @@ func extract_mutation(line: String) -> Dictionary:
 		if expression.size() == 0:
 			return { error = DialogueConstants.ERR_INCOMPLETE_EXPRESSION }
 		elif expression[0].type == DialogueConstants.TYPE_ERROR:
-			return { error = DialogueConstants.ERR_INVALID_EXPRESSION_FOR_VALUE }
+			return { error = expression[0].value }
 		else:
 			return { expression = expression }
 	
@@ -859,7 +860,7 @@ func extract_goto(line: String) -> String:
 func extract_markers(line: String) -> Dictionary:
 	var text = line
 	var pauses = {}
-	var speeds = []
+	var speeds = {}
 	var mutations = []
 	var bbcodes = []
 	var index_map = {}
@@ -902,11 +903,12 @@ func extract_markers(line: String) -> Dictionary:
 			# Could be something like:
 			# 	"=1.0"
 			# 	" rate=20 level=10"
-			if raw_args[0] == "=":
+			if raw_args and raw_args[0] == "=":
 				raw_args = "value" + raw_args
 			for pair in raw_args.strip_edges().split(" "):
-				var bits = pair.split("=")
-				args[bits[0]] = bits[1]
+				if "=" in pair:
+					var bits = pair.split("=")
+					args[bits[0]] = bits[1]
 			
 		match code:
 			"wait":
@@ -915,9 +917,9 @@ func extract_markers(line: String) -> Dictionary:
 				else:
 					pauses[index] = args.get("value").to_float()
 			"speed":
-				speeds.append([index, args.get("value").to_float()])
+				speeds[index] = args.get("value").to_float()
 			"/speed":
-				speeds.append([index, 1.0])
+				speeds[index] = 1.0
 			"do", "set":
 				mutations.append([index, args.get("value")])
 			"next":
@@ -926,7 +928,7 @@ func extract_markers(line: String) -> Dictionary:
 		# Find any BB codes that are after this index and remove the length from their start
 		var length = bbcode.bbcode.length()
 		for bb in bbcodes:
-			if bb.offset_start >= bbcode.start:
+			if bb.offset_start > bbcode.start:
 				bb.offset_start -= length
 				bb.start -= length
 		
@@ -1005,13 +1007,13 @@ func tokenise(text: String) -> Array[Dictionary]:
 		elif text.begins_with(" "):
 			text = text.substr(1)
 		else:
-			return build_token_tree_error("Invalid expression")
+			return build_token_tree_error(DialogueConstants.ERR_INVALID_EXPRESSION)
 	
 	return build_token_tree(tokens)[0]
 	
 
-func build_token_tree_error(message: String) -> Array:
-	return [{ type = DialogueConstants.TOKEN_ERROR, value = message }]
+func build_token_tree_error(error: int) -> Array:
+	return [{ type = DialogueConstants.TOKEN_ERROR, value = error }]
 
 
 func build_token_tree(tokens: Array[Dictionary], expected_close_token: String = "") -> Array:
@@ -1022,7 +1024,7 @@ func build_token_tree(tokens: Array[Dictionary], expected_close_token: String = 
 		var token = tokens.pop_front()
 		
 		var error = check_next_token(token, tokens)
-		if error != "":
+		if error != OK:
 			return [build_token_tree_error(error), tokens]
 		
 		match token.type:
@@ -1048,7 +1050,7 @@ func build_token_tree(tokens: Array[Dictionary], expected_close_token: String = 
 				
 				var args = tokens_to_list(sub_tree[0])
 				if args.size() != 1:
-					return [build_token_tree_error("Invalid index"), tokens]
+					return [build_token_tree_error(DialogueConstants.ERR_INVALID_INDEX), tokens]
 				
 				tree.append({
 					type = DialogueConstants.TOKEN_DICTIONARY_REFERENCE,
@@ -1108,7 +1110,7 @@ func build_token_tree(tokens: Array[Dictionary], expected_close_token: String = 
 			DialogueConstants.TOKEN_BRACE_CLOSE, \
 			DialogueConstants.TOKEN_BRACKET_CLOSE:
 				if token.type != expected_close_token:
-					return [build_token_tree_error("Unexpected closing bracket"), tokens]
+					return [build_token_tree_error(DialogueConstants.ERR_UNEXPECTED_CLOSING_BRACKET), tokens]
 				
 				return [tree, tokens]
 			
@@ -1157,12 +1159,12 @@ func build_token_tree(tokens: Array[Dictionary], expected_close_token: String = 
 				})
 	
 	if expected_close_token != "":
-		return [build_token_tree_error("Missing closing bracket"), tokens] 
+		return [build_token_tree_error(DialogueConstants.ERR_MISSING_CLOSING_BRACKET), tokens] 
 
 	return [tree, tokens]
 
 
-func check_next_token(token: Dictionary, next_tokens: Array[Dictionary]) -> String:
+func check_next_token(token: Dictionary, next_tokens: Array[Dictionary]) -> int:
 	var next_token_type = null
 	if next_tokens.size() > 0:
 		next_token_type = next_tokens.front().type
@@ -1256,43 +1258,42 @@ func check_next_token(token: Dictionary, next_tokens: Array[Dictionary]) -> Stri
 	if next_token_type in unexpected_token_types:
 		match next_token_type:
 			null:
-				return "Unexpected end of expression"
+				return DialogueConstants.ERR_UNEXPECTED_END_OF_EXPRESSION
 
 			DialogueConstants.TOKEN_FUNCTION:
-				return "Unexpected function"
+				return DialogueConstants.ERR_UNEXPECTED_FUNCTION
 
 			DialogueConstants.TOKEN_PARENS_OPEN, \
 			DialogueConstants.TOKEN_PARENS_CLOSE:
-				return "Unexpected bracket"
+				return DialogueConstants.ERR_UNEXPECTED_BRACKET
 
 			DialogueConstants.TOKEN_COMPARISON, \
 			DialogueConstants.TOKEN_ASSIGNMENT, \
 			DialogueConstants.TOKEN_OPERATOR, \
 			DialogueConstants.TOKEN_NOT, \
 			DialogueConstants.TOKEN_AND_OR:
-				return "Unexpected operator"
+				return DialogueConstants.ERR_UNEXPECTED_OPERATOR
 			
 			DialogueConstants.TOKEN_COMMA:
-				return "Unexpected comma"
+				return DialogueConstants.ERR_UNEXPECTED_COMMA
 			DialogueConstants.TOKEN_COLON:
-				return "Unexpected colon"
+				return DialogueConstants.ERR_UNEXPECTED_COLON
 			DialogueConstants.TOKEN_DOT:
-				return "Unexpected dot"
+				return DialogueConstants.ERR_UNEXPECTED_DOT
 
 			DialogueConstants.TOKEN_BOOL:
-				return "Unexpected boolean"
+				return DialogueConstants.ERR_UNEXPECTED_BOOLEAN
 			DialogueConstants.TOKEN_STRING:
-				return "Unexpected string"
+				return DialogueConstants.ERR_UNEXPECTED_STRING
 			DialogueConstants.TOKEN_NUMBER:
-				return "Unexpected number"
+				return DialogueConstants.ERR_UNEXPECTED_NUMBER
 			DialogueConstants.TOKEN_VARIABLE:
-				return "Unexpected variable"
+				return DialogueConstants.ERR_UNEXPECTED_VARIABLE
 
 			_:
-				return "Invalid expression"
+				return DialogueConstants.ERR_INVALID_EXPRESSION
 
-	return ""
-
+	return OK
 
 
 func tokens_to_list(tokens: Array[Dictionary]) -> Array[Array]:

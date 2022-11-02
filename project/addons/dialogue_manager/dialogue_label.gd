@@ -7,15 +7,13 @@ signal finished_typing()
 
 
 ## The action to press to skip typing
-@export var skip_action: String = "skip_cutscene"
+@export var skip_action: String = "ui_cancel"
 
 ## The speed with which the text types out
 @export var seconds_per_step: float = 0.02
 
 ## When off, the label will grow in height as the text types out
 @export var start_with_full_height: bool = true
-
-@onready var sfx : AudioStreamPlayer = $AudioStreamPlayer
 
 
 var dialogue_line: Dictionary:
@@ -120,8 +118,6 @@ func type_next(delta: float, seconds_needed: float) -> void:
 	else:
 #		visible_ratio += percent_per_index
 		visible_characters += 1
-		if sfx:
-			sfx.play()
 		seconds_needed += seconds_per_step * (1.0 / get_speed(visible_characters))
 		if seconds_needed > delta:
 			waiting_seconds += seconds_needed
@@ -132,17 +128,17 @@ func type_next(delta: float, seconds_needed: float) -> void:
 
 
 # Get the pause for the current typing position if there is one
-func get_pause(index: int) -> float:
-	return dialogue_line.pauses.get(index, 0)
+func get_pause(at_index: int) -> float:
+	return dialogue_line.pauses.get(at_index, 0)
 
 
 # Get the speed for the current typing position
-func get_speed(index: int) -> float:
+func get_speed(at_index: int) -> float:
 	var speed: float = 1
-	for s in dialogue_line.speeds:
-		if s[0] > index:
+	for index in dialogue_line.speeds:
+		if index > at_index:
 			return speed
-		speed = s[1]
+		speed = dialogue_line.speeds[index]
 	return speed
 
 

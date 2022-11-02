@@ -2,16 +2,19 @@
 extends EditorImportPlugin
 
 
+signal compiled_resource(resource: Resource)
+
+
 const DialogueParser = preload("res://addons/dialogue_manager/components/parser.gd")
-const compiler_version = 2
+const compiler_version = 3
 
 
 var editor_plugin
 
 
 func _get_importer_name() -> String:
-	# TODO: change this to force a re-import of all dialogue
-	return "dialogue_manager_%s" % compiler_version
+	# NOTE: A change to this forces a re-import of all dialogue
+	return "dialogue_manager_compiler_%s" % compiler_version
 
 
 func _get_visible_name() -> String:
@@ -60,15 +63,14 @@ func _import(source_file: String, save_path: String, options: Dictionary, platfo
 
 func compile_file(path: String, resource_path: String, will_cascade_cache_data: bool = true) -> int:
 	# Get the raw file contents
-	var file = FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		return FileAccess.get_open_error()
+	if not FileAccess.file_exists(path): return ERR_FILE_NOT_FOUND
+	
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	var raw_text: String = file.get_as_text()
-	file.close()
 	
 	# Parse the text
 	var parser: DialogueParser = DialogueParser.new()
-	var err = parser.parse(raw_text)
+	var err: int = parser.parse(raw_text)
 	var data: Dictionary = parser.get_data()
 	var errors: Array[Dictionary] = parser.get_errors()
 	parser.free()
@@ -89,8 +91,12 @@ func compile_file(path: String, resource_path: String, will_cascade_cache_data: 
 	resource.set_meta("titles", data.titles)
 	resource.set_meta("first_title", data.first_title)
 	resource.set_meta("lines", data.lines)
-
+	
 	if will_cascade_cache_data:
 		editor_plugin.add_to_dialogue_file_cache(path, resource_path, data)
+
+	err = ResourceSaver.save(resource, resource_path)
+
+	emit_signal("compiled_resource", resource)
 	
-	return ResourceSaver.save(resource, resource_path)
+	return err

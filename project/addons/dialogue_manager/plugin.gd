@@ -4,17 +4,19 @@ extends EditorPlugin
 
 const DialogueConstants = preload("res://addons/dialogue_manager/constants.gd")
 const DialogueImportPlugin = preload("res://addons/dialogue_manager/import_plugin.gd")
+const DialogueInspectorPlugin = preload("res://addons/dialogue_manager/inspector_plugin.gd")
 const DialogueSettings = preload("res://addons/dialogue_manager/components/settings.gd")
 const MainView = preload("res://addons/dialogue_manager/views/main_view.tscn")
 
 
 var import_plugin: DialogueImportPlugin
+var inspector_plugin: DialogueInspectorPlugin
 var main_view
 
 var dialogue_file_cache: Dictionary = {}
 
 
-func _enter_tree():
+func _enter_tree() -> void:
 	add_autoload_singleton("DialogueManager", "res://addons/dialogue_manager/dialogue_manager.gd")
 	add_custom_type("DialogueLabel", "RichTextLabel", preload("res://addons/dialogue_manager/dialogue_label.gd"), _get_plugin_icon())
 	
@@ -22,6 +24,10 @@ func _enter_tree():
 		import_plugin = DialogueImportPlugin.new()
 		import_plugin.editor_plugin = self
 		add_import_plugin(import_plugin)
+		
+		inspector_plugin = DialogueInspectorPlugin.new()
+		inspector_plugin.editor_plugin = self
+		add_inspector_plugin(inspector_plugin)
 		
 		main_view = MainView.instantiate()
 		main_view.editor_plugin = self
@@ -34,12 +40,15 @@ func _enter_tree():
 		get_editor_interface().get_file_system_dock().file_removed.connect(_on_file_removed)
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	remove_autoload_singleton("DialogueManager")
 	remove_custom_type("DialogueLabel")
 	
 	remove_import_plugin(import_plugin)
 	import_plugin = null
+	
+	remove_inspector_plugin(inspector_plugin)
+	inspector_plugin = null
 	
 	if is_instance_valid(main_view):
 		main_view.queue_free()
@@ -62,13 +71,7 @@ func _get_plugin_name() -> String:
 
 
 func _get_plugin_icon() -> Texture2D:
-	var base_color = get_editor_interface().get_editor_settings().get_setting("interface/theme/base_color")
-	var theme = "light" if base_color.v > 0.5 else "dark"
-	var base_icon = load("res://addons/dialogue_manager/assets/icons/icon_%s.svg" % theme) as Texture2D
-	var size = get_editor_interface().get_editor_main_screen().get_theme_icon("Godot", "EditorIcons").get_size()
-	var image: Image = base_icon.get_image()
-	image.resize(size.x, size.y, Image.INTERPOLATE_TRILINEAR)
-	return ImageTexture.create_from_image(image)
+	return create_icon()
 
 
 func _handles(object) -> bool:
@@ -101,6 +104,17 @@ func _build() -> bool:
 			push_error("You have %d error(s) in %s" % [dialogue_file.errors.size(), dialogue_file.path])
 			can_build = false
 	return can_build
+
+
+## Generate the plugin icon
+func create_icon() -> Texture2D:
+	var base_color = get_editor_interface().get_editor_settings().get_setting("interface/theme/base_color")
+	var theme = "light" if base_color.v > 0.5 else "dark"
+	var base_icon = load("res://addons/dialogue_manager/assets/icons/icon_%s.svg" % theme) as Texture2D
+	var size = get_editor_interface().get_editor_main_screen().get_theme_icon("Godot", "EditorIcons").get_size()
+	var image: Image = base_icon.get_image()
+	image.resize(size.x, size.y, Image.INTERPOLATE_TRILINEAR)
+	return ImageTexture.create_from_image(image)
 
 
 ## Keep track of known files and their dependencies
@@ -154,12 +168,11 @@ func update_import_paths(from_path: String, to_path: String) -> void:
 			main_view.pristine_text = main_view.code_edit.text
 
 		# Open the file and update the path
-		var file = FileAccess.open(dependent.path, FileAccess.READ)
+		var file: FileAccess = FileAccess.open(dependent.path, FileAccess.READ)
 		var text = file.get_as_text().replace(from_path, to_path)
-		file = null
+		
 		file = FileAccess.open(dependent.path, FileAccess.WRITE)
 		file.store_string(text)
-		file = null
 	
 	save_dialogue_cache()
 
@@ -179,9 +192,8 @@ func update_dialogue_file_cache() -> void:
 	
 	# Open our cache file if it exists
 	if FileAccess.file_exists(DialogueConstants.CACHE_PATH):
-		var file = FileAccess.open(DialogueConstants.CACHE_PATH, FileAccess.READ)
+		var file: FileAccess = FileAccess.open(DialogueConstants.CACHE_PATH, FileAccess.READ)
 		cache = JSON.parse_string(file.get_as_text())
-		file = null
 	
 	# Scan for dialogue files
 	var current_files: PackedStringArray = _get_dialogue_files_in_filesystem()
@@ -197,17 +209,16 @@ func update_dialogue_file_cache() -> void:
 
 ## Persist the cache
 func save_dialogue_cache() -> void:
-	var file = FileAccess.open(DialogueConstants.CACHE_PATH, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(DialogueConstants.CACHE_PATH, FileAccess.WRITE)
 	file.store_string(JSON.stringify(dialogue_file_cache))
-	file = null
 
 
 ## Recursively find any dialogue files in a directory
 func _get_dialogue_files_in_filesystem(path: String = "res://") -> PackedStringArray:
 	var files: PackedStringArray = []
 	
-	var dir = DirAccess.open(path)
-	if dir != null:
+	if DirAccess.dir_exists_absolute(path):
+		var dir = DirAccess.open(path)
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -236,5 +247,5 @@ func _on_files_moved(old_file: String, new_file: String) -> void:
 
 func _on_file_removed(file: String) -> void:
 	recompile_dependent_files(file)
-	if is_instance_valid(main_view) and main_view.current_file_path == file:
-		main_view.current_file_path = ""
+	if is_instance_valid(main_view):
+		main_view.close_file(file)

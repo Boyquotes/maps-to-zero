@@ -52,21 +52,23 @@ var save_data: Dictionary:
 		attack_can_go_to_next = value
 		if value and state_transition_request_buffer:
 			request_state_transition(state_transition_request_buffer)
-@export var cutscene_mode: bool:
-	set(value):
-		cutscene_mode = value
-		if not is_ready:
-			await ready
-			await get_tree().create_timer(0.1).timeout
-		GameManager.actors_original_cutscene_mode_value[self] = value
-		
-		input_enabled = not cutscene_mode
-		
-		state_machine.set_process(not cutscene_mode)
-		state_machine.set_physics_process(not cutscene_mode)
-		
-		set_collision_layer_value(2, not cutscene_mode)
-		velocity = Vector2.ZERO
+@export var cutscene_mode: bool
+func set_cutscene_mode(value: bool) -> void:
+	cutscene_mode = value
+	if not is_ready:
+		await ready
+	GameManager.actors_original_cutscene_mode_value[self] = value
+	
+	input_enabled = not cutscene_mode
+	
+	state_machine.set_process(not cutscene_mode)
+	state_machine.set_physics_process(not cutscene_mode)
+	set_collision_layer_value(2, not cutscene_mode)
+	velocity = Vector2.ZERO
+	
+	if state_machine.state.name == "Defeat":
+		state_machine.enter_initial_state()
+
 @export var input_enabled: bool:
 	set(value):
 		input_enabled = value
@@ -110,7 +112,7 @@ func _ready():
 	resources.set_max_resource(ActorResources.Type.HP, max_hp)
 	resources.set_resource(ActorResources.Type.HP, max_hp)
 	resources.resource_depleted.connect(_on_resource_depleted)
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.01).timeout
 	is_ready = true
 
 func _physics_process(_delta):
@@ -133,11 +135,15 @@ func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Ty
 		ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent(), hitbox.hit_sfx)
 		resources.change_resource(type, -base_damage)
 
+
 func _on_resource_depleted(type: ActorResources.Type) -> void:
 	match type:
 		ActorResources.Type.HP:
-			defeated.emit()
-			state_machine.transition_to("Defeat")
+			defeat()
+
+func defeat() -> void:
+	defeated.emit()
+	state_machine.transition_to("Defeat")
 
 
 func request_state_transition(target_state_name : String, msg: Dictionary = {}) -> bool:

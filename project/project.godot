@@ -19,12 +19,17 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://states/core/actor_2d_state.gd"
 }, {
+"base": "Marker2D",
+"class": &"ActorCutsceneTransformer",
+"language": &"GDScript",
+"path": "res://sidescroller/core/actor_cutscene_transformer.gd"
+}, {
 "base": "Node",
 "class": &"ActorResources",
 "language": &"GDScript",
 "path": "res://sidescroller/core/actor_resources.gd"
 }, {
-"base": "Marker2D",
+"base": "ActorCutsceneTransformer",
 "class": &"ActorTransformer2D",
 "language": &"GDScript",
 "path": "res://sidescroller/core/actor_2d_transformer.gd"
@@ -57,7 +62,7 @@ _global_script_classes=[{
 "base": "Trigger",
 "class": &"CameraSettingsTrigger",
 "language": &"GDScript",
-"path": "res://core/camera_limits_trigger.gd"
+"path": "res://core/camera_settings_trigger.gd"
 }, {
 "base": "Node2D",
 "class": &"Cutscene",
@@ -124,11 +129,6 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://sidescroller/core/particles_2d_queue.gd"
 }, {
-"base": "Marker2D",
-"class": &"PlayerTransformer",
-"language": &"GDScript",
-"path": "res://sidescroller/core/player_transformer.gd"
-}, {
 "base": "Node",
 "class": &"PopupFactory",
 "language": &"GDScript",
@@ -138,6 +138,11 @@ _global_script_classes=[{
 "class": &"ScreenTransitionTrigger",
 "language": &"GDScript",
 "path": "res://core/screen_transition_trigger.gd"
+}, {
+"base": "Node2D",
+"class": &"SidescrollerMain",
+"language": &"GDScript",
+"path": "res://sidescroller/sidescroller_main.gd"
 }, {
 "base": "Marker2D",
 "class": &"Spawner2D",
@@ -202,6 +207,7 @@ _global_script_classes=[{
 _global_script_class_icons={
 "Actor2D": "",
 "Actor2DState": "",
+"ActorCutsceneTransformer": "",
 "ActorResources": "",
 "ActorTransformer2D": "",
 "AnimationState": "",
@@ -223,9 +229,9 @@ _global_script_class_icons={
 "Music": "",
 "ParticleSpawner": "",
 "Particles2DQueue": "",
-"PlayerTransformer": "",
 "PopupFactory": "",
 "ScreenTransitionTrigger": "",
+"SidescrollerMain": "",
 "Spawner2D": "",
 "Stage": "",
 "StageChangeTrigger": "",
@@ -250,10 +256,10 @@ config/features=PackedStringArray("4.0")
 
 GlobalVariables="*res://core/global_variables.gd"
 MusicManager="*res://core/music_manager.tscn"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 DialogUtilities="*res://core/dialog/dialog_utilities.gd"
 GameManager="*res://core/game_manager.tscn"
 SaveData="*res://core/save_data.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [display]
 

@@ -2,10 +2,17 @@ extends Node
 
 signal screen_transition_finished
 
+const STAGE_PATHS := {
+	"HORIZON_HILLS_SMALL_CAVE" : "res://assets/stages/horizon_hills/horizon_hills_small_cave.tscn",
+	"HORIZON_HILLS_COMBAT_CAVE_TUTORIAL" : "res://assets/stages/horizon_hills/horizon_hills_combat_cave_tutorial.tscn",
+	"HORIZON_HILLS_CAVE_ENTRANCE" : "res://assets/stages/horizon_hills/horizon_hills_cave_entrance.tscn"
+}
+
 var actors := {}
 var actors_original_cutscene_mode_value := {}
-var _sidescroller_main
+var sidescroller_main: SidescrollerMain
 var popup_canvas: CanvasLayer
+var current_stage_id: String
 
 var cutscene_mode: bool:
 	set(value):
@@ -14,14 +21,14 @@ var cutscene_mode: bool:
 			actors_original_cutscene_mode_value.clear()
 			for actor in actors.values():
 				actors_original_cutscene_mode_value[actor] = actor.cutscene_mode
-				actor.cutscene_mode = true
+				actor.set_cutscene_mode(true)
 			show_cutscene_bars(1.0)
 		else:
 			for actor in actors.values():
 				if actors_original_cutscene_mode_value.has(actor):
-					actor.cutscene_mode = actors_original_cutscene_mode_value[actor]
+					actor.set_cutscene_mode(actors_original_cutscene_mode_value[actor])
 				else:
-					actor.cutscene_mode = false
+					actor.set_cutscene_mode(false)
 			hide_cutscene_bars(1.0)
 
 var player: Actor2D
@@ -86,12 +93,12 @@ func screen_transition(animation: Enums.ScreenTransition, duration:=1.0) -> void
 	screen_transition_finished.emit()
 
 
-func request_stage_change(stage_file_path: String, player_entry_point := 0) -> void:
-	var stage = load(stage_file_path)
-	SaveData.stage_file_path = stage_file_path
-	_sidescroller_main.change_stage(stage, player_entry_point)
+func request_stage_change(stage_id: String, player_entry_point := 0) -> void:
+	var stage = load(STAGE_PATHS[stage_id])
+	current_stage_id = stage_id
+	sidescroller_main.change_stage(stage, player_entry_point)
 
 
 func reload() -> void:
-	var stage = load(SaveData.stage_file_path)
-	_sidescroller_main.change_stage(stage, 0, true)
+	var stage = load(STAGE_PATHS[SaveData.stage_id])
+	sidescroller_main.change_stage(stage, 0, true)

@@ -15,7 +15,7 @@ func _ready():
 		if not player_respawning:
 			start_gameplay()
 
-func start_gameplay() -> void:\
+func start_gameplay() -> void:
 	start_music()
 
 func start_music() -> void:

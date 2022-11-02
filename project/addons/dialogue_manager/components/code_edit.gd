@@ -4,6 +4,7 @@ extends CodeEdit
 
 signal active_title_change(title: String)
 signal error_clicked(line_number: int)
+signal external_file_requested(path: String, title: String)
 
 
 const DialogueParser = preload("res://addons/dialogue_manager/components/parser.gd")
@@ -45,6 +46,7 @@ var colors: Dictionary:
 		syntax_highlighter.add_keyword_color("false", colors.numbers)
 		syntax_highlighter.number_color = colors.numbers
 		syntax_highlighter.add_color_region("\"", "\"", colors.strings)
+		syntax_highlighter.add_color_region("\'", "\'", colors.strings)
 		
 		# Mutations
 		syntax_highlighter.add_keyword_color("do", colors.mutations)
@@ -113,8 +115,7 @@ func _can_drop_data(at_position: Vector2, data) -> bool:
 
 
 func _drop_data(at_position: Vector2, data) -> void:
-	var replace_regex: RegEx = RegEx.new()
-	replace_regex.compile("[^a-zA-Z_0-9]+")
+	var replace_regex: RegEx = RegEx.create_from_string("[^a-zA-Z_0-9]+")
 	
 	var files: PackedStringArray = Array(data.files).filter(func(f): return f.get_extension() == "dialogue")
 	for file in files:
@@ -281,7 +282,11 @@ func move_line(offset: int) -> void:
 ### Signals
 
 
-func _on_code_edit_symbol_validate(symbol):
+func _on_code_edit_symbol_validate(symbol: String) -> void:
+	if symbol.begins_with("res://") and symbol.ends_with(".dialogue"):
+		set_symbol_lookup_word_as_valid(true)
+		return
+	
 	for title in get_titles():
 		if symbol == title:
 			set_symbol_lookup_word_as_valid(true)
@@ -289,11 +294,14 @@ func _on_code_edit_symbol_validate(symbol):
 	set_symbol_lookup_word_as_valid(false)
 
 
-func _on_code_edit_symbol_lookup(symbol, line, column):
-	go_to_title(symbol)
+func _on_code_edit_symbol_lookup(symbol: String, line: int, column: int) -> void:
+	if symbol.begins_with("res://") and symbol.ends_with(".dialogue"):
+		emit_signal("external_file_requested", symbol, "")
+	else:
+		go_to_title(symbol)
 
 
-func _on_code_edit_text_changed():
+func _on_code_edit_text_changed() -> void:
 	request_code_completion(true)
 
 
