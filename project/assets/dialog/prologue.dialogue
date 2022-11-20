@@ -1,0 +1,44 @@
+~ cutscene_1
+
+???: Hey. You awake?
+
+do DialogUtilities.animate("alisa_waking_up")
+
+do DialogUtilities.actor_expression("Kanna", "energetic")
+???: Hi! How are you? I'm Kanna! What's your name?
+Silent Girl: ...
+Kanna: I'm with the Treasure Hunting Club. We're recruiting new members right now. Would you like to know more?
+do DialogUtilities.actor_expression("Alisa", "sweat_drop")
+Silent Girl: ...
+do DialogUtilities.actor_animate("Kanna", "hop")
+Kanna: We explore the ruins and dungeons around the city looking for adventure and treasure!
+do DialogUtilities.actor_animate("Kanna", "spell_cast")
+Kanna: If you've ever wanted to leave the city and see all the sights of nature!
+Kanna: Trust me, it also helps out a ton with your combat skills.
+do DialogUtilities.actor_animate("Kanna", "stand")
+Kanna: Plus, you get to keep whatever you find.
+Kanna: You can do whatever you want with the treasure you find. Including selling it off for cash if you need it.
+Kanna: Well, that's it for my introductory spiel.
+do DialogUtilities.actor_expression("Kanna", "energetic")
+Kanna: If you'd like to come to our first meeting, you can find us in the Art Building.
+Kanna: No commitment at all! You can leave anytime you like!
+do DialogUtilities.actor_expression("Kanna", "sweat_drop")
+Kanna: I wish we didn't have to specify that upfront, but you know how it is...
+Kanna: Well, if you're interested, just drop on by!
+Kanna: See you later!
+
+do DialogUtilities.animate("kanna_walking_away")
+
+do DialogUtilities.actor_expression("Alisa", "sweat_drop")
+Alisa: ...
+Alisa: What the hell?
+Alisa: Ugh, can't people tell I don't care about their cults?
+
+do DialogUtilities.actor_animate("Alisa", "stand")
+do DialogUtilities.wait(1)
+
+Alisa: Whatever, I'm hungry.
+Alisa: I'm gonna go grab some snacks then get out of here.
+
+do DialogUtilities.animate("end")
+do DialogUtilities.end()

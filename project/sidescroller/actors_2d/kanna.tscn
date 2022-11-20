@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://brcsq6nc8hw0"]
+[gd_scene load_steps=52 format=3 uid="uid://brcsq6nc8hw0"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://bkt2ed1pbpeg6" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -786,6 +786,60 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_kcrrv"]
+resource_name = "hop"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2d:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(768, 384, 128, 128), Rect2(896, 384, 128, 128)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2d:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("JumpSfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2d:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, -16), Vector2(0, -32), Vector2(0, -16)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jukqc"]
 _data = {
 "RESET": SubResource("Animation_m25ab"),
@@ -796,6 +850,7 @@ _data = {
 "defeat": SubResource("Animation_fwy7n"),
 "fall": SubResource("Animation_8ntag"),
 "flinch": SubResource("Animation_lfud8"),
+"hop": SubResource("Animation_kcrrv"),
 "idle": SubResource("Animation_x3o60"),
 "jump": SubResource("Animation_4qxpq"),
 "jump_off": SubResource("Animation_ls0vq"),
@@ -889,6 +944,7 @@ autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_jukqc")
 }
+next/hop = &"stand"
 
 [node name="Sprite2d" type="Sprite2D" parent="Inner/Visuals" index="1"]
 material = SubResource("ShaderMaterial_hf4h6")

@@ -258,8 +258,7 @@ func create_dialogue_line(data: Dictionary) -> Dictionary:
 				mutation = data.mutation
 			}
 		
-		_:
-			return create_empty_dialogue_line()
+	return create_empty_dialogue_line()
 
 
 # Create a response
@@ -312,7 +311,9 @@ func mutate(mutation: Dictionary) -> void:
 				
 			"emit":
 				for state in get_game_states():
-					if state.has_signal(args[0]):
+					if typeof(state) == TYPE_DICTIONARY:
+						continue
+					elif state.has_signal(args[0]):
 						match args.size():
 							1:
 								state.emit_signal(args[0])
@@ -330,7 +331,11 @@ func mutate(mutation: Dictionary) -> void:
 								state.emit_signal(args[0], args[1], args[2], args[3], args[4], args[5], args[6])
 							8:
 								state.emit_signal(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7])
-						
+				
+				# The signal hasn't been found anywhere
+				printerr("\"%s\" is not a signal on any game states (%s)" % [args[0], str(get_game_states())])
+				assert(false, "Missing signal on calling object. See Output for details.")
+				
 			"debug":
 				prints("Debug:", args)
 	
@@ -806,8 +811,8 @@ func compare(operator: String, first_value, second_value) -> bool:
 					return false
 			else:
 				return first_value != second_value
-		_:
-			return false
+
+	return false
 
 
 func apply_operation(operator: String, first_value, second_value):
@@ -828,8 +833,8 @@ func apply_operation(operator: String, first_value, second_value):
 			return first_value and second_value
 		"or":
 			return first_value or second_value
-		_:
-			assert(false, "Unknown operator")
+	
+	assert(false, "Unknown operator")
 
 
 # Check if a dialogue line contains meaningful information

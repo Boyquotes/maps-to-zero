@@ -48,15 +48,33 @@
 resource_name = "AlisaSignalManager"
 script/source = "extends Node
 
+var actor: Actor2D
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	await owner.ready
+	actor = owner
+	
+	actor.state_machine.get_state(\"Attack\").hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+		)
+	actor.state_machine.get_state(\"Attack2\").hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+		)
+	actor.state_machine.get_state(\"Attack3\").hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+		)
+	actor.state_machine.get_state(\"Attack3\").first_hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.SP, 1, true)
+		)
+	actor.state_machine.get_state(\"AirAttack\").hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+		)
+	actor.state_machine.get_state(\"AirAttack2\").hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+		)
+	actor.state_machine.get_state(\"Dash\").hit_confirmed.connect(func():
+		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+		)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvr6v"]
@@ -3089,7 +3107,6 @@ size = Vector2(192, 128)
 
 [node name="Alisa" instance=ExtResource("1_a8ind")]
 collision_mask = 51
-team = null
 attack_input_listening = false
 attack_can_cancel = false
 attack_can_go_to_next = false

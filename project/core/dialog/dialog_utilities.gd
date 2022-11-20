@@ -19,11 +19,20 @@ func show_dialog_balloon(caller: DialogNode, resource: Resource, title: String =
 
 func animate(animation_name: String) -> void:
 	calling_node.play_animation(animation_name)
-	await resumed
+	await resumed # Will resume dialog in dialogue_manager
 
 
 func resume() -> void:
 	resumed.emit()
+
+
+func actor_expression(actor_name: String, expression_type: String) -> void:
+	pass
+
+func actor_animate(actor_name: String, animation_name: String) -> void:
+	var actor = GameManager.actors[actor_name]
+	if not actor == null:
+		actor.play_animation(animation_name)
 
 
 func show_overworld_dialog_balloon(resource: Resource, title: String = "0", next_line_delay := 5.0, extra_game_states: Array = []) -> void:
@@ -38,10 +47,6 @@ func show_overworld_dialog_balloon(resource: Resource, title: String = "0", next
 func end() -> void:
 	if is_instance_valid(dialog_balloon):
 		dialog_balloon.queue_free()
-
-
-func actor_animate(actor_name: String, animation_name: String) -> void:
-	GameManager.actors[actor_name].play_animation(animation_name)
 
 
 func wait(wait_time: float) -> void:

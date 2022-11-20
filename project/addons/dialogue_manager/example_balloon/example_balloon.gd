@@ -71,7 +71,7 @@ var dialogue_line: Dictionary:
 			responses_menu.modulate.a = 1
 			configure_menu()
 		elif dialogue_line.time != null:
-			var time = dialogue_line.dialogue.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
+			var time = dialogue_line.text.length() * 0.02 if dialogue_line.time == "auto" else dialogue_line.time.to_float()
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
@@ -108,6 +108,8 @@ func next(next_id: String) -> void:
 
 # Set up keyboard movement and signals for the response menu
 func configure_menu() -> void:
+	balloon.focus_mode = Control.FOCUS_NONE
+	
 	var items = get_responses()
 	for i in items.size():
 		var item: Control = items[i]
@@ -172,6 +174,7 @@ func _on_response_gui_input(event: InputEvent, item: Control) -> void:
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	if not is_waiting_for_input: return
+	if dialogue_line.responses.size() > 0: return
 
 	# When there are no response options the balloon itself is the clickable thing	
 	get_viewport().set_input_as_handled()
