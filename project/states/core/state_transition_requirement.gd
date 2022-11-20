@@ -21,3 +21,8 @@ func _ready():
 # Virtual function.
 func get_is_ready() -> bool:
 	return false
+
+
+# Virtual function
+func enter(msg:={}) -> void:
+	pass

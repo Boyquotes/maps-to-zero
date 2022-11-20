@@ -4,13 +4,17 @@ extends Node
 signal resource_changed(type, new_value, old_value, max_value)
 signal resource_depleted(type)
 
-enum Type { HP }
+enum Type { HP, MP, SP }
 var _resources := {
-	Type.HP : 0.0
+	Type.HP : 0.0,
+	Type.MP : 0.0,
+	Type.SP : 0.0
 }
 
 var _max_resources := {
-	Type.HP : 0.0
+	Type.HP : 0.0,
+	Type.MP : 0.0,
+	Type.SP : 0.0
 }
 
 

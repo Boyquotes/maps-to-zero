@@ -112,7 +112,25 @@ do DialogUtilities.end()
 
 ~ kanna_wall_dialog
 
-Kanna: Oh, don't mind me. I'm just resting my old bones. Haha!
-Kanna: Go on, we'll be able to get out of here once we know where the city is.
+Dragon Girl: Oh, don't mind me. I'm just resting my old bones. Haha!
+Dragon Girl: Go on, we'll be able to get out of here once we know where the city is.
 
+do DialogUtilities.end()
+
+
+~ alisa_looks_at_tower
+
+Alisa: Oh, is that thing over there what she's talking about?
+Alisa: That's a pretty big tower.
+Alisa: Nah, forget big, that thing's taller than most skyscrapers that I can remember.
+Alisa: At least I think it is.
+Alisa: I don't remember there being any skyscrapers in Hell though.
+Alisa: Biggest building I can think of there is Gate Castle.
+Alisa: But even that's probably tiny compared to this.
+Alisa: Yeah, look at this, I'm probably standing on a mountain or something, and this thing just keeps on going.
+Alisa: It's practically touching the clouds over there.
+Alisa: Well, that probably means there's people over there.
+Alisa: Better find a way there.
+
+do DialogUtilities.animate("end")
 do DialogUtilities.end()

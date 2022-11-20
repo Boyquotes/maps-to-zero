@@ -61,6 +61,8 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	state.enter(msg)
 	for transition in state.state_transitions:
 		transition.enter(msg)
+	for req in state.transition_requirements:
+		req.enter(msg)
 	emit_signal("transitioned", state.name, old_state.name)
 
 

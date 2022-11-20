@@ -23,12 +23,12 @@ var first_death := false
 
 
 func save_exists(save_file_number: int) -> bool:
-	var save_file_path := SAVE_GAME_FOLDER + "save_" + save_file_number + ".json"
+	var save_file_path := SAVE_GAME_FOLDER + "save_" + str(save_file_number) + ".json"
 	return FileAccess.file_exists(save_file_path)
 
 
 func write_savegame(save_file_number: int) -> void:
-	var save_file_path := SAVE_GAME_FOLDER + "save_" + save_file_number + ".json"
+	var save_file_path := SAVE_GAME_FOLDER + "save_" + str(save_file_number) + ".json"
 	
 	var file := FileAccess.open(save_file_path, FileAccess.WRITE)
 	if file == null:
@@ -53,7 +53,7 @@ func write_savegame(save_file_number: int) -> void:
 
 
 func load_savegame(save_file_number: int) -> void:
-	var save_file_path := SAVE_GAME_FOLDER + "save_" + save_file_number + ".json"
+	var save_file_path := SAVE_GAME_FOLDER + "save_" + str(save_file_number) + ".json"
 	
 	var file := FileAccess.open(save_file_path, FileAccess.READ)
 	if file == null:

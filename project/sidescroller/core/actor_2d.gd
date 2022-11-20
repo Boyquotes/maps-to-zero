@@ -6,6 +6,8 @@ signal defeated
 var save_data: Dictionary:
 	set(data):
 		max_hp = data.max_hp
+		max_mp = data.max_mp
+		max_sp = data.max_sp
 		speed = data.speed
 		jump_max_height = data.jump_max_height
 		jump_max_height_time = data.jump_max_height_time
@@ -17,6 +19,8 @@ var save_data: Dictionary:
 	get:
 		var data = {}
 		data.max_hp = max_hp
+		data.max_mp = max_mp
+		data.max_sp = max_sp
 		data.speed = speed / GlobalVariables.TILE_SIZE.x
 		data.jump_max_height = jump_max_height / GlobalVariables.TILE_SIZE.y
 		data.jump_max_height_time = jump_max_height_time
@@ -28,6 +32,8 @@ var save_data: Dictionary:
 		return data
 
 @export var max_hp := 100.0
+@export var max_mp := 300.0
+@export var max_sp := 0.0
 @export var speed = 18: # In terms of tiles/sec
 	get:
 		return speed * GlobalVariables.TILE_SIZE.x
@@ -41,9 +47,9 @@ var save_data: Dictionary:
 @export var team : GameUtilities.Teams:
 	set(value):
 		if team:
-			remove_from_group("team" + team)
+			remove_from_group("team" + str(team))
 		team = value
-		add_to_group("team" + team)
+		add_to_group("team" + str(team))
 
 @export var attack_input_listening : bool
 @export var attack_can_cancel : bool
@@ -111,6 +117,10 @@ var is_ready: bool = false
 func _ready():
 	resources.set_max_resource(ActorResources.Type.HP, max_hp)
 	resources.set_resource(ActorResources.Type.HP, max_hp)
+	resources.set_max_resource(ActorResources.Type.MP, max_mp)
+	resources.set_resource(ActorResources.Type.MP, max_mp)
+	resources.set_max_resource(ActorResources.Type.SP, max_sp)
+	resources.set_resource(ActorResources.Type.SP, max_sp)
 	resources.resource_depleted.connect(_on_resource_depleted)
 	await get_tree().create_timer(0.01).timeout
 	is_ready = true

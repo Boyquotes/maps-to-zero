@@ -115,6 +115,9 @@ bbcode_enabled = true
 text = "[center]Ouch! Game Over!
 Retry?[/center]"
 
+[node name="HBoxContainer" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(0, 50)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ons8l")

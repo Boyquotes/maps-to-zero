@@ -38,3 +38,12 @@ func show_overworld_dialog_balloon(resource: Resource, title: String = "0", next
 func end() -> void:
 	if is_instance_valid(dialog_balloon):
 		dialog_balloon.queue_free()
+
+
+func actor_animate(actor_name: String, animation_name: String) -> void:
+	GameManager.actors[actor_name].play_animation(animation_name)
+
+
+func wait(wait_time: float) -> void:
+	await get_tree().create_timer(wait_time).timeout
+	resume()

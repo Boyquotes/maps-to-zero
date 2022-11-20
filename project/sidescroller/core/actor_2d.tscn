@@ -17,7 +17,6 @@
 collision_layer = 2
 collision_mask = 99
 script = ExtResource("1_7iiwt")
-team = 1
 
 [node name="Resources" type="Node" parent="."]
 script = ExtResource("8_gowqb")
