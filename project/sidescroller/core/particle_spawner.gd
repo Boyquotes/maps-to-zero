@@ -19,8 +19,6 @@ const _one_shot_particles := {
 
 const FOLDER = "res://assets/particles_one_shot/"
 
-const particles := {} # { particles_name, load(particles_name) }
-
 static func spawn_one_shot(one_shot_particles: OneShotParticles, \
 							target_global_position : Vector2, \
 							parent : Node, \
@@ -29,9 +27,9 @@ static func spawn_one_shot(one_shot_particles: OneShotParticles, \
 		return
 	
 	var file_name = _one_shot_particles[one_shot_particles]
-	if not particles.has(file_name):
-		particles[file_name] = load(FOLDER + file_name + ".tscn")
-	var particles_2d_one_shot = particles[file_name].instantiate()
+	if not GlobalVariables.particles.has(file_name):
+		GlobalVariables.particles[file_name] = load(FOLDER + file_name + ".tscn")
+	var particles_2d_one_shot = GlobalVariables.particles[file_name].instantiate()
 	
 	parent.add_child(particles_2d_one_shot)
 	particles_2d_one_shot.global_position = target_global_position

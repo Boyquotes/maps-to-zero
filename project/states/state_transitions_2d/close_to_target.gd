@@ -29,4 +29,3 @@ func exit() -> void:
 func check() -> void:
 	if actor.target_manager.get_distance() < self.distance_closer_than:
 		state.state_machine.transition_to(next_state)
-		print_debug(next_state)

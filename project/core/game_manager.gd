@@ -5,7 +5,8 @@ signal screen_transition_finished
 const STAGE_PATHS := {
 	"HORIZON_HILLS_SMALL_CAVE" : "res://assets/stages/horizon_hills/horizon_hills_small_cave.tscn",
 	"HORIZON_HILLS_COMBAT_CAVE_TUTORIAL" : "res://assets/stages/horizon_hills/horizon_hills_combat_cave_tutorial.tscn",
-	"HORIZON_HILLS_CAVE_ENTRANCE" : "res://assets/stages/horizon_hills/horizon_hills_cave_entrance.tscn"
+	"HORIZON_HILLS_CAVE_ENTRANCE" : "res://assets/stages/horizon_hills/horizon_hills_cave_entrance.tscn",
+	"HORIZON_HILLS_BOSS_ARENA" : "res://assets/stages/horizon_hills/horizon_hills_boss_arena.tscn",
 }
 
 var actors := {}
@@ -40,7 +41,7 @@ func show_cutscene_bars(duration:= 1.0) -> void:
 	if is_equal_approx(duration, 0.0):
 		$CutsceneBars/Control/AnimationPlayer.play("showing")
 	else:
-		$CutsceneBars/Control/AnimationPlayer.playback_speed = 1.0 / duration
+		$CutsceneBars/Control/AnimationPlayer.speed_scale = 1.0 / duration
 		$CutsceneBars/Control/AnimationPlayer.play("show_bars")
 
 
@@ -48,7 +49,7 @@ func hide_cutscene_bars(duration:= 1.0) -> void:
 	if is_equal_approx(duration, 0.0):
 		$CutsceneBars/Control.visible = false
 	else:
-		$CutsceneBars/Control/AnimationPlayer.playback_speed = 1.0 / duration
+		$CutsceneBars/Control/AnimationPlayer.speed_scale = 1.0 / duration
 		$CutsceneBars/Control/AnimationPlayer.play("hide_bars")
 
 func enable_gameplay_camera_current(transition_time := 1.0) -> void:
@@ -82,7 +83,7 @@ func set_gameplay_camera_current(value: bool, _transition_time := 1.0) -> void:
 
 func screen_transition(animation: Enums.ScreenTransition, duration:=1.0) -> void:
 	var animation_player: AnimationPlayer = $ScreenTransition/AnimationPlayer
-	animation_player.playback_speed = 1.0 / duration
+	animation_player.speed_scale = 1.0 / duration
 	var dict := {
 		Enums.ScreenTransition.DEFAULT: "fade_in",
 		Enums.ScreenTransition.FADE_IN: "fade_in",

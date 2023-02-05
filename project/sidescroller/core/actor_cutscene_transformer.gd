@@ -5,7 +5,7 @@ extends Marker2D
 @export var actor_name: String = ""
 @export var center_offset: Vector2 = Vector2(0, 16)
 
-@export_enum(Right, Left) var look_direction:
+@export_enum("Right", "Left") var look_direction:
 	set(value):
 		if not actor:
 			await ready

@@ -24,8 +24,8 @@ color_ramp = SubResource("GradientTexture1D_hlph1")
 [node name="DefeatExplosionDefault" type="GPUParticles2D"]
 emitting = false
 amount = 32
+process_material = SubResource("ParticleProcessMaterial_ot8oq")
+texture = ExtResource("1_lk34y")
 lifetime = 0.6
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_ot8oq")
-texture = ExtResource("1_lk34y")

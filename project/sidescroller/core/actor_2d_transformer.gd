@@ -16,3 +16,12 @@ func _physics_process(delta):
 	
 	actor.rotation = rotation
 #	actor.inner.scale = scale
+
+func enable() -> void:
+	active = true
+	last_frame_position = position - center_offset
+
+func disable() -> void:
+	active = false
+	actor.rotation = 0
+	actor.velocity = Vector2.ZERO

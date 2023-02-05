@@ -1,0 +1,569 @@
+[gd_scene load_steps=62 format=3 uid="uid://kryuf6013m44"]
+
+[ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_psjvg"]
+[ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="8_1sghc"]
+[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="9_0kevy"]
+[ext_resource type="Script" path="res://sidescroller/core/parallax_layer_group.gd" id="10_ikhqu"]
+[ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stage_objects/horizon_hills_cave/008_background.png" id="11_3m6c3"]
+[ext_resource type="Texture2D" uid="uid://b6vl702epfpp3" path="res://assets/stage_objects/horizon_hills_cave/007_background.png" id="12_dho2y"]
+[ext_resource type="Texture2D" uid="uid://cbnnaglydt8qn" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_01.png" id="13_vitd8"]
+[ext_resource type="Texture2D" uid="uid://b7wpnw5gnjn38" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_02.png" id="14_fi8d7"]
+[ext_resource type="Texture2D" uid="uid://6i4omg7fior5" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_03.png" id="15_vpgp4"]
+[ext_resource type="Texture2D" uid="uid://bfqenr2gqptvc" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_04.png" id="16_t1vrc"]
+[ext_resource type="Texture2D" uid="uid://bygi5isn1tc6q" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_05.png" id="17_ob6jo"]
+[ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_06.png" id="18_l0yx7"]
+[ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="19_vle2c"]
+[ext_resource type="Texture2D" uid="uid://c0gjip12lqo4f" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_02.png" id="20_xsrbt"]
+[ext_resource type="Texture2D" uid="uid://vs6fl6ocfdml" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_03.png" id="21_blgk1"]
+[ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="22_n4uk8"]
+[ext_resource type="Texture2D" uid="uid://b0a7br80rjkud" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_05.png" id="23_v4n64"]
+[ext_resource type="Texture2D" uid="uid://cgmxq5jci6hm1" path="res://assets/stage_objects/horizon_hills_cave/004_arch_01.png" id="24_qyhjo"]
+[ext_resource type="Texture2D" uid="uid://d1pocaudoqlhb" path="res://assets/stage_objects/horizon_hills_cave/004_arch_02.png" id="25_e4bgc"]
+[ext_resource type="Texture2D" uid="uid://i38egi7bvejg" path="res://assets/stage_objects/horizon_hills_cave/003_ceiling.png" id="26_ju2yh"]
+[ext_resource type="Texture2D" uid="uid://ibgron3bop7l" path="res://assets/stage_objects/horizon_hills_cave/003_ground.png" id="27_5t857"]
+[ext_resource type="Texture2D" uid="uid://ct52o1u13p4no" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_001.png" id="28_cl3el"]
+[ext_resource type="Texture2D" uid="uid://bq7r3f053pyru" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_002.png" id="29_ywql8"]
+[ext_resource type="Texture2D" uid="uid://5jf62yx5rffe" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_003.png" id="30_tswc8"]
+[ext_resource type="Texture2D" uid="uid://d4fp61opyh8ot" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_004.png" id="31_frjwh"]
+[ext_resource type="Texture2D" uid="uid://df7akxkcxu6jw" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_005.png" id="32_rwxv3"]
+[ext_resource type="Texture2D" uid="uid://byjpuu6iukcgl" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_006.png" id="33_f44l0"]
+[ext_resource type="Texture2D" uid="uid://dgv1e2qrl0ndd" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_007.png" id="34_68u5g"]
+[ext_resource type="Texture2D" uid="uid://bymjf8yodgg0c" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_008.png" id="35_s0ncb"]
+[ext_resource type="Texture2D" uid="uid://o3ha8x0d80pn" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_009.png" id="36_t2dci"]
+[ext_resource type="Texture2D" uid="uid://5otfyxo84o4e" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_010.png" id="37_k43de"]
+[ext_resource type="Texture2D" uid="uid://ogx5dyhq4n4g" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_011.png" id="38_t78ab"]
+[ext_resource type="Texture2D" uid="uid://4qt5vl1tu0hg" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_012.png" id="39_4j7ad"]
+[ext_resource type="Texture2D" uid="uid://8h1aymvk3r38" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_013.png" id="40_x6s68"]
+[ext_resource type="Texture2D" uid="uid://cpglchd5v171m" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_014.png" id="41_5mdq7"]
+[ext_resource type="Texture2D" uid="uid://byiax3cd0jw82" path="res://assets/stage_objects/horizon_hills_cave/002_ceiling.png" id="42_qqid4"]
+[ext_resource type="Texture2D" uid="uid://bs71fjmoi7q0f" path="res://assets/stage_objects/horizon_hills_cave/002_ground.png" id="43_6g3yr"]
+[ext_resource type="Texture2D" uid="uid://cugl8d4s8fuvl" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_001.png" id="44_pcdb1"]
+[ext_resource type="Texture2D" uid="uid://ca7qed5b1lnxe" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_002.png" id="45_s42cy"]
+[ext_resource type="Texture2D" uid="uid://dsspc875pod45" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_003.png" id="46_8tfii"]
+[ext_resource type="Texture2D" uid="uid://8nl3k4u010df" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_004.png" id="47_2f5ln"]
+[ext_resource type="Texture2D" uid="uid://dyxcg8fl1aomk" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_005.png" id="48_hikrm"]
+[ext_resource type="Texture2D" uid="uid://dpjku8ao6bh7a" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_006.png" id="49_w1dxs"]
+[ext_resource type="Texture2D" uid="uid://bfumtj17juj6c" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_007.png" id="50_s3yuj"]
+[ext_resource type="Texture2D" uid="uid://w3l1a4hnosf1" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_008.png" id="51_41nh3"]
+[ext_resource type="Texture2D" uid="uid://ce7lwk4q8bn8v" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_009.png" id="52_xxf6r"]
+[ext_resource type="Texture2D" uid="uid://vci020hoiiq5" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_010.png" id="53_5k4dx"]
+[ext_resource type="Texture2D" uid="uid://cnphquiugqlc7" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_011.png" id="54_g18ln"]
+[ext_resource type="Texture2D" uid="uid://iw7ntk2ffhjm" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_012.png" id="55_cmdvp"]
+[ext_resource type="Texture2D" uid="uid://gb4pkjhgk8le" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_013.png" id="56_dos77"]
+[ext_resource type="PackedScene" uid="uid://b1qwf8q5qkwgt" path="res://sidescroller/actors_2d/egrisi.tscn" id="56_g1esd"]
+[ext_resource type="Texture2D" uid="uid://b307hx4g82awq" path="res://assets/stage_objects/horizon_hills_cave/001_ground.png" id="57_3oypj"]
+[ext_resource type="Texture2D" uid="uid://c0qhq36n2toxm" path="res://assets/stage_objects/horizon_hills_cave/001_ceiling.png" id="58_fwckl"]
+[ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="59_qjw7m"]
+[ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="69_nr2gp"]
+[ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="71_7t53a"]
+
+[sub_resource type="Animation" id="Animation_771j0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerTransformer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTransformer:look_direction")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_1jycl"]
+resource_name = "enter"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerTransformer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-64, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerTransformer:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["walk", "idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerTransformer:look_direction")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerTransformer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerTransformer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"enable"
+}, {
+"args": [],
+"method": &"disable"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mq47r"]
+_data = {
+"RESET": SubResource("Animation_771j0"),
+"enter": SubResource("Animation_1jycl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
+size = Vector2(1504, 768)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm4if"]
+size = Vector2(80, 120)
+
+[node name="Horizon Hills BossArena" instance=ExtResource("1_psjvg")]
+song = 6
+
+[node name="StageEntryPoint" type="Node2D" parent="EntryPoints" index="0"]
+position = Vector2(-640, 256)
+script = ExtResource("8_1sghc")
+transition_animation = 2
+transition_duration = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_mq47r")
+}
+
+[node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint" index="1"]
+scale = Vector2(-1, 1)
+script = ExtResource("9_0kevy")
+actor_name = "PLAYER"
+look_direction = 1
+animation = "walk"
+
+[node name="HorizonHillsSmallCaveBackground" type="Node2D" parent="." index="1"]
+visible = false
+script = ExtResource("10_ikhqu")
+is_visible = false
+
+[node name="Skybox" type="CanvasLayer" parent="HorizonHillsSmallCaveBackground" index="0"]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="HorizonHillsSmallCaveBackground/Skybox" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.337255, 0.54902, 0.878431, 1)
+
+[node name="ParallaxBackground8" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="1"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8" index="0"]
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Background" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8/ParallaxLayer" index="0"]
+position = Vector2(-320, -8)
+texture = ExtResource("11_3m6c3")
+
+[node name="Background2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8/ParallaxLayer" index="1"]
+position = Vector2(320, -8)
+texture = ExtResource("11_3m6c3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8" index="1"]
+
+[node name="ParallaxBackground7" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="2"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground7" index="0"]
+motion_scale = Vector2(0.06, 0.06)
+
+[node name="Background" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground7/ParallaxLayer" index="0"]
+position = Vector2(-320, 0)
+texture = ExtResource("12_dho2y")
+
+[node name="Background2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground7/ParallaxLayer" index="1"]
+position = Vector2(320, 0)
+texture = ExtResource("12_dho2y")
+
+[node name="ParallaxBackground6" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="3"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6" index="0"]
+motion_scale = Vector2(0.08, 0.08)
+
+[node name="Crystal" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="0"]
+position = Vector2(8, 0)
+texture = ExtResource("13_vitd8")
+
+[node name="Crystal2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="1"]
+position = Vector2(272, -136)
+texture = ExtResource("14_fi8d7")
+
+[node name="Crystal3" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="2"]
+position = Vector2(-328, -120)
+texture = ExtResource("15_vpgp4")
+
+[node name="Crystal4" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="3"]
+position = Vector2(-488, -128)
+texture = ExtResource("16_t1vrc")
+
+[node name="Crystal5" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="4"]
+position = Vector2(-72, 152)
+texture = ExtResource("17_ob6jo")
+
+[node name="Crystal6" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="5"]
+position = Vector2(560, 120)
+texture = ExtResource("18_l0yx7")
+
+[node name="ParallaxBackground5" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="4"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5" index="0"]
+motion_scale = Vector2(0.09, 0.09)
+
+[node name="Crystal" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="0"]
+texture = ExtResource("19_vle2c")
+
+[node name="Crystal2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="1"]
+position = Vector2(-480, 0)
+texture = ExtResource("20_xsrbt")
+
+[node name="Crystal3" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="2"]
+position = Vector2(-152, 0)
+texture = ExtResource("21_blgk1")
+
+[node name="Crystal4" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="3"]
+position = Vector2(456, 0)
+texture = ExtResource("22_n4uk8")
+
+[node name="Crystal5" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="4"]
+position = Vector2(384, 0)
+texture = ExtResource("23_v4n64")
+
+[node name="ParallaxBackground4" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="5"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground4" index="0"]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Arch" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground4/ParallaxLayer" index="0"]
+position = Vector2(144, 64)
+scale = Vector2(2, 2)
+texture = ExtResource("24_qyhjo")
+
+[node name="Arch2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground4/ParallaxLayer" index="1"]
+position = Vector2(-328, 56)
+scale = Vector2(2, 2)
+texture = ExtResource("25_e4bgc")
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="6"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3" index="0"]
+motion_scale = Vector2(0.15, 0.15)
+
+[node name="Ceiling" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="0"]
+position = Vector2(-320, -160)
+texture = ExtResource("26_ju2yh")
+
+[node name="Ceiling2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="1"]
+position = Vector2(320, -160)
+texture = ExtResource("26_ju2yh")
+
+[node name="Ground" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="2"]
+position = Vector2(-320, 56)
+texture = ExtResource("27_5t857")
+
+[node name="Ground2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="3"]
+position = Vector2(320, 56)
+texture = ExtResource("27_5t857")
+
+[node name="Crystal" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="4"]
+position = Vector2(0, 176)
+texture = ExtResource("28_cl3el")
+
+[node name="Crystal2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="5"]
+position = Vector2(-200, 176)
+texture = ExtResource("29_ywql8")
+
+[node name="Crystal3" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="6"]
+position = Vector2(-432, 176)
+texture = ExtResource("30_tswc8")
+
+[node name="Crystal4" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="7"]
+position = Vector2(-504, 192)
+texture = ExtResource("31_frjwh")
+
+[node name="Crystal5" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="8"]
+position = Vector2(-624, 184)
+texture = ExtResource("32_rwxv3")
+
+[node name="Crystal6" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="9"]
+position = Vector2(-392, -168)
+texture = ExtResource("33_f44l0")
+
+[node name="Crystal7" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="10"]
+position = Vector2(-144, -152)
+texture = ExtResource("34_68u5g")
+
+[node name="Crystal8" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="11"]
+position = Vector2(64, -160)
+texture = ExtResource("35_s0ncb")
+
+[node name="Crystal9" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="12"]
+position = Vector2(128, -152)
+texture = ExtResource("36_t2dci")
+
+[node name="Crystal10" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="13"]
+position = Vector2(280, -176)
+texture = ExtResource("37_k43de")
+
+[node name="Crystal11" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="14"]
+position = Vector2(416, -152)
+texture = ExtResource("38_t78ab")
+
+[node name="Crystal12" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="15"]
+position = Vector2(376, 184)
+texture = ExtResource("39_4j7ad")
+
+[node name="Crystal13" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="16"]
+position = Vector2(240, 192)
+texture = ExtResource("40_x6s68")
+
+[node name="Crystal14" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="17"]
+position = Vector2(176, 192)
+texture = ExtResource("41_5mdq7")
+
+[node name="Crystal15" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground3/ParallaxLayer" index="18"]
+position = Vector2(-264, 184)
+scale = Vector2(2, 2)
+texture = ExtResource("41_5mdq7")
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="7"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2" index="0"]
+motion_scale = Vector2(0.17, 0.17)
+
+[node name="Ceiling" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="0"]
+position = Vector2(-320, -208)
+texture = ExtResource("42_qqid4")
+
+[node name="Ceiling2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="1"]
+position = Vector2(320, -208)
+texture = ExtResource("42_qqid4")
+
+[node name="Ground" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="2"]
+position = Vector2(-320, 232)
+texture = ExtResource("43_6g3yr")
+
+[node name="Ground2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="3"]
+position = Vector2(320, 232)
+texture = ExtResource("43_6g3yr")
+
+[node name="Crystal" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="4"]
+position = Vector2(16, 208)
+texture = ExtResource("44_pcdb1")
+
+[node name="Crystal2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="5"]
+position = Vector2(-96, 224)
+texture = ExtResource("45_s42cy")
+
+[node name="Crystal3" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="6"]
+position = Vector2(200, 216)
+texture = ExtResource("46_8tfii")
+
+[node name="Crystal4" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="7"]
+position = Vector2(360, 232)
+texture = ExtResource("47_2f5ln")
+
+[node name="Crystal5" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="8"]
+position = Vector2(480, 208)
+texture = ExtResource("48_hikrm")
+
+[node name="Crystal6" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="9"]
+position = Vector2(-320, 248)
+texture = ExtResource("49_w1dxs")
+
+[node name="Crystal7" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="10"]
+position = Vector2(-576, 216)
+texture = ExtResource("50_s3yuj")
+
+[node name="Crystal8" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="11"]
+position = Vector2(0, -200)
+texture = ExtResource("51_41nh3")
+
+[node name="Crystal9" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="12"]
+position = Vector2(352, -200)
+texture = ExtResource("52_xxf6r")
+
+[node name="Crystal10" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="13"]
+position = Vector2(-368, -200)
+texture = ExtResource("53_5k4dx")
+
+[node name="Crystal11" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="14"]
+position = Vector2(-608, -192)
+texture = ExtResource("54_g18ln")
+
+[node name="Crystal12" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="15"]
+position = Vector2(56, -192)
+texture = ExtResource("55_cmdvp")
+
+[node name="Crystal13" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="16"]
+position = Vector2(-136, -200)
+texture = ExtResource("56_dos77")
+
+[node name="Crystal14" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="17"]
+position = Vector2(112, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("45_s42cy")
+
+[node name="Crystal15" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="18"]
+position = Vector2(-256, 216)
+scale = Vector2(2, 2)
+texture = ExtResource("46_8tfii")
+
+[node name="Crystal16" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="19"]
+position = Vector2(288, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("48_hikrm")
+
+[node name="Crystal17" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="20"]
+position = Vector2(-392, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("50_s3yuj")
+
+[node name="Crystal18" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="21"]
+position = Vector2(-280, -184)
+scale = Vector2(2, 2)
+texture = ExtResource("55_cmdvp")
+
+[node name="Crystal19" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="22"]
+position = Vector2(-488, -192)
+scale = Vector2(2, 2)
+texture = ExtResource("56_dos77")
+
+[node name="Crystal20" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground2/ParallaxLayer" index="23"]
+position = Vector2(496, -192)
+scale = Vector2(2, 2)
+texture = ExtResource("53_5k4dx")
+
+[node name="ParallaxBackground1" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="8"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground1" index="0"]
+motion_scale = Vector2(0.2, 0.2)
+
+[node name="Ground" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground1/ParallaxLayer" index="0"]
+position = Vector2(-320, 264)
+texture = ExtResource("57_3oypj")
+
+[node name="Ground2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground1/ParallaxLayer" index="1"]
+position = Vector2(320, 264)
+texture = ExtResource("57_3oypj")
+
+[node name="Ceiling" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground1/ParallaxLayer" index="2"]
+position = Vector2(-320, -208)
+texture = ExtResource("58_fwckl")
+
+[node name="Ceiling2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground1/ParallaxLayer" index="3"]
+position = Vector2(320, -208)
+texture = ExtResource("58_fwckl")
+
+[node name="Whitebox" type="TileMap" parent="." index="2"]
+rotation = -0.00068746
+tile_set = ExtResource("59_qjw7m")
+cell_quadrant_size = 32
+format = 2
+layer_0/name = "Base"
+layer_0/z_index = -1
+layer_1/name = "Background"
+layer_1/enabled = true
+layer_1/modulate = Color(0.733333, 0.662745, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = -10
+layer_1/tile_data = PackedInt32Array(786455, 131072, 2, 720919, 131072, 1, 655383, 131072, 1, 589847, 131072, 1, 524311, 131072, 1, 786454, 65536, 2, 720918, 65536, 1, 655382, 65536, 1, 589846, 65536, 1, 524310, 65536, 1, 786453, 65536, 2, 720917, 65536, 1, 655381, 65536, 1, 589845, 65536, 1, 524309, 393216, 2, 786452, 65536, 2, 720916, 65536, 1, 655380, 65536, 1, 589844, 65536, 1, 524308, 65536, 0, 786451, 65536, 2, 720915, 65536, 1, 655379, 65536, 1, 589843, 65536, 1, 524307, 65536, 0, 786450, 65536, 2, 720914, 65536, 1, 655378, 65536, 1, 589842, 65536, 1, 524306, 65536, 0, 786449, 65536, 2, 720913, 65536, 1, 655377, 65536, 1, 589841, 65536, 1, 524305, 65536, 0, 786448, 65536, 2, 720912, 65536, 1, 655376, 65536, 1, 589840, 65536, 1, 524304, 65536, 0, 786447, 65536, 2, 720911, 65536, 1, 655375, 65536, 1, 589839, 65536, 1, 524303, 65536, 0, 786446, 65536, 2, 720910, 65536, 1, 655374, 65536, 1, 589838, 65536, 1, 524302, 65536, 0, 786445, 65536, 2, 720909, 65536, 1, 655373, 65536, 1, 589837, 65536, 1, 524301, 65536, 0, 786444, 65536, 2, 720908, 65536, 1, 655372, 65536, 1, 589836, 65536, 1, 524300, 65536, 0, 786443, 65536, 2, 720907, 65536, 1, 655371, 65536, 1, 589835, 65536, 1, 524299, 65536, 0, 786442, 65536, 2, 720906, 65536, 1, 655370, 65536, 1, 589834, 65536, 1, 524298, 65536, 0, 786441, 65536, 2, 720905, 65536, 1, 655369, 65536, 1, 589833, 65536, 1, 524297, 65536, 0, 786440, 65536, 2, 720904, 65536, 1, 655368, 65536, 1, 589832, 65536, 1, 524296, 65536, 0, 786439, 65536, 2, 720903, 65536, 1, 655367, 65536, 1, 589831, 65536, 1, 524295, 65536, 0, 786438, 65536, 2, 720902, 65536, 1, 655366, 65536, 1, 589830, 65536, 1, 524294, 65536, 0, 786437, 65536, 2, 720901, 65536, 1, 655365, 65536, 1, 589829, 65536, 1, 524293, 65536, 0, 786436, 65536, 2, 720900, 65536, 1, 655364, 65536, 1, 589828, 65536, 1, 524292, 65536, 0, 786435, 65536, 2, 720899, 65536, 1, 655363, 65536, 1, 589827, 65536, 1, 524291, 65536, 0, 786434, 65536, 2, 720898, 65536, 1, 655362, 65536, 1, 589826, 65536, 1, 524290, 65536, 0, 786433, 65536, 2, 720897, 65536, 1, 655361, 65536, 1, 589825, 65536, 1, 524289, 65536, 0, 786432, 65536, 2, 720896, 65536, 1, 655360, 65536, 1, 589824, 65536, 1, 524288, 65536, 0, 851967, 65536, 2, 786431, 65536, 1, 720895, 65536, 1, 655359, 65536, 1, 589823, 65536, 0, 851966, 65536, 2, 786430, 65536, 1, 720894, 65536, 1, 655358, 65536, 1, 589822, 65536, 0, 851965, 65536, 2, 786429, 65536, 1, 720893, 65536, 1, 655357, 65536, 1, 589821, 65536, 0, 851964, 65536, 2, 786428, 65536, 1, 720892, 65536, 1, 655356, 65536, 1, 589820, 65536, 0, 851963, 65536, 2, 786427, 65536, 1, 720891, 65536, 1, 655355, 65536, 1, 589819, 65536, 0, 851962, 65536, 2, 786426, 65536, 1, 720890, 65536, 1, 655354, 65536, 1, 589818, 65536, 0, 851961, 65536, 2, 786425, 65536, 1, 720889, 65536, 1, 655353, 65536, 1, 589817, 65536, 0, 851960, 65536, 2, 786424, 65536, 1, 720888, 65536, 1, 655352, 65536, 1, 589816, 65536, 0, 851959, 65536, 2, 786423, 65536, 1, 720887, 65536, 1, 655351, 65536, 1, 589815, 65536, 0, 851958, 65536, 2, 786422, 65536, 1, 720886, 65536, 1, 655350, 65536, 1, 589814, 65536, 0, 851957, 65536, 2, 786421, 65536, 1, 720885, 65536, 1, 655349, 65536, 1, 589813, 65536, 0, 851956, 65536, 2, 786420, 65536, 1, 720884, 65536, 1, 655348, 65536, 1, 589812, 65536, 0, 851955, 65536, 2, 786419, 65536, 1, 720883, 65536, 1, 655347, 65536, 1, 589811, 65536, 0, 851954, 65536, 2, 786418, 65536, 1, 720882, 65536, 1, 655346, 65536, 1, 589810, 65536, 0, 851953, 65536, 2, 786417, 65536, 1, 720881, 65536, 1, 655345, 65536, 1, 589809, 65536, 0, 851952, 65536, 2, 786416, 65536, 1, 720880, 65536, 1, 655344, 65536, 1, 589808, 65536, 0, 851951, 65536, 2, 786415, 65536, 1, 720879, 65536, 1, 655343, 65536, 1, 589807, 65536, 0, 851950, 65536, 2, 786414, 65536, 1, 720878, 65536, 1, 655342, 65536, 1, 589806, 65536, 0, 851949, 65536, 2, 786413, 65536, 1, 720877, 65536, 1, 655341, 65536, 1, 589805, 65536, 0, 851948, 65536, 2, 786412, 65536, 1, 720876, 65536, 1, 655340, 65536, 1, 589804, 65536, 0, 851947, 65536, 2, 786411, 65536, 1, 720875, 65536, 1, 655339, 65536, 1, 589803, 65536, 0, 851946, 65536, 2, 786410, 65536, 1, 720874, 65536, 1, 655338, 65536, 1, 589802, 65536, 0, 851945, 65536, 2, 786409, 65536, 1, 720873, 65536, 1, 655337, 65536, 1, 589801, 65536, 0, 851944, 65536, 2, 786408, 65536, 1, 720872, 65536, 1, 655336, 65536, 1, 589800, 65536, 0, 458775, 131072, 1, 393239, 131072, 1, 327703, 131072, 1, 262167, 131072, 1, 196631, 131072, 1, 131095, 131072, 1, 65559, 131072, 1, 23, 131072, 1, -65513, 131072, 1, -131049, 131072, 1, -196585, 131072, 1, -262121, 131072, 1, -327657, 131072, 1, -393193, 131072, 1, -458729, 131072, 1, -524265, 131072, 1, -589801, 131072, 1, -655337, 131072, 1, 458774, 65536, 1, 393238, 65536, 1, 327702, 65536, 1, 262166, 65536, 1, 196630, 65536, 1, 131094, 65536, 1, 65558, 65536, 1, 22, 65536, 1, -65514, 65536, 1, -131050, 65536, 1, -196586, 65536, 1, -262122, 65536, 1, -327658, 65536, 1, -393194, 65536, 1, -458730, 65536, 1, -524266, 65536, 1, -589802, 65536, 1, -655338, 65536, 1, 458773, 0, 1, 393237, 0, 1, 327701, 0, 1, 262165, 0, 1, 196629, 0, 1, 131093, 0, 1, 65557, 0, 1, 21, 0, 1, -65515, 0, 1, -131051, 0, 1, -196587, 0, 1, -262123, 0, 1, -327659, 0, 1, -393195, 0, 1, -458731, 0, 1, -524267, 0, 1, -589803, 0, 1, -655339, 393216, 1, -720873, 131072, 1, -786409, 131072, 1, -851945, 131072, 0, -720874, 65536, 1, -786410, 65536, 1, -851946, 65536, 0, -720875, 65536, 1, -786411, 65536, 1, -851947, 65536, 0, -655340, 65536, 2, -720876, 65536, 1, -786412, 65536, 1, -851948, 65536, 0, -655341, 65536, 2, -720877, 65536, 1, -786413, 65536, 1, -851949, 65536, 0, -655342, 65536, 2, -720878, 65536, 1, -786414, 65536, 1, -851950, 65536, 0, -655343, 65536, 2, -720879, 65536, 1, -786415, 65536, 1, -851951, 65536, 0, -655344, 65536, 2, -720880, 65536, 1, -786416, 65536, 1, -851952, 65536, 0, -655345, 65536, 2, -720881, 65536, 1, -786417, 65536, 1, -851953, 65536, 0, -655346, 65536, 2, -720882, 65536, 1, -786418, 65536, 1, -851954, 65536, 0, -655347, 65536, 2, -720883, 65536, 1, -786419, 65536, 1, -851955, 65536, 0, -655348, 65536, 2, -720884, 65536, 1, -786420, 65536, 1, -851956, 65536, 0, -655349, 65536, 2, -720885, 65536, 1, -786421, 65536, 1, -851957, 65536, 0, -655350, 65536, 2, -720886, 65536, 1, -786422, 65536, 1, -851958, 65536, 0, -655351, 65536, 2, -720887, 65536, 1, -786423, 65536, 1, -851959, 65536, 0, -655352, 65536, 2, -720888, 65536, 1, -786424, 65536, 1, -851960, 65536, 0, -655353, 65536, 2, -720889, 65536, 1, -786425, 65536, 1, -851961, 65536, 0, -655354, 65536, 2, -720890, 65536, 1, -786426, 65536, 1, -851962, 65536, 0, -655355, 65536, 2, -720891, 65536, 1, -786427, 65536, 1, -851963, 65536, 0, -655356, 65536, 2, -720892, 65536, 1, -786428, 65536, 1, -851964, 65536, 0, -655357, 65536, 2, -720893, 65536, 1, -786429, 65536, 1, -851965, 65536, 0, -655358, 65536, 2, -720894, 65536, 1, -786430, 65536, 1, -851966, 65536, 0, -655359, 65536, 2, -720895, 65536, 1, -786431, 65536, 1, -851967, 65536, 0, -655360, 65536, 2, -720896, 65536, 1, -786432, 65536, 1, -851968, 65536, 0, -589825, 65536, 2, -655361, 65536, 1, -720897, 65536, 1, -786433, 65536, 0, -589826, 65536, 2, -655362, 65536, 1, -720898, 65536, 1, -786434, 65536, 0, -589827, 65536, 2, -655363, 65536, 1, -720899, 65536, 1, -786435, 65536, 0, -589828, 65536, 2, -655364, 65536, 1, -720900, 65536, 1, -786436, 65536, 0, -589829, 65536, 2, -655365, 65536, 1, -720901, 65536, 1, -786437, 65536, 0, -589830, 65536, 2, -655366, 65536, 1, -720902, 65536, 1, -786438, 65536, 0, -589831, 65536, 2, -655367, 65536, 1, -720903, 65536, 1, -786439, 65536, 0, -589832, 65536, 2, -655368, 65536, 1, -720904, 65536, 1, -786440, 65536, 0, -589833, 65536, 2, -655369, 65536, 1, -720905, 65536, 1, -786441, 65536, 0, -589834, 65536, 2, -655370, 65536, 1, -720906, 65536, 1, -786442, 65536, 0, -589835, 65536, 2, -655371, 65536, 1, -720907, 65536, 1, -786443, 65536, 0, -589836, 65536, 2, -655372, 65536, 1, -720908, 65536, 1, -786444, 65536, 0, -589837, 65536, 2, -655373, 65536, 1, -720909, 65536, 1, -786445, 65536, 0, -589838, 65536, 2, -655374, 65536, 1, -720910, 65536, 1, -786446, 65536, 0, -589839, 65536, 2, -655375, 65536, 1, -720911, 65536, 1, -786447, 65536, 0, -589840, 65536, 2, -655376, 65536, 1, -720912, 65536, 1, -786448, 65536, 0, -589841, 65536, 2, -655377, 65536, 1, -720913, 65536, 1, -786449, 65536, 0, -589842, 65536, 2, -655378, 65536, 1, -720914, 65536, 1, -786450, 65536, 0, -589843, 65536, 2, -655379, 65536, 1, -720915, 65536, 1, -786451, 65536, 0, -589844, 65536, 2, -655380, 65536, 1, -720916, 65536, 1, -786452, 65536, 0, -589845, 65536, 2, -655381, 65536, 1, -720917, 65536, 1, -786453, 65536, 0, -589846, 65536, 2, -655382, 65536, 1, -720918, 65536, 1, -786454, 65536, 0, -589847, 65536, 2, -655383, 65536, 1, -720919, 65536, 1, -786455, 65536, 0, -589848, 65536, 2, -655384, 65536, 1, -720920, 65536, 1, -786456, 65536, 0, -589849, 327680, 1, -655385, 65536, 1, -720921, 65536, 1, -786457, 65536, 0, 851943, 65536, 2, 786407, 65536, 1, 720871, 65536, 1, 655335, 65536, 1, 589799, 327680, 2, 524263, 131072, 1, 458727, 131072, 1, 393191, 131072, 1, 327655, 131072, 1, 262119, 131072, 1, 196583, 131072, 1, 131047, 131072, 1, 65511, 131072, 1, -25, 131072, 1, -65561, 131072, 1, -131097, 131072, 1, -196633, 131072, 1, -262169, 131072, 1, -327705, 131072, 1, -393241, 131072, 1, -458777, 131072, 1, -524313, 131072, 1, 851942, 65536, 2, 786406, 65536, 1, 720870, 65536, 1, 655334, 65536, 1, 589798, 65536, 1, 524262, 65536, 1, 458726, 65536, 1, 393190, 65536, 1, 327654, 65536, 1, 262118, 65536, 1, 196582, 65536, 1, 131046, 65536, 1, 65510, 65536, 1, -26, 65536, 1, -65562, 65536, 1, -131098, 65536, 1, -196634, 65536, 1, -262170, 65536, 1, -327706, 65536, 1, -393242, 65536, 1, -458778, 65536, 1, -524314, 65536, 1, -589850, 65536, 1, -655386, 65536, 1, -720922, 65536, 1, -786458, 65536, 0, 851941, 0, 2, 786405, 0, 1, 720869, 0, 1, 655333, 0, 1, 589797, 0, 1, 524261, 0, 1, 458725, 0, 1, 393189, 0, 1, 327653, 0, 1, 262117, 0, 1, 196581, 0, 1, 131045, 0, 1, 65509, 0, 1, -27, 0, 1, -65563, 0, 1, -131099, 0, 1, -196635, 0, 1, -262171, 0, 1, -327707, 0, 1, -393243, 0, 1, -458779, 0, 1, -524315, 0, 1, -589851, 0, 1, -655387, 0, 1, -720923, 0, 1, -786459, 0, 0)
+
+[node name="CameraSettingsTrigger" type="Node2D" parent="." index="3"]
+script = ExtResource("69_nr2gp")
+
+[node name="TopLeft" type="Marker2D" parent="CameraSettingsTrigger" index="0"]
+position = Vector2(-816, -328)
+
+[node name="BottomRight" type="Marker2D" parent="CameraSettingsTrigger" index="1"]
+position = Vector2(712, 352)
+
+[node name="Area2d" type="Area2D" parent="CameraSettingsTrigger" index="2"]
+collision_layer = 8
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="CameraSettingsTrigger/Area2d" index="0"]
+position = Vector2(-40, -32)
+shape = SubResource("RectangleShape2D_aqax7")
+debug_color = Color(0, 0.6, 0.701961, 0.0313726)
+
+[node name="StageChangeTrigger" type="Node2D" parent="." index="4"]
+visible = false
+position = Vector2(-1432, -816)
+script = ExtResource("71_7t53a")
+stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
+destination_entry_point = 1
+screen_transition = 1
+transition_duration = 0.5
+
+[node name="Area2d" type="Area2D" parent="StageChangeTrigger" index="0"]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="StageChangeTrigger/Area2d" index="0"]
+position = Vector2(8, 4)
+shape = SubResource("RectangleShape2D_fm4if")
+
+[node name="Egrisi Dragon" parent="." index="5" instance=ExtResource("56_g1esd")]
+position = Vector2(992, 48)
+
+[connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
+[connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]

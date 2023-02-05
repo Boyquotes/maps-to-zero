@@ -51,13 +51,32 @@ var save_data: Dictionary:
 		team = value
 		add_to_group("team" + str(team))
 
-@export var attack_input_listening : bool
-@export var attack_can_cancel : bool
+@export var attack_input_listening : bool:
+	set(value):
+		attack_input_listening = value
+		if attack_request_buffer.has("input") and input_buffer.has_action(attack_request_buffer.input):
+			go_to_next_attack = true
+@export var attack_can_cancel : bool:
+	set(value):
+		attack_can_cancel = value
+		if value and input_buffer and input_buffer.has_action("jump"):
+			state_machine.transition_to("Air", {do_jump = true})
+			attack_can_cancel = false
 @export var attack_can_go_to_next : bool:
 	set(value):
 		attack_can_go_to_next = value
-		if value and state_transition_request_buffer:
-			request_state_transition(state_transition_request_buffer)
+		if go_to_next_attack and not attack_request_buffer == {}:
+			state_machine.transition_to(attack_request_buffer.state)
+			go_to_next_attack = false
+			attack_can_cancel = false
+var go_to_next_attack : bool:
+	set(value):
+		go_to_next_attack = value
+		if value and attack_can_go_to_next and not attack_request_buffer == {}:
+			state_machine.transition_to(attack_request_buffer.state)
+			go_to_next_attack = false
+			attack_can_cancel = false
+
 @export var cutscene_mode: bool
 func set_cutscene_mode(value: bool) -> void:
 	cutscene_mode = value
@@ -92,8 +111,9 @@ func set_cutscene_mode(value: bool) -> void:
 @onready var inner: Node2D = $Inner
 @onready var target_manager: TargetManager = $TargetManager
 @onready var animation_player: AnimationPlayer = $Inner/Visuals/AnimationPlayer
+@onready var input_buffer: InputBuffer = $InputBuffer
 
-var state_transition_request_buffer
+var attack_request_buffer: Dictionary
 var target:
 	get:
 		return target_manager.get_target()
@@ -124,12 +144,18 @@ func _ready():
 	resources.resource_depleted.connect(_on_resource_depleted)
 	await get_tree().create_timer(0.01).timeout
 	is_ready = true
+	emit_signal("ready")
 
 func _physics_process(_delta):
 	move_and_slide()
 
 func unhandled_input(event: InputEvent) -> void:
+	input_buffer.add_input(event)
 	$StateMachine.unhandled_input(event)
+	
+	if attack_can_cancel and input_buffer and input_buffer.has_action("jump"):
+		state_machine.transition_to("Air", {do_jump = true})
+		attack_can_cancel = false
 
 func play_animation(animation_name : String = "", \
 					_custom_blend : float = -1.0, \
@@ -155,18 +181,24 @@ func defeat() -> void:
 	defeated.emit()
 	state_machine.transition_to("Defeat")
 
-
-func request_state_transition(target_state_name : String, msg: Dictionary = {}) -> bool:
+func request_state_transition(target_state_name : String, msg: Dictionary = {}):
 	for req in state_machine.get_state(target_state_name).transition_requirements:
 		if not req.is_ready:
-			state_transition_request_buffer = target_state_name
-			return false
-	state_machine.transition_to(target_state_name, msg)
-	return true
+			return
+	state_machine.transition_to(target_state_name)
+
+func request_attack_transition(target_state : Dictionary, msg: Dictionary = {}):
+	attack_request_buffer = target_state
+	for req in state_machine.get_state(target_state.state).transition_requirements:
+		if not req.is_ready:
+			return
+	
+	if attack_input_listening:
+		go_to_next_attack = true
 
 
 func _on_state_machine_transitioned(_to_state, _from_state):
-	state_transition_request_buffer = null
+	attack_request_buffer = { }
 
 
 func _on_tree_entered():

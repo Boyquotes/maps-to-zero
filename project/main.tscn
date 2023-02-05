@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dkcdmvd684dv7"]
 
 [ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
-[ext_resource type="PackedScene" uid="uid://cjj14c7n0y063" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
+[ext_resource type="PackedScene" uid="uid://b2hw8ohwylasp" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
 [ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="4_lcacx"]
 [ext_resource type="PackedScene" uid="uid://bwahsuvk654r6" path="res://core/popups/yes_no_menu.tscn" id="6_1kvbx"]
@@ -17,7 +17,7 @@ _data = {
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gh6ur")
 player_actor = ExtResource("2_kneeq")
-initial_stage_id = "HORIZON_HILLS_CAVE_ENTRANCE"
+initial_stage_id = "HORIZON_HILLS_BOSS_ARENA"
 
 [node name="CameraTransformer" type="RemoteTransform2D" parent="."]
 unique_name_in_owner = true
@@ -27,7 +27,6 @@ remote_path = NodePath("../GameplayCamera")
 [node name="GameplayCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-712, 512)
-current = true
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 drag_vertical_enabled = true
@@ -63,7 +62,7 @@ grow_vertical = 2
 theme = ExtResource("4_lcacx")
 
 [node name="FPS Counter" type="Label" parent="DebugInfo/Control"]
-anchors_preset = 2
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -48.0
@@ -75,7 +74,7 @@ text = "FPS"
 script = ExtResource("4_78hp4")
 
 [node name="Work In Progress Label" type="Label" parent="DebugInfo/Control"]
-anchors_preset = 2
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -23.0
@@ -100,7 +99,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/PlayerDefeatedScreen"]
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -108,8 +107,18 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="YesNoMenu" parent="CanvasLayer/PlayerDefeatedScreen" instance=ExtResource("6_1kvbx")]
+layout_mode = 1
+
+[node name="VBoxContainer" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu" index="0"]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="MessageLabel" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer" index="0"]
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Ouch! Game Over!
@@ -117,6 +126,13 @@ Retry?[/center]"
 
 [node name="HBoxContainer" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer" index="1"]
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="YesButton" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="NoButton" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -800,7 +800,7 @@ position = Vector2(0, 16)
 position = Vector2(0, 16)
 bus = &"Sfx"
 script = ExtResource("9_17uex")
-streams = [ExtResource("9_hu03c"), ExtResource("10_xqmog"), ExtResource("11_yjwj2"), ExtResource("12_63fic")]
+streams = Array[AudioStream]([ExtResource("9_hu03c"), ExtResource("10_xqmog"), ExtResource("11_yjwj2"), ExtResource("12_63fic")])
 pitch_scale_min = 0.9
 pitch_scale_max = 1.1
 

@@ -9,6 +9,5 @@ func get_is_ready() -> bool:
 
 
 func enter(msg:={}) -> void:
-	print_debug("a")
 	if reduce_on_transition:
 		actor.resources.change_resource(resource_type, -amount)

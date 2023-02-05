@@ -2,7 +2,7 @@ extends Node
 
 
 ## Generate the plugin icon
-static func create_main_icon(size: Vector2) -> Texture2D:
+static func create_main_icon(size: Vector2 = Vector2(256, 256)) -> Texture2D:
 	var control: Control = Control.new()
 	var base_color: Color = control.get_theme_color("base_color", "Editor")
 	var theme: String = "light" if base_color.v > 0.5 else "dark"
