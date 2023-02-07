@@ -24,6 +24,7 @@ func _ready():
 	GameManager.sidescroller_main = self
 	
 	player = player_actor.instantiate()
+	player.get_node("Resources").resource_changed.connect(Events._on_player_resource_changed)
 	GameManager.player = player
 	actors_parent.add_child(player)
 	camera_transformer.get_parent().remove_child(camera_transformer)

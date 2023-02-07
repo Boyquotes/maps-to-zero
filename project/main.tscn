@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkcdmvd684dv7"]
+[gd_scene load_steps=9 format=3 uid="uid://dkcdmvd684dv7"]
 
 [ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
 [ext_resource type="PackedScene" uid="uid://b2hw8ohwylasp" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
 [ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="4_lcacx"]
 [ext_resource type="PackedScene" uid="uid://bwahsuvk654r6" path="res://core/popups/yes_no_menu.tscn" id="6_1kvbx"]
+[ext_resource type="PackedScene" uid="uid://bbekootdeinsk" path="res://sidescroller/hud/sidescroller_hud.tscn" id="6_4rvqa"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
@@ -138,5 +139,7 @@ layout_mode = 2
 libraries = {
 "": SubResource("AnimationLibrary_ons8l")
 }
+
+[node name="SidescrollerHUD" parent="." instance=ExtResource("6_4rvqa")]
 
 [editable path="CanvasLayer/PlayerDefeatedScreen/YesNoMenu"]

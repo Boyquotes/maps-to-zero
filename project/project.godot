@@ -22,6 +22,7 @@ DialogUtilities="*res://core/dialog/dialog_utilities.gd"
 GameManager="*res://core/game_manager.tscn"
 SaveData="*res://core/save_data.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Events="*res://core/event_bus.gd"
 
 [display]
 

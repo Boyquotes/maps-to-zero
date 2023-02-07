@@ -563,7 +563,8 @@ position = Vector2(8, 4)
 shape = SubResource("RectangleShape2D_fm4if")
 
 [node name="Egrisi Dragon" parent="." index="5" instance=ExtResource("56_g1esd")]
-position = Vector2(992, 48)
+position = Vector2(104, 208)
+collision_layer = 2
 
 [connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
 [connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]

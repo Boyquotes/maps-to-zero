@@ -112,6 +112,7 @@ func set_cutscene_mode(value: bool) -> void:
 @onready var target_manager: TargetManager = $TargetManager
 @onready var animation_player: AnimationPlayer = $Inner/Visuals/AnimationPlayer
 @onready var input_buffer: InputBuffer = $InputBuffer
+@onready var soft_collision: SoftCollision = $SoftCollision
 
 var attack_request_buffer: Dictionary
 var target:
@@ -148,6 +149,8 @@ func _ready():
 
 func _physics_process(_delta):
 	move_and_slide()
+	if soft_collision.is_colliding():
+		move_and_collide(soft_collision.get_push_vector() * _delta)
 
 func unhandled_input(event: InputEvent) -> void:
 	input_buffer.add_input(event)
@@ -166,10 +169,22 @@ func play_animation(animation_name : String = "", \
 	animation_player.play(animation_name)
 
 
-func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Type.HP, hitbox: Hitbox=null) -> void:
+func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Type.HP, hitbox: Hitbox=null) -> bool:
 	if hitbox and GameUtilities.team_hostile_to(hitbox.team, team):
-		ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent(), hitbox.hit_sfx)
+		ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
+		
+		var hit_sfx = AudioStreamPlayer2D.new()
+		hit_sfx.name = "AudioStreamPlayer2d"
+		hit_sfx.stream = hitbox.hit_sfx
+		hit_sfx.bus = "Sfx"
+		hit_sfx.finished.connect(hit_sfx.queue_free)
+		hit_sfx.global_position = global_position
+		add_child(hit_sfx)
+		hit_sfx.play()
+		
 		resources.change_resource(type, -base_damage)
+		return true
+	return false
 
 
 func _on_resource_depleted(type: ActorResources.Type) -> void:

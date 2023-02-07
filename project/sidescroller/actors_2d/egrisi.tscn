@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b1qwf8q5qkwgt"]
+[gd_scene load_steps=49 format=3 uid="uid://b1qwf8q5qkwgt"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/actors_2d/egrisi_dragon/egrisi_dragon.png" id="2_twwhm"]
@@ -975,7 +975,11 @@ _data = {
 "enter": SubResource("Animation_35idh")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_txmbg"]
+size = Vector2(216, 120)
+
 [node name="Egrisi Dragon" instance=ExtResource("1_u48va")]
+collision_mask = 97
 speed = 6
 team = 2
 attack_input_listening = true
@@ -1038,7 +1042,6 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("19_rm6im")
 base_value = 20.0
-hit_particles = 1
 hit_sfx = ExtResource("20_aoahs")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
@@ -1065,7 +1068,6 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("19_rm6im")
 base_value = 20.0
-hit_particles = 1
 hit_sfx = ExtResource("20_aoahs")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/RunAttack/Hitbox" index="0"]
@@ -1152,5 +1154,12 @@ script = ExtResource("28_hjxcv")
 
 [node name="RunAttack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("28_hjxcv")
+
+[node name="SoftCollision" parent="." index="9"]
+push_force = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
+position = Vector2(4, -28)
+shape = SubResource("RectangleShape2D_txmbg")
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

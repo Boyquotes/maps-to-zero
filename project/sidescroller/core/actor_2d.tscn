@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://jeq8j260q55w"]
+[gd_scene load_steps=15 format=3 uid="uid://jeq8j260q55w"]
 
 [ext_resource type="Script" path="res://sidescroller/core/actor_2d.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://bcjo12ardh7ia" path="res://states/core/state_machine.tscn" id="2_550gp"]
@@ -13,9 +13,10 @@
 [ext_resource type="Script" path="res://states/actor_2d_states/play_animation.gd" id="9_kan2l"]
 [ext_resource type="Script" path="res://sidescroller/core/target_manager.gd" id="11_bqsqr"]
 [ext_resource type="Script" path="res://core/input_buffer.gd" id="13_gxgy6"]
+[ext_resource type="Script" path="res://sidescroller/core/soft_collision.gd" id="14_kjlhh"]
 
 [node name="Actor2d" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 99
 script = ExtResource("1_7iiwt")
 
@@ -91,6 +92,10 @@ script = ExtResource("11_bqsqr")
 
 [node name="InputBuffer" type="Node" parent="."]
 script = ExtResource("13_gxgy6")
+
+[node name="SoftCollision" type="Area2D" parent="."]
+script = ExtResource("14_kjlhh")
+push_horizontally_only = true
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

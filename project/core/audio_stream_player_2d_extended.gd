@@ -15,3 +15,6 @@ func play(from:=0.0) -> void:
 	if streams.size() > 0:
 		stream = streams[randi() % streams.size()]
 	super.play(from)
+
+func play_random(from:=0.0) -> void:
+	self.play(from)
