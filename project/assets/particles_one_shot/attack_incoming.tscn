@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://by8aarbg5wgud" path="res://assets/particle_sprites/attack_incoming.png" id="1_3s6va"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t2g3x"]
+light_mode = 1
 particles_animation = true
 particles_anim_h_frames = 7
 particles_anim_v_frames = 7

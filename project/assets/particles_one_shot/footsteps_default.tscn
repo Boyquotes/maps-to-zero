@@ -32,9 +32,9 @@ color_ramp = SubResource("GradientTexture1D_skqks")
 
 [node name="FootstepsDefault" type="GPUParticles2D"]
 emitting = false
+process_material = SubResource("ParticleProcessMaterial_4sdpi")
+texture = ExtResource("1_wo2hj")
 lifetime = 0.4
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_4sdpi")
-texture = ExtResource("1_wo2hj")

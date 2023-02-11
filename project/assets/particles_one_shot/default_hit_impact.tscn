@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsx43f40j22lf"]
+[gd_scene load_steps=8 format=3 uid="uid://dsx43f40j22lf"]
 
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="1_lk34y"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xlk2q"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_f3gqd"]
 offsets = PackedFloat32Array(0.00954654, 0.529833, 1)
@@ -30,10 +33,11 @@ scale_curve = SubResource("CurveTexture_xqdrh")
 color_ramp = SubResource("GradientTexture1D_hlph1")
 
 [node name="DefaultHitImpact" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_xlk2q")
 emitting = false
 amount = 16
+process_material = SubResource("ParticleProcessMaterial_ot8oq")
+texture = ExtResource("1_lk34y")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_ot8oq")
-texture = ExtResource("1_lk34y")

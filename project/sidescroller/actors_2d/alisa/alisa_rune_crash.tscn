@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cihvdf6obpk65"]
+[gd_scene load_steps=21 format=3 uid="uid://cihvdf6obpk65"]
 
 [ext_resource type="Texture2D" uid="uid://bpp8tj58hxtku" path="res://assets/actors_2d/alisa/glyph.png" id="1_q1vg3"]
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="2_6vgph"]
@@ -9,6 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://caxuem4cpx38t" path="res://assets/sfx/sword_slash.wav" id="7_gt2c7"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="8_guy77"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="9_x0gyk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ie3lj"]
+light_mode = 1
 
 [sub_resource type="Animation" id="Animation_43guc"]
 resource_name = "RESET"
@@ -147,10 +150,34 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Slash Particles:emitting")
+tracks/11/path = NodePath("../Slash Particles:emitting")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("RuneLight:enabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("RuneLight/Glow:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -399,6 +426,30 @@ tracks/18/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("RuneLight:enabled")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("RuneLight/Glow:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ojxoo"]
 _data = {
@@ -411,7 +462,7 @@ offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(1, 1, 1, 0, 0.931235, 2.56056e-05, 0.647582, 1, 0.929412, 0, 0.647059, 1)
 
 [sub_resource type="Gradient" id="Gradient_vl4t0"]
-offsets = PackedFloat32Array(0, 0.0265487, 0.0840708, 0.743363, 1)
+offsets = PackedFloat32Array(0, 0.0265487, 0.082243, 0.743363, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6vlhb"]
@@ -459,6 +510,7 @@ color_ramp = SubResource("GradientTexture1D_6vlhb")
 
 [node name="Alisa Rune Crash" type="Node2D"]
 z_index = 11
+material = SubResource("CanvasItemMaterial_ie3lj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "start"
@@ -466,20 +518,47 @@ libraries = {
 "": SubResource("AnimationLibrary_ojxoo")
 }
 
+[node name="RuneLight" type="PointLight2D" parent="."]
+position = Vector2(72, -32)
+enabled = false
+color = Color(0.929412, 0, 0.647059, 1)
+range_layer_min = -10
+range_layer_max = 10
+texture = ExtResource("9_x0gyk")
+
+[node name="Glow" type="Sprite2D" parent="RuneLight"]
+visible = false
+modulate = Color(1, 1, 1, 0.196078)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_x0gyk")
+
+[node name="ExplosionLight" type="PointLight2D" parent="."]
+position = Vector2(72, -32)
+enabled = false
+color = Color(0.929412, 0, 0, 1)
+energy = 5.0
+range_layer_min = -10
+range_layer_max = 10
+texture = ExtResource("9_x0gyk")
+
 [node name="Rune" type="Sprite2D" parent="."]
 visible = false
+use_parent_material = true
 position = Vector2(70, -32)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_q1vg3")
 
 [node name="ExpandingRune" type="Sprite2D" parent="."]
 visible = false
+use_parent_material = true
 position = Vector2(70, -32)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_q1vg3")
 
 [node name="SlashLine" type="Line2D" parent="."]
 visible = false
+z_index = 10
+use_parent_material = true
 position = Vector2(-1090, 778)
 rotation = -0.610865
 points = PackedVector2Array(0, 0, 3000, 0)
@@ -487,6 +566,8 @@ width = 24.0
 gradient = SubResource("Gradient_jhyr0")
 
 [node name="Slash Particles" type="GPUParticles2D" parent="."]
+z_index = 10
+use_parent_material = true
 position = Vector2(83, -40)
 rotation = 0.959931
 emitting = false
@@ -497,6 +578,9 @@ one_shot = true
 explosiveness = 1.0
 
 [node name="Explode Particles" type="GPUParticles2D" parent="."]
+modulate = Color(3, 0.2, 0.8, 1)
+z_index = 10
+use_parent_material = true
 position = Vector2(72, -32)
 rotation = 0.959931
 emitting = false
@@ -508,28 +592,47 @@ explosiveness = 1.0
 
 [node name="RuneUpperHalf" type="Sprite2D" parent="."]
 visible = false
+use_parent_material = true
 position = Vector2(72, -40)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_8hbla")
 
 [node name="PointLight2D Upper Half" type="PointLight2D" parent="RuneUpperHalf"]
-position = Vector2(0, -23.3333)
+show_behind_parent = true
+position = Vector2(0, -16.6667)
 rotation = -0.610865
 scale = Vector2(3.33333, 3.33333)
 color = Color(0.931235, 2.56056e-05, 0.647582, 1)
+range_layer_min = -10
+range_layer_max = 10
+texture = ExtResource("4_cx7fw")
+
+[node name="GlowTopHalf" type="Sprite2D" parent="RuneUpperHalf/PointLight2D Upper Half"]
+modulate = Color(1, 1, 1, 0.294118)
+show_behind_parent = true
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_cx7fw")
 
 [node name="RuneLowerHalf" type="Sprite2D" parent="."]
 visible = false
+use_parent_material = true
 position = Vector2(72, -24)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_rt13y")
 
 [node name="PointLight2D Lower Half" type="PointLight2D" parent="RuneLowerHalf"]
-position = Vector2(16.6666, -9.99998)
+show_behind_parent = true
+position = Vector2(6.66666, -20)
 rotation = 2.53073
 scale = Vector2(3.33333, 3.33333)
 color = Color(0.931235, 2.56056e-05, 0.647582, 1)
+range_layer_min = -10
+range_layer_max = 10
+texture = ExtResource("4_cx7fw")
+
+[node name="GlowTopHalf2" type="Sprite2D" parent="RuneLowerHalf/PointLight2D Lower Half"]
+modulate = Color(1, 1, 1, 0.294118)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_cx7fw")
 
 [node name="RuneSummonSfx" type="AudioStreamPlayer2D" parent="."]
@@ -551,16 +654,3 @@ bus = &"Sfx"
 position = Vector2(72, -32)
 stream = ExtResource("6_3fv1i")
 bus = &"Sfx"
-
-[node name="RuneLight" type="PointLight2D" parent="."]
-position = Vector2(72, -32)
-enabled = false
-color = Color(0.931235, 2.56056e-05, 0.647582, 1)
-texture = ExtResource("9_x0gyk")
-
-[node name="ExplosionLight" type="PointLight2D" parent="."]
-position = Vector2(72, -32)
-enabled = false
-color = Color(0.929412, 0, 0, 1)
-energy = 5.0
-texture = ExtResource("9_x0gyk")

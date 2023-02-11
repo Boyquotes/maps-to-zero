@@ -11,10 +11,7 @@ extends AudioStreamPlayer2D
 		pitch_scale_max = max(value, pitch_scale_min)
 
 
-func play(from:=0.0) -> void:
+func play_random(from:=0.0) -> void:
 	if streams.size() > 0:
 		stream = streams[randi() % streams.size()]
 	super.play(from)
-
-func play_random(from:=0.0) -> void:
-	self.play(from)

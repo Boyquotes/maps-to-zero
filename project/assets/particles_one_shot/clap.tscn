@@ -30,9 +30,9 @@ color_ramp = SubResource("GradientTexture1D_hlph1")
 [node name="Clap" type="GPUParticles2D"]
 emitting = false
 amount = 4
+process_material = SubResource("ParticleProcessMaterial_ot8oq")
+texture = ExtResource("1_tcjr4")
 lifetime = 0.2
 one_shot = true
 explosiveness = 1.0
 local_coords = true
-process_material = SubResource("ParticleProcessMaterial_ot8oq")
-texture = ExtResource("1_tcjr4")

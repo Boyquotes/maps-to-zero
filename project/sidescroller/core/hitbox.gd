@@ -27,6 +27,11 @@ func _ready():
 		team = actor.team
 
 
+func set_actor(actor: Actor2D):
+	self.actor = actor
+	team = actor.team
+
+
 func _on_hurtbox_entered(area : Area2D) -> void:
 	var damage_taken = area.owner.take_damage(base_value, ActorResources.Type.HP, self)
 	if damage_taken:

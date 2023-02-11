@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://fk85gfxivtt1"]
+[gd_scene load_steps=8 format=3 uid="uid://fk85gfxivtt1"]
 
 [ext_resource type="Texture2D" uid="uid://c5ajrleycvfce" path="res://assets/particle_sprites/white_2x2.png" id="1_wo2hj"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhsav"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_jjvu1"]
 offsets = PackedFloat32Array(0.668493, 1)
@@ -31,6 +34,7 @@ scale_curve = SubResource("CurveTexture_b3nwu")
 color_ramp = SubResource("GradientTexture1D_skqks")
 
 [node name="AlisaKickImpact" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_yhsav")
 emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_4sdpi")

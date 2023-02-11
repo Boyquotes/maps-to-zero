@@ -14,7 +14,7 @@ func _can_handle(object) -> bool:
 	return false
 
 
-func _parse_property(object: Object, type: int, name: String, hint_type: int, hint_string: String, usage_flags: int, wide: bool) -> bool:
+func _parse_property(object: Object, type : int, name: String, hint_type: int, hint_string: String, usage_flags: int, wide: bool) -> bool:
 	match name:
 		"dialogue_resource":
 			var property_editor = DialogueEditorProperty.new(editor_plugin)

@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkt2ed1pbpeg6"]
+[gd_scene load_steps=6 format=3 uid="uid://bkt2ed1pbpeg6"]
 
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="1_lk34y"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t6veo"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_f3gqd"]
 offsets = PackedFloat32Array(0.00954654, 0.529833, 1)
@@ -22,6 +25,7 @@ scale_max = 0.2
 color_ramp = SubResource("GradientTexture1D_hlph1")
 
 [node name="DefeatExplosionDefault" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_t6veo")
 emitting = false
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_ot8oq")
