@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://4ixf2e6gtcqo"]
+[gd_scene load_steps=29 format=3 uid="uid://4ixf2e6gtcqo"]
 
 [ext_resource type="Script" path="res://core/game_manager.gd" id="1_w87d2"]
+[ext_resource type="Texture2D" uid="uid://dxc86t3r5sr2" path="res://assets/other_sprites/FireNoise1.tga" id="2_3ow1e"]
 
 [sub_resource type="Animation" id="Animation_dt7j2"]
 length = 0.001
@@ -349,6 +350,270 @@ _data = {
 "showing": SubResource("Animation_k5gi8")
 }
 
+[sub_resource type="Shader" id="Shader_xke6i"]
+code = "shader_type canvas_item;
+
+uniform vec2 center = vec2(0.5, 0.5);
+uniform sampler2D noise;
+uniform float sample_radius: hint_range(0.0, 1.0) = 0.5;
+uniform vec4 line_color: source_color = vec4(1.0);
+uniform float center_radius: hint_range(0.0, 1.0) = 0.5;
+
+const float pi = 3.14159265359;
+
+void fragment() {
+	vec2 dist = UV - center;
+	float angle = atan(dist.y / dist.x);
+	vec2 sample = vec2(sample_radius * cos(angle), sample_radius * sin(angle));
+	float noise_value = texture(noise, sample).r;
+	vec4 color = mix(line_color, vec4(0.0), noise_value);
+	color = mix(color, vec4(0.0), 1.0 - length(dist) - center_radius);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_601lb"]
+shader = SubResource("Shader_xke6i")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/sample_radius = 0.595
+shader_parameter/line_color = Color(1, 1, 1, 0.145098)
+shader_parameter/center_radius = 0.0
+shader_parameter/noise = ExtResource("2_3ow1e")
+
+[sub_resource type="Animation" id="Animation_pflpa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/sample_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.595]
+}
+
+[sub_resource type="Animation" id="Animation_egmnq"]
+resource_name = "play"
+length = 0.2
+loop_mode = 2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/sample_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.701, 0.335, 0.912, 0.595, 0.54]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_40mi6"]
+_data = {
+"RESET": SubResource("Animation_pflpa"),
+"play": SubResource("Animation_egmnq")
+}
+
+[sub_resource type="Animation" id="Animation_4fiv5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-304, -232)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1400, -48)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BottomBar:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1312, 864)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftBar:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-48, 656)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_0cci4"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(-304, -96), Vector2(-304, -232)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(1296, 56), Vector2(1400, -48)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BottomBar:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(1248, 760), Vector2(1368, 864)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftBar:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(-48, 656), Vector2(-200, 760)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_u5s44"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-304, -232), Vector2(-304, -96)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RightBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1400, -48), Vector2(1296, 56)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BottomBar:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1368, 864), Vector2(1248, 760)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeftBar:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-200, 760), Vector2(-48, 656)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0gf43"]
+_data = {
+"RESET": SubResource("Animation_4fiv5"),
+"hide": SubResource("Animation_0cci4"),
+"show": SubResource("Animation_u5s44")
+}
+
 [sub_resource type="Animation" id="Animation_yey8s"]
 resource_name = "RESET"
 length = 0.001
@@ -441,10 +706,10 @@ _data = {
 [node name="GameManager" type="Node"]
 script = ExtResource("1_w87d2")
 
-[node name="CutsceneBars" type="CanvasLayer" parent="."]
+[node name="ScreenEffects" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="Control" type="Control" parent="CutsceneBars"]
+[node name="CutsceneBars" type="Control" parent="ScreenEffects"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -453,70 +718,229 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars/Control"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffects/CutsceneBars"]
 autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_6eo4y")
 }
 
-[node name="TopBar" type="Control" parent="CutsceneBars/Control"]
+[node name="TopBar" type="Control" parent="ScreenEffects/CutsceneBars"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = -88.0
 offset_top = -72.0
-offset_right = 16072.0
+offset_right = 33992.0
 offset_bottom = -12.0
 grow_horizontal = 2
 rotation = -0.0174533
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars/Control/TopBar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffects/CutsceneBars/TopBar"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_ia2wn")
 }
 
-[node name="WhiteBar" type="ColorRect" parent="CutsceneBars/Control/TopBar"]
+[node name="WhiteBar" type="ColorRect" parent="ScreenEffects/CutsceneBars/TopBar"]
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 120.0
 
-[node name="BlackBar" type="ColorRect" parent="CutsceneBars/Control/TopBar"]
+[node name="BlackBar" type="ColorRect" parent="ScreenEffects/CutsceneBars/TopBar"]
 layout_mode = 0
 offset_top = 80.0
 offset_right = 1600.0
 offset_bottom = 120.0
 color = Color(0, 0, 0, 1)
 
-[node name="BottomBar" type="Control" parent="CutsceneBars/Control"]
+[node name="BottomBar" type="Control" parent="ScreenEffects/CutsceneBars"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
-offset_top = -328.0
-offset_right = 16112.0
-offset_bottom = -268.0
+offset_top = 392.0
+offset_right = 34032.0
+offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0174533
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars/Control/BottomBar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffects/CutsceneBars/BottomBar"]
 libraries = {
 "": SubResource("AnimationLibrary_o5sbs")
 }
 
-[node name="WhiteBar" type="ColorRect" parent="CutsceneBars/Control/BottomBar"]
+[node name="WhiteBar" type="ColorRect" parent="ScreenEffects/CutsceneBars/BottomBar"]
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 120.0
 
-[node name="BlackBar" type="ColorRect" parent="CutsceneBars/Control/BottomBar"]
+[node name="BlackBar" type="ColorRect" parent="ScreenEffects/CutsceneBars/BottomBar"]
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 40.0
 color = Color(0, 0, 0, 1)
+
+[node name="SpeedLines" type="Control" parent="ScreenEffects"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Image" type="ColorRect" parent="ScreenEffects/SpeedLines"]
+material = SubResource("ShaderMaterial_601lb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffects/SpeedLines/Image"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_40mi6")
+}
+
+[node name="SkillFrames" type="Control" parent="ScreenEffects"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="Control" parent="ScreenEffects/SkillFrames"]
+custom_minimum_size = Vector2(1920, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -304.0
+offset_top = -232.0
+offset_right = 10576.0
+offset_bottom = -132.0
+grow_horizontal = 2
+rotation = 0.0523599
+
+[node name="White" type="ColorRect" parent="ScreenEffects/SkillFrames/TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black" type="ColorRect" parent="ScreenEffects/SkillFrames/TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RightBar" type="Control" parent="ScreenEffects/SkillFrames"]
+custom_minimum_size = Vector2(1920, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1400.0
+offset_top = -48.0
+offset_right = 12280.0
+offset_bottom = 52.0001
+grow_horizontal = 2
+rotation = 1.51844
+
+[node name="White" type="ColorRect" parent="ScreenEffects/SkillFrames/RightBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black" type="ColorRect" parent="ScreenEffects/SkillFrames/RightBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BottomBar" type="Control" parent="ScreenEffects/SkillFrames"]
+custom_minimum_size = Vector2(1920, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1312.0
+offset_top = 864.0
+offset_right = 12192.0
+offset_bottom = 964.0
+grow_horizontal = 2
+rotation = 3.15905
+
+[node name="White" type="ColorRect" parent="ScreenEffects/SkillFrames/BottomBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black" type="ColorRect" parent="ScreenEffects/SkillFrames/BottomBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LeftBar" type="Control" parent="ScreenEffects/SkillFrames"]
+custom_minimum_size = Vector2(1920, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 656.0
+offset_right = 10832.0
+offset_bottom = 756.0
+grow_horizontal = 2
+rotation = 4.75777
+
+[node name="White" type="ColorRect" parent="ScreenEffects/SkillFrames/LeftBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black" type="ColorRect" parent="ScreenEffects/SkillFrames/LeftBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffects/SkillFrames"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_0gf43")
+}
 
 [node name="ScreenTransition" type="CanvasLayer" parent="."]
 layer = 100

@@ -2,8 +2,11 @@
 extends Trigger
 class_name CameraSettingsTrigger
 
-@export var tween_duration := 0.0
+@export var limits_tween_duration := 0.0
+@export var zoom_tween_duration := 0.0
 @export var zoom := Vector2.ONE
+@export var change_base_zoom := true
+@export var reset_zoom_tween_duration := 0.0
 
 func get_limit_left() -> float:
 	return $TopLeft.global_position.x
@@ -19,16 +22,18 @@ func get_limit_bottom() -> float:
 
 func change_limits() -> void:
 	var tweener = create_tween()
-	tweener.tween_property(GameManager.gameplay_camera, "limit_left", get_limit_left(), tween_duration)
-	tweener.tween_property(GameManager.gameplay_camera, "limit_top", get_limit_top(), tween_duration)
-	tweener.tween_property(GameManager.gameplay_camera, "limit_right", get_limit_right(), tween_duration)
-	tweener.tween_property(GameManager.gameplay_camera, "limit_bottom", get_limit_bottom(), tween_duration)
+	tweener.tween_property(GameManager.gameplay_camera, "limit_left", get_limit_left(), limits_tween_duration)
+	tweener.tween_property(GameManager.gameplay_camera, "limit_top", get_limit_top(), limits_tween_duration)
+	tweener.tween_property(GameManager.gameplay_camera, "limit_right", get_limit_right(), limits_tween_duration)
+	tweener.tween_property(GameManager.gameplay_camera, "limit_bottom", get_limit_bottom(), limits_tween_duration)
 
 func change_zoom() -> void:
 	if GameManager.sidescroller_main.respawn_cutscene_playing:
 		await GameManager.sidescroller_main.respawn_cutscene_finished
-	var tweener = create_tween()
-	tweener.tween_property(GameManager.gameplay_camera, "zoom", zoom, tween_duration)
+	GameManager.gameplay_camera.change_zoom(zoom, zoom_tween_duration, change_base_zoom)
+
+func reset_zoom() -> void:
+	GameManager.gameplay_camera.reset_zoom(reset_zoom_tween_duration)
 
 func trigger(_dummy_var=null) -> void:
 	change_limits()

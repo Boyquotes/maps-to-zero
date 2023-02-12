@@ -66,6 +66,9 @@ var save_data: Dictionary:
 	set(value):
 		attack_can_go_to_next = value
 		if go_to_next_attack and not attack_request_buffer == {}:
+			for req in state_machine.get_state(attack_request_buffer.state).transition_requirements:
+				if not req.is_ready:
+					return
 			state_machine.transition_to(attack_request_buffer.state)
 			go_to_next_attack = false
 			attack_can_cancel = false
@@ -73,6 +76,9 @@ var go_to_next_attack : bool:
 	set(value):
 		go_to_next_attack = value
 		if value and attack_can_go_to_next and not attack_request_buffer == {}:
+			for req in state_machine.get_state(attack_request_buffer.state).transition_requirements:
+				if not req.is_ready:
+					return
 			state_machine.transition_to(attack_request_buffer.state)
 			go_to_next_attack = false
 			attack_can_cancel = false

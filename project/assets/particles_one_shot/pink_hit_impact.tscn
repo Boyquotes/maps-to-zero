@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://048jw1g8mrds"]
+
+[ext_resource type="Texture2D" uid="uid://clk1rpb0pswq2" path="res://assets/particle_sprites/pink_hit_impact.png" id="1_whbmv"]
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_wx5p2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_icsu7"]
+blend_mode = 1
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uuyxo"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 720.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="Animation" id="Animation_jdh73"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_upw5a"]
+resource_name = "animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3pb2u"]
+_data = {
+"RESET": SubResource("Animation_jdh73"),
+"animation": SubResource("Animation_upw5a")
+}
+
+[node name="PinkHitImpact" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_icsu7")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_uuyxo")
+texture = ExtResource("1_whbmv")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.172549, 0.772549, 1)
+texture = ExtResource("2_wx5p2")
+texture_scale = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PointLight2D"]
+autoplay = "animation"
+libraries = {
+"": SubResource("AnimationLibrary_3pb2u")
+}

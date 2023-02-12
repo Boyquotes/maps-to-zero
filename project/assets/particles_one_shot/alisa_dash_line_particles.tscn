@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cj6fkeeb4m5np"]
+
+[ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particle_sprites/white_square_4x4.png" id="1_574o1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wjqvi"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_gagbj"]
+offsets = PackedFloat32Array(0.0224299, 0.035514, 0.0672897, 0.0934579, 0.540187, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.192157, 0.619608, 1, 1, 0.192157, 0.619608, 1, 1, 0.215686, 0.631373, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1dcow"]
+gradient = SubResource("Gradient_gagbj")
+
+[sub_resource type="Curve" id="Curve_pbflc"]
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0459364, 2), 0.0, 0.0, 0, 0, Vector2(0.125442, 2), 0.0, 0.0, 0, 0, Vector2(0.189046, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_gvfey"]
+curve = SubResource("Curve_pbflc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_30pls"]
+emission_shape = 3
+emission_box_extents = Vector3(256, 20, 1)
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 10.0
+angular_velocity_max = 30.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_curve = SubResource("CurveTexture_gvfey")
+color_ramp = SubResource("GradientTexture1D_1dcow")
+
+[node name="AlisaDashLineParticles" type="GPUParticles2D"]
+z_index = 25
+material = SubResource("CanvasItemMaterial_wjqvi")
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_30pls")
+texture = ExtResource("1_574o1")
+one_shot = true
+explosiveness = 1.0

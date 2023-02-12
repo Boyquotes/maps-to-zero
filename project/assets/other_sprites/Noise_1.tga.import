@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wyag5x76vwad"
-path.s3tc="res://.godot/imported/blurred_white_circle.png-389719933b0377f7fb2494d9ebbca549.s3tc.ctex"
+uid="uid://dnm8b6pycykn6"
+path.s3tc="res://.godot/imported/Noise_1.tga-2b103db1ce00dc10fc8dc1e371af076f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/other_sprites/blurred_white_circle.png"
-dest_files=["res://.godot/imported/blurred_white_circle.png-389719933b0377f7fb2494d9ebbca549.s3tc.ctex"]
+source_file="res://assets/other_sprites/Noise_1.tga"
+dest_files=["res://.godot/imported/Noise_1.tga-2b103db1ce00dc10fc8dc1e371af076f.s3tc.ctex"]
 
 [params]
 

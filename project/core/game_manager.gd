@@ -33,24 +33,49 @@ var cutscene_mode: bool:
 			hide_cutscene_bars(1.0)
 
 var player: Actor2D
-var gameplay_camera: Camera2D
+var gameplay_camera: GameplayCamera2D
 var transition_camera: Camera2D
 
 
 func show_cutscene_bars(duration:= 1.0) -> void:
 	if is_equal_approx(duration, 0.0):
-		$CutsceneBars/Control/AnimationPlayer.play("showing")
+		$ScreenEffects/CutsceneBars/AnimationPlayer.play("showing")
 	else:
-		$CutsceneBars/Control/AnimationPlayer.speed_scale = 1.0 / duration
-		$CutsceneBars/Control/AnimationPlayer.play("show_bars")
+		$ScreenEffects/CutsceneBars/AnimationPlayer.speed_scale = 1.0 / duration
+		$ScreenEffects/CutsceneBars/AnimationPlayer.play("show_bars")
 
 
 func hide_cutscene_bars(duration:= 1.0) -> void:
 	if is_equal_approx(duration, 0.0):
-		$CutsceneBars/Control.visible = false
+		$ScreenEffects/CutsceneBars.visible = false
 	else:
-		$CutsceneBars/Control/AnimationPlayer.speed_scale = 1.0 / duration
-		$CutsceneBars/Control/AnimationPlayer.play("hide_bars")
+		$ScreenEffects/CutsceneBars/AnimationPlayer.speed_scale = 1.0 / duration
+		$ScreenEffects/CutsceneBars/AnimationPlayer.play("hide_bars")
+
+
+func show_speedlines() -> void:
+	$ScreenEffects/SpeedLines.visible = true
+	$ScreenEffects/SpeedLines/Image/AnimationPlayer.play("play")
+
+func hide_speedlines() -> void:
+	$ScreenEffects/SpeedLines.visible = false
+	$ScreenEffects/SpeedLines/Image/AnimationPlayer.stop()
+
+func show_skill_frame(duration:= 1.0) -> void:
+	if is_equal_approx(duration, 0.0):
+		$ScreenEffects/SkillFrames/AnimationPlayer.play("show")
+	else:
+		$ScreenEffects/SkillFrames/AnimationPlayer.speed_scale = 1.0 / duration
+		$ScreenEffects/SkillFrames/AnimationPlayer.play("show")
+
+func hide_skill_frame(duration:= 1.0) -> void:
+	if is_equal_approx(duration, 0.0):
+		$ScreenEffects/SkillFrames.visible = false
+	else:
+		$ScreenEffects/SkillFrames/AnimationPlayer.speed_scale = 1.0 / duration
+		$ScreenEffects/SkillFrames/AnimationPlayer.play("hide")
+
+
 
 func enable_gameplay_camera_current(transition_time := 1.0) -> void:
 	set_gameplay_camera_current(true, transition_time)
@@ -103,3 +128,7 @@ func request_stage_change(stage_id: String, player_entry_point := 0) -> void:
 func reload() -> void:
 	var stage = load(STAGE_PATHS[SaveData.stage_id])
 	sidescroller_main.change_stage(stage, 0, true)
+
+
+func screen_shake(trauma := 0.5):
+	sidescroller_main.gameplay_camera.add_trauma(trauma)

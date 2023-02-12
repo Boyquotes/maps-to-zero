@@ -7,7 +7,7 @@ extends Node2D
 
 @onready var actors_parent := %ActorsParent
 @onready var camera_transformer: RemoteTransform2D = %CameraTransformer
-@onready var gameplay_camera: Camera2D = %GameplayCamera
+@onready var gameplay_camera: GameplayCamera2D = %GameplayCamera
 @onready var transition_camera: Camera2D = %TransitionCamera
 @onready var popup_canvas: CanvasLayer = %PopupCanvas
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

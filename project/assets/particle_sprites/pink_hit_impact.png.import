@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wyag5x76vwad"
-path.s3tc="res://.godot/imported/blurred_white_circle.png-389719933b0377f7fb2494d9ebbca549.s3tc.ctex"
+uid="uid://clk1rpb0pswq2"
+path="res://.godot/imported/pink_hit_impact.png-81f806ce5da7a040022bd799b0346609.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/other_sprites/blurred_white_circle.png"
-dest_files=["res://.godot/imported/blurred_white_circle.png-389719933b0377f7fb2494d9ebbca549.s3tc.ctex"]
+source_file="res://assets/particle_sprites/pink_hit_impact.png"
+dest_files=["res://.godot/imported/pink_hit_impact.png-81f806ce5da7a040022bd799b0346609.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

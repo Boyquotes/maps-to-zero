@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkcdmvd684dv7"]
+[gd_scene load_steps=11 format=3 uid="uid://dkcdmvd684dv7"]
 
 [ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
-[ext_resource type="PackedScene" uid="uid://b2hw8ohwylasp" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
+[ext_resource type="PackedScene" uid="uid://c1ya48rctmvsh" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
+[ext_resource type="Script" path="res://core/screen_shake_camera.gd" id="3_2n05a"]
+[ext_resource type="Script" path="res://core/gameplay_camera_2d.gd" id="3_2qjor"]
 [ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="4_lcacx"]
 [ext_resource type="PackedScene" uid="uid://bwahsuvk654r6" path="res://core/popups/yes_no_menu.tscn" id="6_1kvbx"]
@@ -28,12 +30,15 @@ remote_path = NodePath("../GameplayCamera")
 [node name="GameplayCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-712, 512)
-zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 drag_vertical_enabled = true
 drag_top_margin = 0.3
 drag_bottom_margin = 0.3
 editor_draw_limits = true
+script = ExtResource("3_2qjor")
+
+[node name="ScreenShakeCamera" type="Node" parent="GameplayCamera"]
+script = ExtResource("3_2n05a")
 
 [node name="TransitionCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true

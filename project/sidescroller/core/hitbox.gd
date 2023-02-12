@@ -8,6 +8,8 @@ signal hit(actor)
 @export var hit_sfx : AudioStream
 @export var on_hit_resource_gain_type: ActorResources.Type
 @export var on_hit_resource_gain_amount := 0.0
+@export var frame_freeze_duration_milliseconds := 0
+@export var screen_shake_trauma := 0.0
 
 var team : GameUtilities.Teams
 var actor: Actor2D
@@ -37,3 +39,9 @@ func _on_hurtbox_entered(area : Area2D) -> void:
 	if damage_taken:
 		actor.resources.change_resource(on_hit_resource_gain_type, on_hit_resource_gain_amount)
 		hit.emit(area.owner)
+		
+		if frame_freeze_duration_milliseconds > 0:
+			FrameFreeze.request(frame_freeze_duration_milliseconds)
+		
+		if screen_shake_trauma > 0:
+			GameManager.screen_shake(screen_shake_trauma)
