@@ -1,9 +1,9 @@
-[gd_scene load_steps=49 format=3 uid="uid://vwtsgktdugwy"]
+[gd_scene load_steps=63 format=3 uid="uid://vwtsgktdugwy"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_psjvg"]
+[ext_resource type="AudioStream" uid="uid://d3ritdwea4qby" path="res://assets/sfx/ambience/cave_echo.wav" id="2_75hde"]
 [ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="8_1sghc"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="9_0kevy"]
-[ext_resource type="Script" path="res://sidescroller/core/parallax_layer_group.gd" id="10_ikhqu"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stage_objects/horizon_hills_cave/008_background.png" id="11_3m6c3"]
 [ext_resource type="Texture2D" uid="uid://c0ocka0pk1r77" path="res://assets/stage_objects/dragon_treasure_cave/crystals/bg_crystal_01.png" id="12_x2h4y"]
 [ext_resource type="Texture2D" uid="uid://dubg3mjbs7em6" path="res://assets/stage_objects/dragon_treasure_cave/crystals/bg_crystal_02.png" id="13_80f3q"]
@@ -20,17 +20,62 @@
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_06.png" id="18_l0yx7"]
 [ext_resource type="Texture2D" uid="uid://bns8ow8ja0vqc" path="res://assets/stage_objects/dragon_treasure_cave/Pillar 3.png" id="19_n5c5m"]
 [ext_resource type="Texture2D" uid="uid://dkploejrq8bxb" path="res://assets/stage_objects/dragon_treasure_cave/Lamp.png" id="23_3edsx"]
+[ext_resource type="AudioStream" uid="uid://mxs8batq4fud" path="res://assets/sfx/ambience/camp_fire.ogg" id="23_vgitb"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="24_aqx6j"]
 [ext_resource type="Texture2D" uid="uid://ggyaq7a66ikr" path="res://assets/stage_objects/dragon_treasure_cave/crystals/1.png" id="25_hvrau"]
 [ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particle_sprites/white_square_4x4.png" id="25_yydpt"]
 [ext_resource type="Texture2D" uid="uid://civp4lttojm" path="res://assets/stage_objects/dragon_treasure_cave/crystals/2.png" id="26_uunoj"]
 [ext_resource type="Texture2D" uid="uid://dsdjv7o1ls21d" path="res://assets/stage_objects/dragon_treasure_cave/crystals/3.png" id="27_5vct5"]
+[ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="33_de7ds"]
+[ext_resource type="Script" path="res://core/screen_shake_trigger.gd" id="34_mmx8v"]
+[ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="34_n8fn2"]
+[ext_resource type="PackedScene" uid="uid://sa4tyujdoivn" path="res://assets/stage_objects/dragon_treasure_cave/column_tall.tscn" id="37_ejanw"]
+[ext_resource type="PackedScene" uid="uid://ck3x2ncnej15k" path="res://assets/stage_objects/dragon_treasure_cave/column_medium.tscn" id="38_h24ju"]
+[ext_resource type="PackedScene" uid="uid://das03waqnfui" path="res://assets/stage_objects/dragon_treasure_cave/column_small.tscn" id="39_lts7l"]
 [ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/ruby_mine.tres" id="54_flyfi"]
 [ext_resource type="Texture2D" uid="uid://ct4xiafwjqxnl" path="res://assets/stage_objects/dragon_treasure_cave/Treasure+.png" id="54_xsvra"]
 [ext_resource type="PackedScene" uid="uid://b1qwf8q5qkwgt" path="res://sidescroller/actors_2d/egrisi.tscn" id="56_g1esd"]
 [ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="59_qjw7m"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="69_nr2gp"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="71_7t53a"]
+
+[sub_resource type="GDScript" id="GDScript_ahe6p"]
+script/source = "extends Node
+
+@export var dragon_node_path : NodePath
+@export var camera_settings_trigger_node_path : NodePath
+@export var falling_rocks_animation_player_node_path : NodePath
+@export var background_animation_player_node_path : NodePath
+
+var dragon : Actor2D
+var camera_settings_trigger : CameraSettingsTrigger
+var base_zoom : Vector2
+var dragon_original_position : Vector2
+
+func _ready() -> void:
+	dragon = get_node(dragon_node_path)
+	dragon.get_node(\"StateMachine\").transitioned.connect(dragon_state_changed)
+	
+	camera_settings_trigger = get_node(camera_settings_trigger_node_path)
+	base_zoom = camera_settings_trigger.zoom
+
+
+func dragon_state_changed(to : String, from : String) -> void:
+	if to == \"WallImpact\":
+		get_node(falling_rocks_animation_player_node_path).play(\"fall\")
+	if to == \"FlyToCenter\":
+		camera_settings_trigger.zoom = Vector2.ONE
+		camera_settings_trigger.change_zoom()
+		dragon_original_position = dragon.position
+	if to == \"FireBreath\":
+		get_node(background_animation_player_node_path).play(\"light_torches\")
+	if from == \"FlyToCenter\":
+		dragon.position = Vector2.ZERO
+	if from == \"FireBreath\":
+		camera_settings_trigger.zoom = base_zoom
+		camera_settings_trigger.change_zoom()
+		dragon.position = dragon_original_position
+"
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -41,7 +86,6 @@ gradient = SubResource("Gradient_8r1s5")
 
 [sub_resource type="Environment" id="Environment_mjjl6"]
 background_mode = 3
-glow_enabled = true
 glow_levels/1 = 1.0
 glow_levels/2 = 1.0
 glow_levels/3 = 0.0
@@ -52,7 +96,6 @@ glow_intensity = 1.0
 glow_strength = 1.1
 glow_blend_mode = 1
 glow_hdr_threshold = 0.8
-adjustment_enabled = true
 adjustment_contrast = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_l16xj")
 
@@ -157,6 +200,127 @@ tracks/4/keys = {
 _data = {
 "RESET": SubResource("Animation_771j0"),
 "enter": SubResource("Animation_1jycl")
+}
+
+[sub_resource type="Animation" id="Animation_tmt1p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torches/Torch 2/PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_0wbe4"]
+resource_name = "light_torches"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torches/Torch 1/PointLight2D/Glow Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Torches/Torch 2/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Torches/Torch 1/GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Torches/Torch 1/PointLight2D:energy")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.9, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Torches/Torch 2/PointLight2D:energy")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2.9, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Torches/Torch 1/Ambience:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Torches/Torch 2/Ambience2:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7g8do"]
+_data = {
+"RESET": SubResource("Animation_tmt1p"),
+"light_torches": SubResource("Animation_0wbe4")
 }
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x5uc0"]
@@ -483,10 +647,506 @@ size = Vector2(1504, 768)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm4if"]
 size = Vector2(80, 120)
 
+[sub_resource type="Animation" id="Animation_jn4fx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Background/Torches/Torch 1/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Background/Torches/Torch 1/PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Background/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Background/Torches/Torch 2/GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Background/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Background/Torches/Torch 2/PointLight2D:energy")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Left Column Tall:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, -420)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Left Column Small 1:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-256, -420)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Left Column Small 2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-512, -420)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Right Column Tall:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, -420)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Left Column Medium:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-384, -420)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Right Column Medium:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, -420)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Right Column Small 1:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, -420)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Right Column Small 2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(512, -420)]
+}
+
+[sub_resource type="Animation" id="Animation_s2s6f"]
+resource_name = "fall"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Background/Torches/Torch 1/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Background/Torches/Torch 1/PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.7, 2.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Background/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Background/Torches/Torch 2/GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Background/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Background/Torches/Torch 2/PointLight2D:energy")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2.7, 2.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Left Column Tall:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.2, 1.7, 2.7, 2.8, 2.9),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(-128, -420), Vector2(-128, -420), Vector2(-128, 256), Vector2(-128, 240), Vector2(-128, 256)]
+}
+tracks/7/type = "animation"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Left Column Tall/AnimationPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.2)
+}
+tracks/8/type = "animation"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Left Column Medium/AnimationPlayer")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.1)
+}
+tracks/9/type = "animation"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Left Column Small 1/AnimationPlayer")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.3)
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Left Column Small 2:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.3, 1.8, 2.8, 2.9, 3),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(-512, -420), Vector2(-512, -420), Vector2(-512, 256), Vector2(-512, 240), Vector2(-512, 256)]
+}
+tracks/11/type = "animation"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Left Column Small 2/AnimationPlayer")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.3)
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Right Column Tall:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.2, 1.7, 2.7, 2.8, 2.9),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(128, -420), Vector2(128, -420), Vector2(128, 256), Vector2(128, 240), Vector2(128, 256)]
+}
+tracks/13/type = "animation"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Right Column Tall/AnimationPlayer")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.2)
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Left Column Medium:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.1, 1.6, 2.6, 2.7, 2.8),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(-384, -420), Vector2(-384, -420), Vector2(-384, 256), Vector2(-384, 240), Vector2(-384, 256)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Left Column Small 1:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0.3, 1.8, 2.8, 2.9, 3),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(-256, -420), Vector2(-256, -420), Vector2(-256, 256), Vector2(-256, 240), Vector2(-256, 256)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Right Column Medium:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0.1, 1.6, 2.6, 2.7, 2.8),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(384, -420), Vector2(384, -420), Vector2(384, 256), Vector2(384, 240), Vector2(384, 256)]
+}
+tracks/17/type = "animation"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Right Column Medium/AnimationPlayer")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.4)
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Right Column Small 1:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0.3, 1.8, 2.8, 2.9, 3),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(256, -420), Vector2(256, -420), Vector2(256, 256), Vector2(256, 240), Vector2(256, 256)]
+}
+tracks/19/type = "animation"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Right Column Small 1/AnimationPlayer")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.3)
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Right Column Small 2:position")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.3, 1.8, 2.8, 2.9, 3),
+"transitions": PackedFloat32Array(1, 2, 0.5, 2, 0.5),
+"update": 0,
+"values": [Vector2(512, -420), Vector2(512, -420), Vector2(512, 256), Vector2(512, 240), Vector2(512, 256)]
+}
+tracks/21/type = "animation"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Right Column Small 2/AnimationPlayer")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"clips": PackedStringArray("fall"),
+"times": PackedFloat32Array(0.3)
+}
+tracks/22/type = "method"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("ScreenShake")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 2.6, 2.7, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}, {
+"args": [null],
+"method": &"trigger"
+}, {
+"args": [null],
+"method": &"trigger"
+}, {
+"args": [null],
+"method": &"trigger"
+}, {
+"args": [null],
+"method": &"trigger"
+}, {
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("../Background/Torches/Torch 1/Ambience:playing")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("../Background/Torches/Torch 2/Ambience2:playing")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5a8yx"]
+_data = {
+"RESET": SubResource("Animation_jn4fx"),
+"fall": SubResource("Animation_s2s6f")
+}
+
 [node name="Horizon Hills BossArena" instance=ExtResource("1_psjvg")]
 song = 6
+metadata/_edit_vertical_guides_ = []
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="0"]
+[node name="Ambience" type="AudioStreamPlayer" parent="." index="0"]
+stream = ExtResource("2_75hde")
+volume_db = -8.0
+autoplay = true
+bus = &"Ambience"
+
+[node name="SignalManager" type="Node" parent="." index="1"]
+script = SubResource("GDScript_ahe6p")
+dragon_node_path = NodePath("../Egrisi Dragon")
+camera_settings_trigger_node_path = NodePath("../CameraSettingsTrigger")
+falling_rocks_animation_player_node_path = NodePath("../Falling Rocks/AnimationPlayer")
+background_animation_player_node_path = NodePath("../Background/AnimationPlayer")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="2"]
 environment = SubResource("Environment_mjjl6")
 
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints" index="0"]
@@ -507,14 +1167,10 @@ actor_name = "PLAYER"
 look_direction = 1
 animation = "walk"
 
-[node name="HorizonHillsSmallCaveBackground" type="Node2D" parent="." index="2"]
-script = ExtResource("10_ikhqu")
-is_visible = false
-
-[node name="Skybox" type="CanvasLayer" parent="HorizonHillsSmallCaveBackground" index="0"]
+[node name="Skybox" type="CanvasLayer" parent="." index="4"]
 layer = -100
 
-[node name="ColorRect" type="ColorRect" parent="HorizonHillsSmallCaveBackground/Skybox" index="0"]
+[node name="ColorRect" type="ColorRect" parent="Skybox" index="0"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -522,1225 +1178,1270 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ParallaxBackground8" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="1"]
+[node name="-53" type="CanvasLayer" parent="." index="5"]
+layer = -53
+scale = Vector2(8, 8)
+transform = Transform2D(8, 0, 0, 8, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.05
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8" index="0"]
+[node name="Node2D" type="Node2D" parent="-53" index="0"]
 modulate = Color(0.192157, 0.054902, 0.0862745, 1)
-motion_scale = Vector2(0.05, 0.05)
 
-[node name="Background" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8/ParallaxLayer" index="0"]
-position = Vector2(-392, 296)
-scale = Vector2(2, 2)
+[node name="Background" type="Sprite2D" parent="-53/Node2D" index="0"]
+position = Vector2(-685, -378.889)
+scale = Vector2(3, 3)
 texture = ExtResource("11_3m6c3")
 
-[node name="Background2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground8/ParallaxLayer" index="1"]
-position = Vector2(888, 296)
-scale = Vector2(2, 2)
-texture = ExtResource("11_3m6c3")
+[node name="RightColor" type="Sprite2D" parent="-53/Node2D" index="1"]
+modulate = Color(0.392157, 0.262745, 0.415686, 1)
+position = Vector2(1265, -180)
+scale = Vector2(500, 500)
+texture = ExtResource("25_yydpt")
 
-[node name="ParallaxBackground6" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="2"]
+[node name="-52" type="CanvasLayer" parent="." index="6"]
+layer = -52
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.1
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6" index="0"]
+[node name="Node2D" type="Node2D" parent="-52" index="0"]
 modulate = Color(2, 0.6, 0.6, 1)
-position = Vector2(77, 0)
-motion_scale = Vector2(0.14, 0.14)
 
-[node name="Crystal" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="0"]
-position = Vector2(558, 328)
+[node name="Crystal" type="Sprite2D" parent="-52/Node2D" index="0"]
+position = Vector2(-60, -412.5)
 scale = Vector2(2, 2)
 texture = ExtResource("13_vitd8")
 
-[node name="Crystal2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="1"]
-position = Vector2(744, -16)
+[node name="Crystal2" type="Sprite2D" parent="-52/Node2D" index="1"]
+position = Vector2(-40.4999, -756.5)
 texture = ExtResource("14_fi8d7")
 
-[node name="Crystal3" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="2"]
-position = Vector2(168, 24)
+[node name="Crystal3" type="Sprite2D" parent="-52/Node2D" index="2"]
+position = Vector2(-616.5, -716.5)
 texture = ExtResource("15_vpgp4")
 
-[node name="Crystal4" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="3"]
-position = Vector2(248, -32)
+[node name="Crystal4" type="Sprite2D" parent="-52/Node2D" index="3"]
+position = Vector2(-536.5, -772.5)
 texture = ExtResource("16_t1vrc")
 
-[node name="Crystal5" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="4"]
-position = Vector2(272, 520)
+[node name="Crystal5" type="Sprite2D" parent="-52/Node2D" index="4"]
+position = Vector2(-512.5, -220.5)
 texture = ExtResource("17_ob6jo")
 
-[node name="Crystal6" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground6/ParallaxLayer" index="5"]
-position = Vector2(984, 456)
+[node name="Crystal6" type="Sprite2D" parent="-52/Node2D" index="5"]
+position = Vector2(199.5, -284.5)
 scale = Vector2(2, 2)
 texture = ExtResource("18_l0yx7")
 
-[node name="ParallaxBackground5" type="ParallaxBackground" parent="HorizonHillsSmallCaveBackground" index="3"]
+[node name="-51" type="CanvasLayer" parent="." index="7"]
+layer = -51
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.15
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5" index="0"]
+[node name="Node2D" type="Node2D" parent="-51" index="0"]
 modulate = Color(2, 0.1, 0.2, 1)
-motion_scale = Vector2(0.2, 0.2)
+position = Vector2(0, -137.333)
 
-[node name="Crystal" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="0"]
-position = Vector2(464, 272)
+[node name="Crystal" type="Sprite2D" parent="-51/Node2D" index="0"]
+position = Vector2(-77, -5)
 texture = ExtResource("12_x2h4y")
 
-[node name="Crystal2" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="1"]
-position = Vector2(-16, 272)
+[node name="Crystal2" type="Sprite2D" parent="-51/Node2D" index="1"]
+position = Vector2(-557, -5)
 texture = ExtResource("13_80f3q")
 
-[node name="Crystal3" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="2"]
-position = Vector2(312, 272)
+[node name="Crystal3" type="Sprite2D" parent="-51/Node2D" index="2"]
+position = Vector2(-229, -5)
 texture = ExtResource("14_kuwaj")
 
-[node name="Crystal4" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="3"]
-position = Vector2(920, 272)
+[node name="Crystal4" type="Sprite2D" parent="-51/Node2D" index="3"]
+position = Vector2(379, -5)
 texture = ExtResource("15_l4qe1")
 
-[node name="Crystal5" type="Sprite2D" parent="HorizonHillsSmallCaveBackground/ParallaxBackground5/ParallaxLayer" index="4"]
-position = Vector2(848, 272)
+[node name="Crystal5" type="Sprite2D" parent="-51/Node2D" index="4"]
+position = Vector2(307, -5)
 texture = ExtResource("16_v3nqw")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="3"]
-layer = -30
+[node name="-50" type="CanvasLayer" parent="." index="8"]
+layer = -50
+scale = Vector2(3, 3)
+transform = Transform2D(3, 0, 0, 3, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.2
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+[node name="Layer 2" type="Node2D" parent="-50" index="0"]
 modulate = Color(0.192157, 0.192157, 0.192157, 1)
-position = Vector2(-25, -104)
-motion_scale = Vector2(0.25, 0.25)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-50/Layer 2" index="0"]
 modulate = Color(1, 0.690196, 0.639216, 1)
-position = Vector2(342, 158)
-scale = Vector2(2, 2)
+position = Vector2(-316.555, -324.444)
+scale = Vector2(3, 3)
 texture = ExtResource("11_3m6c3")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-50/Layer 2" index="1"]
 modulate = Color(0.498039, 0.321569, 0.435294, 1)
-position = Vector2(337, 1426)
+position = Vector2(-285.555, 1198.56)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="2"]
-modulate = Color(0.498039, 0.321569, 0.435294, 1)
-position = Vector2(1976, 729)
-scale = Vector2(500, 500)
-texture = ExtResource("25_yydpt")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" index="1"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
-position = Vector2(-25, -104)
-motion_scale = Vector2(0.3, 0.3)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" index="0"]
-modulate = Color(1, 0.690196, 0.639216, 1)
-position = Vector2(342, 154)
+[node name="-49" type="CanvasLayer" parent="." index="9"]
+layer = -49
 scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.24
+
+[node name="Node2D" type="Node2D" parent="-49" index="0"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="-49/Node2D" index="0"]
+modulate = Color(1, 0.690196, 0.639216, 1)
+position = Vector2(-289.571, -437.143)
+scale = Vector2(3, 3)
 texture = ExtResource("17_g606d")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" index="1"]
+[node name="BottomColor" type="Sprite2D" parent="-49/Node2D" index="1"]
 modulate = Color(0.392157, 0.262745, 0.415686, 1)
-position = Vector2(337, 1504)
+position = Vector2(-308.571, 1097.86)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" index="2"]
+[node name="RightColor" type="Sprite2D" parent="-49/Node2D" index="2"]
 modulate = Color(0.392157, 0.262745, 0.415686, 1)
-position = Vector2(1976, 729)
+position = Vector2(1640, -180)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="LeftGoldPillar ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" index="2"]
+[node name="-48" type="CanvasLayer" parent="." index="10"]
+layer = -48
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.44
+
+[node name="RightPillar" type="Node2D" parent="-48" index="0"]
 modulate = Color(0.298039, 0.298039, 0.298039, 1)
-motion_scale = Vector2(0.44, 0.44)
+position = Vector2(200, 2)
 
-[node name="Pillar11" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4" index="0"]
-position = Vector2(-230, 392)
+[node name="Pillar11" type="Node2D" parent="-48/RightPillar" index="0"]
+position = Vector2(-75, 143.091)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar11" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar11" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar11" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar11" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar11" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar11" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar11" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar11" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar11" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar11" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar11" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar11" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar12" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4" index="1"]
-position = Vector2(-258, 413)
+[node name="Pillar12" type="Node2D" parent="-48/RightPillar" index="1"]
+position = Vector2(-15, 110.091)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar12" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar12" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar12" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar12" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar12" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar12" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar12" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar12" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar12" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar12" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar12" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar12" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar13" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4" index="2"]
-position = Vector2(-173, 357)
+[node name="Pillar13" type="Node2D" parent="-48/RightPillar" index="2"]
+position = Vector2(46, 57.0909)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar13" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar13" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar13" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar13" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar13" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar13" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar13" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar13" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar13" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar13" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar13" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar13" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar14" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4" index="3"]
-position = Vector2(-80, 342)
+[node name="Pillar14" type="Node2D" parent="-48/RightPillar" index="3"]
+position = Vector2(106, 98.0909)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar14" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar14" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar14" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar14" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar14" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar14" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar14" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar14" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar14" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar14" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar14" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar14" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar15" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4" index="4"]
-position = Vector2(-48, 359)
+[node name="Pillar15" type="Node2D" parent="-48/RightPillar" index="4"]
+position = Vector2(163, 135.091)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar15" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar15" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar15" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar15" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar15" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar15" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar15" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar15" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar15" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar15" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer4/Pillar15" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar15" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="LeftGoldPillar ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" index="3"]
-modulate = Color(0.486275, 0.486275, 0.486275, 1)
-motion_scale = Vector2(0.46, 0.46)
-
-[node name="Pillar6" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3" index="0"]
-position = Vector2(-186, 363)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar6" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar6" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar6" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar6" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar6" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar6" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar7" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3" index="1"]
-position = Vector2(-217, 383)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar7" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar7" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar7" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar7" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar7" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar7" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar8" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3" index="2"]
-position = Vector2(-52, 361)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar8" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar8" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar8" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar8" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar8" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar8" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar9" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3" index="3"]
-position = Vector2(-237, 412)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar9" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar9" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar9" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar9" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar9" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar9" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar10" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3" index="4"]
-position = Vector2(-26, 387)
-rotation = 3.14159
-scale = Vector2(1, -1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar10" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar10" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar10" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar10" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar10" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer3/Pillar10" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="LeftGoldPillar ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" index="4"]
-modulate = Color(0.607843, 0.607843, 0.607843, 1)
-motion_scale = Vector2(0.48, 0.48)
-
-[node name="Pillar6" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2" index="0"]
-position = Vector2(-145, 345)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar6" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar6" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar6" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar6" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar6" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar6" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar7" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2" index="1"]
-position = Vector2(-73, 356)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar7" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar7" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar7" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar7" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar7" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar7" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar8" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2" index="2"]
-position = Vector2(-184, 373)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar8" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar8" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar8" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar8" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar8" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar8" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar9" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2" index="3"]
-position = Vector2(-200, 401)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar9" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar9" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar9" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar9" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar9" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar9" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar10" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2" index="4"]
-position = Vector2(-44, 400)
-rotation = 3.14159
-scale = Vector2(1, -1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar10" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar10" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar10" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar10" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar10" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer2/Pillar10" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="LeftGoldPillar ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="5"]
-modulate = Color(0.686275, 0.686275, 0.686275, 1)
-motion_scale = Vector2(0.5, 0.5)
-
-[node name="Pillar" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer" index="0"]
-position = Vector2(-121, 338)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar2" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer" index="1"]
-position = Vector2(-69, 401)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar2" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar2" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar2" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar2" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar2" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar2" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar3" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer" index="2"]
-position = Vector2(-152, 361)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar3" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar3" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar3" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar3" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar3" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar3" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar4" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer" index="3"]
-position = Vector2(-170, 382)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar4" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar4" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar4" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar4" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar4" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar4" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="Pillar5" type="Node2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer" index="4"]
-position = Vector2(-93, 356)
-scale = Vector2(-1, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar5" index="0"]
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar5" index="1"]
-position = Vector2(0, 225)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar5" index="2"]
-position = Vector2(0, 452)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar5" index="3"]
-position = Vector2(0, 670)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar5" index="4"]
-position = Vector2(0, 895)
-texture = ExtResource("18_i25ef")
-
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/LeftGoldPillar ParallaxLayer/Pillar5" index="5"]
-position = Vector2(0, 1122)
-texture = ExtResource("18_i25ef")
-
-[node name="RightGoldPillar ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="6"]
+[node name="LeftPillar" type="Node2D" parent="-48" index="1"]
 modulate = Color(0.298039, 0.298039, 0.298039, 1)
-position = Vector2(1027, 0)
-motion_scale = Vector2(0.44, 0.44)
+position = Vector2(-263.636, 70)
 
-[node name="Pillar11" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer" index="0"]
-position = Vector2(-230, 392)
+[node name="Pillar11" type="Node2D" parent="-48/LeftPillar" index="0"]
+position = Vector2(-85, 23)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar11" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar11" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar11" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar11" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar11" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar11" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar11" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar11" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar11" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar11" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar11" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar11" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar12" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer" index="1"]
-position = Vector2(-258, 413)
+[node name="Pillar12" type="Node2D" parent="-48/LeftPillar" index="1"]
+position = Vector2(-134, 50)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar12" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar12" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar12" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar12" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar12" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar12" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar12" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar12" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar12" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar12" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar12" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar12" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar13" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer" index="2"]
-position = Vector2(-173, 357)
+[node name="Pillar13" type="Node2D" parent="-48/LeftPillar" index="2"]
+position = Vector2(-33, -11)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar13" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar13" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar13" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar13" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar13" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar13" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar13" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar13" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar13" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar13" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar13" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar13" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar14" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer" index="3"]
-position = Vector2(-80, 342)
+[node name="Pillar14" type="Node2D" parent="-48/LeftPillar" index="3"]
+position = Vector2(31, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar14" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar14" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar14" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar14" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar14" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar14" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar14" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar14" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar14" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar14" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar14" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar14" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar15" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer" index="4"]
-position = Vector2(-48, 359)
+[node name="Pillar15" type="Node2D" parent="-48/LeftPillar" index="4"]
+position = Vector2(87, 14)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar15" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar15" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar15" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar15" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar15" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar15" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar15" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar15" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar15" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar15" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer/Pillar15" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar15" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="RightGoldPillar ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" index="7"]
+[node name="-47" type="CanvasLayer" parent="." index="11"]
+layer = -47
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.46
+
+[node name="Left Tower" type="Node2D" parent="-47" index="0"]
 modulate = Color(0.486275, 0.486275, 0.486275, 1)
-position = Vector2(1011, 0)
-motion_scale = Vector2(0.46, 0.46)
+position = Vector2(-248.913, -1)
 
-[node name="Pillar6" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2" index="0"]
-position = Vector2(-186, 363)
+[node name="Pillar6" type="Node2D" parent="-47/Left Tower" index="0"]
+position = Vector2(-89, 122)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar6" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar6" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar6" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar6" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar6" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar6" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar6" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar6" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar6" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar6" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar6" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar6" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar7" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2" index="1"]
-position = Vector2(-217, 383)
+[node name="Pillar7" type="Node2D" parent="-47/Left Tower" index="1"]
+position = Vector2(-40, 106)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar7" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar7" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar7" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar7" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar7" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar7" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar7" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar7" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar7" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar7" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar7" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar7" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar8" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2" index="2"]
-position = Vector2(-52, 361)
+[node name="Pillar8" type="Node2D" parent="-47/Left Tower" index="2"]
+position = Vector2(-3, 84)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar8" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar8" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar8" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar8" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar8" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar8" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar8" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar8" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar8" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar8" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar8" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar8" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar9" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2" index="3"]
-position = Vector2(-237, 412)
+[node name="Pillar9" type="Node2D" parent="-47/Left Tower" index="3"]
+position = Vector2(44, 109)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar9" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar9" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar9" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar9" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar9" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar9" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar9" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar9" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar9" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar9" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar9" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar9" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar10" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2" index="4"]
-position = Vector2(-26, 387)
+[node name="Pillar10" type="Node2D" parent="-47/Left Tower" index="4"]
+position = Vector2(100, 126)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar10" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar10" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar10" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar10" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar10" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar10" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar10" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar10" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar10" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar10" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer2/Pillar10" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar10" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="RightGoldPillar ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" index="8"]
+[node name="Right Tower" type="Node2D" parent="-47" index="1"]
+modulate = Color(0.486275, 0.486275, 0.486275, 1)
+position = Vector2(216.304, 6)
+
+[node name="Pillar6" type="Node2D" parent="-47/Right Tower" index="0"]
+position = Vector2(-78.2608, 131.696)
+
+[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar6" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar6" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar6" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar6" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar6" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar6" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar7" type="Node2D" parent="-47/Right Tower" index="1"]
+position = Vector2(-26.2608, 108.696)
+
+[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar7" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar7" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar7" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar7" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar7" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar7" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar8" type="Node2D" parent="-47/Right Tower" index="2"]
+position = Vector2(26.7392, 77.6957)
+
+[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar8" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar8" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar8" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar8" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar8" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar8" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar9" type="Node2D" parent="-47/Right Tower" index="3"]
+position = Vector2(79.7392, 107.696)
+
+[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar9" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar9" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar9" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar9" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar9" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar9" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar10" type="Node2D" parent="-47/Right Tower" index="4"]
+position = Vector2(134.739, 125.696)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar10" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar10" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar10" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar10" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar10" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar10" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="-46" type="CanvasLayer" parent="." index="12"]
+layer = -46
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.48
+
+[node name="Left Tower" type="Node2D" parent="-46" index="0"]
 modulate = Color(0.607843, 0.607843, 0.607843, 1)
-position = Vector2(998, 0)
-motion_scale = Vector2(0.48, 0.48)
+position = Vector2(-250, -4)
 
-[node name="Pillar6" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3" index="0"]
-position = Vector2(-145, 345)
+[node name="Pillar6" type="Node2D" parent="-46/Left Tower" index="0"]
+position = Vector2(-64, 149)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar6" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar6" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar6" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar6" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar6" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar6" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar6" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar6" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar6" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar6" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar6" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar6" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar7" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3" index="1"]
-position = Vector2(-73, 356)
+[node name="Pillar7" type="Node2D" parent="-46/Left Tower" index="1"]
+position = Vector2(-33, 126)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar7" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar7" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar7" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar7" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar7" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar7" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar7" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar7" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar7" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar7" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar7" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar7" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar8" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3" index="2"]
-position = Vector2(-184, 373)
+[node name="Pillar8" type="Node2D" parent="-46/Left Tower" index="2"]
+position = Vector2(2, 104)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar8" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar8" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar8" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar8" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar8" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar8" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar8" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar8" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar8" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar8" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar8" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar8" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar9" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3" index="3"]
-position = Vector2(-200, 401)
+[node name="Pillar9" type="Node2D" parent="-46/Left Tower" index="3"]
+position = Vector2(50, 133)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar9" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar9" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar9" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar9" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar9" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar9" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar9" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar9" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar9" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar9" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar9" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar9" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar10" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3" index="4"]
-position = Vector2(-44, 400)
+[node name="Pillar10" type="Node2D" parent="-46/Left Tower" index="4"]
+position = Vector2(93, 162)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar10" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar10" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar10" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar10" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar10" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar10" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar10" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar10" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar10" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar10" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer3/Pillar10" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar10" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="RightGoldPillar ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" index="9"]
+[node name="Right Tower" type="Node2D" parent="-46" index="1"]
+modulate = Color(0.607843, 0.607843, 0.607843, 1)
+position = Vector2(194.792, 1)
+
+[node name="Pillar6" type="Node2D" parent="-46/Right Tower" index="0"]
+position = Vector2(-37.5, 149.625)
+
+[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar6" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar6" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar6" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar6" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar6" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar6" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar7" type="Node2D" parent="-46/Right Tower" index="1"]
+position = Vector2(-2.50002, 136.625)
+
+[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar7" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar7" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar7" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar7" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar7" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar7" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar8" type="Node2D" parent="-46/Right Tower" index="2"]
+position = Vector2(37.5, 114.625)
+
+[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar8" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar8" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar8" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar8" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar8" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar8" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar9" type="Node2D" parent="-46/Right Tower" index="3"]
+position = Vector2(91.5, 131.625)
+
+[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar9" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar9" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar9" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar9" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar9" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar9" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar10" type="Node2D" parent="-46/Right Tower" index="4"]
+position = Vector2(138.5, 153.625)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar10" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar10" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar10" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar10" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar10" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar10" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="-45" type="CanvasLayer" parent="." index="13"]
+layer = -45
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.5
+
+[node name="Left Tower" type="Node2D" parent="-45" index="0"]
 modulate = Color(0.686275, 0.686275, 0.686275, 1)
-position = Vector2(983, 0)
-motion_scale = Vector2(0.5, 0.5)
+position = Vector2(-261, -4)
 
-[node name="Pillar" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4" index="0"]
-position = Vector2(-121, 338)
+[node name="Pillar" type="Node2D" parent="-45/Left Tower" index="0"]
+position = Vector2(30, 118)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar2" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4" index="1"]
-position = Vector2(-69, 401)
+[node name="Pillar2" type="Node2D" parent="-45/Left Tower" index="1"]
+position = Vector2(82, 181)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar2" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar2" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar2" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar2" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar2" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar2" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar2" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar2" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar2" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar2" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar2" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar2" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar3" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4" index="2"]
-position = Vector2(-152, 361)
+[node name="Pillar3" type="Node2D" parent="-45/Left Tower" index="2"]
+position = Vector2(-1, 141)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar3" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar3" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar3" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar3" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar3" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar3" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar3" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar3" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar3" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar3" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar3" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar3" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar4" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4" index="3"]
-position = Vector2(-170, 382)
+[node name="Pillar4" type="Node2D" parent="-45/Left Tower" index="3"]
+position = Vector2(-19, 162)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar4" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar4" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar4" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar4" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar4" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar4" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar4" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar4" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar4" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar4" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar4" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar4" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar5" type="Node2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4" index="4"]
-position = Vector2(-93, 356)
-scale = Vector2(-1, 1)
+[node name="Pillar5" type="Node2D" parent="-45/Left Tower" index="4"]
+position = Vector2(58, 136)
+rotation = -3.14159
+scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar5" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar5" index="0"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar5" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar5" index="1"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar5" index="2"]
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar5" index="2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar5" index="3"]
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar5" index="3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar5" index="4"]
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar5" index="4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/RightGoldPillar ParallaxLayer4/Pillar5" index="5"]
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar5" index="5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Background" type="Node2D" parent="." index="4"]
+[node name="Right Tower" type="Node2D" parent="-45" index="1"]
+modulate = Color(0.686275, 0.686275, 0.686275, 1)
+position = Vector2(185, -1)
+
+[node name="Pillar" type="Node2D" parent="-45/Right Tower" index="0"]
+position = Vector2(46, 126)
+
+[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar2" type="Node2D" parent="-45/Right Tower" index="1"]
+position = Vector2(98, 189)
+
+[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar2" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar2" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar2" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar2" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar2" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar2" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar3" type="Node2D" parent="-45/Right Tower" index="2"]
+position = Vector2(15, 149)
+
+[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar3" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar3" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar3" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar3" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar3" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar3" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar4" type="Node2D" parent="-45/Right Tower" index="3"]
+position = Vector2(-3, 170)
+
+[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar4" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar4" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar4" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar4" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar4" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar4" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Pillar5" type="Node2D" parent="-45/Right Tower" index="4"]
+position = Vector2(74, 144)
+rotation = -3.14159
+scale = Vector2(1, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar5" index="0"]
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar5" index="1"]
+position = Vector2(0, 225)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar5" index="2"]
+position = Vector2(0, 452)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar5" index="3"]
+position = Vector2(0, 670)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar5" index="4"]
+position = Vector2(0, 895)
+texture = ExtResource("18_i25ef")
+
+[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar5" index="5"]
+position = Vector2(0, 1122)
+texture = ExtResource("18_i25ef")
+
+[node name="Background" type="Node2D" parent="." index="14"]
 z_index = -25
 position = Vector2(0, 64)
 
-[node name="TreasureBackground" type="TileMap" parent="Background" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_7g8do")
+}
+
+[node name="TreasureBackground" type="TileMap" parent="Background" index="1"]
 z_index = -25
 tile_set = SubResource("TileSet_842kc")
 format = 2
@@ -1789,7 +2490,7 @@ layer_6/y_sort_origin = 0
 layer_6/z_index = -3
 layer_6/tile_data = PackedInt32Array(786408, 655361, 1, 851944, 655361, 1, 917480, 655361, 1, 983016, 655361, 1, 1048552, 655361, 1, 1114088, 655361, 1, 1179624, 655361, 1, 786409, 655361, 1, 851945, 655361, 1, 917481, 655361, 1, 983017, 655361, 1, 1048553, 655361, 1, 1114089, 655361, 1, 1179625, 655361, 1, 524265, 655361, 1, 589801, 655361, 1, 655337, 655361, 1, 720873, 655361, 1, 1245161, 655361, 1, 1310697, 655361, 1, 524266, 655361, 1, 589802, 655361, 1, 655338, 655361, 1, 720874, 655361, 1, 786410, 655361, 1, 851946, 655361, 1, 917482, 655361, 1, 983018, 655361, 1, 1048554, 655361, 1, 1114090, 655361, 1, 1179626, 655361, 1, 1245162, 655361, 1, 1310698, 655361, 1, 917479, 655361, 1, 983015, 655361, 1, 1048551, 655361, 1, 1114087, 655361, 1, 262123, 589825, 1, 327659, 655361, 1, 393195, 655361, 1, 458731, 655361, 1, 524267, 655361, 1, 589803, 655361, 1, 655339, 655361, 1, 720875, 655361, 1, 786411, 655361, 1, 851947, 655361, 1, 917483, 655361, 1, 262124, 655361, 1, 327660, 655361, 1, 393196, 655361, 1, 458732, 655361, 1, 524268, 655361, 1, 589804, 655361, 1, 655340, 655361, 1, 720876, 655361, 1, 786412, 655361, 1, 851948, 655361, 1, 917484, 655361, 1, 983019, 655361, 1, 1048555, 655361, 1, 983020, 655361, 1, 1048556, 655361, 1, 1114092, 655361, 1, 1179628, 655361, 1, 1245164, 655361, 1, 1310700, 655361, 1, 1376236, 655361, 1, 720877, 655361, 1, 786413, 655361, 1, 851949, 655361, 1, 917485, 655361, 1, 983021, 655361, 1, 1048557, 655361, 1, 1114093, 655361, 1, 1179629, 655361, 1, 720878, 655361, 1, 786414, 655361, 1, 851950, 655361, 1, 917486, 655361, 1, 983022, 655361, 1, 1048558, 655361, 1, 1114094, 655361, 1, 1179630, 655361, 1, 720879, 655361, 1, 786415, 655361, 1, 851951, 655361, 1, 917487, 655361, 1, 983023, 655361, 1, 1048559, 655361, 1, 1114095, 655361, 1, 1179631, 655361, 1, 655342, 655361, 1, 655343, 655361, 1, 655341, 655361, 1, 917489, 655361, 1, 983025, 655361, 1, 1048561, 655361, 1, 1114097, 655361, 1, 917490, 655361, 1, 983026, 655361, 1, 1048562, 655361, 1, 1114098, 655361, 1, 917491, 655361, 1, 983027, 655361, 1, 1048563, 655361, 1, 1114099, 655361, 1, 851952, 655361, 1, 917488, 655361, 1, 983024, 655361, 1, 1048560, 655361, 1, 1114096, 655361, 1, 851953, 655361, 1, 851954, 655361, 1, 851955, 655361, 1, 983028, 655361, 1, 1048564, 655361, 1, 1114100, 655361, 1, 1114101, 655361, 1, 1179637, 655361, 1, 1114102, 655361, 1, 1179638, 655361, 1, 1048565, 655361, 1, 786416, 655361, 1, 786417, 655361, 1, 720880, 655361, 1, 720881, 655361, 1, 983030, 655361, 1, 917493, 655361, 1, 983029, 655361, 1, 917492, 655361, 1, 1048566, 655361, 1, 851957, 655361, 1, 786420, 655361, 1, 720884, 655361, 1, 786419, 655361, 1, 851956, 655361, 1, 720883, 655361, 1, 720882, 655361, 1, 655346, 655361, 1, 589810, 655361, 1, 524273, 655361, 1, 589809, 655361, 1, 524272, 655361, 1, 589808, 655361, 1, 655345, 655361, 1, 655344, 655361, 1, 786418, 655361, 1, 524271, 655361, 1, 458735, 655361, 1, 524270, 655361, 1, 458734, 655361, 1, 589807, 655361, 1, 589806, 655361, 1, 524269, 655361, 1, 458733, 655361, 1, 393198, 589825, 1, 327662, 655361, 1, 393197, 589825, 1, 327661, 655361, 1, 458730, 655361, 1, 393194, 655361, 1, 655336, 655361, 1, 720872, 655361, 1, 786407, 655361, 1, 589800, 655361, 1, 655335, 655361, 1, 524264, 589825, 1, 458729, 655361, 1, 393193, 589825, 1, 458737, 655361, 1)
 
-[node name="Torches" type="Node2D" parent="Background" index="1"]
+[node name="Torches" type="Node2D" parent="Background" index="2"]
 position = Vector2(176, 0)
 
 [node name="Torch 1" type="Sprite2D" parent="Background/Torches" index="0"]
@@ -1817,8 +2518,15 @@ amount = 64
 process_material = SubResource("ParticleProcessMaterial_4133m")
 texture = ExtResource("25_yydpt")
 
+[node name="Ambience" type="AudioStreamPlayer2D" parent="Background/Torches/Torch 1" index="2"]
+position = Vector2(0.00012207, 45)
+stream = ExtResource("23_vgitb")
+autoplay = true
+max_distance = 1000.0
+bus = &"Ambience"
+
 [node name="Torch 2" type="Sprite2D" parent="Background/Torches" index="1"]
-position = Vector2(90, 176)
+position = Vector2(157, 176)
 rotation = -3.14159
 texture = ExtResource("19_n5c5m")
 
@@ -1842,12 +2550,19 @@ amount = 64
 process_material = SubResource("ParticleProcessMaterial_4133m")
 texture = ExtResource("25_yydpt")
 
-[node name="Lamp Left" type="Sprite2D" parent="Background" index="2"]
+[node name="Ambience2" type="AudioStreamPlayer2D" parent="Background/Torches/Torch 2" index="2"]
+position = Vector2(0.00012207, 45)
+stream = ExtResource("23_vgitb")
+autoplay = true
+max_distance = 1000.0
+bus = &"Ambience"
+
+[node name="Lamp Left" type="Sprite2D" parent="Background" index="3"]
 position = Vector2(-672, 96)
 texture = ExtResource("23_3edsx")
 
 [node name="PointLight2D" type="PointLight2D" parent="Background/Lamp Left" index="0"]
-position = Vector2(24, -24)
+position = Vector2(24, -27)
 color = Color(0.929412, 0.933333, 0.729412, 1)
 range_layer_min = -10
 range_layer_max = 10
@@ -1865,7 +2580,7 @@ position = Vector2(123, 28)
 scale = Vector2(3, 3)
 texture = ExtResource("24_aqx6j")
 
-[node name="Lamp Right" type="Sprite2D" parent="Background" index="3"]
+[node name="Lamp Right" type="Sprite2D" parent="Background" index="4"]
 position = Vector2(584, 96)
 texture = ExtResource("23_3edsx")
 flip_h = true
@@ -1889,7 +2604,7 @@ texture_scale = 1.5
 modulate = Color(1, 1, 1, 0.0627451)
 texture = ExtResource("24_aqx6j")
 
-[node name="Crystals" type="Node2D" parent="Background" index="4"]
+[node name="Crystals" type="Node2D" parent="Background" index="5"]
 
 [node name="Crystal" type="Sprite2D" parent="Background/Crystals" index="0"]
 position = Vector2(-213.333, -321.778)
@@ -1973,7 +2688,7 @@ rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_aqx6j")
 
-[node name="Whitebox" type="TileMap" parent="." index="5"]
+[node name="Whitebox" type="TileMap" parent="." index="15"]
 rotation = -0.00068746
 tile_set = ExtResource("59_qjw7m")
 cell_quadrant_size = 32
@@ -1988,18 +2703,19 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = -10
 layer_1/tile_data = PackedInt32Array(786455, 131072, 2, 720919, 131072, 1, 655383, 131072, 1, 589847, 131072, 1, 524311, 131072, 1, 786454, 65536, 2, 720918, 65536, 1, 655382, 65536, 1, 589846, 65536, 1, 524310, 65536, 1, 786453, 65536, 2, 720917, 65536, 1, 655381, 65536, 1, 589845, 65536, 1, 524309, 393216, 2, 786452, 65536, 2, 720916, 65536, 1, 655380, 65536, 1, 589844, 65536, 1, 524308, 65536, 0, 786451, 65536, 2, 720915, 65536, 1, 655379, 65536, 1, 589843, 65536, 1, 524307, 65536, 0, 786450, 65536, 2, 720914, 65536, 1, 655378, 65536, 1, 589842, 65536, 1, 524306, 65536, 0, 786449, 65536, 2, 720913, 65536, 1, 655377, 65536, 1, 589841, 65536, 1, 524305, 65536, 0, 786448, 65536, 2, 720912, 65536, 1, 655376, 65536, 1, 589840, 65536, 1, 524304, 65536, 0, 786447, 65536, 2, 720911, 65536, 1, 655375, 65536, 1, 589839, 65536, 1, 524303, 65536, 0, 786446, 65536, 2, 720910, 65536, 1, 655374, 65536, 1, 589838, 65536, 1, 524302, 65536, 0, 786445, 65536, 2, 720909, 65536, 1, 655373, 65536, 1, 589837, 65536, 1, 524301, 65536, 0, 786444, 65536, 2, 720908, 65536, 1, 655372, 65536, 1, 589836, 65536, 1, 524300, 65536, 0, 786443, 65536, 2, 720907, 65536, 1, 655371, 65536, 1, 589835, 65536, 1, 524299, 65536, 0, 786442, 65536, 2, 720906, 65536, 1, 655370, 65536, 1, 589834, 65536, 1, 524298, 65536, 0, 786441, 65536, 2, 720905, 65536, 1, 655369, 65536, 1, 589833, 65536, 1, 524297, 65536, 0, 786440, 65536, 2, 720904, 65536, 1, 655368, 65536, 1, 589832, 65536, 1, 524296, 65536, 0, 786439, 65536, 2, 720903, 65536, 1, 655367, 65536, 1, 589831, 65536, 1, 524295, 65536, 0, 786438, 65536, 2, 720902, 65536, 1, 655366, 65536, 1, 589830, 65536, 1, 524294, 65536, 0, 786437, 65536, 2, 720901, 65536, 1, 655365, 65536, 1, 589829, 65536, 1, 524293, 65536, 0, 786436, 65536, 2, 720900, 65536, 1, 655364, 65536, 1, 589828, 65536, 1, 524292, 65536, 0, 786435, 65536, 2, 720899, 65536, 1, 655363, 65536, 1, 589827, 65536, 1, 524291, 65536, 0, 786434, 65536, 2, 720898, 65536, 1, 655362, 65536, 1, 589826, 65536, 1, 524290, 65536, 0, 786433, 65536, 2, 720897, 65536, 1, 655361, 65536, 1, 589825, 65536, 1, 524289, 65536, 0, 786432, 65536, 2, 720896, 65536, 1, 655360, 65536, 1, 589824, 65536, 1, 524288, 65536, 0, 851967, 65536, 2, 786431, 65536, 1, 720895, 65536, 1, 655359, 65536, 1, 589823, 65536, 0, 851966, 65536, 2, 786430, 65536, 1, 720894, 65536, 1, 655358, 65536, 1, 589822, 65536, 0, 851965, 65536, 2, 786429, 65536, 1, 720893, 65536, 1, 655357, 65536, 1, 589821, 65536, 0, 851964, 65536, 2, 786428, 65536, 1, 720892, 65536, 1, 655356, 65536, 1, 589820, 65536, 0, 851963, 65536, 2, 786427, 65536, 1, 720891, 65536, 1, 655355, 65536, 1, 589819, 65536, 0, 851962, 65536, 2, 786426, 65536, 1, 720890, 65536, 1, 655354, 65536, 1, 589818, 65536, 0, 851961, 65536, 2, 786425, 65536, 1, 720889, 65536, 1, 655353, 65536, 1, 589817, 65536, 0, 851960, 65536, 2, 786424, 65536, 1, 720888, 65536, 1, 655352, 65536, 1, 589816, 65536, 0, 851959, 65536, 2, 786423, 65536, 1, 720887, 65536, 1, 655351, 65536, 1, 589815, 65536, 0, 851958, 65536, 2, 786422, 65536, 1, 720886, 65536, 1, 655350, 65536, 1, 589814, 65536, 0, 851957, 65536, 2, 786421, 65536, 1, 720885, 65536, 1, 655349, 65536, 1, 589813, 65536, 0, 851956, 65536, 2, 786420, 65536, 1, 720884, 65536, 1, 655348, 65536, 1, 589812, 65536, 0, 851955, 65536, 2, 786419, 65536, 1, 720883, 65536, 1, 655347, 65536, 1, 589811, 65536, 0, 851954, 65536, 2, 786418, 65536, 1, 720882, 65536, 1, 655346, 65536, 1, 589810, 65536, 0, 851953, 65536, 2, 786417, 65536, 1, 720881, 65536, 1, 655345, 65536, 1, 589809, 65536, 0, 851952, 65536, 2, 786416, 65536, 1, 720880, 65536, 1, 655344, 65536, 1, 589808, 65536, 0, 851951, 65536, 2, 786415, 65536, 1, 720879, 65536, 1, 655343, 65536, 1, 589807, 65536, 0, 851950, 65536, 2, 786414, 65536, 1, 720878, 65536, 1, 655342, 65536, 1, 589806, 65536, 0, 851949, 65536, 2, 786413, 65536, 1, 720877, 65536, 1, 655341, 65536, 1, 589805, 65536, 0, 851948, 65536, 2, 786412, 65536, 1, 720876, 65536, 1, 655340, 65536, 1, 589804, 65536, 0, 851947, 65536, 2, 786411, 65536, 1, 720875, 65536, 1, 655339, 65536, 1, 589803, 65536, 0, 851946, 65536, 2, 786410, 65536, 1, 720874, 65536, 1, 655338, 65536, 1, 589802, 65536, 0, 851945, 65536, 2, 786409, 65536, 1, 720873, 65536, 1, 655337, 65536, 1, 589801, 65536, 0, 851944, 65536, 2, 786408, 65536, 1, 720872, 65536, 1, 655336, 65536, 1, 589800, 65536, 0, 458775, 131072, 1, 393239, 131072, 1, 327703, 131072, 1, 262167, 131072, 1, 196631, 131072, 1, 131095, 131072, 1, 65559, 131072, 1, 23, 131072, 1, -65513, 131072, 1, -131049, 131072, 1, -196585, 131072, 1, -262121, 131072, 1, -327657, 131072, 1, -393193, 131072, 1, -458729, 131072, 1, -524265, 131072, 1, -589801, 131072, 1, -655337, 131072, 1, 458774, 65536, 1, 393238, 65536, 1, 327702, 65536, 1, 262166, 65536, 1, 196630, 65536, 1, 131094, 65536, 1, 65558, 65536, 1, 22, 65536, 1, -65514, 65536, 1, -131050, 65536, 1, -196586, 65536, 1, -262122, 65536, 1, -327658, 65536, 1, -393194, 65536, 1, -458730, 65536, 1, -524266, 65536, 1, -589802, 65536, 1, -655338, 65536, 1, 458773, 0, 1, 393237, 0, 1, 327701, 0, 1, 262165, 0, 1, 196629, 0, 1, 131093, 0, 1, 65557, 0, 1, 21, 0, 1, -65515, 0, 1, -131051, 0, 1, -196587, 0, 1, -262123, 0, 1, -327659, 0, 1, -393195, 0, 1, -458731, 0, 1, -524267, 0, 1, -589803, 0, 1, -655339, 393216, 1, -720873, 131072, 1, -786409, 131072, 1, -851945, 131072, 0, -720874, 65536, 1, -786410, 65536, 1, -851946, 65536, 0, -720875, 65536, 1, -786411, 65536, 1, -851947, 65536, 0, -655340, 65536, 2, -720876, 65536, 1, -786412, 65536, 1, -851948, 65536, 0, -655341, 65536, 2, -720877, 65536, 1, -786413, 65536, 1, -851949, 65536, 0, -655342, 65536, 2, -720878, 65536, 1, -786414, 65536, 1, -851950, 65536, 0, -655343, 65536, 2, -720879, 65536, 1, -786415, 65536, 1, -851951, 65536, 0, -655344, 65536, 2, -720880, 65536, 1, -786416, 65536, 1, -851952, 65536, 0, -655345, 65536, 2, -720881, 65536, 1, -786417, 65536, 1, -851953, 65536, 0, -655346, 65536, 2, -720882, 65536, 1, -786418, 65536, 1, -851954, 65536, 0, -655347, 65536, 2, -720883, 65536, 1, -786419, 65536, 1, -851955, 65536, 0, -655348, 65536, 2, -720884, 65536, 1, -786420, 65536, 1, -851956, 65536, 0, -655349, 65536, 2, -720885, 65536, 1, -786421, 65536, 1, -851957, 65536, 0, -655350, 65536, 2, -720886, 65536, 1, -786422, 65536, 1, -851958, 65536, 0, -655351, 65536, 2, -720887, 65536, 1, -786423, 65536, 1, -851959, 65536, 0, -655352, 65536, 2, -720888, 65536, 1, -786424, 65536, 1, -851960, 65536, 0, -655353, 65536, 2, -720889, 65536, 1, -786425, 65536, 1, -851961, 65536, 0, -655354, 65536, 2, -720890, 65536, 1, -786426, 65536, 1, -851962, 65536, 0, -655355, 65536, 2, -720891, 65536, 1, -786427, 65536, 1, -851963, 65536, 0, -655356, 65536, 2, -720892, 65536, 1, -786428, 65536, 1, -851964, 65536, 0, -655357, 65536, 2, -720893, 65536, 1, -786429, 65536, 1, -851965, 65536, 0, -655358, 65536, 2, -720894, 65536, 1, -786430, 65536, 1, -851966, 65536, 0, -655359, 65536, 2, -720895, 65536, 1, -786431, 65536, 1, -851967, 65536, 0, -655360, 65536, 2, -720896, 65536, 1, -786432, 65536, 1, -851968, 65536, 0, -589825, 65536, 2, -655361, 65536, 1, -720897, 65536, 1, -786433, 65536, 0, -589826, 65536, 2, -655362, 65536, 1, -720898, 65536, 1, -786434, 65536, 0, -589827, 65536, 2, -655363, 65536, 1, -720899, 65536, 1, -786435, 65536, 0, -589828, 65536, 2, -655364, 65536, 1, -720900, 65536, 1, -786436, 65536, 0, -589829, 65536, 2, -655365, 65536, 1, -720901, 65536, 1, -786437, 65536, 0, -589830, 65536, 2, -655366, 65536, 1, -720902, 65536, 1, -786438, 65536, 0, -589831, 65536, 2, -655367, 65536, 1, -720903, 65536, 1, -786439, 65536, 0, -589832, 65536, 2, -655368, 65536, 1, -720904, 65536, 1, -786440, 65536, 0, -589833, 65536, 2, -655369, 65536, 1, -720905, 65536, 1, -786441, 65536, 0, -589834, 65536, 2, -655370, 65536, 1, -720906, 65536, 1, -786442, 65536, 0, -589835, 65536, 2, -655371, 65536, 1, -720907, 65536, 1, -786443, 65536, 0, -589836, 65536, 2, -655372, 65536, 1, -720908, 65536, 1, -786444, 65536, 0, -589837, 65536, 2, -655373, 65536, 1, -720909, 65536, 1, -786445, 65536, 0, -589838, 65536, 2, -655374, 65536, 1, -720910, 65536, 1, -786446, 65536, 0, -589839, 65536, 2, -655375, 65536, 1, -720911, 65536, 1, -786447, 65536, 0, -589840, 65536, 2, -655376, 65536, 1, -720912, 65536, 1, -786448, 65536, 0, -589841, 65536, 2, -655377, 65536, 1, -720913, 65536, 1, -786449, 65536, 0, -589842, 65536, 2, -655378, 65536, 1, -720914, 65536, 1, -786450, 65536, 0, -589843, 65536, 2, -655379, 65536, 1, -720915, 65536, 1, -786451, 65536, 0, -589844, 65536, 2, -655380, 65536, 1, -720916, 65536, 1, -786452, 65536, 0, -589845, 65536, 2, -655381, 65536, 1, -720917, 65536, 1, -786453, 65536, 0, -589846, 65536, 2, -655382, 65536, 1, -720918, 65536, 1, -786454, 65536, 0, -589847, 65536, 2, -655383, 65536, 1, -720919, 65536, 1, -786455, 65536, 0, -589848, 65536, 2, -655384, 65536, 1, -720920, 65536, 1, -786456, 65536, 0, -589849, 327680, 1, -655385, 65536, 1, -720921, 65536, 1, -786457, 65536, 0, 851943, 65536, 2, 786407, 65536, 1, 720871, 65536, 1, 655335, 65536, 1, 589799, 327680, 2, 524263, 131072, 1, 458727, 131072, 1, 393191, 131072, 1, 327655, 131072, 1, 262119, 131072, 1, 196583, 131072, 1, 131047, 131072, 1, 65511, 131072, 1, -25, 131072, 1, -65561, 131072, 1, -131097, 131072, 1, -196633, 131072, 1, -262169, 131072, 1, -327705, 131072, 1, -393241, 131072, 1, -458777, 131072, 1, -524313, 131072, 1, 851942, 65536, 2, 786406, 65536, 1, 720870, 65536, 1, 655334, 65536, 1, 589798, 65536, 1, 524262, 65536, 1, 458726, 65536, 1, 393190, 65536, 1, 327654, 65536, 1, 262118, 65536, 1, 196582, 65536, 1, 131046, 65536, 1, 65510, 65536, 1, -26, 65536, 1, -65562, 65536, 1, -131098, 65536, 1, -196634, 65536, 1, -262170, 65536, 1, -327706, 65536, 1, -393242, 65536, 1, -458778, 65536, 1, -524314, 65536, 1, -589850, 65536, 1, -655386, 65536, 1, -720922, 65536, 1, -786458, 65536, 0, 851941, 0, 2, 786405, 0, 1, 720869, 0, 1, 655333, 0, 1, 589797, 0, 1, 524261, 0, 1, 458725, 0, 1, 393189, 0, 1, 327653, 0, 1, 262117, 0, 1, 196581, 0, 1, 131045, 0, 1, 65509, 0, 1, -27, 0, 1, -65563, 0, 1, -131099, 0, 1, -196635, 0, 1, -262171, 0, 1, -327707, 0, 1, -393243, 0, 1, -458779, 0, 1, -524315, 0, 1, -589851, 0, 1, -655387, 0, 1, -720923, 0, 1, -786459, 0, 0)
 
-[node name="TileMap" type="TileMap" parent="." index="6"]
+[node name="TileMap" type="TileMap" parent="." index="16"]
 light_mask = 3
 tile_set = ExtResource("54_flyfi")
 format = 2
 layer_0/tile_data = PackedInt32Array(524289, 131073, 8, 524288, 524289, 4, 589823, 65537, 0, 655359, 131073, 2, 720895, 65537, 2, 655360, 196609, 1, 655361, 131073, 1, 589825, 131073, 2, 589824, 196609, 3, 524290, 524289, 4, 524291, 262145, 6, 524292, 196609, 8, 524293, 262145, 8, 524294, 196609, 8, 524295, 262145, 0, 589831, 131073, 3, 589830, 131073, 4, 655366, 262145, 3, 655365, 196609, 4, 655364, 131073, 4, 655363, 262145, 2, 589826, 65537, 3, 589827, 196609, 2, 589828, 262145, 3, 589829, 65537, 2, 655362, 65537, 3, 655367, 131073, 3, 655368, 196609, 1, 655369, 131073, 1, 589833, 65537, 4, 589832, 131073, 1, 524296, 262145, 8, 589822, 262145, 0, 655358, 196609, 1, 655357, 131073, 3, 720893, 262145, 1, 720894, 131073, 2, 589821, 1, 8, 524297, 65537, 8, 524298, 131073, 8, 524299, 65537, 0, 524300, 327681, 8, 524301, 327681, 6, 524302, 196609, 6, 524303, 1, 8, 524304, 262145, 6, 524305, 131073, 0, 524306, 262145, 8, 524307, 262145, 6, 524308, 393217, 6, 524309, 524289, 6, -655339, 786433, 3, -589803, 917505, 7, -524267, 786433, 7, -458731, 1, 1, -393195, 393217, 11, -327659, 917505, 6, -262123, 1, 1, -196587, 917505, 7, -131051, 655361, 3, -65515, 786433, 7, 21, 655361, 7, 65557, 917505, 6, 131093, 917505, 6, 196629, 524289, 10, 262165, 1, 3, 327701, 655361, 10, 393237, 524289, 11, 458773, 786433, 6, -589849, 458753, 1, -589848, 131073, 5, -589847, 262145, 11, -589846, 393217, 7, -589845, 524289, 1, -589844, 65537, 5, -589843, 196609, 7, -589842, 262145, 11, -589841, 327681, 11, -589840, 131073, 11, -589839, 196609, 7, -589838, 589825, 1, -589837, 262145, 11, -589836, 262145, 7, -589835, 262145, 5, -589834, 196609, 7, -589833, 524289, 1, -589832, 1, 11, -589831, 589825, 1, -589830, 196609, 7, -589829, 262145, 11, -589828, 262145, 5, -589827, 327681, 7, -589826, 65537, 11, -589825, 196609, 11, -655360, 589825, 1, -655359, 131073, 5, -655358, 1, 11, -655357, 524289, 1, -655356, 1, 11, -655355, 131073, 11, -655354, 524289, 1, -655353, 65537, 11, -655352, 131073, 5, -655351, 65537, 11, -655350, 262145, 11, -655349, 65537, 11, -655348, 262145, 5, -655347, 65537, 11, -655346, 262145, 7, -655345, 327681, 11, -655344, 65537, 5, -655343, 262145, 11, -655342, 524289, 1, -655341, 196609, 11, -655340, 131073, 11, 589799, 458753, 4, 524263, 458753, 3, 458727, 458753, 9, 393191, 458753, 2, 327655, 327681, 4, 262119, 589825, 9, 196583, 589825, 8, 131047, 458753, 9, 65511, 589825, 9, -25, 458753, 3, -65561, 589825, 11, -131097, 327681, 1, -196633, 589825, 11, -262169, 327681, 3, -327705, 458753, 8, -393241, 720897, 10, -458777, 720897, 10, -524313, 458753, 8, 589820, 196609, 6, 589819, 1, 8, 589818, 1, 8, 589817, 196609, 0, 589816, 262145, 0, 589815, 196609, 8, 589814, 65537, 0, 589813, 196609, 0, 589812, 589825, 4, 589811, 262145, 6, 589810, 65537, 0, 589809, 327681, 6, 589808, 65537, 0, 589807, 196609, 0, 589806, 65537, 0, 589805, 1, 8, 589804, 196609, 6, 589803, 196609, 8, 589802, 196609, 0, 589801, 65537, 8, 589800, 1, 8, 851941, 1, 11, -851945, 458753, 6, 786455, 65537, 7, 720919, 589825, 11, 655383, 720897, 8, 589847, 327681, 3, 524311, 589825, 10, 458775, 327681, 2, 393239, 458753, 3, 327703, 327681, 4, 262167, 589825, 11, 196631, 720897, 10, 131095, 720897, 8, 65559, 327681, 4, 23, 327681, 1, -65513, 589825, 9, -131049, 458753, 3, -196585, 589825, 9, -262121, 327681, 4, -327657, 327681, 4, -393193, 589825, 10, -458729, 327681, 2, -524265, 458753, 8, -589801, 589825, 10, -655337, 458753, 11, -720873, 458753, 3, -786409, 589825, 11, 786454, 131073, 11, 720918, 196609, 4, 655382, 65537, 2, 589846, 131073, 3, 524310, 262145, 3, 458774, 131073, 3, 393238, 196609, 4, 327702, 65537, 1, 262166, 65537, 4, 196630, 262145, 4, 131094, 131073, 3, 65558, 131073, 3, 22, 196609, 4, -65514, 196609, 1, -131050, 262145, 3, -196586, 65537, 3, -262122, 65537, 2, -327658, 131073, 2, -393194, 196609, 2, -458730, 262145, 3, -524266, 65537, 2, -589802, 65537, 2, -655338, 196609, 1, -720874, 262145, 1, -786410, 196609, 1, -851946, 65537, 8, 786453, 589825, 1, 720917, 262145, 4, 655381, 131073, 2, 589845, 131073, 3, -720875, 262145, 3, -786411, 196609, 1, -851947, 1, 8, 786452, 196609, 7, 720916, 131073, 4, 655380, 196609, 3, 589844, 262145, 4, -720876, 262145, 4, -786412, 65537, 1, -851948, 1, 8, 786451, 65537, 5, 720915, 262145, 3, 655379, 262145, 2, 589843, 196609, 2, -720877, 196609, 1, -786413, 196609, 2, -851949, 262145, 8, 786450, 196609, 5, 720914, 262145, 2, 655378, 65537, 3, 589842, 65537, 2, -720878, 131073, 1, -786414, 131073, 2, -851950, 262145, 0, 786449, 1, 11, 720913, 262145, 2, 655377, 196609, 1, 589841, 65537, 3, -720879, 65537, 1, -786415, 131073, 2, -851951, 262145, 6, 786448, 65537, 11, 720912, 131073, 2, 655376, 131073, 3, 589840, 262145, 4, -720880, 131073, 3, -786416, 196609, 3, -851952, 262145, 6, 786447, 589825, 1, 720911, 131073, 2, 655375, 196609, 1, 589839, 196609, 1, -720881, 262145, 1, -786417, 196609, 2, -851953, 65537, 0, 786446, 196609, 7, 720910, 196609, 1, 655374, 196609, 4, 589838, 262145, 4, -720882, 65537, 1, -786418, 262145, 2, -851954, 196609, 0, 786445, 589825, 1, 720909, 262145, 3, 655373, 196609, 1, 589837, 131073, 1, -720883, 262145, 3, -786419, 262145, 4, -851955, 1, 8, 786444, 262145, 11, 720908, 65537, 3, 655372, 65537, 3, 589836, 262145, 1, -720884, 262145, 3, -786420, 65537, 2, -851956, 131073, 8, 786443, 196609, 5, 720907, 65537, 2, 655371, 196609, 2, 589835, 131073, 1, -720885, 196609, 1, -786421, 131073, 2, -851957, 65537, 8, 786442, 196609, 11, 720906, 262145, 4, 655370, 196609, 4, 589834, 65537, 3, -720886, 65537, 1, -786422, 262145, 4, -851958, 262145, 0, 786441, 1, 11, 720905, 196609, 2, -720887, 262145, 4, -786423, 65537, 1, -851959, 327681, 8, 786440, 131073, 11, 720904, 196609, 3, -720888, 196609, 3, -786424, 65537, 4, -851960, 65537, 8, 786439, 262145, 7, 720903, 131073, 1, -720889, 131073, 2, -786425, 65537, 1, -851961, 65537, 8, 786438, 262145, 5, 720902, 262145, 3, -720890, 65537, 4, -786426, 65537, 4, -851962, 327681, 8, 786437, 65537, 11, 720901, 65537, 2, -720891, 262145, 1, -786427, 65537, 3, -851963, 393217, 6, 786436, 262145, 7, 720900, 196609, 3, -720892, 131073, 4, -786428, 65537, 1, -851964, 327681, 8, 786435, 589825, 1, 720899, 65537, 1, -720893, 196609, 4, -786429, 196609, 1, -851965, 589825, 4, 786434, 196609, 5, 720898, 196609, 2, -720894, 262145, 3, -786430, 131073, 2, -851966, 327681, 8, 786433, 196609, 7, 720897, 196609, 3, -720895, 131073, 4, -786431, 196609, 3, -851967, 196609, 0, 786432, 131073, 5, 720896, 65537, 4, -720896, 262145, 1, -786432, 262145, 4, -851968, 327681, 6, 851967, 131073, 5, 786431, 262145, 2, -655361, 262145, 4, -720897, 196609, 2, -786433, 196609, 8, 851966, 262145, 11, 786430, 196609, 3, -655362, 262145, 3, -720898, 196609, 4, -786434, 327681, 8, 851965, 524289, 1, 786429, 65537, 2, -655363, 131073, 4, -720899, 196609, 3, -786435, 1, 8, 851964, 131073, 11, 786428, 131073, 1, 720892, 262145, 3, 655356, 196609, 4, -655364, 65537, 3, -720900, 262145, 4, -786436, 1, 8, 851963, 65537, 5, 786427, 196609, 1, 720891, 131073, 2, 655355, 196609, 4, -655365, 65537, 1, -720901, 196609, 4, -786437, 262145, 8, 851962, 393217, 7, 786426, 196609, 4, 720890, 131073, 3, 655354, 131073, 4, -655366, 65537, 2, -720902, 65537, 3, -786438, 196609, 0, 851961, 524289, 1, 786425, 262145, 2, 720889, 196609, 4, 655353, 196609, 4, -655367, 262145, 2, -720903, 131073, 4, -786439, 196609, 8, 851960, 131073, 5, 786424, 196609, 4, 720888, 262145, 2, 655352, 196609, 3, -655368, 196609, 4, -720904, 262145, 1, -786440, 327681, 6, 851959, 131073, 11, 786423, 131073, 1, 720887, 196609, 2, 655351, 262145, 3, -655369, 131073, 2, -720905, 131073, 2, -786441, 65537, 0, 851958, 131073, 5, 786422, 262145, 3, 720886, 196609, 1, 655350, 196609, 4, -655370, 131073, 1, -720906, 196609, 2, -786442, 65537, 8, 851957, 1, 11, 786421, 65537, 4, 720885, 196609, 2, 655349, 65537, 1, -655371, 262145, 3, -720907, 131073, 4, -786443, 327681, 6, 851956, 262145, 5, 786420, 131073, 4, 720884, 131073, 1, 655348, 196609, 3, -655372, 65537, 1, -720908, 196609, 3, -786444, 196609, 6, 851955, 65537, 5, 786419, 65537, 4, 720883, 196609, 2, 655347, 262145, 1, -655373, 196609, 3, -720909, 131073, 3, -786445, 1, 8, 851954, 262145, 7, 786418, 196609, 2, 720882, 262145, 3, 655346, 131073, 4, -655374, 131073, 2, -720910, 196609, 2, -786446, 524289, 4, 851953, 131073, 11, 786417, 131073, 1, 720881, 196609, 3, 655345, 262145, 4, -655375, 65537, 2, -720911, 131073, 3, -786447, 131073, 0, 851952, 196609, 5, 786416, 262145, 1, 720880, 131073, 1, 655344, 196609, 1, -655376, 262145, 1, -720912, 196609, 2, -786448, 589825, 4, 851951, 262145, 7, 786415, 65537, 4, 720879, 131073, 4, 655343, 262145, 2, -655377, 262145, 3, -720913, 131073, 3, -786449, 262145, 8, 851950, 524289, 1, 786414, 196609, 4, 720878, 262145, 2, 655342, 196609, 4, -655378, 65537, 2, -720914, 65537, 3, -786450, 589825, 4, 851949, 262145, 11, 786413, 131073, 4, 720877, 131073, 4, 655341, 65537, 2, -655379, 131073, 1, -720915, 196609, 2, -786451, 65537, 0, 851948, 65537, 5, 786412, 196609, 4, 720876, 65537, 3, 655340, 65537, 1, -655380, 262145, 1, -720916, 262145, 4, -786452, 196609, 6, 851947, 589825, 1, 786411, 196609, 4, 720875, 65537, 3, 655339, 65537, 3, -655381, 65537, 1, -720917, 196609, 2, -786453, 65537, 8, 851946, 131073, 11, 786410, 262145, 3, 720874, 65537, 1, 655338, 196609, 1, -655382, 196609, 2, -720918, 65537, 2, -786454, 65537, 8, 851945, 65537, 11, 786409, 131073, 3, 720873, 65537, 3, 655337, 131073, 1, -655383, 196609, 1, -720919, 262145, 2, -786455, 524289, 4, 851944, 262145, 7, 786408, 65537, 1, 720872, 65537, 2, 655336, 262145, 3, -655384, 65537, 2, -720920, 196609, 2, -786456, 262145, 8, 851943, 131073, 11, 786407, 131073, 2, 720871, 131073, 2, 655335, 262145, 3, -655385, 65537, 1, -720921, 65537, 2, -786457, 262145, 6, 851942, 65537, 11, 786406, 65537, 2, 720870, 65537, 2, 655334, 262145, 4, 589798, 262145, 4, 524262, 65537, 2, 458726, 65537, 3, 393190, 131073, 4, 327654, 262145, 3, 262118, 65537, 3, 196582, 65537, 2, 131046, 262145, 2, 65510, 131073, 3, -26, 262145, 1, -65562, 196609, 3, -131098, 131073, 4, -196634, 262145, 2, -262170, 131073, 1, -327706, 262145, 3, -393242, 196609, 3, -458778, 262145, 3, -524314, 196609, 4, -589850, 65537, 2, -655386, 196609, 4, -720922, 65537, 1, -786458, 131073, 0, 786405, 786433, 7, 720869, 1, 4, 655333, 524289, 11, 589797, 917505, 7, 524261, 1, 2, 458725, 524289, 11, 393189, 1, 2, 327653, 1, 2, 262117, 655361, 10, 196581, 1, 3, 131045, 1, 3, 65509, 786433, 7, -27, 524289, 11, -65563, 786433, 6, -131099, 1, 2, -196635, 917505, 7, -262171, 1, 4, -327707, 917505, 6, -393243, 393217, 11, -458779, 1, 4, -524315, 655361, 3, -589851, 786433, 7, -655387, 655361, 2, -720923, 917505, 7, -786459, 1, 6)
 
-[node name="CameraSettingsTrigger" type="Node2D" parent="." index="7"]
+[node name="CameraSettingsTrigger" type="Node2D" parent="." index="17"]
 script = ExtResource("69_nr2gp")
+zoom_tween_duration = 1.0
 zoom = Vector2(1.5, 1.5)
 
 [node name="TopLeft" type="Marker2D" parent="CameraSettingsTrigger" index="0"]
-position = Vector2(-816, -328)
+position = Vector2(-816, -383)
 
 [node name="BottomRight" type="Marker2D" parent="CameraSettingsTrigger" index="1"]
 position = Vector2(712, 352)
@@ -2010,11 +2726,10 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="CameraSettingsTrigger/Area2d" index="0"]
-position = Vector2(-64, -24)
 shape = SubResource("RectangleShape2D_aqax7")
 debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 
-[node name="StageChangeTrigger" type="Node2D" parent="." index="8"]
+[node name="StageChangeTrigger" type="Node2D" parent="." index="18"]
 position = Vector2(-933, -487)
 script = ExtResource("71_7t53a")
 stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
@@ -2031,13 +2746,116 @@ monitorable = false
 position = Vector2(8, 4)
 shape = SubResource("RectangleShape2D_fm4if")
 
-[node name="Egrisi Dragon" parent="." index="9" instance=ExtResource("56_g1esd")]
-position = Vector2(77, 106)
+[node name="Egrisi Dragon" parent="." index="19" instance=ExtResource("56_g1esd")]
+position = Vector2(479, 215)
 collision_layer = 2
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." index="10"]
+[node name="Falling Rocks" type="Node2D" parent="." index="20"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Falling Rocks" index="0"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_5a8yx")
+}
+
+[node name="Left Column Tall" parent="Falling Rocks" index="1" instance=ExtResource("37_ejanw")]
+
+[node name="Left Column Medium" parent="Falling Rocks" index="2" instance=ExtResource("38_h24ju")]
+
+[node name="Left Column Small 1" parent="Falling Rocks" index="3" instance=ExtResource("39_lts7l")]
+
+[node name="Left Column Small 2" parent="Falling Rocks" index="4" instance=ExtResource("39_lts7l")]
+position = Vector2(-512, -420)
+
+[node name="Right Column Tall" parent="Falling Rocks" index="5" instance=ExtResource("37_ejanw")]
+position = Vector2(128, -420)
+scale = Vector2(-1, 1)
+
+[node name="Right Column Medium" parent="Falling Rocks" index="6" instance=ExtResource("38_h24ju")]
+position = Vector2(384, -420)
+
+[node name="Right Column Small 1" parent="Falling Rocks" index="7" instance=ExtResource("39_lts7l")]
+position = Vector2(256, -420)
+
+[node name="Right Column Small 2" parent="Falling Rocks" index="8" instance=ExtResource("39_lts7l")]
+position = Vector2(512, -420)
+
+[node name="ScreenShake" type="Node2D" parent="Falling Rocks" index="9"]
+script = ExtResource("34_mmx8v")
+trauma = 0.5
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." index="21"]
 clip_children = 1
 color = Color(0, 0, 0, 1)
 
+[node name="50" type="CanvasLayer" parent="." index="22"]
+layer = 50
+offset = Vector2(0, 60)
+transform = Transform2D(1, 0, 0, 1, 0, 60)
+follow_viewport_enabled = true
+follow_viewport_scale = 2.0
+
+[node name="Node2D" type="Node2D" parent="50" index="0"]
+modulate = Color(3, 0.5, 0.5, 1)
+
+[node name="Sprite2D6" type="Sprite2D" parent="50/Node2D" index="0"]
+position = Vector2(-395, 198)
+texture = ExtResource("14_fi8d7")
+flip_h = true
+flip_v = true
+
+[node name="Sprite2D7" type="Sprite2D" parent="50/Node2D" index="1"]
+position = Vector2(-246.5, 178)
+texture = ExtResource("16_t1vrc")
+flip_v = true
+
+[node name="Sprite2D8" type="Sprite2D" parent="50/Node2D" index="2"]
+position = Vector2(-377, -213.5)
+texture = ExtResource("18_l0yx7")
+flip_h = true
+flip_v = true
+
+[node name="Sprite2D9" type="Sprite2D" parent="50/Node2D" index="3"]
+position = Vector2(-580.5, -50)
+texture = ExtResource("34_n8fn2")
+flip_h = true
+
+[node name="Sprite2D10" type="Sprite2D" parent="50/Node2D" index="4"]
+position = Vector2(277.5, 163.5)
+texture = ExtResource("16_t1vrc")
+flip_v = true
+
+[node name="Sprite2D11" type="Sprite2D" parent="50/Node2D" index="5"]
+position = Vector2(-140.5, 202)
+texture = ExtResource("17_ob6jo")
+
+[node name="Sprite2D12" type="Sprite2D" parent="50/Node2D" index="6"]
+position = Vector2(35, 196)
+texture = ExtResource("17_ob6jo")
+
+[node name="Sprite2D14" type="Sprite2D" parent="50/Node2D" index="7"]
+position = Vector2(367, -201)
+texture = ExtResource("17_ob6jo")
+flip_v = true
+
+[node name="Sprite2D13" type="Sprite2D" parent="50/Node2D" index="8"]
+position = Vector2(169, 183.5)
+texture = ExtResource("14_fi8d7")
+flip_h = true
+flip_v = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="50/Node2D" index="9"]
+position = Vector2(525.5, -27)
+texture = ExtResource("33_de7ds")
+
 [connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
 [connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]
+
+[editable path="Falling Rocks/Left Column Tall"]
+[editable path="Falling Rocks/Left Column Medium"]
+[editable path="Falling Rocks/Left Column Small 1"]
+[editable path="Falling Rocks/Left Column Small 2"]
+[editable path="Falling Rocks/Right Column Tall"]
+[editable path="Falling Rocks/Right Column Medium"]
+[editable path="Falling Rocks/Right Column Small 1"]
+[editable path="Falling Rocks/Right Column Small 2"]

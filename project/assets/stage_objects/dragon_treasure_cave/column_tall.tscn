@@ -1,0 +1,352 @@
+[gd_scene load_steps=23 format=3 uid="uid://sa4tyujdoivn"]
+
+[ext_resource type="Texture2D" uid="uid://wy53ctga1bpf" path="res://assets/particle_sprites/white_1x1.png" id="1_wxpsa"]
+[ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="2_jgdiq"]
+[ext_resource type="PackedScene" uid="uid://nr4udv7n3ht5" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="3_t0528"]
+[ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="4_yemyv"]
+[ext_resource type="Script" path="res://sidescroller/core/soft_collision.gd" id="5_grlby"]
+[ext_resource type="Texture2D" uid="uid://bnp8e5wde0mtn" path="res://assets/particle_sprites/white_round_8x8.png" id="6_8e5rd"]
+[ext_resource type="Script" path="res://sidescroller/core/particle_spawner.gd" id="7_udspp"]
+[ext_resource type="Script" path="res://core/audio_stream_player_2d_extended.gd" id="9_l5bc8"]
+[ext_resource type="AudioStream" uid="uid://nevqlk4w2gdf" path="res://assets/sfx/heavy-stones-falling.wav" id="9_tr0uk"]
+[ext_resource type="AudioStream" uid="uid://28gvi5455suy" path="res://assets/sfx/rock_fall_1.wav" id="10_ptr0i"]
+[ext_resource type="AudioStream" uid="uid://cueuj53y6703d" path="res://assets/sfx/rock_fall_2.wav" id="11_3avjh"]
+[ext_resource type="AudioStream" uid="uid://bpir0rpqbc7ea" path="res://assets/sfx/rock_fall_3.wav" id="12_mr7pl"]
+
+[sub_resource type="Animation" id="Animation_r5gyn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FallingParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/CollisionShape2D2:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SoftCollision/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("StaticBody2D/CollisionShape2D3:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_tmgqu"]
+resource_name = "fall"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FallingParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/CollisionShape2D2:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ParticleSpawner")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ParticleSpawner/AudioStreamPlayer2DExtended")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play_random"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("RockFallSfx")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play_random"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SoftCollision/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("StaticBody2D/CollisionShape2D3:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8acw2"]
+_data = {
+"RESET": SubResource("Animation_r5gyn"),
+"fall": SubResource("Animation_tmgqu")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwgff"]
+size = Vector2(48, 224)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmpqv"]
+size = Vector2(64, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogsde"]
+size = Vector2(64, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0lsy"]
+size = Vector2(64, 64)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ofe4j"]
+light_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jfepo"]
+emission_shape = 3
+emission_box_extents = Vector3(32, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 1337, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color = Color(1, 0.74902, 0.74902, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_al4mc"]
+size = Vector2(64, 64)
+
+[node name="Column Tall" type="Node2D"]
+position = Vector2(-128, -420)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_8acw2")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+scale = Vector2(64, 64)
+texture = ExtResource("1_wxpsa")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -160)
+scale = Vector2(64, 192)
+texture = ExtResource("1_wxpsa")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-64, -160)
+scale = Vector2(64, 64)
+texture = ExtResource("1_wxpsa")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -129)
+script = ExtResource("2_jgdiq")
+base_value = 25.0
+hit_particles = ExtResource("3_t0528")
+hit_sfx = ExtResource("4_yemyv")
+frame_freeze_duration_milliseconds = 420
+screen_shake_trauma = 1.0
+team = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_gwgff")
+
+[node name="SoftCollision" type="Area2D" parent="."]
+script = ExtResource("5_grlby")
+push_horizontally_only = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+position = Vector2(0, -128)
+shape = SubResource("RectangleShape2D_qmpqv")
+disabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -192)
+shape = SubResource("RectangleShape2D_ogsde")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-64, -160)
+shape = SubResource("RectangleShape2D_y0lsy")
+disabled = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_y0lsy")
+disabled = true
+
+[node name="FallingParticles" type="GPUParticles2D" parent="."]
+z_index = 21
+material = SubResource("CanvasItemMaterial_ofe4j")
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_jfepo")
+texture = ExtResource("6_8e5rd")
+lifetime = 2.0
+visibility_rect = Rect2(-100, -100, 200, 720)
+trail_enabled = true
+trail_lifetime = 0.5
+
+[node name="ParticleSpawner" type="Marker2D" parent="."]
+script = ExtResource("7_udspp")
+particles_scene = ExtResource("3_t0528")
+
+[node name="AudioStreamPlayer2DExtended" type="AudioStreamPlayer2D" parent="ParticleSpawner"]
+bus = &"Sfx"
+script = ExtResource("9_l5bc8")
+streams = Array[AudioStream]([ExtResource("9_tr0uk")])
+pitch_scale_min = 0.9
+pitch_scale_max = 1.1
+
+[node name="RockFallSfx" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"
+script = ExtResource("9_l5bc8")
+streams = Array[AudioStream]([ExtResource("10_ptr0i"), ExtResource("11_3avjh"), ExtResource("12_mr7pl")])
+pitch_scale_min = 0.9
+pitch_scale_max = 1.1
+
+[node name="BackgroundJumpArea" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundJumpArea"]
+modulate = Color(0.462745, 0.462745, 0.462745, 1)
+position = Vector2(0, -96)
+scale = Vector2(64, 64)
+texture = ExtResource("1_wxpsa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackgroundJumpArea"]
+position = Vector2(0, -96)
+shape = SubResource("RectangleShape2D_al4mc")

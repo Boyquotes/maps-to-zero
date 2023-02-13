@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://b1qwf8q5qkwgt"]
+[gd_scene load_steps=83 format=3 uid="uid://b1qwf8q5qkwgt"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/actors_2d/egrisi_dragon/egrisi_dragon.png" id="2_twwhm"]
@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://cmvyyu3s4ey55" path="res://assets/particles_one_shot/attack_incoming.tscn" id="5_t5n0j"]
 [ext_resource type="AudioStream" uid="uid://dt55o66x0xrv4" path="res://assets/sfx/sword_unsheath.wav" id="6_4kdoa"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="6_oygrj"]
-[ext_resource type="AudioStream" uid="uid://da4iakvjt2ikr" path="res://assets/sfx/spell_charge_loop.wav" id="17_mea57"]
+[ext_resource type="AudioStream" uid="uid://ymux3atn0sb4" path="res://assets/sfx/fire_breathing_1.wav" id="17_arr3s"]
 [ext_resource type="AudioStream" uid="uid://clv0c1odiv1fu" path="res://assets/sfx/bloody_slash.wav" id="18_ey1bq"]
+[ext_resource type="AudioStream" uid="uid://c7k7n7w01dlou" path="res://assets/sfx/fire_breathing_3.wav" id="18_n6l8v"]
+[ext_resource type="PackedScene" uid="uid://nr4udv7n3ht5" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="18_uqujj"]
 [ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="19_rm6im"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="20_aoahs"]
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="20_ilq0q"]
@@ -24,8 +26,25 @@
 [ext_resource type="Script" path="res://states/state_transitions_2d/input_key_transition.gd" id="27_ba523"]
 [ext_resource type="Script" path="res://states/actor_2d_states/attack.gd" id="28_hjxcv"]
 
+[sub_resource type="GDScript" id="GDScript_36cir"]
+script/source = "extends Node
+
+
+@export var wall_impact_detector_node_path : NodePath
+
+var actor
+
+func _ready():
+	actor = get_parent()
+	get_node(wall_impact_detector_node_path).body_entered.connect(_on_wall_impact)
+
+
+func _on_wall_impact(body: Node2D) -> void:
+	actor.state_machine.transition_to(\"WallImpact\")
+"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhy3f"]
-size = Vector2(216, 120)
+size = Vector2(128, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tw8l2"]
 
@@ -47,18 +66,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FlameBreath:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_qjbg0"]
@@ -313,6 +320,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [5, 6, 7, 8, 9, 10, 11]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WallImpactSfx")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_qks58"]
 length = 0.2
@@ -465,7 +486,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(11, -288)]
+"values": [Vector2(11, -96)]
 }
 
 [sub_resource type="Animation" id="Animation_fnms4"]
@@ -735,26 +756,14 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("FlameBreath:visible")
+tracks/5/path = NodePath("Body:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.6, 3.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Body:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(11, -288)]
+"values": [Vector2(11, -96)]
 }
 
 [sub_resource type="Animation" id="Animation_vxymd"]
@@ -913,73 +922,6 @@ _data = {
 "roar": SubResource("Animation_yvm4s")
 }
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p5qtt"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_cxf06"]
-colors = PackedColorArray(1, 0.521569, 0.0745098, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_oqg15"]
-gradient = SubResource("Gradient_cxf06")
-
-[sub_resource type="Curve" id="Curve_im3km"]
-max_value = 2.0
-_data = [Vector2(0, 0.236364), 0.0, 0.0, 0, 0, Vector2(0.159011, 1), 0.0, 0.0, 0, 0, Vector2(0.826855, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_5kce2"]
-curve = SubResource("Curve_im3km")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_727lt"]
-emission_shape = 3
-emission_box_extents = Vector3(16, 1, 1)
-particle_flag_disable_z = true
-direction = Vector3(0, 1, 0)
-spread = 3.0
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 900.0
-initial_velocity_max = 1000.0
-angular_velocity_max = 720.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-angle_max = 180.0
-scale_min = 0.3
-scale_max = 0.5
-scale_curve = SubResource("CurveTexture_5kce2")
-color_ramp = SubResource("GradientTexture1D_oqg15")
-sub_emitter_mode = 2
-sub_emitter_amount_at_end = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ln2j"]
-blend_mode = 1
-
-[sub_resource type="Curve" id="Curve_q4gdu"]
-max_value = 2.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_el5t5"]
-curve = SubResource("Curve_q4gdu")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5wb6n"]
-emission_shape = 3
-emission_box_extents = Vector3(30, 20, 1)
-particle_flag_disable_z = true
-spread = 3.0
-flatness = 1.0
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 800.0
-initial_velocity_max = 1000.0
-angular_velocity_max = 360.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-angle_max = 360.0
-scale_min = 0.1
-scale_max = 0.3
-scale_curve = SubResource("CurveTexture_el5t5")
-color_ramp = SubResource("GradientTexture1D_oqg15")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6o31x"]
 size = Vector2(248, 144)
 
@@ -1080,7 +1022,7 @@ radius = 80.0
 size = Vector2(209, 127)
 
 [sub_resource type="Animation" id="Animation_4d4kt"]
-length = 0.001
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1100,52 +1042,22 @@ tracks/1/path = NodePath("ActorTransformer2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_ym462"]
-resource_name = "attack"
-length = 2.5
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../Visuals/AttackIncomingSfx")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:position")
+tracks/2/path = NodePath("ActorTransformer2D:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1, 1.2),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(256, 0)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["claw_windup"]
 }
 tracks/3/type = "method"
 tracks/3/imported = false
@@ -1154,7 +1066,37 @@ tracks/3/path = NodePath("ActorTransformer2D")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.2),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ym462"]
+resource_name = "attack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorTransformer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -1163,6 +1105,42 @@ tracks/3/keys = {
 "args": [],
 "method": &"disable"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 3),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2627, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["fly_up", "claw_windup", "claw"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ac5qv"]
@@ -1173,6 +1151,97 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4tesy"]
 size = Vector2(56, 72)
+
+[sub_resource type="Animation" id="Animation_hycwn"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lkjj5"]
+resource_name = "attack"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ActorTransformer2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["claw_impact", "idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"look_other_way"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lwqtk"]
+_data = {
+"RESET": SubResource("Animation_hycwn"),
+"attack": SubResource("Animation_lkjj5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1726l"]
+size = Vector2(128, 197)
 
 [sub_resource type="Animation" id="Animation_0h0h0"]
 length = 0.001
@@ -1188,10 +1257,203 @@ tracks/0/keys = {
 "update": 1,
 "values": ["hover_attack"]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D2:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FlameBreath:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FlameBreath/CylinderLight/Glow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FlameBreath/TopWhiteCircleLight/Glow:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FlameBreath/BottomCircleLight/Glow:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FlameBreath/GroundCylinderLight/Glow:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FlameBreath/EndCylinderLight/Glow:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FlameBreath/EndCylinderLight2/Glow:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("FlameBreath/TopWhiteCircleLight:energy")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("FlameBreath/CylinderLight:energy")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("FlameBreath/BottomCircleLight:energy")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("FlameBreath/GroundCylinderLight:energy")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("FlameBreath/EndCylinderLight:energy")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("FlameBreath/EndCylinderLight2:energy")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Hitbox:monitoring")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_mmqfl"]
 resource_name = "attack"
-length = 6.0
+length = 7.0
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1211,7 +1473,7 @@ tracks/1/path = NodePath("ActorTransformer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 5.9),
+"times": PackedFloat32Array(0, 7),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -1221,12 +1483,344 @@ tracks/1/keys = {
 "method": &"disable"
 }]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlameBreath:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FireBreathSfx")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("17_arr3s")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("18_n6l8v")
+}],
+"times": PackedFloat32Array(1.4, 2)
+}
+tracks/3/use_blend = true
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FireBreathSfx:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.5, 1.7, 2, 2.1, 5.1, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, -80.0, 0.0, 0.0, -80.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FlameBreath:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.1, 5.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FlameBreath/FlameBreathGroundRight:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.5, 5.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FlameBreath/FlameBreathGroundLeft:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.5, 5.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.5, 5.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Hitbox/CollisionShape2D2:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 3, 5.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("FlameBreath/CylinderLight/Glow:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2.3, 2.6, 5.2, 5.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("FlameBreath/TopWhiteCircleLight/Glow:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 2.1, 2.4, 5.4, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("FlameBreath/BottomCircleLight/Glow:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 2.4, 2.7, 5.6, 6.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("FlameBreath/GroundCylinderLight/Glow:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 3, 3.3, 5.6, 6.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("FlameBreath/EndCylinderLight/Glow:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 3.2, 3.5, 5.8, 6.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("FlameBreath/EndCylinderLight2/Glow:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 3.2, 3.5, 5.8, 6.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("FlameBreath/TopWhiteCircleLight:energy")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 2.1, 2.4, 5.4, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("FlameBreath/CylinderLight:energy")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 2.3, 2.6, 5.6, 6.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("FlameBreath/BottomCircleLight:energy")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 2.4, 2.7, 5.7, 6.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("FlameBreath/GroundCylinderLight:energy")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 3, 3.3, 5.9, 6.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("FlameBreath/EndCylinderLight:energy")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 3.2, 3.5, 6.1, 6.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("FlameBreath/EndCylinderLight2:energy")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 3.2, 3.5, 6.1, 6.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Hitbox:monitoring")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ag0d"]
 _data = {
 "RESET": SubResource("Animation_0h0h0"),
 "attack": SubResource("Animation_mmqfl")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hkros"]
+size = Vector2(64, 322)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6p775"]
+size = Vector2(1500, 48)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p5qtt"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_cxf06"]
+colors = PackedColorArray(1, 0.521569, 0.0745098, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oqg15"]
+gradient = SubResource("Gradient_cxf06")
+
+[sub_resource type="Curve" id="Curve_im3km"]
+max_value = 2.0
+_data = [Vector2(0, 0.236364), 0.0, 0.0, 0, 0, Vector2(0.159011, 1), 0.0, 0.0, 0, 0, Vector2(0.826855, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_5kce2"]
+curve = SubResource("Curve_im3km")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_727lt"]
+emission_shape = 3
+emission_box_extents = Vector3(16, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 3.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 900.0
+initial_velocity_max = 1000.0
+angular_velocity_max = 720.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 180.0
+scale_min = 0.3
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_5kce2")
+color_ramp = SubResource("GradientTexture1D_oqg15")
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7ln2j"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_q4gdu"]
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_el5t5"]
+curve = SubResource("Curve_q4gdu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5wb6n"]
+emission_shape = 3
+emission_box_extents = Vector3(30, 20, 1)
+particle_flag_disable_z = true
+spread = 3.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 800.0
+initial_velocity_max = 1000.0
+angular_velocity_max = 360.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 360.0
+scale_min = 0.1
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_el5t5")
+color_ramp = SubResource("GradientTexture1D_oqg15")
 
 [sub_resource type="Animation" id="Animation_1boov"]
 resource_name = "attack"
@@ -1332,6 +1926,9 @@ _data = {
 "attack": SubResource("Animation_g6a2t")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7chn"]
+size = Vector2(73, 128)
+
 [sub_resource type="Animation" id="Animation_038jx"]
 resource_name = "RESET"
 length = 0.001
@@ -1390,8 +1987,11 @@ attack_input_listening = true
 attack_can_cancel = true
 attack_can_go_to_next = true
 
-[node name="CollisionShape2d" parent="." index="1"]
-position = Vector2(4, -28)
+[node name="SignalManager" type="Node" parent="." index="0"]
+script = SubResource("GDScript_36cir")
+wall_impact_detector_node_path = NodePath("../Inner/WallImpactDetector")
+
+[node name="CollisionShape2d" parent="." index="2"]
 shape = SubResource("RectangleShape2D_mhy3f")
 
 [node name="CollisionShape2d" parent="BackgroundJumpArea" index="0"]
@@ -1404,11 +2004,11 @@ flags = 3
 [node name="Body" type="Sprite2D" parent="Inner/Visuals" index="0"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_hf4h6")
-position = Vector2(11, -288)
+position = Vector2(11, -96)
 texture = ExtResource("2_twwhm")
 hframes = 7
 vframes = 7
-frame = 43
+frame = 17
 region_rect = Rect2(1536, 1408, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -1429,9 +2029,15 @@ libraries = {
 
 [node name="AttackSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="2"]
 position = Vector2(104, -48)
+stream = ExtResource("4_xr1et")
 bus = &"Sfx"
 
-[node name="AttackIncomingParticleSpawner" type="Marker2D" parent="Inner/Visuals" index="3"]
+[node name="WallImpactSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="3"]
+position = Vector2(104, -48)
+stream = ExtResource("5_4qape")
+bus = &"Sfx"
+
+[node name="AttackIncomingParticleSpawner" type="Marker2D" parent="Inner/Visuals" index="4"]
 position = Vector2(104, -48)
 script = ExtResource("4_gju0s")
 particles_scene = ExtResource("5_t5n0j")
@@ -1439,108 +2045,6 @@ particles_scene = ExtResource("5_t5n0j")
 [node name="AttackIncomingSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals/AttackIncomingParticleSpawner" index="0"]
 stream = ExtResource("6_oygrj")
 bus = &"Sfx"
-
-[node name="FlameBreath" type="GPUParticles2D" parent="Inner/Visuals" index="4"]
-visible = false
-z_index = 25
-material = SubResource("CanvasItemMaterial_p5qtt")
-position = Vector2(0, -256)
-amount = 32
-process_material = SubResource("ParticleProcessMaterial_727lt")
-texture = ExtResource("20_ilq0q")
-lifetime = 0.5
-local_coords = true
-trail_enabled = true
-trail_lifetime = 0.51
-
-[node name="CylinderLight" type="PointLight2D" parent="Inner/Visuals/FlameBreath" index="0"]
-position = Vector2(0, 135)
-scale = Vector2(0.5, 0.6)
-color = Color(1, 0.380392, 0, 1)
-texture = ExtResource("21_00hy2")
-
-[node name="Glow" type="Sprite2D" parent="Inner/Visuals/FlameBreath/CylinderLight" index="0"]
-modulate = Color(1, 1, 1, 0.152941)
-material = SubResource("CanvasItemMaterial_7ln2j")
-texture = ExtResource("21_00hy2")
-
-[node name="TopWhiteCircleLight" type="PointLight2D" parent="Inner/Visuals/FlameBreath" index="1"]
-position = Vector2(0, -20.5)
-scale = Vector2(0.5, 0.5)
-color = Color(1, 0.380392, 0, 1)
-texture = ExtResource("22_ls6c7")
-
-[node name="Glow" type="Sprite2D" parent="Inner/Visuals/FlameBreath/TopWhiteCircleLight" index="0"]
-modulate = Color(1, 1, 1, 0.141176)
-material = SubResource("CanvasItemMaterial_7ln2j")
-texture = ExtResource("22_ls6c7")
-
-[node name="BottomCircleLight" type="PointLight2D" parent="Inner/Visuals/FlameBreath" index="2"]
-position = Vector2(-5, 290)
-rotation = 3.14159
-scale = Vector2(0.5, 0.5)
-color = Color(1, 0.380392, 0, 1)
-texture = ExtResource("22_ls6c7")
-
-[node name="Glow" type="Sprite2D" parent="Inner/Visuals/FlameBreath/BottomCircleLight" index="0"]
-modulate = Color(1, 1, 1, 0.141176)
-material = SubResource("CanvasItemMaterial_7ln2j")
-texture = ExtResource("22_ls6c7")
-
-[node name="FlameBreathGroundRight" type="GPUParticles2D" parent="Inner/Visuals/FlameBreath" index="3"]
-material = SubResource("CanvasItemMaterial_p5qtt")
-position = Vector2(0, 278)
-amount = 64
-process_material = SubResource("ParticleProcessMaterial_5wb6n")
-texture = ExtResource("20_ilq0q")
-local_coords = true
-trail_enabled = true
-
-[node name="FlameBreathGroundLeft" type="GPUParticles2D" parent="Inner/Visuals/FlameBreath" index="4"]
-material = SubResource("CanvasItemMaterial_p5qtt")
-position = Vector2(0, 278)
-rotation = -3.14159
-amount = 64
-process_material = SubResource("ParticleProcessMaterial_5wb6n")
-texture = ExtResource("20_ilq0q")
-local_coords = true
-trail_enabled = true
-
-[node name="GroundCylinderLight" type="PointLight2D" parent="Inner/Visuals/FlameBreath" index="5"]
-position = Vector2(-1, 260)
-rotation = 1.5708
-scale = Vector2(0.5, 3)
-color = Color(1, 0.380392, 0, 1)
-texture = ExtResource("21_00hy2")
-
-[node name="Glow" type="Sprite2D" parent="Inner/Visuals/FlameBreath/GroundCylinderLight" index="0"]
-modulate = Color(1, 1, 1, 0.141176)
-material = SubResource("CanvasItemMaterial_7ln2j")
-texture = ExtResource("21_00hy2")
-
-[node name="EndCylinderLight" type="PointLight2D" parent="Inner/Visuals/FlameBreath" index="6"]
-position = Vector2(769, 257)
-rotation = 1.5708
-scale = Vector2(0.5, 0.5)
-color = Color(1, 0.380392, 0, 1)
-texture = ExtResource("22_ls6c7")
-
-[node name="Glow" type="Sprite2D" parent="Inner/Visuals/FlameBreath/EndCylinderLight" index="0"]
-modulate = Color(1, 1, 1, 0.141176)
-material = SubResource("CanvasItemMaterial_7ln2j")
-texture = ExtResource("22_ls6c7")
-
-[node name="EndCylinderLight2" type="PointLight2D" parent="Inner/Visuals/FlameBreath" index="7"]
-position = Vector2(-771, 262)
-rotation = -1.5708
-scale = Vector2(0.5, 0.5)
-color = Color(1, 0.380392, 0, 1)
-texture = ExtResource("22_ls6c7")
-
-[node name="Glow" type="Sprite2D" parent="Inner/Visuals/FlameBreath/EndCylinderLight2" index="0"]
-modulate = Color(1, 1, 1, 0.141176)
-material = SubResource("CanvasItemMaterial_7ln2j")
-texture = ExtResource("22_ls6c7")
 
 [node name="CollisionShape2d" parent="Inner/Hurtbox" index="0"]
 position = Vector2(4, -24)
@@ -1586,33 +2090,59 @@ disabled = true
 script = ExtResource("21_ils11")
 animation = "attack"
 
-[node name="RunAttack" type="Node2D" parent="Inner/Attacks" index="1"]
+[node name="Claw" type="Node2D" parent="Inner/Attacks" index="1"]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/RunAttack" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/Claw" index="0"]
 libraries = {
 "": SubResource("AnimationLibrary_ac5qv")
 }
 
-[node name="AudioStreamPlayer2d" type="AudioStreamPlayer2D" parent="Inner/Attacks/RunAttack" index="1"]
-stream = ExtResource("18_ey1bq")
+[node name="AudioStreamPlayer2d" type="AudioStreamPlayer2D" parent="Inner/Attacks/Claw" index="1"]
+stream = ExtResource("4_xr1et")
 
-[node name="Hitbox" type="Area2D" parent="Inner/Attacks/RunAttack" index="2"]
+[node name="Hitbox" type="Area2D" parent="Inner/Attacks/Claw" index="2"]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("19_rm6im")
 base_value = 20.0
 hit_sfx = ExtResource("20_aoahs")
 
-[node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/RunAttack/Hitbox" index="0"]
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Claw/Hitbox" index="0"]
 position = Vector2(28, -12)
 shape = SubResource("RectangleShape2D_4tesy")
 disabled = true
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/RunAttack" index="3"]
+[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Claw" index="3"]
 script = ExtResource("21_ils11")
-animation = "run_attack"
+animation = "claw_windup"
 
-[node name="FireBreath" type="Node2D" parent="Inner/Attacks" index="2"]
+[node name="WallImpact" type="Node2D" parent="Inner/Attacks" index="2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/WallImpact" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_lwqtk")
+}
+
+[node name="AudioStreamPlayer2d" type="AudioStreamPlayer2D" parent="Inner/Attacks/WallImpact" index="1"]
+stream = ExtResource("4_xr1et")
+
+[node name="Hitbox" type="Area2D" parent="Inner/Attacks/WallImpact" index="2"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("19_rm6im")
+base_value = 20.0
+hit_sfx = ExtResource("20_aoahs")
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/WallImpact/Hitbox" index="0"]
+position = Vector2(64, -59.5)
+shape = SubResource("RectangleShape2D_1726l")
+disabled = true
+
+[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/WallImpact" index="3"]
+script = ExtResource("21_ils11")
+animation = "idle"
+
+[node name="FireBreath" type="Node2D" parent="Inner/Attacks" index="3"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/FireBreath" index="0"]
 libraries = {
@@ -1620,13 +2150,145 @@ libraries = {
 }
 
 [node name="FireBreathSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/FireBreath" index="1"]
-stream = ExtResource("17_mea57")
+volume_db = -60.0
+bus = &"Sfx"
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/FireBreath" index="2"]
 script = ExtResource("21_ils11")
 animation = "hover_attack"
 
-[node name="FlyToCenter" type="Node2D" parent="Inner/Attacks" index="3"]
+[node name="Hitbox" type="Area2D" parent="Inner/Attacks/FireBreath" index="3"]
+monitoring = false
+monitorable = false
+script = ExtResource("19_rm6im")
+base_value = 4.0
+hit_particles = ExtResource("18_uqujj")
+hit_sfx = ExtResource("20_aoahs")
+frame_freeze_duration_milliseconds = 17
+screen_shake_trauma = 0.03
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/FireBreath/Hitbox" index="0"]
+position = Vector2(0, 90)
+shape = SubResource("RectangleShape2D_hkros")
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Inner/Attacks/FireBreath/Hitbox" index="1"]
+position = Vector2(0, 226)
+shape = SubResource("RectangleShape2D_6p775")
+disabled = true
+
+[node name="FlameBreath" type="GPUParticles2D" parent="Inner/Attacks/FireBreath" index="4"]
+visible = false
+z_index = 25
+material = SubResource("CanvasItemMaterial_p5qtt")
+position = Vector2(0, -52)
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_727lt")
+texture = ExtResource("20_ilq0q")
+lifetime = 0.5
+local_coords = true
+trail_enabled = true
+trail_lifetime = 0.51
+
+[node name="CylinderLight" type="PointLight2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="0"]
+position = Vector2(0, 135)
+scale = Vector2(0.5, 0.6)
+color = Color(1, 0.380392, 0, 1)
+energy = 0.0
+texture = ExtResource("21_00hy2")
+
+[node name="Glow" type="Sprite2D" parent="Inner/Attacks/FireBreath/FlameBreath/CylinderLight" index="0"]
+modulate = Color(1, 0.113725, 0.152941, 0.152941)
+material = SubResource("CanvasItemMaterial_7ln2j")
+texture = ExtResource("21_00hy2")
+
+[node name="TopWhiteCircleLight" type="PointLight2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="1"]
+position = Vector2(0, -20.5)
+scale = Vector2(0.5, 0.5)
+color = Color(1, 0.380392, 0, 1)
+energy = 0.0
+texture = ExtResource("22_ls6c7")
+
+[node name="Glow" type="Sprite2D" parent="Inner/Attacks/FireBreath/FlameBreath/TopWhiteCircleLight" index="0"]
+modulate = Color(1, 0.113725, 0.152941, 0.152941)
+material = SubResource("CanvasItemMaterial_7ln2j")
+texture = ExtResource("22_ls6c7")
+
+[node name="BottomCircleLight" type="PointLight2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="2"]
+position = Vector2(-5, 290)
+rotation = 3.14159
+scale = Vector2(0.5, 0.5)
+color = Color(1, 0.380392, 0, 1)
+energy = 0.0
+texture = ExtResource("22_ls6c7")
+
+[node name="Glow" type="Sprite2D" parent="Inner/Attacks/FireBreath/FlameBreath/BottomCircleLight" index="0"]
+modulate = Color(1, 0.113725, 0.152941, 0.152941)
+material = SubResource("CanvasItemMaterial_7ln2j")
+texture = ExtResource("22_ls6c7")
+
+[node name="FlameBreathGroundRight" type="GPUParticles2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="3"]
+material = SubResource("CanvasItemMaterial_p5qtt")
+position = Vector2(0, 278)
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_5wb6n")
+texture = ExtResource("20_ilq0q")
+local_coords = true
+trail_enabled = true
+
+[node name="FlameBreathGroundLeft" type="GPUParticles2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="4"]
+material = SubResource("CanvasItemMaterial_p5qtt")
+position = Vector2(0, 278)
+rotation = -3.14159
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_5wb6n")
+texture = ExtResource("20_ilq0q")
+local_coords = true
+trail_enabled = true
+
+[node name="GroundCylinderLight" type="PointLight2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="5"]
+position = Vector2(-1, 260)
+rotation = 1.5708
+scale = Vector2(0.5, 3)
+color = Color(1, 0.380392, 0, 1)
+energy = 0.0
+texture = ExtResource("21_00hy2")
+
+[node name="Glow" type="Sprite2D" parent="Inner/Attacks/FireBreath/FlameBreath/GroundCylinderLight" index="0"]
+modulate = Color(1, 0.113725, 0.152941, 0.152941)
+material = SubResource("CanvasItemMaterial_7ln2j")
+texture = ExtResource("21_00hy2")
+
+[node name="EndCylinderLight" type="PointLight2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="6"]
+position = Vector2(769, 257)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+color = Color(1, 0.380392, 0, 1)
+energy = 0.0
+texture = ExtResource("22_ls6c7")
+
+[node name="Glow" type="Sprite2D" parent="Inner/Attacks/FireBreath/FlameBreath/EndCylinderLight" index="0"]
+modulate = Color(1, 0.113725, 0.152941, 0.152941)
+material = SubResource("CanvasItemMaterial_7ln2j")
+texture = ExtResource("22_ls6c7")
+
+[node name="EndCylinderLight2" type="PointLight2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="7"]
+position = Vector2(-771, 262)
+rotation = -1.5708
+scale = Vector2(0.5, 0.5)
+color = Color(1, 0.380392, 0, 1)
+energy = 0.0
+texture = ExtResource("22_ls6c7")
+
+[node name="Glow" type="Sprite2D" parent="Inner/Attacks/FireBreath/FlameBreath/EndCylinderLight2" index="0"]
+modulate = Color(1, 0.113725, 0.152941, 0.152941)
+material = SubResource("CanvasItemMaterial_7ln2j")
+texture = ExtResource("22_ls6c7")
+
+[node name="FlyToCenter" type="Node2D" parent="Inner/Attacks" index="4"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/FlyToCenter" index="0"]
 libraries = {
@@ -1640,7 +2302,7 @@ stream = ExtResource("4_xr1et")
 script = ExtResource("21_ils11")
 animation = "fly_up"
 
-[node name="FlyBackIn" type="Node2D" parent="Inner/Attacks" index="4"]
+[node name="FlyBackIn" type="Node2D" parent="Inner/Attacks" index="5"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/FlyBackIn" index="0"]
 libraries = {
@@ -1654,7 +2316,14 @@ stream = ExtResource("4_xr1et")
 script = ExtResource("21_ils11")
 animation = "roar"
 
-[node name="InputStateMachine" parent="." index="4"]
+[node name="WallImpactDetector" type="Area2D" parent="Inner" index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/WallImpactDetector" index="0"]
+position = Vector2(90.5, -39)
+shape = SubResource("RectangleShape2D_o7chn")
+disabled = true
+
+[node name="InputStateMachine" parent="." index="5"]
 initial_state = NodePath("IdleInput")
 
 [node name="Attack" type="Node" parent="InputStateMachine" index="1"]
@@ -1699,26 +2368,30 @@ background_jumps_max = 1
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("28_hjxcv")
-next_state = "FlyToCenter"
+next_state = "Claw"
 
-[node name="RunAttack" type="Node" parent="StateMachine" index="5"]
+[node name="Claw" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("28_hjxcv")
 
-[node name="FlyToCenter" type="Node" parent="StateMachine" index="6"]
+[node name="WallImpact" type="Node" parent="StateMachine" index="6"]
+script = ExtResource("28_hjxcv")
+next_state = "FlyToCenter"
+
+[node name="FlyToCenter" type="Node" parent="StateMachine" index="7"]
 script = ExtResource("28_hjxcv")
 next_state = "FireBreath"
 
-[node name="FireBreath" type="Node" parent="StateMachine" index="7"]
+[node name="FireBreath" type="Node" parent="StateMachine" index="8"]
 script = ExtResource("28_hjxcv")
 next_state = "FlyBackIn"
 
-[node name="FlyBackIn" type="Node" parent="StateMachine" index="8"]
+[node name="FlyBackIn" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("28_hjxcv")
 
-[node name="Actor2DInterfaceSmoothing" parent="." index="6"]
+[node name="Actor2DInterfaceSmoothing" parent="." index="7"]
 position = Vector2(0, 27)
 
-[node name="SoftCollision" parent="." index="9"]
+[node name="SoftCollision" parent="." index="10"]
 push_force = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]

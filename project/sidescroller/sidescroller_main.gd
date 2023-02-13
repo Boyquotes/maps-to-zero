@@ -85,11 +85,13 @@ func player_defeated() -> void:
 
 func _input(event):
 	if event.is_action_pressed("debug"):
-		SaveData.player_data = player.save_data
-		SaveData.player_saved_position = player.global_position
-		SaveData.camera_zoom = gameplay_camera.zoom
-		SaveData.stage_id = GameManager.current_stage_id
-		player.defeat()
+#		SaveData.player_data = player.save_data
+#		SaveData.player_saved_position = player.global_position
+#		SaveData.camera_zoom = gameplay_camera.zoom
+#		SaveData.stage_id = GameManager.current_stage_id
+#		player.defeat()
+		
+		get_tree().root.mode = Window.MODE_FULLSCREEN
 
 
 func player_respawn_cutscene() -> void:

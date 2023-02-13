@@ -11,7 +11,7 @@ signal hit(actor)
 @export var frame_freeze_duration_milliseconds := 0
 @export var screen_shake_trauma := 0.0
 
-var team : GameUtilities.Teams
+@export var team : GameUtilities.Teams
 var actor: Actor2D
 
 
@@ -37,7 +37,8 @@ func set_actor(actor: Actor2D):
 func _on_hurtbox_entered(area : Area2D) -> void:
 	var damage_taken = area.owner.take_damage(base_value, ActorResources.Type.HP, self)
 	if damage_taken:
-		actor.resources.change_resource(on_hit_resource_gain_type, on_hit_resource_gain_amount)
+		if actor:
+			actor.resources.change_resource(on_hit_resource_gain_type, on_hit_resource_gain_amount)
 		hit.emit(area.owner)
 		
 		if frame_freeze_duration_milliseconds > 0:

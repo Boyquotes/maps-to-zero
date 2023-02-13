@@ -28,7 +28,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("ParticleSpawner/Hitbox/CollisionShape2d:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -101,7 +101,7 @@ tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [Vector2(-256, 0), Vector2(-227.556, -57), Vector2(-199.111, 52), Vector2(-170.667, -18), Vector2(-142.222, 19), Vector2(-113.778, -50), Vector2(-85.3333, 52), Vector2(-56.8889, -22), Vector2(-28.4445, 23), Vector2(0, 0)]
 }
 tracks/4/type = "method"
@@ -153,7 +153,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_67ive"]
-size = Vector2(320, 128)
+size = Vector2(128, 128)
 
 [node name="DashExplosion" type="Node2D"]
 
@@ -163,19 +163,6 @@ libraries = {
 "": SubResource("AnimationLibrary_d1re1")
 }
 
-[node name="Hitbox" type="Area2D" parent="."]
-collision_mask = 4
-script = ExtResource("1_2q6ih")
-base_value = 7.0
-hit_particles = ExtResource("2_1xfle")
-hit_sfx = ExtResource("2_5p5ah")
-frame_freeze_duration_milliseconds = 66
-screen_shake_trauma = 0.1
-
-[node name="CollisionShape2d" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-102, 0)
-shape = SubResource("RectangleShape2D_67ive")
-
 [node name="ExplosionSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_o6jxp")
 bus = &"Sfx"
@@ -183,3 +170,16 @@ bus = &"Sfx"
 [node name="ParticleSpawner" type="Marker2D" parent="."]
 script = ExtResource("4_7qp3k")
 particles_scene = ExtResource("5_qynrx")
+
+[node name="Hitbox" type="Area2D" parent="ParticleSpawner"]
+collision_mask = 4
+script = ExtResource("1_2q6ih")
+base_value = 7.0
+hit_particles = ExtResource("2_1xfle")
+hit_sfx = ExtResource("2_5p5ah")
+frame_freeze_duration_milliseconds = 33
+screen_shake_trauma = 0.05
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="ParticleSpawner/Hitbox"]
+position = Vector2(-102, 0)
+shape = SubResource("RectangleShape2D_67ive")

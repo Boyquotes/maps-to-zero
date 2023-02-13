@@ -25,7 +25,9 @@ var mid_air_jumps := 0
 var background_jumps := 0
 var background_jump_ready: bool:
 	get:
-		return actor.background_jump_area.has_overlapping_bodies() and background_jumps < background_jumps_max
+		return (actor.background_jump_area.has_overlapping_bodies() \
+				or actor.background_jump_area.has_overlapping_areas()) \
+				and background_jumps < background_jumps_max
 
 
 func _ready():
@@ -43,6 +45,8 @@ func enter(msg := {}) -> void:
 		var _initial_speed = 2 * actor.jump_max_height / actor.jump_max_height_time # Initial velocity = 2h / t
 		actor.velocity.y = -_initial_speed
 		state = AirState.RISE
+		if actor.animation_effects:
+			actor.animation_effects.play("jump")
 	else:
 		actor.gravity *= falling_gravity_multiplier
 	
@@ -128,6 +132,10 @@ func physics_update(delta: float) -> void:
 			enter({do_jump = true})
 			return
 		if is_equal_approx(actor.velocity.x, 0.0):
+			if actor.animation_effects:
+				actor.animation_effects.play("land")
 			state_machine.transition_to("Idle")
 		else:
+			if actor.animation_effects:
+				actor.animation_effects.play("land")
 			state_machine.transition_to("Run")

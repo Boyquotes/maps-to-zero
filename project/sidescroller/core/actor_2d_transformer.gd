@@ -25,3 +25,7 @@ func disable() -> void:
 	active = false
 	actor.rotation = 0
 	actor.velocity = Vector2.ZERO
+
+
+func look_other_way() -> void:
+	actor.look_direction.x *= -1

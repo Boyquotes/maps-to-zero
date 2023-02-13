@@ -117,6 +117,7 @@ func set_cutscene_mode(value: bool) -> void:
 @onready var inner: Node2D = $Inner
 @onready var target_manager: TargetManager = $TargetManager
 @onready var animation_player: AnimationPlayer = $Inner/Visuals/AnimationPlayer
+@onready var animation_effects: AnimationPlayer = $Inner/Visuals/AnimationPlayer/AnimationEffects if $Inner/Visuals/AnimationPlayer.has_node("AnimationEffects") else null
 @onready var input_buffer: InputBuffer = $InputBuffer
 @onready var soft_collision: SoftCollision = $SoftCollision
 

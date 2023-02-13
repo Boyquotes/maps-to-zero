@@ -18,10 +18,13 @@ func enter(_msg := {}) -> void:
 		state_machine.transition_to("Air")
 		return
 	elif not is_equal_approx(actor.input_direction.x, 0):
-		state_machine.transition_to("Run")
+		state_machine.transition_to("Run", _msg)
 		return
 	actor.velocity = Vector2.ZERO
-	actor.play_animation(animation)
+	if _msg.has("animation") and actor.animation_player.has_animation(_msg.animation):
+		actor.play_animation(_msg.animation)
+	else:
+		actor.play_animation(animation)
 
 func exit() -> void:
 	super.exit()

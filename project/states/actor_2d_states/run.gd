@@ -15,7 +15,10 @@ func _ready():
 	add_child(coyote_timer)
 
 func enter(_msg := {}) -> void:
-	actor.play_animation(animation)
+	if _msg.has("animation") and _msg.animation == "land" and actor.animation_player.has_animation("run_land"):
+		actor.play_animation("run_land")
+	else:
+		actor.play_animation(animation)
 
 func exit() -> void:
 	super.exit()

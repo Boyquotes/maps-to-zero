@@ -16,9 +16,9 @@ dest_files=["res://.godot/imported/alisa_tail.png-cd5b38802b5c17dfad59ec902a9205
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

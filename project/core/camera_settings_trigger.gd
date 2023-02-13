@@ -57,6 +57,9 @@ func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
 	
+	if not has_node("TopLeft") or not has_node("BottomRight"):
+		return
+	
 	var points := PackedVector2Array()
 	points.append($TopLeft.position)
 	points.append(Vector2($BottomRight.position.x, $TopLeft.position.y))
