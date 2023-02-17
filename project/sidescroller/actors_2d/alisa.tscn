@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://bkt2ed1pbpeg6" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_uo7t1"]
-[ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="AudioStream" uid="uid://dan1r41xxyl3d" path="res://assets/sfx/swing.wav" id="4_1vb8n"]
 [ext_resource type="PackedScene" uid="uid://bh28jb2q4opu" path="res://states/core/state.tscn" id="4_bqos5"]
 [ext_resource type="AudioStream" uid="uid://cy6j1527uoqff" path="res://assets/sfx/grinding.wav" id="5_b6nlk"]
@@ -17,6 +16,7 @@
 [ext_resource type="Script" path="res://sidescroller/core/particles_2d_queue.gd" id="6_s07aa"]
 [ext_resource type="Script" path="res://sidescroller/core/footstep_emitter.gd" id="7_dc47m"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/actors_2d/alisa/Horns.png" id="7_exo88"]
+[ext_resource type="Texture2D" uid="uid://t60l0rcmdkof" path="res://assets/actors_2d/alisa/alisa.png" id="7_talr6"]
 [ext_resource type="Texture2D" uid="uid://b6343ucmkqqx8" path="res://assets/actors_2d/alisa/attack_swings/attack_2.png" id="7_x714m"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_2d_transformer.gd" id="8_2q4bi"]
 [ext_resource type="Texture2D" uid="uid://304b1wpuf6ee" path="res://assets/actors_2d/alisa/attack_swings/attack_3.png" id="8_ex5x2"]
@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://yv4ox731lkgo" path="res://assets/actors_2d/alisa/attack_swings/rune_crash_back.png" id="11_kpd6c"]
 [ext_resource type="Script" path="res://states/actor_2d_states/attack.gd" id="13_77yub"]
 [ext_resource type="PackedScene" uid="uid://h0065x4jic2x" path="res://assets/particles/grind_particles.tscn" id="15_8ua2b"]
-[ext_resource type="Texture2D" uid="uid://dww0tv5mwgrjf" path="res://assets/actors_2d/alisa/Flattened.png" id="16_2hdge"]
+[ext_resource type="Texture2D" uid="uid://b4qo3gtf0k23v" path="res://assets/actors_2d/alisa/alisa_tail.png" id="15_e1a0g"]
 [ext_resource type="Script" path="res://addons/Trail/trail_2d.gd" id="16_o3txk"]
 [ext_resource type="PackedScene" uid="uid://dljnooe42cpdn" path="res://assets/particles_one_shot/footsteps_wall.tscn" id="17_uv4ay"]
 [ext_resource type="Script" path="res://core/audio_stream_player_2d_extended.gd" id="18_h8mml"]
@@ -56,7 +56,6 @@
 [ext_resource type="PackedScene" uid="uid://048jw1g8mrds" path="res://assets/particles_one_shot/pink_hit_impact.tscn" id="46_dhi3d"]
 [ext_resource type="Script" path="res://core/game_manager_interface.gd" id="46_ifha4"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="49_wu1gt"]
-[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="50_bf20f"]
 [ext_resource type="PackedScene" uid="uid://bte4l72rqw4xx" path="res://assets/particles_one_shot/alisa_stomp_land.tscn" id="51_tyevx"]
 [ext_resource type="Script" path="res://states/state_transitions_2d/attack_input_key_transition.gd" id="54_oa4ec"]
 
@@ -480,43 +479,43 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:texture")
+tracks/5/path = NodePath("CharacterSprite/Horns:texture")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:hframes")
+tracks/6/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:vframes")
+tracks/7/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:visible")
+tracks/8/path = NodePath("CharacterSprite/Horns:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
@@ -528,55 +527,55 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:frame")
+tracks/9/path = NodePath("CharacterSprite/Horns:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [1, 2, 3]
+"values": [40, 26, 25]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:texture")
+tracks/10/path = NodePath("CharacterSprite:texture")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/11/path = NodePath("CharacterSprite:hframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/12/path = NodePath("CharacterSprite:vframes")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:visible")
+tracks/13/path = NodePath("CharacterSprite:visible")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
@@ -588,14 +587,14 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:frame")
+tracks/14/path = NodePath("CharacterSprite:frame")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [82, 41, 26]
+"values": [2, 3, 4]
 }
 
 [sub_resource type="Animation" id="Animation_rlytt"]
@@ -675,43 +674,43 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:texture")
+tracks/5/path = NodePath("CharacterSprite/Horns:texture")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:hframes")
+tracks/6/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:vframes")
+tracks/7/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:visible")
+tracks/8/path = NodePath("CharacterSprite/Horns:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
@@ -723,55 +722,55 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:frame")
+tracks/9/path = NodePath("CharacterSprite/Horns:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.2, 0.4, 0.45),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 5, 6, 7, 8, 9]
+"values": [24, 23, 22, 21, 26, 25]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:texture")
+tracks/10/path = NodePath("CharacterSprite:texture")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/11/path = NodePath("CharacterSprite:hframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/12/path = NodePath("CharacterSprite:vframes")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:visible")
+tracks/13/path = NodePath("CharacterSprite:visible")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
@@ -783,14 +782,14 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:frame")
+tracks/14/path = NodePath("CharacterSprite:frame")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.2, 0.4, 0.45),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [25, 24, 23, 22, 41, 26]
+"values": [5, 6, 7, 8, 9, 10]
 }
 
 [sub_resource type="Animation" id="Animation_hykxe"]
@@ -823,43 +822,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -871,55 +870,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [182]
+"values": [65]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -931,14 +930,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [66]
+"values": [167]
 }
 
 [sub_resource type="Animation" id="Animation_2bknl"]
@@ -971,43 +970,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -1019,55 +1018,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [33]
+"values": [100]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -1079,14 +1078,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [102]
+"values": [34]
 }
 
 [sub_resource type="Animation" id="Animation_lvklg"]
@@ -1119,43 +1118,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -1167,55 +1166,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [222]
+"values": [66]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -1227,14 +1226,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [67]
+"values": [180]
 }
 
 [sub_resource type="Animation" id="Animation_xhsh2"]
@@ -1267,43 +1266,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -1315,55 +1314,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.016, 0.032, 0.048),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [20, 21, 22, 23]
+"values": [12, 11, 22, 21]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -1375,14 +1374,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.016, 0.032, 0.048),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [11, 10, 23, 22]
+"values": [19, 20, 21, 22]
 }
 
 [sub_resource type="Animation" id="Animation_vhpn5"]
@@ -1504,43 +1503,43 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:texture")
+tracks/9/path = NodePath("CharacterSprite/Horns:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite:hframes")
+tracks/10/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite:vframes")
+tracks/11/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite:visible")
+tracks/12/path = NodePath("CharacterSprite/Horns:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
@@ -1552,55 +1551,55 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite:frame")
+tracks/13/path = NodePath("CharacterSprite/Horns:frame")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [38, 39, 40, 41]
+"values": [95, 94, 80, 92]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:texture")
+tracks/14/path = NodePath("CharacterSprite:texture")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/15/path = NodePath("CharacterSprite:hframes")
 tracks/15/interp = 1
 tracks/15/loop_wrap = false
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/16/path = NodePath("CharacterSprite:vframes")
 tracks/16/interp = 1
 tracks/16/loop_wrap = false
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("CharacterSprite/Horns:visible")
+tracks/17/path = NodePath("CharacterSprite:visible")
 tracks/17/interp = 1
 tracks/17/loop_wrap = false
 tracks/17/keys = {
@@ -1612,14 +1611,14 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("CharacterSprite/Horns:frame")
+tracks/18/path = NodePath("CharacterSprite:frame")
 tracks/18/interp = 1
 tracks/18/loop_wrap = false
 tracks/18/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [97, 96, 81, 94]
+"values": [39, 40, 41, 28]
 }
 
 [sub_resource type="Animation" id="Animation_b45gv"]
@@ -1747,43 +1746,43 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:texture")
+tracks/9/path = NodePath("CharacterSprite/Horns:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite:hframes")
+tracks/10/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite:vframes")
+tracks/11/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite:visible")
+tracks/12/path = NodePath("CharacterSprite/Horns:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
@@ -1795,55 +1794,55 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite:frame")
+tracks/13/path = NodePath("CharacterSprite/Horns:frame")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.15, 0.35, 0.4, 0.45, 0.483, 0.533),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [28, 43, 44, 45, 46, 186, 47, 48]
+"values": [91, 90, 89, 88, 87, 56, 86, 85]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:texture")
+tracks/14/path = NodePath("CharacterSprite:texture")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/15/path = NodePath("CharacterSprite:hframes")
 tracks/15/interp = 1
 tracks/15/loop_wrap = false
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/16/path = NodePath("CharacterSprite:vframes")
 tracks/16/interp = 1
 tracks/16/loop_wrap = false
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("CharacterSprite/Horns:visible")
+tracks/17/path = NodePath("CharacterSprite:visible")
 tracks/17/interp = 1
 tracks/17/loop_wrap = false
 tracks/17/keys = {
@@ -1855,14 +1854,14 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("CharacterSprite/Horns:frame")
+tracks/18/path = NodePath("CharacterSprite:frame")
 tracks/18/interp = 1
 tracks/18/loop_wrap = false
 tracks/18/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.15, 0.35, 0.4, 0.45, 0.483, 0.533),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [93, 92, 91, 90, 89, 57, 88, 87]
+"values": [43, 44, 45, 46, 47, 185, 48, 49]
 }
 
 [sub_resource type="Animation" id="Animation_m0n0g"]
@@ -1999,43 +1998,43 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:texture")
+tracks/9/path = NodePath("CharacterSprite/Horns:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite:hframes")
+tracks/10/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite:vframes")
+tracks/11/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite:visible")
+tracks/12/path = NodePath("CharacterSprite/Horns:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
@@ -2047,55 +2046,55 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite:frame")
+tracks/13/path = NodePath("CharacterSprite/Horns:frame")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.183, 0.216, 0.249, 0.282, 0.315, 0.348, 0.398, 0.448, 0.548, 0.598),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [49, 50, 51, 186, 187, 188, 189, 190, 191, 52, 53, 54, 55, 14]
+"values": [84, 88, 87, 56, 55, 54, 67, 105, 104, 103, 83, 82, 81, 78]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:texture")
+tracks/14/path = NodePath("CharacterSprite:texture")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/15/path = NodePath("CharacterSprite:hframes")
 tracks/15/interp = 1
 tracks/15/loop_wrap = false
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/16/path = NodePath("CharacterSprite:vframes")
 tracks/16/interp = 1
 tracks/16/loop_wrap = false
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("CharacterSprite/Horns:visible")
+tracks/17/path = NodePath("CharacterSprite:visible")
 tracks/17/interp = 1
 tracks/17/loop_wrap = false
 tracks/17/keys = {
@@ -2107,14 +2106,14 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("CharacterSprite/Horns:frame")
+tracks/18/path = NodePath("CharacterSprite:frame")
 tracks/18/interp = 1
 tracks/18/loop_wrap = false
 tracks/18/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.183, 0.216, 0.249, 0.282, 0.315, 0.348, 0.398, 0.448, 0.548, 0.598),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [86, 90, 89, 57, 56, 55, 68, 107, 106, 105, 85, 84, 83, 79]
+"values": [50, 51, 52, 185, 186, 187, 188, 189, 190, 53, 54, 55, 14, 1]
 }
 
 [sub_resource type="Animation" id="Animation_os45c"]
@@ -2219,146 +2218,146 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:texture")
+tracks/7/path = NodePath("TailConnection:position")
 tracks/7/interp = 1
-tracks/7/loop_wrap = false
+tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:hframes")
+tracks/8/path = NodePath("TailConnection:rotation")
 tracks/8/interp = 1
-tracks/8/loop_wrap = false
+tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
+"update": 0,
+"values": [-0.872665]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:vframes")
+tracks/9/path = NodePath("CharacterSprite/Horns:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [ExtResource("7_exo88")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite:visible")
+tracks/10/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [11]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite:frame")
+tracks/11/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [176, 177, 178, 179]
+"values": [10]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:texture")
+tracks/12/path = NodePath("CharacterSprite/Horns:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [true]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/13/path = NodePath("CharacterSprite/Horns:frame")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [11]
+"values": [60, 60, 60, 60]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/14/path = NodePath("CharacterSprite:texture")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [ExtResource("7_talr6")]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:visible")
+tracks/15/path = NodePath("CharacterSprite:hframes")
 tracks/15/interp = 1
 tracks/15/loop_wrap = false
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [15]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:frame")
+tracks/16/path = NodePath("CharacterSprite:vframes")
 tracks/16/interp = 1
 tracks/16/loop_wrap = false
 tracks/16/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [61, 61, 61, 61]
+"values": [15]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("TailConnection:position")
+tracks/17/path = NodePath("CharacterSprite:visible")
 tracks/17/interp = 1
-tracks/17/loop_wrap = true
+tracks/17/loop_wrap = false
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("TailConnection:rotation")
+tracks/18/path = NodePath("CharacterSprite:frame")
 tracks/18/interp = 1
-tracks/18/loop_wrap = true
+tracks/18/loop_wrap = false
 tracks/18/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.872665]
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [175, 176, 177, 178]
 }
 
 [sub_resource type="Animation" id="Animation_dlmc3"]
@@ -2461,6 +2460,238 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("TailConnection:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TailConnection:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.872665]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CharacterSprite/Horns:texture")
+tracks/9/interp = 1
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_exo88")]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/10/interp = 1
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/11/interp = 1
+tracks/11/loop_wrap = false
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CharacterSprite/Horns:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = false
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CharacterSprite/Horns:frame")
+tracks/13/interp = 1
+tracks/13/loop_wrap = false
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [62, 62, 62, 62]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CharacterSprite:texture")
+tracks/14/interp = 1
+tracks/14/loop_wrap = false
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_talr6")]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("CharacterSprite:hframes")
+tracks/15/interp = 1
+tracks/15/loop_wrap = false
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("CharacterSprite:vframes")
+tracks/16/interp = 1
+tracks/16/loop_wrap = false
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("CharacterSprite:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = false
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("CharacterSprite:frame")
+tracks/18/interp = 1
+tracks/18/loop_wrap = false
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [170, 171, 172, 173]
+}
+
+[sub_resource type="Animation" id="Animation_tyxxp"]
+length = 0.05
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackSwings:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackSwingsBack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_exo88")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [99]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
 tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
@@ -2468,7 +2699,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -2513,242 +2744,10 @@ tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [171, 172, 173, 174]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:texture")
-tracks/12/interp = 1
-tracks/12/loop_wrap = false
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:hframes")
-tracks/13/interp = 1
-tracks/13/loop_wrap = false
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:vframes")
-tracks/14/interp = 1
-tracks/14/loop_wrap = false
-tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:visible")
-tracks/15/interp = 1
-tracks/15/loop_wrap = false
-tracks/15/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:frame")
-tracks/16/interp = 1
-tracks/16/loop_wrap = false
-tracks/16/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [63, 63, 63, 63]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("TailConnection:position")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/18/type = "value"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("TailConnection:rotation")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.872665]
-}
-
-[sub_resource type="Animation" id="Animation_tyxxp"]
-length = 0.05
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackSwings:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackSwingsBack:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
-tracks/3/interp = 1
-tracks/3/loop_wrap = false
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
-tracks/4/interp = 1
-tracks/4/loop_wrap = false
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = false
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
-tracks/6/interp = 1
-tracks/6/loop_wrap = false
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [34]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
-tracks/7/interp = 1
-tracks/7/loop_wrap = false
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_exo88")]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
-tracks/8/interp = 1
-tracks/8/loop_wrap = false
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
-tracks/9/interp = 1
-tracks/9/loop_wrap = false
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = false
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
-tracks/11/interp = 1
-tracks/11/loop_wrap = false
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [101]
+"values": [35]
 }
 
 [sub_resource type="Animation" id="Animation_erl8s"]
@@ -2781,43 +2780,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -2829,55 +2828,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [193]
+"values": [102]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -2889,14 +2888,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [104]
+"values": [192]
 }
 
 [sub_resource type="Animation" id="Animation_ux87j"]
@@ -2929,43 +2928,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -2977,55 +2976,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.3, 0.35, 0.45, 0.55, 0.6, 0.65, 0.75, 0.8, 0.85, 1.15),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [91, 92, 93, 94, 95, 96, 97, 84, 99, 100, 101, 102, 103, 103]
+"values": [9, 8, 7, 6, 61, 5, 4, 3, 2, 1, 14, 52, 51, 51]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -3037,14 +3036,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.3, 0.35, 0.45, 0.55, 0.6, 0.65, 0.75, 0.8, 0.85, 1.15),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [8, 7, 6, 5, 62, 4, 3, 2, 1, 14, 53, 52, 51, 51]
+"values": [90, 91, 92, 93, 94, 95, 96, 97, 84, 99, 100, 101, 102, 102]
 }
 
 [sub_resource type="Animation" id="Animation_fwy7n"]
@@ -3103,43 +3102,43 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:texture")
+tracks/4/path = NodePath("CharacterSprite/Horns:texture")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:hframes")
+tracks/5/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:vframes")
+tracks/6/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:visible")
+tracks/7/path = NodePath("CharacterSprite/Horns:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
@@ -3151,55 +3150,55 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:frame")
+tracks/8/path = NodePath("CharacterSprite/Horns:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 1.1, 1.3, 1.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [104, 105, 106, 107, 108, 109, 110, 111, 70, 57]
+"values": [50, 49, 48, 47, 46, 45, 44, 43, 42, 41]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:texture")
+tracks/9/path = NodePath("CharacterSprite:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/10/path = NodePath("CharacterSprite:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/11/path = NodePath("CharacterSprite:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:visible")
+tracks/12/path = NodePath("CharacterSprite:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
@@ -3211,14 +3210,14 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:frame")
+tracks/13/path = NodePath("CharacterSprite:frame")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 1.1, 1.3, 1.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [50, 49, 48, 47, 46, 45, 44, 43, 42, 27]
+"values": [103, 104, 105, 106, 107, 108, 109, 110, 70, 57]
 }
 
 [sub_resource type="Animation" id="Animation_ue7be"]
@@ -3251,43 +3250,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -3299,55 +3298,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [186, 187, 188, 189, 190, 191, 192]
+"values": [56, 55, 54, 67, 105, 104, 103]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -3359,14 +3358,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [57, 56, 55, 68, 107, 106, 105]
+"values": [185, 186, 187, 188, 189, 190, 191]
 }
 
 [sub_resource type="Animation" id="Animation_2y7ny"]
@@ -3399,43 +3398,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -3447,55 +3446,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [185]
+"values": [57]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -3507,14 +3506,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [58]
+"values": [184]
 }
 
 [sub_resource type="Animation" id="Animation_8ntag"]
@@ -3546,146 +3545,146 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("TailConnection:position")
 tracks/2/interp = 1
-tracks/2/loop_wrap = false
+tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("TailConnection:rotation")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.872665, 0.872665]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:texture")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [ExtResource("7_exo88")]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [11]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [170]
+"values": [10]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite/Horns:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite/Horns:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [63]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [ExtResource("7_talr6")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [15]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [64]
+"values": [15]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("TailConnection:position")
+tracks/12/path = NodePath("CharacterSprite:visible")
 tracks/12/interp = 1
-tracks/12/loop_wrap = true
+tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("TailConnection:rotation")
+tracks/13/path = NodePath("CharacterSprite:frame")
 tracks/13/interp = 1
-tracks/13/loop_wrap = true
+tracks/13/loop_wrap = false
 tracks/13/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.872665, 0.872665]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [169]
 }
 
 [sub_resource type="Animation" id="Animation_lfud8"]
@@ -3718,43 +3717,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -3766,55 +3765,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [36, 37]
+"values": [97, 96]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -3826,14 +3825,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [99, 98]
+"values": [37, 38]
 }
 
 [sub_resource type="Animation" id="Animation_nhhbf"]
@@ -3866,43 +3865,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -3914,55 +3913,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [184]
+"values": [58]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -3974,14 +3973,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [59]
+"values": [183]
 }
 
 [sub_resource type="Animation" id="Animation_x3o60"]
@@ -4014,43 +4013,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -4062,55 +4061,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 112, 127, 128, 129, 130, 131]
+"values": [78, 78, 78, 78, 78, 77, 77, 76, 76, 76, 76, 76, 76, 77, 77, 78]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -4122,14 +4121,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [79, 79, 79, 79, 79, 78, 78, 77, 77, 77, 77, 77, 77, 78, 78, 79]
+"values": [116, 117, 118, 119, 120, 121, 122, 123, 124, 111, 126, 127, 128, 129, 130, 131]
 }
 
 [sub_resource type="Animation" id="Animation_4qxpq"]
@@ -4162,146 +4161,146 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("TailConnection:position")
 tracks/2/interp = 1
-tracks/2/loop_wrap = false
+tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("TailConnection:rotation")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
+"update": 0,
+"values": [-0.872665]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:texture")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [ExtResource("7_exo88")]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [11]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [169]
+"values": [10]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite/Horns:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite/Horns:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [64]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [ExtResource("7_talr6")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [15]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [65]
+"values": [15]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("TailConnection:position")
+tracks/12/path = NodePath("CharacterSprite:visible")
 tracks/12/interp = 1
-tracks/12/loop_wrap = true
+tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("TailConnection:rotation")
+tracks/13/path = NodePath("CharacterSprite:frame")
 tracks/13/interp = 1
-tracks/13/loop_wrap = true
+tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.872665]
+"update": 1,
+"values": [168]
 }
 
 [sub_resource type="Animation" id="Animation_lcry1"]
@@ -4334,43 +4333,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -4382,55 +4381,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.8, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [180, 181, 168, 183]
+"values": [59, 58, 58, 59]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -4442,14 +4441,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.8, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [60, 59, 59, 60]
+"values": [179, 166, 181, 182]
 }
 
 [sub_resource type="Animation" id="Animation_rw57u"]
@@ -4500,158 +4499,158 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:texture")
+tracks/3/path = NodePath("CharacterSprite:scale")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:hframes")
+tracks/4/path = NodePath("TailConnection:position")
 tracks/4/interp = 1
-tracks/4/loop_wrap = false
+tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:vframes")
+tracks/5/path = NodePath("TailConnection:rotation")
 tracks/5/interp = 1
-tracks/5/loop_wrap = false
+tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
+"update": 0,
+"values": [0.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:visible")
+tracks/6/path = NodePath("CharacterSprite/Horns:texture")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [ExtResource("7_exo88")]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:frame")
+tracks/7/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [24, 25, 26, 27, 42, 85, 86, 87, 88, 89]
+"values": [11]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:texture")
+tracks/8/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [10]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/9/path = NodePath("CharacterSprite/Horns:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [true]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/10/path = NodePath("CharacterSprite/Horns:frame")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [10]
+"values": [73, 73, 72, 71, 70, 69, 69, 68, 53, 70]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:visible")
+tracks/11/path = NodePath("CharacterSprite:texture")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [ExtResource("7_talr6")]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:frame")
+tracks/12/path = NodePath("CharacterSprite:hframes")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [74, 74, 73, 72, 71, 70, 70, 69, 54, 71]
+"values": [15]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite:scale")
+tracks/13/path = NodePath("CharacterSprite:vframes")
 tracks/13/interp = 1
-tracks/13/loop_wrap = true
+tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [15]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("TailConnection:position")
+tracks/14/path = NodePath("CharacterSprite:visible")
 tracks/14/interp = 1
-tracks/14/loop_wrap = true
+tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("TailConnection:rotation")
+tracks/15/path = NodePath("CharacterSprite:frame")
 tracks/15/interp = 1
-tracks/15/loop_wrap = true
+tracks/15/loop_wrap = false
 tracks/15/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [23, 24, 25, 26, 27, 42, 85, 86, 87, 88]
 }
 
 [sub_resource type="Animation" id="Animation_itvtl"]
@@ -4684,43 +4683,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -4732,55 +4731,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [212, 213, 214, 215, 216, 217, 218, 219, 220, 221]
+"values": [73, 73, 72, 71, 70, 69, 69, 68, 53, 70]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -4792,18 +4791,19 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [74, 74, 73, 72, 71, 70, 70, 69, 54, 71]
+"values": [211, 212, 213, 214, 215, 216, 217, 218, 219, 220]
 }
 
 [sub_resource type="Animation" id="Animation_jgtkt"]
 length = 1.65
+loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -4964,170 +4964,170 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite:texture")
+tracks/13/path = NodePath("TailConnection:position")
 tracks/13/interp = 1
-tracks/13/loop_wrap = false
+tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite:hframes")
+tracks/14/path = NodePath("TailConnection:rotation")
 tracks/14/interp = 1
-tracks/14/loop_wrap = false
+tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
+"update": 0,
+"values": [0.0]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite:vframes")
+tracks/15/path = NodePath("TailConnection:scale")
 tracks/15/interp = 1
-tracks/15/loop_wrap = false
+tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [15]
+"values": [Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite:visible")
+tracks/16/path = NodePath("TailConnection:z_index")
 tracks/16/interp = 1
-tracks/16/loop_wrap = false
+tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [0]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("CharacterSprite:frame")
+tracks/17/path = NodePath("CharacterSprite/Horns:texture")
 tracks/17/interp = 1
 tracks/17/loop_wrap = false
 tracks/17/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.7, 0.75, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83]
+"values": [ExtResource("7_exo88")]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("CharacterSprite/Horns:texture")
+tracks/18/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/18/interp = 1
 tracks/18/loop_wrap = false
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [11]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/19/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/19/interp = 1
 tracks/19/loop_wrap = false
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [10]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/20/path = NodePath("CharacterSprite/Horns:visible")
 tracks/20/interp = 1
 tracks/20/loop_wrap = false
 tracks/20/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [true]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("CharacterSprite/Horns:visible")
+tracks/21/path = NodePath("CharacterSprite/Horns:frame")
 tracks/21/interp = 1
 tracks/21/loop_wrap = false
 tracks/21/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.7, 0.75, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [98, 29, 84, 88, 80, 28, 92, 98, 29, 74, 50, 99, 99]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("CharacterSprite:texture")
+tracks/22/interp = 1
+tracks/22/loop_wrap = false
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_talr6")]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("CharacterSprite:hframes")
+tracks/23/interp = 1
+tracks/23/loop_wrap = false
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("CharacterSprite:vframes")
+tracks/24/interp = 1
+tracks/24/loop_wrap = false
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("CharacterSprite:visible")
+tracks/25/interp = 1
+tracks/25/loop_wrap = false
+tracks/25/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("CharacterSprite/Horns:frame")
-tracks/22/interp = 1
-tracks/22/loop_wrap = false
-tracks/22/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.7, 0.75, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [100, 29, 86, 90, 81, 28, 94, 100, 29, 75, 50, 101, 101]
-}
-tracks/23/type = "value"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath("TailConnection:position")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/24/type = "value"
-tracks/24/imported = false
-tracks/24/enabled = true
-tracks/24/path = NodePath("TailConnection:rotation")
-tracks/24/interp = 1
-tracks/24/loop_wrap = true
-tracks/24/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/25/type = "value"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath("TailConnection:scale")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector2(1, 1), Vector2(-1, 1), Vector2(1, 1)]
-}
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("TailConnection:z_index")
+tracks/26/path = NodePath("CharacterSprite:frame")
 tracks/26/interp = 1
-tracks/26/loop_wrap = true
+tracks/26/loop_wrap = false
 tracks/26/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.7, 0.75, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83]
 }
 
 [sub_resource type="Animation" id="Animation_sx28m"]
@@ -5160,43 +5160,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -5208,55 +5208,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [90]
+"values": [10]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -5268,14 +5268,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [9]
+"values": [89]
 }
 
 [sub_resource type="Animation" id="Animation_1omhr"]
@@ -5308,43 +5308,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -5356,55 +5356,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.083, 0.183, 0.233, 0.266, 0.366, 0.416, 0.449, 0.482, 0.515, 0.548, 0.581),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 56]
+"values": [61, 61, 27, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -5416,14 +5416,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.083, 0.183, 0.233, 0.266, 0.366, 0.416, 0.449, 0.482, 0.515, 0.548, 0.581),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [62, 62, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30]
+"values": [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 56]
 }
 
 [sub_resource type="Animation" id="Animation_laj2u"]
@@ -5456,43 +5456,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -5504,55 +5504,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [35]
+"values": [98]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -5564,14 +5564,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [100]
+"values": [36]
 }
 
 [sub_resource type="Animation" id="Animation_sn0ru"]
@@ -5604,43 +5604,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -5652,55 +5652,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [13, 0, 15, 16]
+"values": [17, 16, 15, 0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -5712,14 +5712,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [18, 17, 16, 15]
+"values": [0, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_411ah"]
@@ -5752,43 +5752,43 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_4iiyj")]
+"values": [ExtResource("7_exo88")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [10]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
@@ -5800,55 +5800,55 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297, 0.33, 0.363, 0.396, 0.429, 0.462, 0.495, 0.528, 0.561, 0.594, 0.627, 0.66, 0.693, 0.726, 0.759, 0.792, 0.825, 0.858, 0.891, 0.924, 0.957, 0.99, 1.023),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [210, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 140, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 126, 113, 114, 115]
+"values": [93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 79, 93, 93]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
+tracks/7/path = NodePath("CharacterSprite:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [ExtResource("7_talr6")]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
@@ -5860,14 +5860,14 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165, 0.198, 0.231, 0.264, 0.297, 0.33, 0.363, 0.396, 0.429, 0.462, 0.495, 0.528, 0.561, 0.594, 0.627, 0.66, 0.693, 0.726, 0.759, 0.792, 0.825, 0.858, 0.891, 0.924, 0.957, 0.99, 1.023),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 95, 95]
+"values": [208, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 139, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 125, 112, 113, 114, 115]
 }
 
 [sub_resource type="Animation" id="Animation_u743m"]
@@ -5914,138 +5914,139 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:texture")
+tracks/3/path = NodePath("TailConnection:rotation")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
+"update": 0,
+"values": [1.5708]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:hframes")
+tracks/4/path = NodePath("CharacterSprite/Horns:texture")
 tracks/4/interp = 1
 tracks/4/loop_wrap = false
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [ExtResource("7_exo88")]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:vframes")
+tracks/5/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/5/interp = 1
 tracks/5/loop_wrap = false
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [11]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:visible")
+tracks/6/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = false
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [10]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:frame")
+tracks/7/path = NodePath("CharacterSprite/Horns:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [32]
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:texture")
+tracks/8/path = NodePath("CharacterSprite/Horns:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_exo88")]
+"values": [65]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/9/path = NodePath("CharacterSprite:texture")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [ExtResource("7_talr6")]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/10/path = NodePath("CharacterSprite:hframes")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [10]
+"values": [15]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:visible")
+tracks/11/path = NodePath("CharacterSprite:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [15]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:frame")
+tracks/12/path = NodePath("CharacterSprite:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [66]
+"values": [true]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("TailConnection:rotation")
+tracks/13/path = NodePath("CharacterSprite:frame")
 tracks/13/interp = 1
-tracks/13/loop_wrap = true
+tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.5708]
+"update": 1,
+"values": [33]
 }
 
 [sub_resource type="Animation" id="Animation_t8nxn"]
-length = 0.6
+length = 0.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -6108,133 +6109,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [10]
 }
-tracks/5/type = "value"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:texture")
+tracks/5/path = NodePath("../StompHitbox/ParticleSpawner")
 tracks/5/interp = 1
-tracks/5/loop_wrap = false
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:hframes")
-tracks/6/interp = 1
-tracks/6/loop_wrap = false
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:vframes")
-tracks/7/interp = 1
-tracks/7/loop_wrap = false
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = false
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:frame")
-tracks/9/interp = 1
-tracks/9/loop_wrap = false
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [19]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:texture")
-tracks/10/interp = 1
-tracks/10/loop_wrap = false
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_exo88")]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:hframes")
-tracks/11/interp = 1
-tracks/11/loop_wrap = false
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:vframes")
-tracks/12/interp = 1
-tracks/12/loop_wrap = false
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:visible")
-tracks/13/interp = 1
-tracks/13/loop_wrap = false
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:frame")
-tracks/14/interp = 1
-tracks/14/loop_wrap = false
-tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [12]
-}
-tracks/15/type = "method"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("../StompHitbox/ParticleSpawner")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -6242,437 +6123,29 @@ tracks/15/keys = {
 "method": &"spawn"
 }]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite:scale")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterSprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(2, 0.5), Vector2(1, 1)]
 }
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("TailConnection:rotation")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TailConnection:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [1.5708, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_eak7o"]
-length = 0.048
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackSwings:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackSwingsBack:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
-tracks/3/interp = 1
-tracks/3/loop_wrap = false
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
-tracks/4/interp = 1
-tracks/4/loop_wrap = false
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = false
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
-tracks/6/interp = 1
-tracks/6/loop_wrap = false
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.016, 0.032),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [10, 11, 12]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
-tracks/7/interp = 1
-tracks/7/loop_wrap = false
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_exo88")]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
-tracks/8/interp = 1
-tracks/8/loop_wrap = false
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
-tracks/9/interp = 1
-tracks/9/loop_wrap = false
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = false
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
-tracks/11/interp = 1
-tracks/11/loop_wrap = false
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.016, 0.032),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [21, 20, 19]
-}
-
-[sub_resource type="Animation" id="Animation_cepts"]
-length = 0.198
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackSwings:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackSwingsBack:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:hframes")
-tracks/3/interp = 1
-tracks/3/loop_wrap = false
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:vframes")
-tracks/4/interp = 1
-tracks/4/loop_wrap = false
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = false
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:frame")
-tracks/6/interp = 1
-tracks/6/loop_wrap = false
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [194, 195, 98, 29, 30, 31]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite/Horns:texture")
-tracks/7/interp = 1
-tracks/7/loop_wrap = false
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_exo88")]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite/Horns:hframes")
-tracks/8/interp = 1
-tracks/8/loop_wrap = false
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [11]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite/Horns:vframes")
-tracks/9/interp = 1
-tracks/9/loop_wrap = false
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite/Horns:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = false
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite/Horns:frame")
-tracks/11/interp = 1
-tracks/11/loop_wrap = false
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [103, 103, 103, 103, 103, 103]
-}
-
-[sub_resource type="Animation" id="Animation_ffas3"]
-length = 1.2
-loop_mode = 1
-step = 0.05
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FootstepEmitter")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 0.5, 0.8, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"values": [{
-"args": [],
-"method": &"emit_footstep"
-}, {
-"args": [],
-"method": &"emit_footstep"
-}, {
-"args": [],
-"method": &"emit_footstep"
-}, {
-"args": [],
-"method": &"emit_footstep"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackSwings:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AttackSwingsBack:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:texture")
-tracks/3/interp = 1
-tracks/3/loop_wrap = false
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_4iiyj")]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterSprite:hframes")
-tracks/4/interp = 1
-tracks/4/loop_wrap = false
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:vframes")
-tracks/5/interp = 1
-tracks/5/loop_wrap = false
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = false
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:frame")
-tracks/7/interp = 1
-tracks/7/loop_wrap = false
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [132, 133, 134, 135, 136, 137, 138, 139, 154, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 196, 211]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -6729,10 +6202,538 @@ tracks/12/path = NodePath("CharacterSprite/Horns:frame")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CharacterSprite:texture")
+tracks/13/interp = 1
+tracks/13/loop_wrap = false
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_talr6")]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CharacterSprite:hframes")
+tracks/14/interp = 1
+tracks/14/loop_wrap = false
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("CharacterSprite:vframes")
+tracks/15/interp = 1
+tracks/15/loop_wrap = false
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("CharacterSprite:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = false
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("CharacterSprite:frame")
+tracks/17/interp = 1
+tracks/17/loop_wrap = false
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_eak7o"]
+length = 0.048
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackSwings:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackSwingsBack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_exo88")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.016, 0.032),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [20, 19, 18]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CharacterSprite:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_talr6")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CharacterSprite:hframes")
+tracks/8/interp = 1
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CharacterSprite:vframes")
+tracks/9/interp = 1
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CharacterSprite:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CharacterSprite:frame")
+tracks/11/interp = 1
+tracks/11/loop_wrap = false
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.016, 0.032),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_cepts"]
+length = 0.198
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackSwings:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackSwingsBack:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite/Horns:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_exo88")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterSprite/Horns:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterSprite/Horns:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [101, 101, 101, 101, 101, 101]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CharacterSprite:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_talr6")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CharacterSprite:hframes")
+tracks/8/interp = 1
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CharacterSprite:vframes")
+tracks/9/interp = 1
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CharacterSprite:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CharacterSprite:frame")
+tracks/11/interp = 1
+tracks/11/loop_wrap = false
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.033, 0.066, 0.099, 0.132, 0.165),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [193, 98, 29, 30, 31, 32]
+}
+
+[sub_resource type="Animation" id="Animation_ffas3"]
+length = 1.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FootstepEmitter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.5, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"emit_footstep"
+}, {
+"args": [],
+"method": &"emit_footstep"
+}, {
+"args": [],
+"method": &"emit_footstep"
+}, {
+"args": [],
+"method": &"emit_footstep"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackSwings:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackSwingsBack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite/Horns:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_exo88")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterSprite/Horns:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CharacterSprite/Horns:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [76, 76, 76, 75, 75, 75, 76, 76, 76, 75, 75, 75, 76, 76, 76, 75, 75, 75, 76, 76, 76, 75, 75, 75]
+"values": [75, 75, 75, 74, 74, 74, 75, 75, 75, 74, 74, 74, 75, 75, 75, 74, 74, 74, 75, 75, 75, 74, 74, 74]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CharacterSprite:texture")
+tracks/8/interp = 1
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_talr6")]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CharacterSprite:hframes")
+tracks/9/interp = 1
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CharacterSprite:vframes")
+tracks/10/interp = 1
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CharacterSprite:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = false
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CharacterSprite:frame")
+tracks/12/interp = 1
+tracks/12/loop_wrap = false
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [132, 133, 134, 135, 136, 137, 138, 153, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 194, 209, 210]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jukqc"]
@@ -6774,99 +6775,6 @@ _data = {
 "throw_up": SubResource("Animation_eak7o"),
 "vomit": SubResource("Animation_cepts"),
 "walk": SubResource("Animation_ffas3")
-}
-
-[sub_resource type="Animation" id="Animation_7mgbg"]
-resource_name = "land"
-length = 0.1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../TailConnection:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../TailConnection:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [0.872665, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../TailConnection:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../TailConnection:z_index")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../LandSfx")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../JumpLandParticlesSpawner")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"spawn"
-}]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../CharacterSprite:scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(2, 0.5), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_cdkth"]
@@ -7022,7 +6930,100 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(0.5, 2), Vector2(1, 1)]
+"values": [Vector2(0.75, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7mgbg"]
+resource_name = "land"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TailConnection:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TailConnection:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.872665, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TailConnection:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../TailConnection:z_index")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../LandSfx")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../JumpLandParticlesSpawner")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../CharacterSprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(2, 0.5), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5kqsb"]
@@ -7032,6 +7033,14 @@ _data = {
 "land": SubResource("Animation_7mgbg")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1gj3w"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xnb46"]
+blend_mode = 1
+light_mode = 1
+
 [sub_resource type="Curve" id="Curve_5lq4p"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -7040,8 +7049,23 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.212346, 0.397531, 0.849383, 0.891358, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 0, 0, 1, 1, 0.0306236, 0, 1, 1, 0.175087, 0.563676, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ni03q"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rgjqa"]
 light_mode = 1
+
+[sub_resource type="Animation" id="Animation_qx53l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_dcteq"]
 length = 1.056
@@ -7057,7 +7081,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("16_2hdge")]
+"values": [ExtResource("15_e1a0g")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -7108,18 +7132,11 @@ tracks/4/keys = {
 "values": [16, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 0, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 }
 
-[sub_resource type="Animation" id="Animation_qx53l"]
-length = 0.001
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_weu3s"]
 _data = {
 "RESET": SubResource("Animation_qx53l"),
 "normal": SubResource("Animation_dcteq")
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hf4h6"]
-shader = ExtResource("4_0j2ua")
-shader_parameter/outline_col = null
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ln0j4"]
 light_mode = 1
@@ -8196,10 +8213,10 @@ tracks/8/path = NodePath("../../..:attack_input_listening")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [true]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -8208,7 +8225,7 @@ tracks/9/path = NodePath("../../..:attack_can_cancel")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.04),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -8657,6 +8674,8 @@ z_index = 20
 collision_mask = 49
 max_sp = 3.0
 team = 1
+attack_input_listening = true
+attack_can_cancel = true
 
 [node name="SignalManager" type="Node" parent="." index="0"]
 script = SubResource("GDScript_23cjj")
@@ -8688,6 +8707,7 @@ libraries = {
 }
 
 [node name="GrindParticles" parent="Inner/Visuals" index="1" instance=ExtResource("15_8ua2b")]
+material = SubResource("CanvasItemMaterial_1gj3w")
 emitting = false
 
 [node name="Grind Sfx" type="AudioStreamPlayer2D" parent="Inner/Visuals/GrindParticles" index="0"]
@@ -8695,6 +8715,7 @@ stream = ExtResource("5_b6nlk")
 bus = &"Sfx"
 
 [node name="Trail2D" type="Line2D" parent="Inner/Visuals/GrindParticles" index="1"]
+material = SubResource("CanvasItemMaterial_xnb46")
 width = 5.0
 width_curve = SubResource("Curve_5lq4p")
 gradient = SubResource("Gradient_7bri7")
@@ -8707,15 +8728,15 @@ segments = 80
 [node name="TailConnection" type="Marker2D" parent="Inner/Visuals" index="2"]
 
 [node name="Tail" type="Sprite2D" parent="Inner/Visuals/TailConnection" index="0"]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_ni03q")
-texture = ExtResource("16_2hdge")
+modulate = Color(3, 0.19, 0.62, 1)
+material = SubResource("CanvasItemMaterial_rgjqa")
+texture = ExtResource("15_e1a0g")
 hframes = 6
 vframes = 6
 frame = 16
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
-"layer": "Flattened",
+"layer": "",
 "o_ex_p": "",
 "o_folder": "res://assets/actors_2d/alisa",
 "o_name": "",
@@ -8735,7 +8756,6 @@ libraries = {
 [node name="CharacterSprite" type="Sprite2D" parent="Inner/Visuals" index="3"]
 light_mask = 5
 texture_filter = 1
-material = SubResource("ShaderMaterial_hf4h6")
 position = Vector2(0, 16)
 texture = ExtResource("6_4iiyj")
 offset = Vector2(0, -32)
@@ -8744,25 +8764,27 @@ vframes = 15
 frame = 177
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
-"layer": "Alisa",
+"layer": "",
 "o_ex_p": "",
 "o_folder": "res://assets/actors_2d/alisa",
 "o_name": "",
 "only_visible": true,
 "op_exp": false,
 "player": "Inner/Visuals/AnimationPlayer",
+"set_vis_track": true,
 "source": "res://assets/actors_2d/alisa/alisa.aseprite"
 }
 
 [node name="Horns" type="Sprite2D" parent="Inner/Visuals/CharacterSprite" index="0"]
 visible = false
+modulate = Color(1, 0.192157, 0.619608, 1)
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_ln0j4")
-position = Vector2(0, -32)
 texture = ExtResource("7_exo88")
+offset = Vector2(0, -32)
 hframes = 11
 vframes = 10
-frame = 94
+frame = 63
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -8770,8 +8792,9 @@ metadata/_aseprite_wizard_config_ = {
 "o_folder": "res://assets/actors_2d/alisa",
 "o_name": "",
 "only_visible": true,
-"op_exp": false,
+"op_exp": true,
 "player": "Inner/Visuals/AnimationPlayer",
+"set_vis_track": true,
 "source": "res://assets/actors_2d/alisa/alisa.aseprite"
 }
 
@@ -8874,7 +8897,7 @@ base_value = 10.0
 hit_particles = ExtResource("37_xkhey")
 hit_sfx = ExtResource("38_df5eo")
 frame_freeze_duration_milliseconds = 48
-screen_shake_trauma = 0.1
+screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
 position = Vector2(47, 0)
@@ -8900,7 +8923,7 @@ base_value = 7.0
 hit_particles = ExtResource("37_xkhey")
 hit_sfx = ExtResource("38_df5eo")
 frame_freeze_duration_milliseconds = 48
-screen_shake_trauma = 0.1
+screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack2/Hitbox" index="0"]
 position = Vector2(48, 0)
@@ -8926,7 +8949,7 @@ base_value = 5.0
 hit_particles = ExtResource("37_xkhey")
 hit_sfx = ExtResource("38_df5eo")
 frame_freeze_duration_milliseconds = 48
-screen_shake_trauma = 0.1
+screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack3/Hitbox" index="0"]
 position = Vector2(36.5, 0)
@@ -8952,7 +8975,7 @@ base_value = 8.0
 hit_particles = ExtResource("37_xkhey")
 hit_sfx = ExtResource("38_df5eo")
 frame_freeze_duration_milliseconds = 48
-screen_shake_trauma = 0.1
+screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack/Hitbox" index="0"]
 position = Vector2(48, 0)
@@ -8977,7 +9000,7 @@ base_value = 7.0
 hit_particles = ExtResource("37_xkhey")
 hit_sfx = ExtResource("38_df5eo")
 frame_freeze_duration_milliseconds = 48
-screen_shake_trauma = 0.1
+screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack2/Hitbox" index="0"]
 position = Vector2(48, 0)
@@ -9280,13 +9303,6 @@ shape = SubResource("CircleShape2D_7nr68")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_vmy5l")
-
-[node name="PointLight2D" type="PointLight2D" parent="." index="12"]
-visible = false
-blend_mode = 2
-range_item_cull_mask = 2
-texture = ExtResource("50_bf20f")
-texture_scale = 0.5
 
 [connection signal="timeout" from="Resources/MPRegenTimer" to="Resources" method="_on_mp_regen_timer_timeout"]
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

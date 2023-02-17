@@ -218,9 +218,9 @@ size = Vector2(80, 120)
 
 [node name="Horizon Hills Cave Entrance" instance=ExtResource("1_fi7jp")]
 script = SubResource("GDScript_o3yj3")
-song = 3
 kanna_got_lost_cutscene = ExtResource("10_7pwks")
 alisa_looks_at_tower_cutscene = ExtResource("3_i67mi")
+song = 3
 
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints" index="0"]
 position = Vector2(-416, 336)
@@ -319,7 +319,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 position = Vector2(-544, 296)
 script = ExtResource("74_nxpc0")
 stage_id = "HORIZON_HILLS_SMALL_CAVE"
-destination_entry_point = 0
 screen_transition = 1
 transition_duration = 0.5
 

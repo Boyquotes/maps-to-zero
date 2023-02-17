@@ -2,7 +2,7 @@ class_name SidescrollerMain
 extends Node2D
 
 @export var player_actor: PackedScene
-@export var initial_stage_id: String
+@export var initial_stage_file_path: String
 @export var initial_stage_enter_point: int
 
 @onready var actors_parent := %ActorsParent
@@ -32,7 +32,7 @@ func _ready():
 	camera_transformer.position = Vector2.ZERO
 	camera_transformer.remote_path = camera_transformer.get_path_to(gameplay_camera)
 	
-	GameManager.request_stage_change(initial_stage_id, initial_stage_enter_point)
+	GameManager.request_stage_change(initial_stage_file_path, initial_stage_enter_point)
 
 
 func change_stage(stage_scene: PackedScene, player_entry_point: int, player_respawning: bool=false) -> void:

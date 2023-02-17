@@ -1,6 +1,5 @@
 [gd_scene load_steps=21 format=3 uid="uid://ck3x2ncnej15k"]
 
-[ext_resource type="Texture2D" uid="uid://wy53ctga1bpf" path="res://assets/particle_sprites/white_1x1.png" id="1_jgylm"]
 [ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="2_53682"]
 [ext_resource type="PackedScene" uid="uid://nr4udv7n3ht5" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="3_i5kw7"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="4_y3agx"]
@@ -11,6 +10,7 @@
 [ext_resource type="Script" path="res://core/audio_stream_player_2d_extended.gd" id="9_af2c2"]
 [ext_resource type="AudioStream" uid="uid://28gvi5455suy" path="res://assets/sfx/rock_fall_1.wav" id="10_k60jh"]
 [ext_resource type="AudioStream" uid="uid://cueuj53y6703d" path="res://assets/sfx/rock_fall_2.wav" id="11_qbjuq"]
+[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/ruby_mine.tres" id="12_rngxk"]
 [ext_resource type="AudioStream" uid="uid://bpir0rpqbc7ea" path="res://assets/sfx/rock_fall_3.wav" id="12_ug6ma"]
 
 [sub_resource type="Animation" id="Animation_lf7np"]
@@ -172,16 +172,6 @@ libraries = {
 "": SubResource("AnimationLibrary_v41nf")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -32)
-scale = Vector2(64, 64)
-texture = ExtResource("1_jgylm")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(0, -96)
-scale = Vector2(64, 64)
-texture = ExtResource("1_jgylm")
-
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(0, -129)
 script = ExtResource("2_53682")
@@ -243,3 +233,8 @@ script = ExtResource("9_af2c2")
 streams = Array[AudioStream]([ExtResource("10_k60jh"), ExtResource("11_qbjuq"), ExtResource("12_ug6ma")])
 pitch_scale_min = 0.9
 pitch_scale_max = 1.1
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("12_rngxk")
+format = 2
+layer_0/tile_data = PackedInt32Array(-196609, 1, 0, -262144, 458753, 6, -196608, 589825, 8, -131072, 720897, 8, -65537, 1, 4, -1, 655361, 11, -65536, 327681, 5, -131073, 1, 4)

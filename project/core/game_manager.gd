@@ -2,18 +2,11 @@ extends Node
 
 signal screen_transition_finished
 
-const STAGE_PATHS := {
-	"HORIZON_HILLS_SMALL_CAVE" : "res://assets/stages/horizon_hills/horizon_hills_small_cave.tscn",
-	"HORIZON_HILLS_COMBAT_CAVE_TUTORIAL" : "res://assets/stages/horizon_hills/horizon_hills_combat_cave_tutorial.tscn",
-	"HORIZON_HILLS_CAVE_ENTRANCE" : "res://assets/stages/horizon_hills/horizon_hills_cave_entrance.tscn",
-	"HORIZON_HILLS_BOSS_ARENA" : "res://assets/stages/horizon_hills/horizon_hills_boss_arena.tscn",
-}
-
 var actors := {}
 var actors_original_cutscene_mode_value := {}
 var sidescroller_main: SidescrollerMain
 var popup_canvas: CanvasLayer
-var current_stage_id: String
+var current_stage_file_path: String
 
 var cutscene_mode: bool:
 	set(value):
@@ -119,14 +112,15 @@ func screen_transition(animation: Enums.ScreenTransition, duration:=1.0) -> void
 	screen_transition_finished.emit()
 
 
-func request_stage_change(stage_id: String, player_entry_point := 0) -> void:
-	var stage = load(STAGE_PATHS[stage_id])
-	current_stage_id = stage_id
+func request_stage_change(stage_file_path: String, player_entry_point := 0) -> void:
+	var stage = load(stage_file_path)
+	current_stage_file_path = stage_file_path
+	SaveData.stage_file_path = stage_file_path
 	sidescroller_main.change_stage(stage, player_entry_point)
 
 
 func reload() -> void:
-	var stage = load(STAGE_PATHS[SaveData.stage_id])
+	var stage = load(SaveData.stage_file_path)
 	sidescroller_main.change_stage(stage, 0, true)
 
 

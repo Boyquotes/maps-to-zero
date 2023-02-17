@@ -1,6 +1,5 @@
 [gd_scene load_steps=21 format=3 uid="uid://das03waqnfui"]
 
-[ext_resource type="Texture2D" uid="uid://wy53ctga1bpf" path="res://assets/particle_sprites/white_1x1.png" id="1_dutcg"]
 [ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="2_ormkr"]
 [ext_resource type="PackedScene" uid="uid://nr4udv7n3ht5" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="3_xfo8p"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="4_m5sg4"]
@@ -12,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://28gvi5455suy" path="res://assets/sfx/rock_fall_1.wav" id="10_u5uyr"]
 [ext_resource type="AudioStream" uid="uid://cueuj53y6703d" path="res://assets/sfx/rock_fall_2.wav" id="11_mwdte"]
 [ext_resource type="AudioStream" uid="uid://bpir0rpqbc7ea" path="res://assets/sfx/rock_fall_3.wav" id="12_8rn1g"]
+[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/ruby_mine.tres" id="12_tuvmq"]
 
 [sub_resource type="Animation" id="Animation_hwl2j"]
 length = 0.001
@@ -164,18 +164,12 @@ orbit_velocity_max = 0.0
 color = Color(1, 0.74902, 0.74902, 1)
 
 [node name="Column Small" type="Node2D"]
-position = Vector2(-256, -420)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_di0am")
 }
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -32)
-scale = Vector2(64, 64)
-texture = ExtResource("1_dutcg")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(0, -32)
@@ -237,3 +231,8 @@ script = ExtResource("9_cuipl")
 streams = Array[AudioStream]([ExtResource("10_u5uyr"), ExtResource("11_mwdte"), ExtResource("12_8rn1g")])
 pitch_scale_min = 0.9
 pitch_scale_max = 1.1
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("12_tuvmq")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65537, 131073, 6, -1, 1, 7, -65536, 720897, 11, -131072, 458753, 10)

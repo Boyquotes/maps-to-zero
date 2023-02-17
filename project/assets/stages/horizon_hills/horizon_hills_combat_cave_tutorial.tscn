@@ -1596,8 +1596,8 @@ active = true
 
 [node name="Line2d" type="Line2D" parent="Alisa Falling Cutscene/FrogGreenTransformer" index="0"]
 visible = false
-position = Vector2(0, -8)
 z_index = -1
+position = Vector2(0, -8)
 points = PackedVector2Array(0, 0, 150, 0)
 width = 2.0
 default_color = Color(1, 0.541176, 0.670588, 1)
@@ -1610,6 +1610,7 @@ animation_player_node_path = NodePath("../AnimationPlayer")
 
 [node name="FrogGreen" parent="Alisa Falling Cutscene" index="5" instance=ExtResource("58_0oknn")]
 position = Vector2(-1344, -176)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1675,6 +1676,7 @@ position = Vector2(1456, -104)
 
 [node name="FrogGreen3" parent="." index="5" instance=ExtResource("58_0oknn")]
 position = Vector2(-2808, 528)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1684,6 +1686,7 @@ attack_can_go_to_next = null
 
 [node name="FrogGreen2" parent="." index="6" instance=ExtResource("58_0oknn")]
 position = Vector2(-2744, 520)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1693,6 +1696,7 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue" parent="." index="7" instance=ExtResource("60_v3pv8")]
 position = Vector2(-2736, 856)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1702,6 +1706,7 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue2" parent="." index="8" instance=ExtResource("60_v3pv8")]
 position = Vector2(-2656, 856)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1711,6 +1716,7 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue3" parent="." index="9" instance=ExtResource("60_v3pv8")]
 position = Vector2(-2576, 856)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1720,6 +1726,7 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue4" parent="." index="10" instance=ExtResource("60_v3pv8")]
 position = Vector2(-1224, 600)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1729,6 +1736,7 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue5" parent="." index="11" instance=ExtResource("60_v3pv8")]
 position = Vector2(-1288, 600)
+collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
