@@ -1,7 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://4ixf2e6gtcqo"]
+[gd_scene load_steps=25 format=3 uid="uid://4ixf2e6gtcqo"]
 
 [ext_resource type="Script" path="res://core/game_manager.gd" id="1_w87d2"]
-[ext_resource type="Texture2D" uid="uid://dxc86t3r5sr2" path="res://assets/other_sprites/FireNoise1.tga" id="2_3ow1e"]
+[ext_resource type="Texture2D" uid="uid://bloum3j02ksy4" path="res://assets/hud/speed_line.png" id="2_scuwe"]
 
 [sub_resource type="Animation" id="Animation_dt7j2"]
 length = 0.001
@@ -350,73 +350,20 @@ _data = {
 "showing": SubResource("Animation_k5gi8")
 }
 
-[sub_resource type="Shader" id="Shader_xke6i"]
-code = "shader_type canvas_item;
-
-uniform vec2 center = vec2(0.5, 0.5);
-uniform sampler2D noise;
-uniform float sample_radius: hint_range(0.0, 1.0) = 0.5;
-uniform vec4 line_color: source_color = vec4(1.0);
-uniform float center_radius: hint_range(0.0, 1.0) = 0.5;
-
-const float pi = 3.14159265359;
-
-void fragment() {
-	vec2 dist = UV - center;
-	float angle = atan(dist.y / dist.x);
-	vec2 sample = vec2(sample_radius * cos(angle), sample_radius * sin(angle));
-	float noise_value = texture(noise, sample).r;
-	vec4 color = mix(line_color, vec4(0.0), noise_value);
-	color = mix(color, vec4(0.0), 1.0 - length(dist) - center_radius);
-	COLOR = color;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_601lb"]
-shader = SubResource("Shader_xke6i")
-shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/sample_radius = 0.595
-shader_parameter/line_color = Color(1, 1, 1, 0.145098)
-shader_parameter/center_radius = 0.0
-shader_parameter/noise = ExtResource("2_3ow1e")
-
-[sub_resource type="Animation" id="Animation_pflpa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/sample_radius")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.595]
-}
-
-[sub_resource type="Animation" id="Animation_egmnq"]
-resource_name = "play"
-length = 0.2
-loop_mode = 2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/sample_radius")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0.701, 0.335, 0.912, 0.595, 0.54]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_40mi6"]
-_data = {
-"RESET": SubResource("Animation_pflpa"),
-"play": SubResource("Animation_egmnq")
-}
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r6ff5"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 200.0
+emission_ring_radius = 800.0
+emission_ring_inner_radius = 500.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -500.0
+radial_accel_max = -500.0
 
 [sub_resource type="Animation" id="Animation_4fiv5"]
 length = 0.001
@@ -760,9 +707,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
-offset_top = 392.0
+offset_top = -328.0
 offset_right = 39152.0
-offset_bottom = 452.0
+offset_bottom = -268.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0174533
@@ -784,7 +731,6 @@ offset_bottom = 40.0
 color = Color(0, 0, 0, 1)
 
 [node name="SpeedLines" type="Control" parent="ScreenEffects"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -792,20 +738,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Image" type="ColorRect" parent="ScreenEffects/SpeedLines"]
-material = SubResource("ShaderMaterial_601lb")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffects/SpeedLines/Image"]
-autoplay = "RESET"
-libraries = {
-"": SubResource("AnimationLibrary_40mi6")
-}
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ScreenEffects/SpeedLines"]
+position = Vector2(640, 360)
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_r6ff5")
+texture = ExtResource("2_scuwe")
+lifetime = 0.05
+explosiveness = 1.0
 
 [node name="SkillFrames" type="Control" parent="ScreenEffects"]
 visible = false

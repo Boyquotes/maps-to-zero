@@ -185,8 +185,8 @@ func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Ty
 		hit_sfx.stream = hitbox.hit_sfx
 		hit_sfx.bus = "Sfx"
 		hit_sfx.finished.connect(hit_sfx.queue_free)
-		hit_sfx.global_position = global_position
 		add_child(hit_sfx)
+		hit_sfx.global_position = global_position
 		hit_sfx.play()
 		
 		resources.change_resource(type, -base_damage)

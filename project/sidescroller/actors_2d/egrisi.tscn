@@ -2392,7 +2392,7 @@ script = ExtResource("28_hjxcv")
 position = Vector2(0, 27)
 
 [node name="SoftCollision" parent="." index="10"]
-push_force = 0.0
+force_multiplier_on_self = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
 position = Vector2(4, -28)

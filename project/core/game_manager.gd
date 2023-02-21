@@ -47,12 +47,10 @@ func hide_cutscene_bars(duration:= 1.0) -> void:
 
 
 func show_speedlines() -> void:
-	$ScreenEffects/SpeedLines.visible = true
-	$ScreenEffects/SpeedLines/Image/AnimationPlayer.play("play")
+	$ScreenEffects/SpeedLines/GPUParticles2D.emitting = true
 
 func hide_speedlines() -> void:
-	$ScreenEffects/SpeedLines.visible = false
-	$ScreenEffects/SpeedLines/Image/AnimationPlayer.stop()
+	$ScreenEffects/SpeedLines/GPUParticles2D.emitting = false
 
 func show_skill_frame(duration:= 1.0) -> void:
 	if is_equal_approx(duration, 0.0):

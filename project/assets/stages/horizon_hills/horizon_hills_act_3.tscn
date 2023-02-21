@@ -497,7 +497,7 @@ texture = ExtResource("24_cvcnu")
 [node name="Crystals" type="Node2D" parent="Background" index="2"]
 
 [node name="Sprite2D9" type="Sprite2D" parent="Background/Crystals" index="0"]
-modulate = Color(0.270588, 1.64706, 0.160784, 1)
+modulate = Color(1.64706, 0.72549, 0.65098, 1)
 position = Vector2(3763, -194)
 texture = ExtResource("25_1e6kc")
 flip_h = true
@@ -505,7 +505,7 @@ flip_h = true
 [node name="PointLight2D2" type="PointLight2D" parent="Background/Crystals/Sprite2D9" index="0"]
 show_behind_parent = true
 position = Vector2(-25, 13)
-color = Color(0, 1, 0, 1)
+color = Color(1, 0.298039, 0.290196, 1)
 range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("24_cvcnu")
@@ -518,17 +518,18 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_cvcnu")
 
 [node name="Crystal" type="Sprite2D" parent="Background/Crystals" index="1"]
-modulate = Color(0.270588, 1, 0.164706, 1)
+modulate = Color(1.64706, 0.72549, 0.65098, 1)
 position = Vector2(2685, -46)
 texture = ExtResource("13_32hm2")
 
 [node name="PointLight2D" type="PointLight2D" parent="Background/Crystals/Crystal" index="0"]
 show_behind_parent = true
 position = Vector2(-2.66701, -23.222)
-color = Color(0, 1, 0, 1)
+color = Color(1, 0.298039, 0.290196, 1)
 range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("24_cvcnu")
+texture_scale = 2.0
 
 [node name="Glow Sprite" type="Sprite2D" parent="Background/Crystals/Crystal/PointLight2D" index="0"]
 modulate = Color(1, 1, 1, 0.0941176)

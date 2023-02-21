@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://ba52sdwwx2ojw"]
+
+[ext_resource type="Texture2D" uid="uid://bns8ow8ja0vqc" path="res://assets/stage_objects/dragon_treasure_cave/Pillar 3.png" id="1_s1cql"]
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_3dtp5"]
+[ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particle_sprites/white_square_4x4.png" id="3_hjjqj"]
+[ext_resource type="AudioStream" uid="uid://mxs8batq4fud" path="res://assets/sfx/ambience/camp_fire.ogg" id="4_ls1i6"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0pldv"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_hgpja"]
+offsets = PackedFloat32Array(0, 0.676636, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5dycf"]
+gradient = SubResource("Gradient_hgpja")
+
+[sub_resource type="Curve" id="Curve_xsapd"]
+_data = [Vector2(0.00176679, 0), 0.0, 0.0, 0, 0, Vector2(0.231449, 1), 0.0, 0.0, 0, 0, Vector2(0.821555, 1), 0.0, 0.0, 0, 0, Vector2(0.998233, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_q5605"]
+curve = SubResource("Curve_xsapd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4133m"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, -98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -27.61
+radial_accel_max = 33.4
+scale_curve = SubResource("CurveTexture_q5605")
+color_ramp = SubResource("GradientTexture1D_5dycf")
+
+[node name="Torch" type="Sprite2D"]
+position = Vector2(-510, 176)
+rotation = -3.14159
+texture = ExtResource("1_s1cql")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-0.99985, 61)
+color = Color(1, 0.443137, 0.133333, 1)
+range_layer_min = -10
+range_layer_max = 10
+texture = ExtResource("2_3dtp5")
+texture_scale = 1.5
+
+[node name="Glow Sprite" type="Sprite2D" parent="PointLight2D"]
+modulate = Color(1, 0.592157, 0.423529, 0.345098)
+material = SubResource("CanvasItemMaterial_0pldv")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3dtp5")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, 48)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_4133m")
+texture = ExtResource("3_hjjqj")
+
+[node name="Ambience" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0.00012207, 45)
+stream = ExtResource("4_ls1i6")
+autoplay = true
+max_distance = 1000.0
+bus = &"Ambience"

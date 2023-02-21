@@ -278,7 +278,6 @@ shape = SubResource("RectangleShape2D_gwgff")
 
 [node name="SoftCollision" type="Area2D" parent="."]
 script = ExtResource("5_grlby")
-push_horizontally_only = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
 position = Vector2(0, -128)
@@ -312,7 +311,7 @@ amount = 64
 process_material = SubResource("ParticleProcessMaterial_jfepo")
 texture = ExtResource("6_8e5rd")
 lifetime = 2.0
-visibility_rect = Rect2(-100, -100, 200, 720)
+visibility_rect = Rect2(-10000, -100, 20000, 1080)
 trail_enabled = true
 trail_lifetime = 0.5
 

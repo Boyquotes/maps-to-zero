@@ -20,7 +20,7 @@ _data = {
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gh6ur")
 player_actor = ExtResource("2_kneeq")
-initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_3.tscn"
+initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
 
 [node name="CameraTransformer" type="RemoteTransform2D" parent="."]
 unique_name_in_owner = true

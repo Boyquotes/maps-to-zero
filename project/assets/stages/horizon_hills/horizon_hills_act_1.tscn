@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bqpvhegwm520h"]
+[gd_scene load_steps=42 format=3 uid="uid://bqpvhegwm520h"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_xahw7"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_adxxg"]
@@ -29,6 +29,7 @@
 [ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/ruby_mine.tres" id="29_2p4bx"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="30_uct3q"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="31_djaly"]
+[ext_resource type="PackedScene" uid="uid://dvljl755mg41f" path="res://sidescroller/actors_2d/slime_blue.tscn" id="32_8254m"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="37_r8guc"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="38_e7fvc"]
 
@@ -650,6 +651,17 @@ flip_v = true
 [node name="Sprite2D2" type="Sprite2D" parent="50/Node2D" index="8"]
 position = Vector2(613, 84)
 texture = ExtResource("38_e7fvc")
+
+[node name="Enemies" type="Node2D" parent="." index="18"]
+
+[node name="SlimeBlue" parent="Enemies" index="0" instance=ExtResource("32_8254m")]
+position = Vector2(2437, 44)
+
+[node name="SlimeBlue2" parent="Enemies" index="1" instance=ExtResource("32_8254m")]
+position = Vector2(2593, 52)
+
+[node name="SlimeBlue3" parent="Enemies" index="2" instance=ExtResource("32_8254m")]
+position = Vector2(2321, 53)
 
 [connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
 [connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]
