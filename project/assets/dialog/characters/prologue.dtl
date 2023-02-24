@@ -1,0 +1,14 @@
+[music path="res://assets/music/horizon_hills_act_1_prologue.ogg"]
+[update_position action="1" position="1"]
+
+
+
+Join time_goddess 1
+time_goddess (Normal): This way!
+[update_position position="1" vector="Vector2(200, 0)"]
+[update_position action="1" position="2" vector="Vector2(-200, 0)"]
+
+
+Join alisa 2
+alisa (Normal): Oh come on, we're still not there?
+alisa: ...Fine

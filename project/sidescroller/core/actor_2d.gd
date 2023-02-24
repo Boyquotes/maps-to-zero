@@ -88,6 +88,10 @@ func set_cutscene_mode(value: bool) -> void:
 	cutscene_mode = value
 	if not is_ready:
 		await ready
+	if cutscene_mode:
+		state_machine.transition_to("Cutscene")
+	else:
+		state_machine.transition_to("Idle")
 	GameManager.actors_original_cutscene_mode_value[self] = value
 	
 	input_enabled = not cutscene_mode

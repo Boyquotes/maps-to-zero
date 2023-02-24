@@ -1,9 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cnwrv34d1paop"]
+[gd_scene load_steps=9 format=3 uid="uid://cnwrv34d1paop"]
 
 [ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="1_ojhq6"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="2_gtom8"]
-[ext_resource type="Script" path="res://core/dialog/dialog_node.gd" id="3_rke05"]
-[ext_resource type="Resource" uid="uid://cq02uvxvtduv6" path="res://assets/dialog/horizon_hills_prologue.dialogue" id="4_80m1l"]
 [ext_resource type="Script" path="res://core/trigger.gd" id="5_8uc55"]
 
 [sub_resource type="Animation" id="Animation_1c4kj"]
@@ -79,27 +77,13 @@ tracks/2/keys = {
 "method": &"enable"
 }]
 }
-tracks/3/type = "method"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DialogNode")
+tracks/3/path = NodePath(".:cutscene_mode")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"start"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:cutscene_mode")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -131,12 +115,6 @@ script = ExtResource("2_gtom8")
 actor_name = "PLAYER"
 look_direction = 1
 animation = "stand"
-
-[node name="DialogNode" type="Node" parent="."]
-script = ExtResource("3_rke05")
-dialog = ExtResource("4_80m1l")
-title = "alisa_looks_at_tower"
-animation_player_node_path = NodePath("../AnimationPlayer")
 
 [node name="Trigger" type="Node2D" parent="."]
 script = ExtResource("5_8uc55")

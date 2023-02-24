@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dvljl755mg41f"]
+[gd_scene load_steps=50 format=3 uid="uid://dvljl755mg41f"]
 
 [ext_resource type="PackedScene" uid="uid://jeq8j260q55w" path="res://sidescroller/core/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://bkt2ed1pbpeg6" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -783,6 +783,9 @@ tracks/5/keys = {
 "values": [26, 18, 19, 20, 21, 22, 23, 24]
 }
 
+[sub_resource type="Animation" id="Animation_ctuei"]
+resource_name = "fall"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ojfvh"]
 _data = {
 "RESET": SubResource("Animation_g1m0q"),
@@ -790,6 +793,7 @@ _data = {
 "bounce": SubResource("Animation_5mlto"),
 "charge": SubResource("Animation_hnukp"),
 "defeat": SubResource("Animation_ejapp"),
+"fall": SubResource("Animation_ctuei"),
 "flinch": SubResource("Animation_av62d"),
 "idle": SubResource("Animation_wyhlp")
 }

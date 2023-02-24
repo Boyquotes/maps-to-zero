@@ -51,10 +51,10 @@
 [ext_resource type="Script" path="res://states/transition_requirements/resource_requirement.gd" id="40_ykmab"]
 [ext_resource type="PackedScene" uid="uid://cihvdf6obpk65" path="res://sidescroller/actors_2d/alisa/alisa_rune_crash.tscn" id="41_dautq"]
 [ext_resource type="PackedScene" uid="uid://cj6fkeeb4m5np" path="res://assets/particles_one_shot/alisa_dash_line_particles.tscn" id="43_lciwn"]
+[ext_resource type="Script" path="res://core/game_utilities.gd" id="44_huver"]
 [ext_resource type="Script" path="res://sidescroller/core/particle_spawner.gd" id="44_qx400"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="45_r3uxd"]
 [ext_resource type="PackedScene" uid="uid://048jw1g8mrds" path="res://assets/particles_one_shot/pink_hit_impact.tscn" id="46_dhi3d"]
-[ext_resource type="Script" path="res://core/game_manager_interface.gd" id="46_ifha4"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="49_wu1gt"]
 [ext_resource type="PackedScene" uid="uid://bte4l72rqw4xx" path="res://assets/particles_one_shot/alisa_stomp_land.tscn" id="51_tyevx"]
 [ext_resource type="Script" path="res://states/state_transitions_2d/attack_input_key_transition.gd" id="54_oa4ec"]
@@ -8061,7 +8061,7 @@ tracks/9/keys = {
 tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("GameManagerInterface")
+tracks/10/path = NodePath("GameUtilities")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -8333,7 +8333,7 @@ tracks/17/keys = {
 tracks/18/type = "method"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("GameManagerInterface")
+tracks/18/path = NodePath("GameUtilities")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
@@ -8456,7 +8456,7 @@ tracks/4/keys = {
 tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("GameManagerInterface")
+tracks/5/path = NodePath("GameUtilities")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -8584,10 +8584,10 @@ tracks/7/path = NodePath("../../..:attack_input_listening")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -8596,10 +8596,10 @@ tracks/8/path = NodePath("../../..:attack_can_cancel")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -8608,15 +8608,15 @@ tracks/9/path = NodePath("../../..:attack_can_go_to_next")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("GameManagerInterface")
+tracks/10/path = NodePath("GameUtilities")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -9075,8 +9075,8 @@ position = Vector2(241, 0)
 script = ExtResource("44_qx400")
 particles_scene = ExtResource("43_lciwn")
 
-[node name="GameManagerInterface" type="Node" parent="Inner/Attacks/Dash" index="9"]
-script = ExtResource("46_ifha4")
+[node name="GameUtilities" type="Node" parent="Inner/Attacks/Dash" index="9"]
+script = ExtResource("44_huver")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Inner/Attacks/Dash" index="10"]
 layer = 100
@@ -9150,8 +9150,8 @@ script = ExtResource("40_cnoxs")
 scene = ExtResource("41_dautq")
 spawned_object_is_top_level = true
 
-[node name="GameManagerInterface" type="Node" parent="Inner/Attacks/Rune Crash" index="6"]
-script = ExtResource("46_ifha4")
+[node name="GameUtilities" type="Node" parent="Inner/Attacks/Rune Crash" index="6"]
+script = ExtResource("44_huver")
 
 [node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Rune Crash" index="7"]
 script = ExtResource("49_wu1gt")

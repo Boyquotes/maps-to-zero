@@ -1,9 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpfit36c6jhfn"]
+[gd_scene load_steps=9 format=3 uid="uid://bpfit36c6jhfn"]
 
 [ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="1_fl1lg"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="2_ekhq3"]
-[ext_resource type="Script" path="res://core/dialog/dialog_node.gd" id="4_837nn"]
-[ext_resource type="Resource" uid="uid://cq02uvxvtduv6" path="res://assets/dialog/horizon_hills_prologue.dialogue" id="5_5napc"]
 [ext_resource type="Script" path="res://core/trigger.gd" id="5_byv5k"]
 
 [sub_resource type="Animation" id="Animation_pw0o5"]
@@ -141,15 +139,15 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DialogNode")
+tracks/3/path = NodePath("PlayerTransformer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(2.5),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"start"
+"method": &"teleport"
 }]
 }
 tracks/4/type = "method"
@@ -159,20 +157,6 @@ tracks/4/path = NodePath("PlayerTransformer")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"teleport"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerTransformer")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -206,12 +190,6 @@ script = ExtResource("2_ekhq3")
 actor_name = "PLAYER"
 look_direction = 1
 animation = "walk"
-
-[node name="DialogNode" type="Node" parent="."]
-script = ExtResource("4_837nn")
-dialog = ExtResource("5_5napc")
-title = "stop_alisa_from_walking_back_trigger"
-animation_player_node_path = NodePath("../AnimationPlayer")
 
 [node name="Trigger" type="Node2D" parent="."]
 script = ExtResource("5_byv5k")

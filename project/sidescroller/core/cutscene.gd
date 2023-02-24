@@ -23,13 +23,21 @@ func start(_dummy_var=null) -> void:
 	$AnimationPlayer.play("start")
 	$AnimationPlayer.animation_finished.connect(_on_animation_finished)
 	set_process_input(true)
+	
+	for child in get_children():
+		if child is ActorCutsceneTransformer:
+			child.teleport()
+			child.enable()
+		elif child is DialogNode:
+			child.finished_and_play_animation.connect(func(anim_name):
+				$AnimationPlayer.play(anim_name)
+				)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("skip_cutscene"):
 		skip()
 
-func end() -> void:
-	DialogUtilities.end()
+func play_end() -> void:
 	set_process_input(false)
 	$AnimationPlayer.play("end")
 
@@ -38,7 +46,10 @@ func skip() -> void:
 	GameManager.screen_transition(Enums.ScreenTransition.FADE_IN, 0.3)
 	await GameManager.screen_transition_finished
 	await get_tree().create_timer(0.1).timeout
-	end()
+	$AnimationPlayer.play("finished")
+	for child in get_children():
+		if child is ActorCutsceneTransformer:
+			child.disable()
 	await get_tree().create_timer(0.4).timeout
 	GameManager.gameplay_camera.force_update_scroll()
 	GameManager.gameplay_camera.reset_smoothing()
@@ -53,3 +64,8 @@ func _on_animation_finished(anim_name: String) -> void:
 	if not skipping:
 		if anim_name == "end":
 			finished.emit()
+			if $AnimationPlayer.has_animation("finished"):
+				$AnimationPlayer.play("finished")
+			for child in get_children():
+				if child is ActorCutsceneTransformer:
+					child.disable()

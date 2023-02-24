@@ -124,3 +124,10 @@ func reload() -> void:
 
 func screen_shake(trauma := 0.5):
 	sidescroller_main.gameplay_camera.add_trauma(trauma)
+
+
+func show_sidescroller_hud():
+	sidescroller_main.sidescroller_hud.show()
+
+func hide_sidescroller_hud():
+	sidescroller_main.sidescroller_hud.hide()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://bdd2pvpg0i2m7"]
+[gd_scene load_steps=99 format=3 uid="uid://bdd2pvpg0i2m7"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
 [ext_resource type="PackedScene" uid="uid://bimwcffoblc8a" path="res://assets/stages/horizon_hills/cutscenes/alisa_summoning_cutscene.tscn" id="2_kopkw"]
@@ -23,7 +23,6 @@
 [ext_resource type="Script" path="res://core/overworld_dialog_trigger.gd" id="13_k1ulf"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="13_n0awt"]
 [ext_resource type="Texture2D" uid="uid://c0gjip12lqo4f" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_02.png" id="14_thf3y"]
-[ext_resource type="Resource" uid="uid://canvt7ltt0w0f" path="res://assets/dialog/horizon_hills_examine_demon_portal.dialogue" id="14_wlaya"]
 [ext_resource type="PackedScene" uid="uid://ylanwo4pov0m" path="res://core/InteractionArea2D.tscn" id="15_bm1l6"]
 [ext_resource type="Texture2D" uid="uid://vs6fl6ocfdml" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_03.png" id="15_dw501"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="16_663r0"]
@@ -68,7 +67,6 @@
 [ext_resource type="Texture2D" uid="uid://c0qhq36n2toxm" path="res://assets/stage_objects/horizon_hills_cave/001_ceiling.png" id="52_g3u14"]
 [ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="60_qerdq"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="67_vam78"]
-[ext_resource type="Resource" uid="uid://cq02uvxvtduv6" path="res://assets/dialog/horizon_hills_prologue.dialogue" id="70_5byel"]
 [ext_resource type="PackedScene" uid="uid://bpfit36c6jhfn" path="res://assets/stages/horizon_hills/cutscenes/stop_alisa_from_walking_back_trigger_cutscene.tscn" id="70_fp4dh"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="74_nxpc0"]
 
@@ -1406,7 +1404,6 @@ position = Vector2(-512, 544)
 [node name="OverworldDialogTrigger" type="Node2D" parent="DemonPortal/ExaminePortalInteractable/Triggers" index="0"]
 position = Vector2(1024, -1088)
 script = ExtResource("13_k1ulf")
-dialog = ExtResource("14_wlaya")
 
 [node name="Area2D" parent="DemonPortal/ExaminePortalInteractable" index="2" instance=ExtResource("15_bm1l6")]
 scanning = false
@@ -1447,7 +1444,6 @@ position = Vector2(1136, -40)
 [node name="OverworldDialogTrigger" type="Node2D" parent="AreaExamineDialog/Triggers" index="0"]
 position = Vector2(1024, -1088)
 script = ExtResource("13_k1ulf")
-dialog = ExtResource("70_5byel")
 title = "examine_small_cave"
 
 [node name="Area2D" parent="AreaExamineDialog" index="2" instance=ExtResource("15_bm1l6")]

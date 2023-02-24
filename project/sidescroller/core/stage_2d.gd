@@ -5,12 +5,11 @@ extends Node2D
 
 var normal_entry: bool = true
 var player_respawning: bool = false
-var entry_points: Array
+var entry_points: Array:
+	get:
+		return $EntryPoints.get_children()
 
 func _ready():
-	for entry_point in $EntryPoints.get_children():
-		entry_points.append(entry_point)
-	
 	if normal_entry:
 		if not player_respawning:
 			start_gameplay()

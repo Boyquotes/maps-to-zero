@@ -1,12 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnajugpn1sws5"]
+[gd_scene load_steps=12 format=3 uid="uid://cnajugpn1sws5"]
 
 [ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="1_eyuwg"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="2_awdds"]
 [ext_resource type="Script" path="res://sidescroller/core/actor_2d_transformer.gd" id="3_hjoea"]
 [ext_resource type="Script" path="res://core/screen_transition_trigger.gd" id="4_nbw37"]
 [ext_resource type="Script" path="res://core/music_trigger.gd" id="5_7xgit"]
-[ext_resource type="Script" path="res://core/dialog/dialog_node.gd" id="6_blnp2"]
-[ext_resource type="Resource" uid="uid://b2klayms53v52" path="res://assets/dialog/horizon_hills_prologue_cutscene.dialogue" id="7_4hq8v"]
 [ext_resource type="PackedScene" uid="uid://cvac36akscmw" path="res://sidescroller/actors_2d/dark_knight.tscn" id="8_dig2v"]
 
 [sub_resource type="Animation" id="Animation_txh1a"]
@@ -59,20 +57,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [null, 1]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("DialogNode")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"resume"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_6pb60"]
@@ -458,24 +442,10 @@ tracks/8/keys = {
 tracks/9/type = "method"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("DialogNode")
+tracks/9/path = NodePath("SilenceTrigger")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(4),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"start"
-}]
-}
-tracks/10/type = "method"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("SilenceTrigger")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -483,10 +453,24 @@ tracks/10/keys = {
 "method": &"trigger"
 }]
 }
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("DarkKnightTransformer")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
+}
 tracks/11/type = "method"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("DarkKnightTransformer")
+tracks/11/path = NodePath("PlayerTransformer")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -497,49 +481,35 @@ tracks/11/keys = {
 "method": &"teleport"
 }]
 }
-tracks/12/type = "method"
+tracks/12/type = "animation"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("PlayerTransformer")
+tracks/12/path = NodePath("../DemonPortal/MagicCircleFx/AnimationPlayer")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"teleport"
-}]
-}
-tracks/13/type = "animation"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("../DemonPortal/MagicCircleFx/AnimationPlayer")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "clips": PackedStringArray("show"),
 "times": PackedFloat32Array(0)
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("../DemonPortal:visible")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../DemonPortal:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/15/type = "method"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("ScreenTransitionTrigger")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("ScreenTransitionTrigger")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -547,13 +517,13 @@ tracks/15/keys = {
 "method": &"trigger"
 }]
 }
-tracks/16/type = "method"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("DarkKnightTransformer")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/15/type = "method"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("DarkKnightTransformer")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -561,13 +531,13 @@ tracks/16/keys = {
 "method": &"enable"
 }]
 }
-tracks/17/type = "method"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("PlayerTransformer")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/16/type = "method"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("PlayerTransformer")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -633,10 +603,5 @@ previous_song_fade_out_time = 3.0
 script = ExtResource("5_7xgit")
 song = 6
 
-[node name="DialogNode" type="Node" parent="."]
-script = ExtResource("6_blnp2")
-dialog = ExtResource("7_4hq8v")
-title = "dark_knight_encounter"
-animation_player_node_path = NodePath("../AnimationPlayer")
-
 [node name="DarkKnight" parent="." instance=ExtResource("8_dig2v")]
+collision_layer = 2

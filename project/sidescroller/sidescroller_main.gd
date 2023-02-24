@@ -11,6 +11,7 @@ extends Node2D
 @onready var transition_camera: Camera2D = %TransitionCamera
 @onready var popup_canvas: CanvasLayer = %PopupCanvas
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sidescroller_hud : Control = $SidescrollerHUD
 
 var currently_loaded_stage: Stage
 var player: Actor2D
@@ -49,10 +50,11 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 		player.defeated.connect(player_defeated) # Connection before adding stage, in case stage does something with player defeated
 	add_child(currently_loaded_stage)
 	
-	var entry_point: StageEntryPoint = currently_loaded_stage.entry_points[player_entry_point]
-	player.global_position = entry_point.global_position
-	
 	if currently_loaded_stage.normal_entry:
+		var entry_point: StageEntryPoint = currently_loaded_stage.entry_points[player_entry_point]
+		player.global_position = entry_point.global_position
+		gameplay_camera.current = true
+	
 		if player_respawning:
 			player_respawn_cutscene()
 			return

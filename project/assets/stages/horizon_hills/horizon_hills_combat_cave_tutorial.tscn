@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://t3w1gu4v3fdh"]
+[gd_scene load_steps=87 format=3 uid="uid://t3w1gu4v3fdh"]
 
 [ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
 [ext_resource type="TileSet" uid="uid://biqaeficpfbro" path="res://assets/tilesets/horizon_hills_tileset.tres" id="2_k34v3"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://b7wpnw5gnjn38" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_02.png" id="8_022tq"]
 [ext_resource type="Texture2D" uid="uid://6i4omg7fior5" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_03.png" id="9_8cf2l"]
 [ext_resource type="Texture2D" uid="uid://bfqenr2gqptvc" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_04.png" id="10_6cel8"]
-[ext_resource type="Script" path="res://core/dialog/dialog_node.gd" id="11_r6rca"]
 [ext_resource type="Texture2D" uid="uid://bygi5isn1tc6q" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_05.png" id="11_skh66"]
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_06.png" id="12_kcp7k"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="13_n0awt"]
@@ -23,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://cgmxq5jci6hm1" path="res://assets/stage_objects/horizon_hills_cave/004_arch_01.png" id="18_jp48f"]
 [ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="18_xcy3n"]
 [ext_resource type="Texture2D" uid="uid://d1pocaudoqlhb" path="res://assets/stage_objects/horizon_hills_cave/004_arch_02.png" id="19_8gl62"]
-[ext_resource type="Resource" uid="uid://cdrkaxemecn13" path="res://assets/dialog/horizon_hills_where_did_she_go.dialogue" id="20_c0bev"]
 [ext_resource type="Texture2D" uid="uid://i38egi7bvejg" path="res://assets/stage_objects/horizon_hills_cave/003_ceiling.png" id="20_jhxgb"]
 [ext_resource type="Texture2D" uid="uid://ibgron3bop7l" path="res://assets/stage_objects/horizon_hills_cave/003_ground.png" id="21_lf2as"]
 [ext_resource type="Texture2D" uid="uid://ct52o1u13p4no" path="res://assets/stage_objects/horizon_hills_cave/003_crystal_001.png" id="22_0782t"]
@@ -272,75 +270,61 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(-1232, -464), Vector2(-1232, -464), Vector2(-1232, -160)]
 }
-tracks/5/type = "method"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("DialogNode")
+tracks/5/path = NodePath("FrogGreenTransformer:look_direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"resume"
-}]
+"update": 1,
+"values": [null]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("FrogGreenTransformer:look_direction")
+tracks/6/path = NodePath("FrogGreenTransformer:animation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": ["idle"]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("FrogGreenTransformer:animation")
+tracks/7/path = NodePath("FrogGreenTransformer:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["idle"]
+"update": 0,
+"values": [Vector2(-1344, -160)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("FrogGreenTransformer:position")
+tracks/8/path = NodePath("PlayerTransformer:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1344, -160)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerTransformer:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [3.14159, -1.5708]
 }
-tracks/10/type = "method"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerTransformer")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("PlayerTransformer")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -376,27 +360,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(1e-05, 1), Vector2(0.9, 1)]
 }
-tracks/2/type = "method"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DialogNode")
+tracks/2/path = NodePath("FrogGreenTransformer:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"resume"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("FrogGreenTransformer:animation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -511,39 +481,25 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-1312, -160), Vector2(-1312, -160), Vector2(-1218.09, -160), Vector2(-1218.09, -160), Vector2(-1168, -160)]
 }
-tracks/3/type = "method"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("DialogNode")
+tracks/3/path = NodePath("FrogGreenTransformer/Line2d:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(10),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"resume"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("FrogGreenTransformer/Line2d:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("VomitPuddle:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VomitPuddle:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -576,20 +532,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-1168, -160), Vector2(-1168, -160), Vector2(-1216, -160)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DialogNode")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"resume"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_6m2rq"]
@@ -783,39 +725,25 @@ tracks/1/keys = {
 "update": 1,
 "values": ["defeat"]
 }
-tracks/2/type = "method"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DialogNode")
+tracks/2/path = NodePath("FrogGreenTransformer/Line2d:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"resume"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("FrogGreenTransformer/Line2d:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("RichTextLabel:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -982,51 +910,37 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DialogNode")
+tracks/1/path = NodePath("Camera2d:current")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"start"
-}]
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Camera2d:current")
+tracks/2/path = NodePath("FrogGreenTransformer/Line2d:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("FrogGreenTransformer/Line2d:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("FrogGreenTransformer")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FrogGreenTransformer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1034,25 +948,25 @@ tracks/4/keys = {
 "method": &"teleport"
 }]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("RichTextLabel:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RichTextLabel:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ScreenTransitionTrigger")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ScreenTransitionTrigger")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1060,13 +974,13 @@ tracks/6/keys = {
 "method": &"trigger"
 }]
 }
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerTransformer")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerTransformer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1074,13 +988,13 @@ tracks/7/keys = {
 "method": &"enable"
 }]
 }
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("FrogGreenTransformer")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FrogGreenTransformer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1602,13 +1516,7 @@ points = PackedVector2Array(0, 0, 150, 0)
 width = 2.0
 default_color = Color(1, 0.541176, 0.670588, 1)
 
-[node name="DialogNode" type="Node" parent="Alisa Falling Cutscene" index="4"]
-script = ExtResource("11_r6rca")
-dialog = ExtResource("20_c0bev")
-title = "falling"
-animation_player_node_path = NodePath("../AnimationPlayer")
-
-[node name="FrogGreen" parent="Alisa Falling Cutscene" index="5" instance=ExtResource("58_0oknn")]
+[node name="FrogGreen" parent="Alisa Falling Cutscene" index="4" instance=ExtResource("58_0oknn")]
 position = Vector2(-1344, -176)
 collision_layer = 2
 max_hp = 100.0
@@ -1618,7 +1526,7 @@ attack_input_listening = null
 attack_can_cancel = null
 attack_can_go_to_next = null
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Alisa Falling Cutscene" index="6"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Alisa Falling Cutscene" index="5"]
 visible = false
 offset_left = -1376.0
 offset_top = -232.0
@@ -1626,12 +1534,12 @@ offset_right = -1216.0
 offset_bottom = -192.0
 text = "Press 'Z' to attack!"
 
-[node name="ScreenTransitionTrigger" type="Node2D" parent="Alisa Falling Cutscene" index="7"]
+[node name="ScreenTransitionTrigger" type="Node2D" parent="Alisa Falling Cutscene" index="6"]
 script = ExtResource("59_jd0nj")
 transition = 2
 duration = 1.0
 
-[node name="VomitPuddle" type="Sprite2D" parent="Alisa Falling Cutscene" index="8"]
+[node name="VomitPuddle" type="Sprite2D" parent="Alisa Falling Cutscene" index="7"]
 visible = false
 position = Vector2(-1160, -157)
 scale = Vector2(2, 2)
@@ -1696,7 +1604,6 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue" parent="." index="7" instance=ExtResource("60_v3pv8")]
 position = Vector2(-2736, 856)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1706,7 +1613,6 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue2" parent="." index="8" instance=ExtResource("60_v3pv8")]
 position = Vector2(-2656, 856)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1716,7 +1622,6 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue3" parent="." index="9" instance=ExtResource("60_v3pv8")]
 position = Vector2(-2576, 856)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1726,7 +1631,6 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue4" parent="." index="10" instance=ExtResource("60_v3pv8")]
 position = Vector2(-1224, 600)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1736,7 +1640,6 @@ attack_can_go_to_next = null
 
 [node name="SlimeBlue5" parent="." index="11" instance=ExtResource("60_v3pv8")]
 position = Vector2(-1288, 600)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null

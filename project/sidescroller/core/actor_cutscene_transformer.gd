@@ -20,6 +20,8 @@ extends Marker2D
 @export var animation := "":
 	set(value):
 		if actor and actor.animation_player:
+			if not actor.is_ready:
+				await actor.ready
 			actor.play_animation(value)
 
 @export var active: bool = false:

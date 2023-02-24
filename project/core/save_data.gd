@@ -13,10 +13,7 @@ var player_data: Dictionary
 var camera_zoom: Vector2
 
 # Event flags
-var horizon_hills_alisa_summoned := false
-var horizon_hills_demon_portal_open := true
-var horizon_hills_alisa_falling_cutscene_watched := false
-var first_death := false
+var movement_tutorial_cutscene_watched := false
 
 
 
@@ -41,10 +38,9 @@ func write_savegame(save_file_number: int) -> void:
 		"player_saved_position": player_saved_position,
 		"player_data": player_data,
 		
-		"horizon_hills_alisa_summoned" : horizon_hills_alisa_summoned,
 		"base_background_jumps" : base_background_jumps,
-		"horizon_hills_alisa_falling_cutscene_watched": horizon_hills_alisa_falling_cutscene_watched,
-		"first_death": first_death
+		
+		"movement_tutorial_cutscene_watched" : movement_tutorial_cutscene_watched,
 	}
 	
 	var json_string := JSON.stringify(data)
@@ -70,9 +66,8 @@ func load_savegame(save_file_number: int) -> void:
 	player_saved_position = data.player_saved_position
 	player_data = data.player_data
 	
-	horizon_hills_alisa_summoned = data.horizon_hills_alisa_summoned
 	base_background_jumps = data.base_background_jumps
-	horizon_hills_alisa_falling_cutscene_watched = data.horizon_hills_alisa_falling_cutscene_watched
-	first_death = data.first_death
+	
+	movement_tutorial_cutscene_watched = data.movement_tutorial_cutscene_watched
 	
 	loaded_data.emit()

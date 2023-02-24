@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://jeq8j260q55w"]
+[gd_scene load_steps=16 format=3 uid="uid://jeq8j260q55w"]
 
 [ext_resource type="Script" path="res://sidescroller/core/actor_2d.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://bcjo12ardh7ia" path="res://states/core/state_machine.tscn" id="2_550gp"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b0ds8nwujcw6g" path="res://sidescroller/core/actor_2d_interface.tscn" id="9_dm5po"]
 [ext_resource type="Script" path="res://states/actor_2d_states/play_animation.gd" id="9_kan2l"]
 [ext_resource type="Script" path="res://sidescroller/core/target_manager.gd" id="11_bqsqr"]
+[ext_resource type="Script" path="res://states/core/state.gd" id="11_hb3w8"]
 [ext_resource type="Script" path="res://core/input_buffer.gd" id="13_gxgy6"]
 [ext_resource type="Script" path="res://sidescroller/core/soft_collision.gd" id="14_kjlhh"]
 
@@ -80,6 +81,9 @@ background_jumps_max = 0
 [node name="Defeat" type="Node" parent="StateMachine"]
 script = ExtResource("9_kan2l")
 
+[node name="Cutscene" type="Node" parent="StateMachine"]
+script = ExtResource("11_hb3w8")
+
 [node name="Actor2DInterfaceSmoothing" type="Node2D" parent="."]
 script = ExtResource("2_xo8fg")
 target = NodePath("..")
@@ -95,7 +99,6 @@ script = ExtResource("13_gxgy6")
 
 [node name="SoftCollision" type="Area2D" parent="."]
 script = ExtResource("14_kjlhh")
-push_horizontally_only = true
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

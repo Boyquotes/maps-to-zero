@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://das03waqnfui"]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="2_ormkr"]
 [ext_resource type="PackedScene" uid="uid://nr4udv7n3ht5" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="3_xfo8p"]
@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://28gvi5455suy" path="res://assets/sfx/rock_fall_1.wav" id="10_u5uyr"]
 [ext_resource type="AudioStream" uid="uid://cueuj53y6703d" path="res://assets/sfx/rock_fall_2.wav" id="11_mwdte"]
 [ext_resource type="AudioStream" uid="uid://bpir0rpqbc7ea" path="res://assets/sfx/rock_fall_3.wav" id="12_8rn1g"]
-[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/ruby_mine.tres" id="12_tuvmq"]
+[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/horizon_hills.tres" id="12_tuvmq"]
 
 [sub_resource type="Animation" id="Animation_hwl2j"]
 length = 0.001

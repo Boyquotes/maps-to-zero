@@ -7,6 +7,7 @@ var base_zoom : Vector2
 var tween : Tween
 
 func _ready() -> void:
+	set_physics_process(false)
 	for child in get_children():
 		if child is ScreenShakeCamera:
 			screen_shake = child
@@ -42,3 +43,10 @@ func reset_zoom(tween_duration: float = 0.2) -> void:
 	tween = create_tween()
 	tween.tween_property(self, "zoom", base_zoom, tween_duration) \
 		.from_current().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+func set_current(value: bool, duration := 1.0):
+	if value:
+		CameraTransition.transition_camera2D(get_viewport().get_camera_2d(), self, duration)
+	else:
+		CameraTransition.transition_camera2D(self, GameUtilities.get_main_camera(), duration)

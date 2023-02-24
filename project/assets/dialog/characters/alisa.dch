@@ -1,0 +1,29 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+"color": Color(0.952941, 0.12549, 1, 1),
+"custom_info": {
+"sound_mood_default": "",
+"sound_moods": {},
+"style": ""
+},
+"default_portrait": "Normal",
+"description": "A 10 year old girl with a a bit of a kleptomaniac streak. ",
+"display_name": "Alisa",
+"mirror": false,
+"nicknames": [""],
+"offset": Vector2(0, 0),
+"portraits": {
+"Normal": {
+"ignore_char_scale": false,
+"image": "res://assets/dialog/characters/Alisa shitty portrait.png",
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "",
+"sound_mood": "Chatty",
+"sound_mood_default": ""
+}
+},
+"scale": 1.0
+}
