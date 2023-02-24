@@ -7,7 +7,7 @@ signal loaded_data
 # Save file data
 var version := 1
 var base_background_jumps := 1
-var stage_file_path : String
+var current_stage_file_path : String
 var player_saved_position: Vector2
 var player_data: Dictionary
 var camera_zoom: Vector2
@@ -34,7 +34,7 @@ func write_savegame(save_file_number: int) -> void:
 	
 	var data := {
 		"version" : version,
-		"stage_file_path" : stage_file_path,
+		"current_stage_file_path" : current_stage_file_path,
 		"player_saved_position": player_saved_position,
 		"player_data": player_data,
 		
@@ -62,7 +62,7 @@ func load_savegame(save_file_number: int) -> void:
 	var data: Dictionary = JSON.parse_string(content).result
 	
 	version = data.version
-	stage_file_path = data.stage_file_path
+	current_stage_file_path = data.current_stage_file_path
 	player_saved_position = data.player_saved_position
 	player_data = data.player_data
 	

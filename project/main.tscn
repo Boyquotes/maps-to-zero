@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkcdmvd684dv7"]
+[gd_scene load_steps=11 format=3 uid="uid://dx8e433x6jcwi"]
 
-[ext_resource type="Script" path="res://sidescroller/sidescroller_main.gd" id="1_gh6ur"]
-[ext_resource type="PackedScene" uid="uid://c1ya48rctmvsh" path="res://sidescroller/actors_2d/alisa.tscn" id="2_kneeq"]
+[ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_jjc0c"]
+[ext_resource type="PackedScene" uid="uid://45orqwa0lla0" path="res://assets/characters/alisa/alisa.tscn" id="2_gxg87"]
 [ext_resource type="Script" path="res://core/screen_shake_camera.gd" id="3_2n05a"]
 [ext_resource type="Script" path="res://core/gameplay_camera_2d.gd" id="3_2qjor"]
 [ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
-[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://core/theme/general_theme.tres" id="4_lcacx"]
-[ext_resource type="PackedScene" uid="uid://bwahsuvk654r6" path="res://core/popups/yes_no_menu.tscn" id="6_1kvbx"]
-[ext_resource type="PackedScene" uid="uid://bbekootdeinsk" path="res://sidescroller/hud/sidescroller_hud.tscn" id="6_4rvqa"]
+[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_lp7a6"]
+[ext_resource type="PackedScene" uid="uid://bh3tsnhbyxhu5" path="res://assets/hud/popups/yes_no_menu.tscn" id="6_1kvbx"]
+[ext_resource type="PackedScene" path="res://assets/hud/sidescroller_hud.tscn" id="6_4rvqa"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
@@ -18,8 +18,8 @@ _data = {
 }
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_gh6ur")
-player_actor = ExtResource("2_kneeq")
+script = ExtResource("1_jjc0c")
+player_actor = ExtResource("2_gxg87")
 initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
 
 [node name="CameraTransformer" type="RemoteTransform2D" parent="."]
@@ -65,7 +65,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_lcacx")
+theme = ExtResource("5_lp7a6")
 
 [node name="FPS Counter" type="Label" parent="DebugInfo/Control"]
 layout_mode = 1
@@ -121,29 +121,16 @@ color = Color(0, 0, 0, 1)
 layout_mode = 1
 
 [node name="VBoxContainer" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu" index="0"]
-layout_mode = 0
-anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
 [node name="MessageLabel" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer" index="0"]
-layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Ouch! Game Over!
 Retry?[/center]"
-
-[node name="HBoxContainer" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer" index="1"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="YesButton" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer" index="0"]
-layout_mode = 2
-
-[node name="NoButton" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu/VBoxContainer/HBoxContainer" index="1"]
-layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

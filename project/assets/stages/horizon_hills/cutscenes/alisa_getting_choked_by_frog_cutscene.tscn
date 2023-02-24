@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://c2wwbpeudbdml"]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://core/music_trigger.gd" id="1_i44vk"]
-[ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="2_sp3l6"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="5_h4sba"]
-[ext_resource type="PackedScene" uid="uid://rpgywc8txax1" path="res://sidescroller/actors_2d/frog_green.tscn" id="6_4d6he"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_2d_transformer.gd" id="7_pcjbi"]
+[ext_resource type="Script" path="res://core/cutscene.gd" id="2_sp3l6"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="5_h4sba"]
+[ext_resource type="PackedScene" path="res://assets/characters/frog_green.tscn" id="6_4d6he"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="7_pcjbi"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="8_fg7an"]
 
 [sub_resource type="Animation" id="Animation_vp861"]
@@ -817,7 +817,6 @@ position = Vector2(-160, -80)
 
 [node name="StageChangeTrigger" type="Node2D" parent="."]
 script = ExtResource("8_fg7an")
-stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
 screen_transition = 1
 transition_duration = 1.0
 

@@ -1,7 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://b37rhygn88ho5"]
-
-[ext_resource type="PackedScene" uid="uid://bh28jb2q4opu" path="res://states/core/state.tscn" id="1_1lxeq"]
-[ext_resource type="Script" path="res://states/core/actor_2d_state.gd" id="2_xupbd"]
-
-[node name="Actor2dState" instance=ExtResource("1_1lxeq")]
-script = ExtResource("2_xupbd")

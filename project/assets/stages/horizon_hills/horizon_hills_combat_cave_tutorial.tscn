@@ -1,12 +1,9 @@
-[gd_scene load_steps=87 format=3 uid="uid://t3w1gu4v3fdh"]
+[gd_scene load_steps=86 format=3]
 
-[ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
-[ext_resource type="TileSet" uid="uid://biqaeficpfbro" path="res://assets/tilesets/horizon_hills_tileset.tres" id="2_k34v3"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="3_ml5pu"]
-[ext_resource type="Script" path="res://sidescroller/core/parallax_layer_group.gd" id="4_86nda"]
-[ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="5_fukcy"]
+[ext_resource type="Script" path="res://core/stage_entry_point.gd" id="1_sk8bp"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_gbg7j"]
+[ext_resource type="Script" path="res://core/parallax_layer_group.gd" id="3_0lfh6"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stage_objects/horizon_hills_cave/008_background.png" id="5_rfjll"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_2d_transformer.gd" id="6_b021w"]
 [ext_resource type="Texture2D" uid="uid://b6vl702epfpp3" path="res://assets/stage_objects/horizon_hills_cave/007_background.png" id="6_xj3hp"]
 [ext_resource type="Texture2D" uid="uid://cbnnaglydt8qn" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_01.png" id="7_h3pu2"]
 [ext_resource type="Texture2D" uid="uid://b7wpnw5gnjn38" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_02.png" id="8_022tq"]
@@ -20,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="16_663r0"]
 [ext_resource type="Texture2D" uid="uid://b0a7br80rjkud" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_05.png" id="17_bmpx0"]
 [ext_resource type="Texture2D" uid="uid://cgmxq5jci6hm1" path="res://assets/stage_objects/horizon_hills_cave/004_arch_01.png" id="18_jp48f"]
-[ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="18_xcy3n"]
 [ext_resource type="Texture2D" uid="uid://d1pocaudoqlhb" path="res://assets/stage_objects/horizon_hills_cave/004_arch_02.png" id="19_8gl62"]
 [ext_resource type="Texture2D" uid="uid://i38egi7bvejg" path="res://assets/stage_objects/horizon_hills_cave/003_ceiling.png" id="20_jhxgb"]
 [ext_resource type="Texture2D" uid="uid://ibgron3bop7l" path="res://assets/stage_objects/horizon_hills_cave/003_ground.png" id="21_lf2as"]
@@ -55,12 +51,15 @@
 [ext_resource type="Texture2D" uid="uid://gb4pkjhgk8le" path="res://assets/stage_objects/horizon_hills_cave/002_crystal_013.png" id="50_pqycf"]
 [ext_resource type="Texture2D" uid="uid://b307hx4g82awq" path="res://assets/stage_objects/horizon_hills_cave/001_ground.png" id="51_1ljen"]
 [ext_resource type="Texture2D" uid="uid://c0qhq36n2toxm" path="res://assets/stage_objects/horizon_hills_cave/001_ceiling.png" id="52_g3u14"]
-[ext_resource type="PackedScene" uid="uid://rpgywc8txax1" path="res://sidescroller/actors_2d/frog_green.tscn" id="58_0oknn"]
+[ext_resource type="Script" path="res://core/cutscene.gd" id="53_2yl02"]
+[ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="53_3n18g"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="54_j1m7l"]
+[ext_resource type="PackedScene" uid="uid://dxs4p7xf51ooh" path="res://assets/characters/frog_green/frog_green.tscn" id="58_0oknn"]
+[ext_resource type="Texture2D" uid="uid://c3gbrhrbk6fgv" path="res://assets/other_sprites/vomit_puddle.png" id="58_px7ew"]
 [ext_resource type="Script" path="res://core/animation_trigger.gd" id="59_4c7wp"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="59_dvpg6"]
 [ext_resource type="Script" path="res://core/screen_transition_trigger.gd" id="59_jd0nj"]
-[ext_resource type="Texture2D" uid="uid://c3gbrhrbk6fgv" path="res://assets/other_sprites/vomit_puddle.png" id="60_ctnkc"]
-[ext_resource type="PackedScene" uid="uid://dvljl755mg41f" path="res://sidescroller/actors_2d/slime_blue.tscn" id="60_v3pv8"]
+[ext_resource type="PackedScene" path="res://assets/characters/slime_blue/slime_blue.tscn" id="60_v3pv8"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="62_d6e3w"]
 
 [sub_resource type="GDScript" id="GDScript_ji524"]
@@ -1058,13 +1057,13 @@ size = Vector2(568, 408)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7w0q"]
 size = Vector2(112, 160)
 
-[node name="Horizon Hills Combat Cave Tutorial" instance=ExtResource("1_fi7jp")]
+[node name="Horizon Hills Combat Cave Tutorial"]
 script = SubResource("GDScript_ji524")
 song = 3
 
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints" index="0"]
 position = Vector2(-1616, -128)
-script = ExtResource("18_xcy3n")
+script = ExtResource("1_sk8bp")
 transition_animation = 2
 transition_duration = 0.5
 
@@ -1075,14 +1074,14 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint" index="1"]
 scale = Vector2(-1, 1)
-script = ExtResource("3_ml5pu")
+script = ExtResource("2_gbg7j")
 actor_name = "PLAYER"
 look_direction = 1
 animation = "walk"
 
 [node name="StageEntryPoint2" type="Node2D" parent="EntryPoints" index="1"]
 position = Vector2(-1080, 424)
-script = ExtResource("18_xcy3n")
+script = ExtResource("1_sk8bp")
 transition_animation = 2
 transition_duration = 0.5
 
@@ -1093,14 +1092,14 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint2" index="1"]
 scale = Vector2(-1, 1)
-script = ExtResource("3_ml5pu")
+script = ExtResource("2_gbg7j")
 actor_name = "PLAYER"
 look_direction = 1
 animation = "walk"
 
 [node name="HorizonHillsSmallCaveBackground" type="Node2D" parent="." index="1"]
 visible = false
-script = ExtResource("4_86nda")
+script = ExtResource("3_0lfh6")
 
 [node name="Skybox" type="CanvasLayer" parent="HorizonHillsSmallCaveBackground" index="0"]
 layer = -100
@@ -1458,8 +1457,8 @@ texture = ExtResource("52_g3u14")
 position = Vector2(320, -208)
 texture = ExtResource("52_g3u14")
 
-[node name="TileMap" type="TileMap" parent="." index="2"]
-tile_set = ExtResource("2_k34v3")
+[node name="Whitebox" type="TileMap" parent="." index="2"]
+tile_set = ExtResource("53_3n18g")
 format = 2
 layer_0/name = "Base"
 layer_0/z_index = -1
@@ -1475,7 +1474,7 @@ layer_1/tile_data = PackedInt32Array(-1179705, 1179649, 14, -1114169, 1179649, 1
 [node name="Alisa Falling Cutscene" type="Node2D" parent="." index="3"]
 unique_name_in_owner = true
 position = Vector2(-512, 544)
-script = ExtResource("5_fukcy")
+script = ExtResource("53_2yl02")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Alisa Falling Cutscene" index="0"]
 libraries = {
@@ -1495,14 +1494,14 @@ editor_draw_limits = true
 [node name="PlayerTransformer" type="Marker2D" parent="Alisa Falling Cutscene" index="2"]
 position = Vector2(-1152, -160)
 rotation = 3.14159
-script = ExtResource("3_ml5pu")
+script = ExtResource("2_gbg7j")
 actor_name = "PLAYER"
 look_direction = 0
 animation = "stand"
 
 [node name="FrogGreenTransformer" type="Marker2D" parent="Alisa Falling Cutscene" index="3"]
 position = Vector2(-1344, -160)
-script = ExtResource("6_b021w")
+script = ExtResource("54_j1m7l")
 move_with_look_direction = false
 actor_name = "FrogGreen"
 animation = "idle"
@@ -1518,7 +1517,6 @@ default_color = Color(1, 0.541176, 0.670588, 1)
 
 [node name="FrogGreen" parent="Alisa Falling Cutscene" index="4" instance=ExtResource("58_0oknn")]
 position = Vector2(-1344, -176)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1543,7 +1541,7 @@ duration = 1.0
 visible = false
 position = Vector2(-1160, -157)
 scale = Vector2(2, 2)
-texture = ExtResource("60_ctnkc")
+texture = ExtResource("58_px7ew")
 
 [node name="Room3" type="Node2D" parent="." index="4"]
 position = Vector2(-2456, 1008)
@@ -1584,7 +1582,6 @@ position = Vector2(1456, -104)
 
 [node name="FrogGreen3" parent="." index="5" instance=ExtResource("58_0oknn")]
 position = Vector2(-2808, 528)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1594,7 +1591,6 @@ attack_can_go_to_next = null
 
 [node name="FrogGreen2" parent="." index="6" instance=ExtResource("58_0oknn")]
 position = Vector2(-2744, 520)
-collision_layer = 2
 max_hp = 100.0
 speed = 18
 team = null
@@ -1650,7 +1646,6 @@ attack_can_go_to_next = null
 [node name="StageChangeTrigger" type="Node2D" parent="." index="12"]
 position = Vector2(-1464, -168)
 script = ExtResource("62_d6e3w")
-stage_id = "HORIZON_HILLS_SMALL_CAVE"
 destination_entry_point = 1
 screen_transition = 1
 transition_duration = 0.5
@@ -1666,7 +1661,6 @@ shape = SubResource("RectangleShape2D_n7w0q")
 [node name="StageChangeTrigger2" type="Node2D" parent="." index="13"]
 position = Vector2(-928, 384)
 script = ExtResource("62_d6e3w")
-stage_id = "HORIZON_HILLS_SMALL_CAVE"
 destination_entry_point = 2
 screen_transition = 1
 transition_duration = 0.5

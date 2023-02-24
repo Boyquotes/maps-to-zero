@@ -1,22 +1,21 @@
-[gd_scene load_steps=99 format=3 uid="uid://bdd2pvpg0i2m7"]
+[gd_scene load_steps=98 format=3]
 
-[ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_fi7jp"]
-[ext_resource type="PackedScene" uid="uid://bimwcffoblc8a" path="res://assets/stages/horizon_hills/cutscenes/alisa_summoning_cutscene.tscn" id="2_kopkw"]
-[ext_resource type="PackedScene" uid="uid://dji542v5sraal" path="res://assets/stages/horizon_hills/cutscenes/where_did_she_go_cutscene.tscn" id="3_dtlu2"]
+[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/cutscenes/alisa_summoning_cutscene.tscn" id="2_kopkw"]
+[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/cutscenes/where_did_she_go_cutscene.tscn" id="3_dtlu2"]
 [ext_resource type="PackedScene" uid="uid://0kmw7xdorkpn" path="res://core/interactable.tscn" id="3_vbix6"]
-[ext_resource type="Script" path="res://sidescroller/core/parallax_layer_group.gd" id="4_86nda"]
-[ext_resource type="PackedScene" uid="uid://c2wwbpeudbdml" path="res://assets/stages/horizon_hills/cutscenes/alisa_getting_choked_by_frog_cutscene.tscn" id="4_w40c4"]
-[ext_resource type="PackedScene" uid="uid://cnajugpn1sws5" path="res://assets/stages/horizon_hills/cutscenes/seeing_demon_cutscene.tscn" id="5_jy37f"]
+[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/cutscenes/alisa_getting_choked_by_frog_cutscene.tscn" id="4_w40c4"]
+[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/cutscenes/seeing_demon_cutscene.tscn" id="5_jy37f"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stage_objects/horizon_hills_cave/008_background.png" id="5_rfjll"]
-[ext_resource type="PackedScene" uid="uid://bjmepyd7i47ti" path="res://assets/stages/horizon_hills/cutscenes/alisa_first_respawn.tscn" id="6_tsgws"]
+[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/cutscenes/alisa_first_respawn.tscn" id="6_tsgws"]
 [ext_resource type="Texture2D" uid="uid://b6vl702epfpp3" path="res://assets/stage_objects/horizon_hills_cave/007_background.png" id="6_xj3hp"]
-[ext_resource type="AudioStream" uid="uid://da4iakvjt2ikr" path="res://assets/sfx/spell_charge_loop.wav" id="6_ylnwo"]
-[ext_resource type="PackedScene" uid="uid://dfejlk051uykd" path="res://assets/particles/light_pillar.tscn" id="7_7elmx"]
+[ext_resource type="PackedScene" path="res://assets/particles/light_pillar.tscn" id="7_7elmx"]
 [ext_resource type="Texture2D" uid="uid://cbnnaglydt8qn" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_01.png" id="7_h3pu2"]
-[ext_resource type="PackedScene" uid="uid://cnx7bsblp3r8m" path="res://assets/particles/satanic_circle.tscn" id="7_lt84o"]
+[ext_resource type="PackedScene" path="res://assets/particles/satanic_circle.tscn" id="7_lt84o"]
+[ext_resource type="Script" path="res://core/stage_entry_point.gd" id="7_t7aim"]
 [ext_resource type="Texture2D" uid="uid://b7wpnw5gnjn38" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_02.png" id="8_022tq"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="8_l2x2t"]
 [ext_resource type="Texture2D" uid="uid://6i4omg7fior5" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_03.png" id="9_8cf2l"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="9_nm83b"]
+[ext_resource type="Script" path="res://core/parallax_layer_group.gd" id="9_e0cim"]
 [ext_resource type="Texture2D" uid="uid://bfqenr2gqptvc" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_04.png" id="10_6cel8"]
 [ext_resource type="Texture2D" uid="uid://bygi5isn1tc6q" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_05.png" id="11_skh66"]
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_06.png" id="12_kcp7k"]
@@ -26,11 +25,9 @@
 [ext_resource type="PackedScene" uid="uid://ylanwo4pov0m" path="res://core/InteractionArea2D.tscn" id="15_bm1l6"]
 [ext_resource type="Texture2D" uid="uid://vs6fl6ocfdml" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_03.png" id="15_dw501"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="16_663r0"]
-[ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particle_sprites/exclamation_mark.png" id="16_iewvy"]
 [ext_resource type="Texture2D" uid="uid://b0a7br80rjkud" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_05.png" id="17_bmpx0"]
 [ext_resource type="Script" path="res://core/animation_trigger.gd" id="17_l2lc1"]
 [ext_resource type="Texture2D" uid="uid://cgmxq5jci6hm1" path="res://assets/stage_objects/horizon_hills_cave/004_arch_01.png" id="18_jp48f"]
-[ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="18_xcy3n"]
 [ext_resource type="Texture2D" uid="uid://d1pocaudoqlhb" path="res://assets/stage_objects/horizon_hills_cave/004_arch_02.png" id="19_8gl62"]
 [ext_resource type="Texture2D" uid="uid://i38egi7bvejg" path="res://assets/stage_objects/horizon_hills_cave/003_ceiling.png" id="20_jhxgb"]
 [ext_resource type="Texture2D" uid="uid://ibgron3bop7l" path="res://assets/stage_objects/horizon_hills_cave/003_ground.png" id="21_lf2as"]
@@ -66,8 +63,10 @@
 [ext_resource type="Texture2D" uid="uid://b307hx4g82awq" path="res://assets/stage_objects/horizon_hills_cave/001_ground.png" id="51_1ljen"]
 [ext_resource type="Texture2D" uid="uid://c0qhq36n2toxm" path="res://assets/stage_objects/horizon_hills_cave/001_ceiling.png" id="52_g3u14"]
 [ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="60_qerdq"]
+[ext_resource type="AudioStream" uid="uid://da4iakvjt2ikr" path="res://assets/sfx/spell_charge_loop.wav" id="62_14ejm"]
+[ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particles/sprites/exclamation_mark.png" id="67_5ldwk"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="67_vam78"]
-[ext_resource type="PackedScene" uid="uid://bpfit36c6jhfn" path="res://assets/stages/horizon_hills/cutscenes/stop_alisa_from_walking_back_trigger_cutscene.tscn" id="70_fp4dh"]
+[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/cutscenes/stop_alisa_from_walking_back_trigger_cutscene.tscn" id="70_fp4dh"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="74_nxpc0"]
 
 [sub_resource type="GDScript" id="GDScript_pvncm"]
@@ -845,7 +844,7 @@ size = Vector2(3504, 1008)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm4if"]
 size = Vector2(80, 120)
 
-[node name="Horizon Hills Small Cave" instance=ExtResource("1_fi7jp")]
+[node name="Horizon Hills Small Cave"]
 script = SubResource("GDScript_pvncm")
 alisa_summoned_cutscene = ExtResource("2_kopkw")
 where_did_she_go_cutscene = ExtResource("3_dtlu2")
@@ -858,7 +857,7 @@ song = 3
 
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints" index="0"]
 position = Vector2(2496, -112)
-script = ExtResource("18_xcy3n")
+script = ExtResource("7_t7aim")
 transition_animation = 2
 transition_duration = 0.5
 
@@ -869,14 +868,14 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint" index="1"]
 scale = Vector2(-1, 1)
-script = ExtResource("9_nm83b")
+script = ExtResource("8_l2x2t")
 actor_name = "PLAYER"
 look_direction = 1
 animation = "idle"
 
 [node name="StageEntryPoint2" type="Node2D" parent="EntryPoints" index="1"]
 position = Vector2(-768, -120)
-script = ExtResource("18_xcy3n")
+script = ExtResource("7_t7aim")
 transition_animation = 2
 transition_duration = 0.5
 
@@ -887,13 +886,13 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint2" index="1"]
 position = Vector2(-64, 0)
-script = ExtResource("9_nm83b")
+script = ExtResource("8_l2x2t")
 actor_name = "PLAYER"
 animation = "walk"
 
 [node name="StageEntryPoint3" type="Node2D" parent="EntryPoints" index="2"]
 position = Vector2(-768, 392)
-script = ExtResource("18_xcy3n")
+script = ExtResource("7_t7aim")
 transition_animation = 2
 transition_duration = 0.5
 
@@ -904,13 +903,13 @@ libraries = {
 
 [node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint3" index="1"]
 position = Vector2(-64, 0)
-script = ExtResource("9_nm83b")
+script = ExtResource("8_l2x2t")
 actor_name = "PLAYER"
 animation = "walk"
 
 [node name="HorizonHillsSmallCaveBackground" type="Node2D" parent="." index="1"]
 visible = false
-script = ExtResource("4_86nda")
+script = ExtResource("9_e0cim")
 is_visible = false
 
 [node name="Skybox" type="CanvasLayer" parent="HorizonHillsSmallCaveBackground" index="0"]
@@ -1306,7 +1305,7 @@ z_index = -2
 
 [node name="MagicCircleSfx" type="AudioStreamPlayer2D" parent="DemonPortal" index="0"]
 position = Vector2(-512, 544)
-stream = ExtResource("6_ylnwo")
+stream = ExtResource("62_14ejm")
 
 [node name="MagicCircleFx" type="Node2D" parent="DemonPortal" index="1"]
 position = Vector2(-512, 544)
@@ -1413,7 +1412,7 @@ visible = true
 
 [node name="Sprite2d" type="Sprite2D" parent="DemonPortal/ExaminePortalInteractable/Area2D/InteractionEnabledVisuals" index="0"]
 position = Vector2(0, -24)
-texture = ExtResource("16_iewvy")
+texture = ExtResource("67_5ldwk")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="DemonPortal/ExaminePortalInteractable/Area2D" index="2"]
 shape = SubResource("RectangleShape2D_m5d7u")
@@ -1455,7 +1454,7 @@ visible = true
 
 [node name="Sprite2d" type="Sprite2D" parent="AreaExamineDialog/Area2D/InteractionEnabledVisuals" index="0"]
 position = Vector2(0, -24)
-texture = ExtResource("16_iewvy")
+texture = ExtResource("67_5ldwk")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="AreaExamineDialog/Area2D" index="2"]
 shape = SubResource("RectangleShape2D_m5d7u")
@@ -1463,7 +1462,6 @@ shape = SubResource("RectangleShape2D_m5d7u")
 [node name="StageChangeTrigger" type="Node2D" parent="." index="8"]
 position = Vector2(-896, 376)
 script = ExtResource("74_nxpc0")
-stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
 destination_entry_point = 1
 screen_transition = 1
 transition_duration = 0.5
@@ -1480,7 +1478,6 @@ shape = SubResource("RectangleShape2D_fm4if")
 [node name="StageChangeTrigger2" type="Node2D" parent="." index="9"]
 position = Vector2(-904, -176)
 script = ExtResource("74_nxpc0")
-stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
 screen_transition = 1
 transition_duration = 0.5
 
@@ -1496,7 +1493,6 @@ shape = SubResource("RectangleShape2D_fm4if")
 [node name="StageChangeTrigger3" type="Node2D" parent="." index="10"]
 position = Vector2(2776, -168)
 script = ExtResource("74_nxpc0")
-stage_id = "HORIZON_HILLS_CAVE_ENTRANCE"
 screen_transition = 1
 transition_duration = 0.5
 

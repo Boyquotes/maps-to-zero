@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjmepyd7i47ti"]
+[gd_scene load_steps=14 format=3]
 
-[ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="1_nr30c"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="2_16d1s"]
+[ext_resource type="Script" path="res://core/cutscene.gd" id="1_nr30c"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_16d1s"]
 [ext_resource type="Script" path="res://core/music_trigger.gd" id="4_f1r4s"]
 [ext_resource type="Texture2D" uid="uid://68jrjt3dwqg" path="res://assets/other_sprites/alisa_gem.png" id="7_m27ri"]
 

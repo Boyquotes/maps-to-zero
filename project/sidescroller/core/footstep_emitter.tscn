@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bs0gp3yw8bchi"]
-
-[ext_resource type="Script" path="res://sidescroller/core/footstep_emitter.gd" id="1_e8q6u"]
-
-[node name="FootstepEmitter" type="Marker2D"]
-script = ExtResource("1_e8q6u")

@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvunqrhju2mg6"]
+
+[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="2_3rum6"]
+[ext_resource type="Script" path="res://core/particle_spawner.gd" id="2_wf5wg"]
+[ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="4_sxmvm"]
+[ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="5_8okmq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nsyv5"]
+
+[sub_resource type="Animation" id="Animation_5gadk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_mpbiy"]
+resource_name = "explode"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplosionParticleSpawner")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExplosionSfx")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mnwu"]
+_data = {
+"RESET": SubResource("Animation_5gadk"),
+"explode": SubResource("Animation_mpbiy")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q4ykf"]
+radius = 64.4981
+
+[node name="FireBomb"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_nsyv5")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_7mnwu")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_q4ykf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="5"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_3rum6")
+
+[node name="ExplosionParticleSpawner" type="Marker2D" parent="." index="6"]
+script = ExtResource("2_wf5wg")
+particles_scene = ExtResource("4_sxmvm")
+
+[node name="ExplosionSfx" type="AudioStreamPlayer2D" parent="." index="7"]
+stream = ExtResource("5_8okmq")

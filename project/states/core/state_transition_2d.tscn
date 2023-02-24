@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://4bif6g1cwfhh"]
-
-[ext_resource type="Script" path="res://states/core/state_transition_2d.gd" id="1_cejv4"]
-
-[node name="StateTransition2d" type="Node"]
-script = ExtResource("1_cejv4")

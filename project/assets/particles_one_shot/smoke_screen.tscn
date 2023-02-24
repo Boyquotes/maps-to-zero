@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bl6bfnrdu54nn"]
+
+[ext_resource type="Texture2D" uid="uid://c3w2pp4upjuvf" path="res://assets/particles/sprites/white_round_4x4.png" id="1_5vqol"]
+
+[sub_resource type="Gradient" id="Gradient_jds07"]
+offsets = PackedFloat32Array(0, 0.473973, 1)
+colors = PackedColorArray(0.742188, 0.742188, 0.742188, 1, 0.484375, 0.484375, 0.484375, 1, 0.449219, 0.449219, 0.449219, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_61ype"]
+gradient = SubResource("Gradient_jds07")
+
+[sub_resource type="Curve" id="Curve_utg4e"]
+_data = [Vector2(0.561856, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_k2i7e"]
+curve = SubResource("Curve_utg4e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4sv5b"]
+emission_shape = 3
+emission_box_extents = Vector3(16, 32, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 80.0
+angular_velocity_max = 258.64
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_k2i7e")
+color_ramp = SubResource("GradientTexture1D_61ype")
+
+[node name="SmokeScreen" type="GPUParticles2D"]
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_4sv5b")
+texture = ExtResource("1_5vqol")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+interpolate = false
+fract_delta = false

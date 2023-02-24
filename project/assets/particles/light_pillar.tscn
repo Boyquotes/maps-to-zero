@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfejlk051uykd"]
+[gd_scene load_steps=5 format=3]
 
-[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="1_5di8k"]
+[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="1_5di8k"]
 
 [sub_resource type="Curve" id="Curve_bnlej"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.219072, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]

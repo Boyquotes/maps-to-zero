@@ -1,17 +1,17 @@
 [gd_scene load_steps=21 format=3]
 
-[ext_resource type="Script" path="res://sidescroller/core/hitbox.gd" id="2_ormkr"]
-[ext_resource type="PackedScene" uid="uid://nr4udv7n3ht5" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="3_xfo8p"]
+[ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="2_ormkr"]
+[ext_resource type="PackedScene" uid="uid://cb1fveig33ybf" path="res://assets/particles_one_shot/red_hit_impact.tscn" id="3_xfo8p"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="4_m5sg4"]
-[ext_resource type="Script" path="res://sidescroller/core/soft_collision.gd" id="5_of0vw"]
-[ext_resource type="Texture2D" uid="uid://bnp8e5wde0mtn" path="res://assets/particle_sprites/white_round_8x8.png" id="6_7pwr2"]
-[ext_resource type="Script" path="res://sidescroller/core/particle_spawner.gd" id="7_o4qp1"]
+[ext_resource type="Script" path="res://assets/characters/scripts/soft_collision.gd" id="5_of0vw"]
+[ext_resource type="Texture2D" uid="uid://bnp8e5wde0mtn" path="res://assets/particles/sprites/white_round_8x8.png" id="6_7pwr2"]
+[ext_resource type="Script" path="res://core/particle_spawner.gd" id="7_o4qp1"]
 [ext_resource type="AudioStream" uid="uid://nevqlk4w2gdf" path="res://assets/sfx/heavy-stones-falling.wav" id="9_cpevl"]
 [ext_resource type="Script" path="res://core/audio_stream_player_2d_extended.gd" id="9_cuipl"]
 [ext_resource type="AudioStream" uid="uid://28gvi5455suy" path="res://assets/sfx/rock_fall_1.wav" id="10_u5uyr"]
 [ext_resource type="AudioStream" uid="uid://cueuj53y6703d" path="res://assets/sfx/rock_fall_2.wav" id="11_mwdte"]
 [ext_resource type="AudioStream" uid="uid://bpir0rpqbc7ea" path="res://assets/sfx/rock_fall_3.wav" id="12_8rn1g"]
-[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/horizon_hills.tres" id="12_tuvmq"]
+[ext_resource type="TileSet" uid="uid://b32parb417oqx" path="res://assets/tilesets/horizon_hills_tileset.tres" id="12_tuvmq"]
 
 [sub_resource type="Animation" id="Animation_hwl2j"]
 length = 0.001

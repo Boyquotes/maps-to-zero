@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmdeb5rc6ewxf"]
+
+[ext_resource type="Texture2D" uid="uid://b3afo4dak46mo" path="res://assets/characters/alisa/particles/sprites/alisa_stomp_land.png" id="1_tae4a"]
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_dqmvt"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wwyc3"]
+blend_mode = 1
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4sdpi"]
+emission_shape = 3
+emission_box_extents = Vector3(0, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 360.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="Animation" id="Animation_q761r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qe8c4"]
+resource_name = "animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sm6s0"]
+_data = {
+"RESET": SubResource("Animation_q761r"),
+"animation": SubResource("Animation_qe8c4")
+}
+
+[node name="StompLandAlisa" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_wwyc3")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_4sdpi")
+texture = ExtResource("1_tae4a")
+lifetime = 0.3
+one_shot = true
+fixed_fps = 60
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.192157, 0.619608, 1)
+texture = ExtResource("2_dqmvt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PointLight2D"]
+autoplay = "animation"
+libraries = {
+"": SubResource("AnimationLibrary_sm6s0")
+}

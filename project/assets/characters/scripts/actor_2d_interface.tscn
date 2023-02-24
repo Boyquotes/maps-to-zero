@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_interface.gd" id="1_56aqw"]
+[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="2_xjbku"]
+[ext_resource type="Texture2D" uid="uid://dpfr0rbjsey4h" path="res://assets/hud/progress_bar/border.png" id="3_80asd"]
+
+[node name="Actor2DInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_56aqw")
+
+[node name="HP" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = 24.0
+offset_right = 50.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="HP"]
+layout_mode = 0
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("2_xjbku")
+value = 20.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HP/ProgressBar"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_80asd")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8

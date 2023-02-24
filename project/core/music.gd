@@ -14,12 +14,12 @@ enum Songs {
 
 const SONG_PATHS := {
 	Songs.SILENCE : null,
-	Songs.HORIZON_HILLS_ACT_1_PROLOGUE : "res://assets/music/horizon_hills_act_1_prologue.ogg",
-	Songs.HORIZON_HILLS_ACT_1 : "res://assets/music/horizon_hills_act_1.ogg",
-	Songs.HORIZON_HILLS_ACT_2 : "res://assets/music/horizon_hills_act_2.ogg",
-	Songs.HORIZON_HILLS_ACT_3 : "res://assets/music/horizon_hills_act_2.ogg",
-	Songs.HORIZON_HILLS_BOSS : "res://assets/music/horizon_hills_boss.ogg",
-	Songs.HORIZON_HILLS_ACT_1_RETRO : "res://assets/music/horizon_hills_act_1_retro.ogg",
+	Songs.HORIZON_HILLS_ACT_1_PROLOGUE : "res://source_assets/music/horizon_hills_act_1_prologue.ogg",
+	Songs.HORIZON_HILLS_ACT_1 : "res://source_assets/music/horizon_hills_act_1.ogg",
+	Songs.HORIZON_HILLS_ACT_2 : "res://source_assets/music/horizon_hills_act_2.ogg",
+	Songs.HORIZON_HILLS_ACT_3 : "res://source_assets/music/horizon_hills_act_2.ogg",
+	Songs.HORIZON_HILLS_BOSS : "res://source_assets/music/horizon_hills_boss.ogg",
+	Songs.HORIZON_HILLS_ACT_1_RETRO : "res://source_assets/music/horizon_hills_act_1_retro.ogg",
 }
 
 

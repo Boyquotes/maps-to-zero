@@ -1,10 +1,10 @@
-[gd_scene load_steps=42 format=3 uid="uid://b5npdon6r613p"]
+[gd_scene load_steps=42 format=3 uid="uid://d0k664d60akbg"]
 
-[ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_syias"]
+[ext_resource type="PackedScene" path="res://core/stage_2d.tscn" id="1_syias"]
 [ext_resource type="AudioStream" uid="uid://dlnpcu5kao83d" path="res://assets/sfx/ambience/jungle_thunderstorm.ogg" id="2_6lsr7"]
-[ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="2_g2pha"]
+[ext_resource type="Script" path="res://core/stage_entry_point.gd" id="2_g2pha"]
 [ext_resource type="AudioStream" uid="uid://c6xwr7y6jbpit" path="res://assets/sfx/ambience/rain.ogg" id="3_7wsa3"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="3_qbcmn"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="3_qbcmn"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stage_objects/horizon_hills_forest/middle.png" id="5_7ndng"]
 [ext_resource type="Texture2D" uid="uid://c813v8uyyjp64" path="res://assets/stage_objects/horizon_hills_forest/plx-2.png" id="6_augxc"]
 [ext_resource type="Texture2D" uid="uid://cbnnaglydt8qn" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_01.png" id="7_ghiqb"]
@@ -26,8 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="23_ppi7x"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="24_tx8dx"]
 [ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="25_8df42"]
-[ext_resource type="Texture2D" uid="uid://wy53ctga1bpf" path="res://assets/particle_sprites/white_1x1.png" id="27_abms8"]
-[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/horizon_hills.tres" id="27_x7gad"]
+[ext_resource type="Texture2D" uid="uid://wy53ctga1bpf" path="res://assets/particles/sprites/white_1x1.png" id="27_abms8"]
+[ext_resource type="TileSet" uid="uid://b32parb417oqx" path="res://assets/tilesets/horizon_hills_tileset.tres" id="27_x7gad"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="28_64p7r"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="29_igpd5"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="30_fjo7o"]
@@ -608,7 +608,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 [node name="StageChangeTrigger" type="Node2D" parent="." index="16"]
 position = Vector2(4795, -98)
 script = ExtResource("29_igpd5")
-stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
 destination_entry_point = 1
 screen_transition = 1
 transition_duration = 0.5

@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ba52sdwwx2ojw"]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Texture2D" uid="uid://bns8ow8ja0vqc" path="res://assets/stage_objects/dragon_treasure_cave/Pillar 3.png" id="1_s1cql"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_3dtp5"]
-[ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particle_sprites/white_square_4x4.png" id="3_hjjqj"]
+[ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particles/sprites/white_square_4x4.png" id="3_hjjqj"]
 [ext_resource type="AudioStream" uid="uid://mxs8batq4fud" path="res://assets/sfx/ambience/camp_fire.ogg" id="4_ls1i6"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0pldv"]

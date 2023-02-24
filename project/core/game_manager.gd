@@ -6,7 +6,6 @@ var actors := {}
 var actors_original_cutscene_mode_value := {}
 var sidescroller_main: SidescrollerMain
 var popup_canvas: CanvasLayer
-var current_stage_file_path: String
 
 var cutscene_mode: bool:
 	set(value):
@@ -111,15 +110,12 @@ func screen_transition(animation: Enums.ScreenTransition, duration:=1.0) -> void
 
 
 func request_stage_change(stage_file_path: String, player_entry_point := 0) -> void:
-	var stage = load(stage_file_path)
-	current_stage_file_path = stage_file_path
-	SaveData.stage_file_path = stage_file_path
-	sidescroller_main.change_stage(stage, player_entry_point)
+	SaveData.current_stage_file_path = stage_file_path
+	sidescroller_main.change_stage(load(stage_file_path), player_entry_point)
 
 
 func reload() -> void:
-	var stage = load(SaveData.stage_file_path)
-	sidescroller_main.change_stage(stage, 0, true)
+	sidescroller_main.change_stage(load(SaveData.stage_file_path), 0, true)
 
 
 func screen_shake(trauma := 0.5):

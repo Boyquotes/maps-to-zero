@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkt2ed1pbpeg6"]
+[gd_scene load_steps=6 format=3 uid="uid://c3ws0fknxoef1"]
 
-[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particle_sprites/white_square_red_glow.png" id="1_lk34y"]
+[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="1_uvkd2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t6veo"]
 light_mode = 1
@@ -29,7 +29,7 @@ material = SubResource("CanvasItemMaterial_t6veo")
 emitting = false
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_ot8oq")
-texture = ExtResource("1_lk34y")
+texture = ExtResource("1_uvkd2")
 lifetime = 0.6
 one_shot = true
 explosiveness = 1.0

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/characters/scripts/projectile.tscn" id="1_5v7ss"]
+[ext_resource type="Script" path="res://assets/characters/scripts/explosive_projectile.gd" id="2_lhsgm"]
+[ext_resource type="Script" path="res://core/trigger.gd" id="3_ynjml"]
+
+[node name="ExplosiveProjectile" instance=ExtResource("1_5v7ss")]
+script = ExtResource("2_lhsgm")
+
+[node name="Trigger" type="Node2D" parent="." index="2"]
+script = ExtResource("3_ynjml")
+
+[node name="Area2D" type="Area2D" parent="Trigger" index="0"]
+collision_layer = 0
+collision_mask = 4
+
+[connection signal="triggered" from="Trigger" to="." method="explode"]
+[connection signal="area_entered" from="Trigger/Area2D" to="Trigger" method="trigger"]

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwefoetknr3sy"]
-
-[ext_resource type="Script" path="res://sidescroller/core/soft_collision.gd" id="1_wr5c0"]
-
-[node name="SoftCollision" type="Area2D"]
-script = ExtResource("1_wr5c0")

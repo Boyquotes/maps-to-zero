@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnwrv34d1paop"]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="1_ojhq6"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="2_gtom8"]
+[ext_resource type="Script" path="res://core/cutscene.gd" id="1_ojhq6"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_gtom8"]
 [ext_resource type="Script" path="res://core/trigger.gd" id="5_8uc55"]
 
 [sub_resource type="Animation" id="Animation_1c4kj"]

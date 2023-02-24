@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmvyyu3s4ey55"]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Texture2D" uid="uid://by8aarbg5wgud" path="res://assets/particle_sprites/attack_incoming.png" id="1_3s6va"]
+[ext_resource type="Texture2D" uid="uid://by8aarbg5wgud" path="res://assets/particles/sprites/attack_incoming.png" id="1_3s6va"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t2g3x"]
 light_mode = 1

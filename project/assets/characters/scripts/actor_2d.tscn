@@ -1,0 +1,104 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d.gd" id="1_7iiwt"]
+[ext_resource type="PackedScene" path="res://core/states/core/state_machine.tscn" id="2_550gp"]
+[ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_xo8fg"]
+[ext_resource type="PackedScene" path="res://core/states/core/state.tscn" id="3_ljg6w"]
+[ext_resource type="Script" path="res://core/states/actor_2d_states/idle.gd" id="4_c2pic"]
+[ext_resource type="Script" path="res://core/states/actor_2d_states/run.gd" id="5_q4uhh"]
+[ext_resource type="Script" path="res://core/states/behavior_2d_states/idle_input.gd" id="5_suckp"]
+[ext_resource type="Script" path="res://core/states/actor_2d_states/air.gd" id="6_d0dbr"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_resources.gd" id="8_gowqb"]
+[ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d_interface.tscn" id="9_dm5po"]
+[ext_resource type="Script" path="res://core/states/actor_2d_states/play_animation.gd" id="9_kan2l"]
+[ext_resource type="Script" path="res://assets/characters/scripts/target_manager.gd" id="11_bqsqr"]
+[ext_resource type="Script" path="res://core/states/core/state.gd" id="11_hb3w8"]
+[ext_resource type="Script" path="res://core/input_buffer.gd" id="13_gxgy6"]
+[ext_resource type="Script" path="res://assets/characters/scripts/soft_collision.gd" id="14_kjlhh"]
+
+[node name="Actor2d" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 99
+script = ExtResource("1_7iiwt")
+
+[node name="Resources" type="Node" parent="."]
+script = ExtResource("8_gowqb")
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+
+[node name="BackgroundJumpArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="BackgroundJumpArea"]
+
+[node name="Inner" type="Node2D" parent="."]
+
+[node name="Visuals" type="Node2D" parent="Inner"]
+script = ExtResource("2_xo8fg")
+target = NodePath("../..")
+flags = 51
+
+[node name="Hurtbox" type="Area2D" parent="Inner"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Hurtbox"]
+
+[node name="InputStateMachine" parent="." instance=ExtResource("2_550gp")]
+
+[node name="CutsceneMode" type="Node" parent="InputStateMachine"]
+script = ExtResource("5_suckp")
+
+[node name="StateMachine" parent="." instance=ExtResource("2_550gp")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("3_ljg6w")]
+script = ExtResource("4_c2pic")
+animation = "idle"
+coyote_time = 0.1
+
+[node name="Run" parent="StateMachine" instance=ExtResource("3_ljg6w")]
+script = ExtResource("5_q4uhh")
+animation = "run"
+coyote_time = 0.1
+
+[node name="Air" parent="StateMachine" instance=ExtResource("3_ljg6w")]
+script = ExtResource("6_d0dbr")
+jump_off_animation = "jump"
+jump_animation = "jump"
+fall_animation = "fall"
+background_jump_off_animation = "background_jump"
+background_jump_animation = "background_jump"
+background_fall_animation = "background_jump"
+falling_gravity_multiplier = 1.7
+jump_buffer_time = 0.1
+mid_air_jumps_max = 0
+background_jumps_max = 0
+
+[node name="Defeat" type="Node" parent="StateMachine"]
+script = ExtResource("9_kan2l")
+
+[node name="Cutscene" type="Node" parent="StateMachine"]
+script = ExtResource("11_hb3w8")
+
+[node name="Actor2DInterfaceSmoothing" type="Node2D" parent="."]
+script = ExtResource("2_xo8fg")
+target = NodePath("..")
+flags = 51
+
+[node name="Actor2DInterface" parent="Actor2DInterfaceSmoothing" instance=ExtResource("9_dm5po")]
+
+[node name="TargetManager" type="Node" parent="."]
+script = ExtResource("11_bqsqr")
+
+[node name="InputBuffer" type="Node" parent="."]
+script = ExtResource("13_gxgy6")
+
+[node name="SoftCollision" type="Area2D" parent="."]
+script = ExtResource("14_kjlhh")
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

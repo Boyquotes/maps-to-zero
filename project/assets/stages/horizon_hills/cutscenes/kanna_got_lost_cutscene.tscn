@@ -1,12 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://c5yhruxd8nu70"]
+[gd_scene load_steps=16 format=3]
 
-[ext_resource type="Script" path="res://sidescroller/core/cutscene.gd" id="1_fl1lg"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="2_fqrya"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_2d_transformer.gd" id="3_rdtxy"]
+[ext_resource type="Script" path="res://core/cutscene.gd" id="1_fl1lg"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_fqrya"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="3_rdtxy"]
 [ext_resource type="Script" path="res://core/trigger.gd" id="5_byv5k"]
 [ext_resource type="PackedScene" uid="uid://ylanwo4pov0m" path="res://core/InteractionArea2D.tscn" id="7_fn8yw"]
-[ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particle_sprites/exclamation_mark.png" id="8_03dpt"]
-[ext_resource type="PackedScene" uid="uid://brcsq6nc8hw0" path="res://sidescroller/actors_2d/kanna.tscn" id="9_gt63a"]
+[ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particles/sprites/exclamation_mark.png" id="8_03dpt"]
+[ext_resource type="PackedScene" path="res://assets/characters/kanna.tscn" id="9_gt63a"]
 
 [sub_resource type="Animation" id="Animation_o8qul"]
 resource_name = "1"

@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://nr4udv7n3ht5"]
+[gd_scene load_steps=8 format=3 uid="uid://cb1fveig33ybf"]
 
-[ext_resource type="Texture2D" uid="uid://d1bnpnk5ufsyl" path="res://assets/particle_sprites/red_hit_impact.png" id="1_xpgs8"]
+[ext_resource type="Texture2D" uid="uid://d1bnpnk5ufsyl" path="res://assets/particles/sprites/red_hit_impact.png" id="1_xmi3h"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_qa21b"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_icsu7"]
@@ -61,7 +61,7 @@ material = SubResource("CanvasItemMaterial_icsu7")
 emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_uuyxo")
-texture = ExtResource("1_xpgs8")
+texture = ExtResource("1_xmi3h")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0

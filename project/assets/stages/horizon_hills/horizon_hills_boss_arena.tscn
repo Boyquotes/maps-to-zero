@@ -1,9 +1,9 @@
-[gd_scene load_steps=65 format=3 uid="uid://daa02ew3ieo6"]
+[gd_scene load_steps=65 format=3 uid="uid://jfm4pj0t5td4"]
 
-[ext_resource type="PackedScene" uid="uid://biu718yt8qg58" path="res://sidescroller/core/stage_2d.tscn" id="1_psjvg"]
+[ext_resource type="PackedScene" path="res://core/stage_2d.tscn" id="1_psjvg"]
 [ext_resource type="AudioStream" uid="uid://d3ritdwea4qby" path="res://assets/sfx/ambience/cave_echo.wav" id="2_75hde"]
-[ext_resource type="Script" path="res://sidescroller/core/stage_entry_point.gd" id="8_1sghc"]
-[ext_resource type="Script" path="res://sidescroller/core/actor_cutscene_transformer.gd" id="9_0kevy"]
+[ext_resource type="Script" path="res://core/stage_entry_point.gd" id="8_1sghc"]
+[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="9_0kevy"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stage_objects/horizon_hills_cave/008_background.png" id="11_3m6c3"]
 [ext_resource type="Texture2D" uid="uid://c0ocka0pk1r77" path="res://assets/stage_objects/dragon_treasure_cave/crystals/bg_crystal_01.png" id="12_x2h4y"]
 [ext_resource type="Texture2D" uid="uid://dubg3mjbs7em6" path="res://assets/stage_objects/dragon_treasure_cave/crystals/bg_crystal_02.png" id="13_80f3q"]
@@ -19,23 +19,23 @@
 [ext_resource type="Texture2D" uid="uid://dmxo6ttacy15" path="res://assets/stage_objects/dragon_treasure_cave/gold_tower.png" id="18_i25ef"]
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stage_objects/horizon_hills_cave/006_crystal_06.png" id="18_l0yx7"]
 [ext_resource type="Texture2D" uid="uid://bns8ow8ja0vqc" path="res://assets/stage_objects/dragon_treasure_cave/Pillar 3.png" id="19_n5c5m"]
-[ext_resource type="PackedScene" uid="uid://ba52sdwwx2ojw" path="res://assets/stage_objects/horizon_hills_torch.tscn" id="21_ulftt"]
+[ext_resource type="PackedScene" path="res://assets/stage_objects/horizon_hills_torch.tscn" id="21_ulftt"]
 [ext_resource type="Texture2D" uid="uid://dkploejrq8bxb" path="res://assets/stage_objects/dragon_treasure_cave/Lamp.png" id="23_3edsx"]
 [ext_resource type="AudioStream" uid="uid://mxs8batq4fud" path="res://assets/sfx/ambience/camp_fire.ogg" id="23_vgitb"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="24_aqx6j"]
 [ext_resource type="Texture2D" uid="uid://ggyaq7a66ikr" path="res://assets/stage_objects/dragon_treasure_cave/crystals/1.png" id="25_hvrau"]
-[ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particle_sprites/white_square_4x4.png" id="25_yydpt"]
+[ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particles/sprites/white_square_4x4.png" id="25_yydpt"]
 [ext_resource type="Texture2D" uid="uid://civp4lttojm" path="res://assets/stage_objects/dragon_treasure_cave/crystals/2.png" id="26_uunoj"]
 [ext_resource type="Texture2D" uid="uid://dsdjv7o1ls21d" path="res://assets/stage_objects/dragon_treasure_cave/crystals/3.png" id="27_5vct5"]
-[ext_resource type="TileSet" uid="uid://dd1hb1ag3xymh" path="res://assets/tilesets/horizon_hills.tres" id="30_scv1n"]
+[ext_resource type="TileSet" uid="uid://b32parb417oqx" path="res://assets/tilesets/horizon_hills_tileset.tres" id="30_scv1n"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_04.png" id="33_de7ds"]
 [ext_resource type="Script" path="res://core/screen_shake_trigger.gd" id="34_mmx8v"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stage_objects/horizon_hills_cave/005_crystal_01.png" id="34_n8fn2"]
-[ext_resource type="PackedScene" uid="uid://b76wj2n6youyu" path="res://assets/stage_objects/dragon_treasure_cave/column_tall.tscn" id="37_ejanw"]
+[ext_resource type="PackedScene" path="res://assets/stage_objects/dragon_treasure_cave/column_tall.tscn" id="37_ejanw"]
 [ext_resource type="PackedScene" path="res://assets/stage_objects/dragon_treasure_cave/column_medium.tscn" id="38_h24ju"]
 [ext_resource type="PackedScene" path="res://assets/stage_objects/dragon_treasure_cave/column_small.tscn" id="39_lts7l"]
 [ext_resource type="Texture2D" uid="uid://ct4xiafwjqxnl" path="res://assets/stage_objects/dragon_treasure_cave/Treasure+.png" id="54_xsvra"]
-[ext_resource type="PackedScene" uid="uid://b1qwf8q5qkwgt" path="res://sidescroller/actors_2d/egrisi.tscn" id="56_g1esd"]
+[ext_resource type="PackedScene" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
 [ext_resource type="TileSet" uid="uid://blfhxorau6rq5" path="res://assets/tilesets/whitebox.tres" id="59_qjw7m"]
 [ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="69_nr2gp"]
 [ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="71_7t53a"]
@@ -2829,7 +2829,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 [node name="StageChangeTrigger" type="Node2D" parent="." index="18"]
 position = Vector2(-933, -487)
 script = ExtResource("71_7t53a")
-stage_id = "HORIZON_HILLS_COMBAT_CAVE_TUTORIAL"
 destination_entry_point = 1
 screen_transition = 1
 transition_duration = 0.5

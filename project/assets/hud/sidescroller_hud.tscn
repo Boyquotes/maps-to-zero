@@ -1,0 +1,427 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://assets/hud/sidescroller_hud.gd" id="1_1pnwk"]
+[ext_resource type="Texture2D" uid="uid://dnwx17g4wsqkt" path="res://assets/hud/actor_icons/Alisa Icon Smol.png" id="1_5fvm3"]
+[ext_resource type="Texture2D" uid="uid://b1sa36rld5x2" path="res://assets/hud/HP_Bar/hp.png" id="1_a66kq"]
+[ext_resource type="Texture2D" uid="uid://cw6jvh00a433y" path="res://assets/hud/skill_icon_frame_2.png" id="2_4r000"]
+[ext_resource type="Texture2D" uid="uid://d0sku8ddtj3wb" path="res://assets/hud/HP_Bar/hp_bg.png" id="2_swpb2"]
+[ext_resource type="Texture2D" uid="uid://d0loroy86cdr3" path="res://assets/hud/HP_Bar/blue.png" id="3_spae1"]
+[ext_resource type="Texture2D" uid="uid://dc4c3cp56vdbr" path="res://assets/hud/HP_Bar/green.png" id="4_2abeb"]
+[ext_resource type="Texture2D" uid="uid://brd1nae16owjr" path="res://assets/hud/HP_Bar/bg.png" id="4_khe4e"]
+[ext_resource type="Texture2D" uid="uid://pwlaxiv48ovm" path="res://assets/hud/player_icon_frame_2.png" id="7_3tmi2"]
+
+[sub_resource type="Animation" id="Animation_k6cti"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Display/Control:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_w5amg"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-123, -121)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Display/Control:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [0.0, -1.02102]
+}
+
+[sub_resource type="Animation" id="Animation_0huha"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display/Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-123, -121), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Display/Control:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-1.02102, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwd3s"]
+_data = {
+"RESET": SubResource("Animation_k6cti"),
+"hide": SubResource("Animation_w5amg"),
+"show": SubResource("Animation_0huha")
+}
+
+[node name="SidescrollerHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1pnwk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xwd3s")
+}
+
+[node name="Display" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Control" type="Control" parent="Display"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkillRows" type="VBoxContainer" parent="Display/Control"]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 54.0
+offset_right = 269.0
+offset_bottom = 86.0
+
+[node name="SkillRow" type="HBoxContainer" parent="Display/Control/SkillRows"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="SkillIcon" type="Control" parent="Display/Control/SkillRows/SkillRow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.411765, 0, 0.411765, 1)
+
+[node name="Icon" type="TextureRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5fvm3")
+expand_mode = 1
+
+[node name="Frame" type="NinePatchRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon"]
+self_modulate = Color(1, 0.258169, 0.458306, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r000")
+patch_margin_left = 33
+patch_margin_top = 33
+patch_margin_right = 33
+patch_margin_bottom = 33
+
+[node name="SkillIcon2" type="Control" parent="Display/Control/SkillRows/SkillRow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.411765, 0, 0.411765, 1)
+
+[node name="Icon" type="TextureRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5fvm3")
+expand_mode = 1
+
+[node name="Frame" type="NinePatchRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon2"]
+self_modulate = Color(1, 0.258169, 0.458306, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r000")
+patch_margin_left = 33
+patch_margin_top = 33
+patch_margin_right = 33
+patch_margin_bottom = 33
+
+[node name="SkillIcon3" type="Control" parent="Display/Control/SkillRows/SkillRow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.411765, 0, 0.411765, 1)
+
+[node name="Icon" type="TextureRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon3"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5fvm3")
+expand_mode = 1
+
+[node name="Frame" type="NinePatchRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon3"]
+self_modulate = Color(1, 0.258169, 0.458306, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r000")
+patch_margin_left = 33
+patch_margin_top = 33
+patch_margin_right = 33
+patch_margin_bottom = 33
+
+[node name="SkillIcon4" type="Control" parent="Display/Control/SkillRows/SkillRow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon4"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.411765, 0, 0.411765, 1)
+
+[node name="Icon" type="TextureRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon4"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5fvm3")
+expand_mode = 1
+
+[node name="Frame" type="NinePatchRect" parent="Display/Control/SkillRows/SkillRow/SkillIcon4"]
+self_modulate = Color(1, 0.258169, 0.458306, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r000")
+patch_margin_left = 33
+patch_margin_top = 33
+patch_margin_right = 33
+patch_margin_bottom = 33
+
+[node name="ColorRect" type="ColorRect" parent="Display/Control"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 20.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Display/Control"]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 27.0
+offset_right = 308.0
+offset_bottom = 42.0
+rotation = -0.261799
+
+[node name="SPBar" type="TextureProgressBar" parent="Display/Control"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 27.0
+offset_right = 336.0
+offset_bottom = 75.0
+rotation = -0.0349066
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 50.0
+texture_progress = ExtResource("4_2abeb")
+
+[node name="Background" type="TextureRect" parent="Display/Control/SPBar"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 48.0
+texture = ExtResource("4_khe4e")
+
+[node name="MPBar" type="TextureProgressBar" parent="Display/Control"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 20.0
+offset_right = 341.0
+offset_bottom = 68.0
+rotation = -0.0349066
+scale = Vector2(0.756, 0.756)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+value = 50.0
+texture_progress = ExtResource("3_spae1")
+
+[node name="Background" type="TextureRect" parent="Display/Control/MPBar"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 48.0
+texture = ExtResource("4_khe4e")
+
+[node name="HPBar" type="TextureProgressBar" parent="Display/Control"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 9.0
+offset_right = 317.0
+offset_bottom = 46.0
+rotation = -0.0872665
+value = 50.0
+nine_patch_stretch = true
+texture_progress = ExtResource("1_a66kq")
+
+[node name="TextureRect" type="TextureRect" parent="Display/Control/HPBar"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -33.0
+offset_right = 223.0
+offset_bottom = 37.0
+texture = ExtResource("2_swpb2")
+expand_mode = 1
+
+[node name="PlayerIcon" type="TextureRect" parent="Display/Control"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 6.0
+offset_right = 94.0
+offset_bottom = 102.0
+rotation = -0.0872665
+texture = ExtResource("1_5fvm3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Display/Control/PlayerIcon"]
+modulate = Color(0.415686, 0, 0.352941, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Frame" type="NinePatchRect" parent="Display/Control/PlayerIcon"]
+modulate = Color(1, 0.258824, 0.458824, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_3tmi2")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
