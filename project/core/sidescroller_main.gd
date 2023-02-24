@@ -100,7 +100,7 @@ func _input(event):
 func player_respawn_cutscene() -> void:
 	respawn_cutscene_playing = true
 	
-	GameManager.screen_transition(Enums.ScreenTransition.FADE_IN, 0)
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_IN, 0)
 	if MusicManager.current_song != currently_loaded_stage.song:
 		MusicManager.play(Music.Songs.SILENCE, 1.0)
 	player.global_position = SaveData.player_saved_position
@@ -118,8 +118,8 @@ func player_respawn_cutscene() -> void:
 	var tween = create_tween()
 	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom * 3, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
-	GameManager.screen_transition(Enums.ScreenTransition.FADE_OUT, 0.2)
-	await GameManager.screen_transition_finished
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_OUT, 0.2)
+	await ScreenEffects.screen_transition_finished
 	await get_tree().create_timer(1.0).timeout
 	
 	player.play_animation("focus")

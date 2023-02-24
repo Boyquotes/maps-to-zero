@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=14 format=3 uid="uid://c6suespw4ygt7"]
 
 [ext_resource type="Script" path="res://assets/hud/sidescroller_hud.gd" id="1_1pnwk"]
 [ext_resource type="Texture2D" uid="uid://dnwx17g4wsqkt" path="res://assets/hud/actor_icons/Alisa Icon Smol.png" id="1_5fvm3"]

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_ulid5"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_lp7a6"]
 [ext_resource type="PackedScene" uid="uid://bh3tsnhbyxhu5" path="res://assets/hud/popups/yes_no_menu.tscn" id="6_1kvbx"]
-[ext_resource type="PackedScene" path="res://assets/hud/sidescroller_hud.tscn" id="6_4rvqa"]
+[ext_resource type="PackedScene" uid="uid://c6suespw4ygt7" path="res://assets/hud/sidescroller_hud.tscn" id="6_4rvqa"]
 [ext_resource type="Script" path="res://assets/hud/fps_counter.gd" id="6_aw2os"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
@@ -21,6 +21,7 @@ _data = {
 script = ExtResource("1_jjc0c")
 player_actor = ExtResource("2_gxg87")
 initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
+initial_stage_enter_point = null
 
 [node name="CameraTransformer" type="RemoteTransform2D" parent="."]
 unique_name_in_owner = true

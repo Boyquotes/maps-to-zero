@@ -30,22 +30,22 @@ static func get_main_camera() -> GameplayCamera2D:
 
 
 func show_cutscene_bars(duration:= 1.0) -> void:
-	GameManager.show_cutscene_bars(duration)
+	ScreenEffects.show_cutscene_bars(duration)
 
 func hide_cutscene_bars(duration:= 1.0) -> void:
-	GameManager.hide_cutscene_bars(duration)
+	ScreenEffects.hide_cutscene_bars(duration)
 
 func show_speedlines() -> void:
-	GameManager.show_speedlines()
+	ScreenEffects.show_speedlines()
 
 func hide_speedlines() -> void:
-	GameManager.hide_speedlines()
+	ScreenEffects.hide_speedlines()
 
 func show_skill_frame(duration:= 1.0) -> void:
-	GameManager.show_skill_frame(duration)
+	ScreenEffects.show_skill_frame(duration)
 
 func hide_skill_frame(duration:= 1.0) -> void:
-	GameManager.hide_skill_frame(duration)
+	ScreenEffects.hide_skill_frame(duration)
 
 func show_game_hud(duration := 1.0):
 	GameManager.sidescroller_main.sidescroller_hud.show_hud(duration)

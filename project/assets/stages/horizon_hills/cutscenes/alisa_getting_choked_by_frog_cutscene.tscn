@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="1_i44vk"]
-[ext_resource type="Script" path="res://core/cutscene.gd" id="2_sp3l6"]
+[ext_resource type="Script" path="res://core/classes/cutscene.gd" id="2_sp3l6"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="5_h4sba"]
 [ext_resource type="PackedScene" path="res://assets/characters/frog_green.tscn" id="6_4d6he"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="7_pcjbi"]

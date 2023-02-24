@@ -43,8 +43,8 @@ func play_end() -> void:
 
 func skip() -> void:
 	skipping = true
-	GameManager.screen_transition(Enums.ScreenTransition.FADE_IN, 0.3)
-	await GameManager.screen_transition_finished
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_IN, 0.3)
+	await ScreenEffects.screen_transition_finished
 	await get_tree().create_timer(0.1).timeout
 	$AnimationPlayer.play("finished")
 	for child in get_children():
@@ -53,12 +53,8 @@ func skip() -> void:
 	await get_tree().create_timer(0.4).timeout
 	GameManager.gameplay_camera.force_update_scroll()
 	GameManager.gameplay_camera.reset_smoothing()
-	GameManager.screen_transition(Enums.ScreenTransition.FADE_OUT, 0.3)
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_OUT, 0.3)
 	finished.emit()
-
-func enable_gameplay_current_camera(transition_time := 1.0) -> void:
-	GameManager.enable_gameplay_camera_current(transition_time)
-
 
 func _on_animation_finished(anim_name: String) -> void:
 	if not skipping:

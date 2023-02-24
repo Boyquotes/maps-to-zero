@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3]
 
-[ext_resource type="Script" path="res://core/cutscene.gd" id="1_nr30c"]
+[ext_resource type="Script" path="res://core/classes/cutscene.gd" id="1_nr30c"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_fqn4g"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="3_ja6nu"]
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="4_f1r4s"]
