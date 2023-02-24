@@ -26,7 +26,7 @@ func physics_update(_delta: float) -> void:
 		actor.look_direction = Vector2(sign(actor.velocity.x), 0)
 	
 	# Vertical movement.
-	actor.velocity.y = stomp_speed * GlobalVariables.TILE_SIZE.y
+	actor.velocity.y = stomp_speed * GameUtilities.TILE_SIZE.y
 	
 	# Landing.
 	if actor.is_on_floor():

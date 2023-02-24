@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dx8e433x6jcwi"]
+[gd_scene load_steps=11 format=3 uid="uid://dos2ef4a5auih"]
 
 [ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_jjc0c"]
-[ext_resource type="PackedScene" uid="uid://45orqwa0lla0" path="res://assets/characters/alisa/alisa.tscn" id="2_gxg87"]
-[ext_resource type="Script" path="res://core/screen_shake_camera.gd" id="3_2n05a"]
-[ext_resource type="Script" path="res://core/gameplay_camera_2d.gd" id="3_2qjor"]
-[ext_resource type="Script" path="res://core/debug/fps_counter.gd" id="4_78hp4"]
+[ext_resource type="PackedScene" path="res://assets/characters/alisa/alisa.tscn" id="2_gxg87"]
+[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_fishp"]
+[ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_ulid5"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_lp7a6"]
 [ext_resource type="PackedScene" uid="uid://bh3tsnhbyxhu5" path="res://assets/hud/popups/yes_no_menu.tscn" id="6_1kvbx"]
 [ext_resource type="PackedScene" path="res://assets/hud/sidescroller_hud.tscn" id="6_4rvqa"]
+[ext_resource type="Script" path="res://assets/hud/fps_counter.gd" id="6_aw2os"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
@@ -35,10 +35,10 @@ drag_vertical_enabled = true
 drag_top_margin = 0.3
 drag_bottom_margin = 0.3
 editor_draw_limits = true
-script = ExtResource("3_2qjor")
+script = ExtResource("3_fishp")
 
 [node name="ScreenShakeCamera" type="Node" parent="GameplayCamera"]
-script = ExtResource("3_2n05a")
+script = ExtResource("4_ulid5")
 
 [node name="TransitionCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -79,7 +79,7 @@ offset_bottom = -44.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "FPS"
-script = ExtResource("4_78hp4")
+script = ExtResource("6_aw2os")
 
 [node name="Work In Progress Label" type="Label" parent="DebugInfo/Control"]
 layout_mode = 1

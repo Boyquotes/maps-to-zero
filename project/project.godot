@@ -16,15 +16,15 @@ config/features=PackedStringArray("4.0")
 
 [autoload]
 
-GlobalVariables="*res://core/global_variables.gd"
-MusicManager="*res://core/music_manager.tscn"
-GameManager="*res://core/game_manager.tscn"
-SaveData="*res://core/save_data.gd"
+GlobalVariables="*res://core/autoloads/global_variables.gd"
+MusicManager="*res://assets/music/scripts/music_manager.tscn"
+GameManager="*res://core/autoloads/game_manager.tscn"
+SaveData="*res://core/autoloads/save_data.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
-Events="*res://core/event_bus.gd"
-FrameFreeze="*res://core/frame_freeze.gd"
+Events="*res://core/autoloads/event_bus.gd"
+FrameFreeze="*res://core/autoloads/frame_freeze.gd"
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
-CameraTransition="*res://core/camera_transition.tscn"
+CameraTransition="*res://core/classes/camera/camera_transition.tscn"
 
 [dialogic]
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ylanwo4pov0m"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://core/interaction_area_2d.gd" id="1_nqcao"]
+[ext_resource type="Script" path="res://core/interactions/interaction_area_2d.gd" id="1_nqcao"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tlhih"]
 

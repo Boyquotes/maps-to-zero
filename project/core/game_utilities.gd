@@ -14,6 +14,7 @@ const HOSTILE_TEAMS := {
 	Teams.TEAM_1 : [Teams.TEAM_2],
 	Teams.TEAM_2 : [Teams.TEAM_1]
 }
+const TILE_SIZE := Vector2(16, 16)
 
 static func team_friendly_with(source_team: Teams, other_team: Teams) -> bool:
 	return FRIENDLY_TEAMS[source_team].has(other_team)

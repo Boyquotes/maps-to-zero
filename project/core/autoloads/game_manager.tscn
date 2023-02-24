@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3]
 
-[ext_resource type="Script" path="res://core/game_manager.gd" id="1_w87d2"]
+[ext_resource type="Script" path="res://core/autoloads/game_manager.gd" id="1_w87d2"]
 [ext_resource type="Texture2D" uid="uid://bloum3j02ksy4" path="res://assets/hud/speed_line.png" id="2_scuwe"]
 
 [sub_resource type="Animation" id="Animation_dt7j2"]

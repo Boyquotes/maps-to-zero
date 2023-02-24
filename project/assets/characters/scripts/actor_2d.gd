@@ -21,10 +21,10 @@ var save_data: Dictionary:
 		data.max_hp = max_hp
 		data.max_mp = max_mp
 		data.max_sp = max_sp
-		data.speed = speed / GlobalVariables.TILE_SIZE.x
-		data.jump_max_height = jump_max_height / GlobalVariables.TILE_SIZE.y
+		data.speed = speed / GameUtilities.TILE_SIZE.x
+		data.jump_max_height = jump_max_height / GameUtilities.TILE_SIZE.y
 		data.jump_max_height_time = jump_max_height_time
-		data.max_falling_speed = max_falling_speed / GlobalVariables.TILE_SIZE.y
+		data.max_falling_speed = max_falling_speed / GameUtilities.TILE_SIZE.y
 		data.team = team
 		data.gravity = gravity
 		data.look_direction = look_direction
@@ -36,14 +36,14 @@ var save_data: Dictionary:
 @export var max_sp := 0.0
 @export var speed = 18: # In terms of tiles/sec
 	get:
-		return speed * GlobalVariables.TILE_SIZE.x
+		return speed * GameUtilities.TILE_SIZE.x
 @export var jump_max_height := 6.1 : # In terms of tiles size
 	get:
-		return jump_max_height * GlobalVariables.TILE_SIZE.y
+		return jump_max_height * GameUtilities.TILE_SIZE.y
 @export var jump_max_height_time := 0.35 # Time between jump from ground and falling
 @export var max_falling_speed := 200.0 : #In terms of tiles/sec
 	get:
-		return max_falling_speed * GlobalVariables.TILE_SIZE.y
+		return max_falling_speed * GameUtilities.TILE_SIZE.y
 @export var team : GameUtilities.Teams:
 	set(value):
 		if team:

@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds3sefi57y3gl"]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="PackedScene" uid="uid://tsqr6e168upm" path="res://assets/characters/alisa/particles/pink_hit_impact.tscn" id="2_1xfle"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="2_5p5ah"]
-[ext_resource type="Script" path="res://core/particle_spawner.gd" id="2_c5dlo"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="2_c5dlo"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="3_o6jxp"]
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="4_nysod"]
 [ext_resource type="PackedScene" uid="uid://c01trt0xcc1fp" path="res://assets/characters/alisa/particles/alisa_dash_explosion_particles.tscn" id="5_qynrx"]

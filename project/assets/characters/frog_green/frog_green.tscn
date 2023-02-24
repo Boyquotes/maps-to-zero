@@ -1,11 +1,11 @@
-[gd_scene load_steps=40 format=3 uid="uid://c0w8cbt8bajhb"]
+[gd_scene load_steps=40 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_uqq12"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_0y7nb"]
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/jump_default.tscn" id="5_kaqgl"]
-[ext_resource type="Script" path="res://core/particles_2d_queue.gd" id="6_s07aa"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particles_2d_queue.gd" id="6_s07aa"]
 [ext_resource type="AudioStream" uid="uid://be45afr4o5hmv" path="res://assets/sfx/slime_bounce.wav" id="7_jw1hx"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="9_qd5it"]
 [ext_resource type="AudioStream" uid="uid://clv0c1odiv1fu" path="res://assets/sfx/bloody_slash.wav" id="11_chcgu"]

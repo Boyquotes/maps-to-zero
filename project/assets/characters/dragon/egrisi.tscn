@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
-[ext_resource type="Script" path="res://core/particle_spawner.gd" id="4_gju0s"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="4_gju0s"]
 [ext_resource type="AudioStream" uid="uid://dan1r41xxyl3d" path="res://assets/sfx/swing.wav" id="4_xr1et"]
 [ext_resource type="AudioStream" uid="uid://dy5pt4o6nla5e" path="res://assets/sfx/stomp.wav" id="5_4qape"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="5_a287c"]

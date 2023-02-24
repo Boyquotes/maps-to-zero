@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_xdjc1"]
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/jump_default.tscn" id="5_kaqgl"]
 [ext_resource type="AudioStream" uid="uid://ck5b5w32nl2ck" path="res://assets/sfx/jump_retro.wav" id="5_une7j"]
-[ext_resource type="Script" path="res://core/particles_2d_queue.gd" id="6_s07aa"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particles_2d_queue.gd" id="6_s07aa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvr6v"]
 size = Vector2(16, 32)

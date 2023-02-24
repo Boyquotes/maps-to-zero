@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://dkuau0behdgsu"]
 
-[ext_resource type="Script" path="res://core/camera_transition.gd" id="1_3py8t"]
+[ext_resource type="Script" path="res://core/classes/camera/camera_transition.gd" id="1_bfcjw"]
 
 [node name="CameraTransition" type="Node"]
-script = ExtResource("1_3py8t")
+script = ExtResource("1_bfcjw")
 
 [node name="Camera2D" type="Camera2D" parent="."]

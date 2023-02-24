@@ -3,7 +3,7 @@ extends StateTransition2D
 @export var next_state := ""
 @export var distance_greater_than := 10.0: # In tiles
 	get:
-		return distance_greater_than * GlobalVariables.TILE_SIZE.x
+		return distance_greater_than * GameUtilities.TILE_SIZE.x
 @export var tick_rate := 0.5
 
 var timer : Timer

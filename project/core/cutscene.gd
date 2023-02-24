@@ -28,7 +28,7 @@ func start(_dummy_var=null) -> void:
 		if child is ActorCutsceneTransformer:
 			child.teleport()
 			child.enable()
-		elif child is DialogNode:
+		elif child is DialogTrigger:
 			child.finished_and_play_animation.connect(func(anim_name):
 				$AnimationPlayer.play(anim_name)
 				)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://core/cutscene.gd" id="1_ojhq6"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_gtom8"]
-[ext_resource type="Script" path="res://core/trigger.gd" id="5_8uc55"]
+[ext_resource type="Script" path="res://core/triggers/trigger.gd" id="5_8uc55"]
 
 [sub_resource type="Animation" id="Animation_1c4kj"]
 length = 0.001

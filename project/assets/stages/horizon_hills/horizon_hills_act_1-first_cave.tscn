@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://byju7chl8vc4t"]
+[gd_scene load_steps=52 format=3 uid="uid://w5elv756foyx"]
 
 [ext_resource type="PackedScene" path="res://core/stage_2d.tscn" id="1_7g8jx"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_j33nj"]
@@ -26,16 +26,16 @@
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="24_02kug"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_01.png" id="25_hbexl"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="26_inotx"]
-[ext_resource type="TileSet" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="27_r5deu"]
-[ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="29_en1wm"]
+[ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="27_r5deu"]
+[ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="29_en1wm"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_04.png" id="30_2tubc"]
-[ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="30_m57v6"]
+[ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="30_m57v6"]
 [ext_resource type="PackedScene" path="res://assets/characters/slime_blue/slime_blue.tscn" id="32_rv2w2"]
 [ext_resource type="Script" path="res://core/cutscene.gd" id="33_2rqrj"]
 [ext_resource type="PackedScene" path="res://assets/misc/guiding_light.tscn" id="34_27ab8"]
-[ext_resource type="Script" path="res://core/dialog_node.gd" id="35_jn4cl"]
+[ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="35_jn4cl"]
+[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="36_ci3uy"]
 [ext_resource type="Script" path="res://core/game_utilities.gd" id="36_wtlty"]
-[ext_resource type="Script" path="res://core/gameplay_camera_2d.gd" id="37_njlon"]
 
 [sub_resource type="GDScript" id="GDScript_a2rv7"]
 script/source = "extends Stage
@@ -1131,7 +1131,7 @@ zoom = Vector2(2.5, 2.5)
 limit_left = -800
 limit_bottom = 352
 editor_draw_limits = true
-script = ExtResource("37_njlon")
+script = ExtResource("36_ci3uy")
 
 [connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
 [connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]

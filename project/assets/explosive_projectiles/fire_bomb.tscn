@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvunqrhju2mg6"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="2_3rum6"]
-[ext_resource type="Script" path="res://core/particle_spawner.gd" id="2_wf5wg"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="2_wf5wg"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="4_sxmvm"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="5_8okmq"]
 

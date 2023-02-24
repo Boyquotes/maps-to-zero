@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/projectile.tscn" id="1_5v7ss"]
 [ext_resource type="Script" path="res://assets/characters/scripts/explosive_projectile.gd" id="2_lhsgm"]
-[ext_resource type="Script" path="res://core/trigger.gd" id="3_ynjml"]
+[ext_resource type="Script" path="res://core/triggers/trigger.gd" id="3_ynjml"]
 
 [node name="ExplosiveProjectile" instance=ExtResource("1_5v7ss")]
 script = ExtResource("2_lhsgm")

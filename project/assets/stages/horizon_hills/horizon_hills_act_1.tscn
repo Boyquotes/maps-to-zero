@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b06u8nvcwlbxn"]
+[gd_scene load_steps=52 format=3 uid="uid://mo7j5ucqlskh"]
 
 [ext_resource type="PackedScene" path="res://core/stage_2d.tscn" id="1_ohlbd"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_adxxg"]
@@ -25,16 +25,17 @@
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="22_p34k5"]
 [ext_resource type="Texture2D" uid="uid://dkploejrq8bxb" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Lamp.png" id="23_kigfp"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_01.png" id="25_fhkfv"]
-[ext_resource type="TileSet" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="26_b3dvl"]
+[ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="26_5slb0"]
+[ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="26_b3dvl"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_04.png" id="29_u1thv"]
-[ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="30_uct3q"]
-[ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="31_djaly"]
+[ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="30_uct3q"]
+[ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="31_djaly"]
 [ext_resource type="PackedScene" path="res://assets/characters/slime_blue/slime_blue.tscn" id="31_i5s8k"]
 [ext_resource type="Script" path="res://core/cutscene.gd" id="32_7atcb"]
 [ext_resource type="PackedScene" path="res://assets/misc/guiding_light.tscn" id="34_atjre"]
-[ext_resource type="Script" path="res://core/dialog_node.gd" id="35_wm52x"]
+[ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="35_wm52x"]
 [ext_resource type="Script" path="res://core/game_utilities.gd" id="36_7oq1l"]
-[ext_resource type="Script" path="res://core/gameplay_camera_2d.gd" id="37_2s0x2"]
+[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="36_piscd"]
 
 [sub_resource type="GDScript" id="GDScript_a2rv7"]
 script/source = "extends Stage
@@ -333,7 +334,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(2.5, 2.5), Vector2(2, 2)]
+"values": [Vector2(2.5, 2.5), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_rrdlr"]
@@ -405,6 +406,20 @@ tracks/4/keys = {
 "values": [{
 "args": [false, 1.0],
 "method": &"set_current"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ActorCutsceneTransformer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable"
 }]
 }
 
@@ -486,7 +501,7 @@ tracks/5/keys = {
 tracks/6/type = "method"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("DialogNode")
+tracks/6/path = NodePath("DialogTrigger")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -588,6 +603,34 @@ tracks/13/keys = {
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
 "values": [Vector2(2, 2), Vector2(2.5, 2.5)]
+}
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("ActorCutsceneTransformer")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
+}
+tracks/15/type = "method"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("ActorCutsceneTransformer")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ebwjd"]
@@ -973,6 +1016,7 @@ texture = ExtResource("22_p34k5")
 
 [node name="Whitebox" type="TileMap" parent="." index="11"]
 visible = false
+tile_set = ExtResource("26_5slb0")
 cell_quadrant_size = 32
 format = 2
 layer_0/name = "Base"
@@ -1134,7 +1178,7 @@ position = Vector2(-43, -20)
 
 [node name="GuidingLight" parent="MoveTutorialCutscene/GuidingLight" index="0" instance=ExtResource("34_atjre")]
 
-[node name="DialogNode" type="Node" parent="MoveTutorialCutscene" index="3"]
+[node name="DialogTrigger" type="Node2D" parent="MoveTutorialCutscene" index="3"]
 script = ExtResource("35_wm52x")
 timeline_path = "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl"
 finished_cutscene_animation_name = "end"
@@ -1148,7 +1192,7 @@ zoom = Vector2(2.5, 2.5)
 limit_left = -800
 limit_bottom = 352
 editor_draw_limits = true
-script = ExtResource("37_2s0x2")
+script = ExtResource("36_piscd")
 
 [connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
 [connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]

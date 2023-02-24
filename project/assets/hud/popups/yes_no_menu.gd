@@ -10,10 +10,10 @@ extends Control
 var yes_callback: Callable
 var no_callback: Callable
 
-func initialize(message: String, yes_callback: Callable, no_callback: Callable) -> void:
+func initialize(message: String, _yes_callback: Callable, _no_callback: Callable) -> void:
 	message_label.text = message
-	self.yes_callback = yes_callback
-	self.no_callback = no_callback
+	yes_callback = _yes_callback
+	no_callback = _no_callback
 	yes_button.pressed.connect(_on_yes)
 	no_button.pressed.connect(_on_no)
 

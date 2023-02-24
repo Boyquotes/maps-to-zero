@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bqqma3eorvjt0"]
+[gd_scene load_steps=40 format=3 uid="uid://c5dd66bq35frm"]
 
 [ext_resource type="PackedScene" path="res://core/stage_2d.tscn" id="1_7grc4"]
 [ext_resource type="AudioStream" uid="uid://dlnpcu5kao83d" path="res://assets/sfx/ambience/jungle_thunderstorm.ogg" id="2_wl2t7"]
@@ -23,12 +23,12 @@
 [ext_resource type="Texture2D" uid="uid://dkploejrq8bxb" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Lamp.png" id="21_oduju"]
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_01.png" id="23_58vod"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="24_cvcnu"]
-[ext_resource type="TileSet" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="25_p10ti"]
+[ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="25_p10ti"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="26_gtw6i"]
 [ext_resource type="Texture2D" uid="uid://wy53ctga1bpf" path="res://assets/particles/sprites/white_1x1.png" id="28_tkjol"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_04.png" id="29_8lbg0"]
-[ext_resource type="Script" path="res://core/camera_settings_trigger.gd" id="29_bwkbe"]
-[ext_resource type="Script" path="res://core/stage_change_trigger.gd" id="30_dibs2"]
+[ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="29_bwkbe"]
+[ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="30_dibs2"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
