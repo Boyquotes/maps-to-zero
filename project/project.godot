@@ -68,7 +68,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Trail/plugin.cfg", "res://addons/smoothing/plugin.cfg", "res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/smoothing/plugin.cfg")
 
 [input]
 
