@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://dos2ef4a5auih"]
 
-[ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_jjc0c"]
-[ext_resource type="PackedScene" path="res://assets/characters/alisa/alisa.tscn" id="2_gxg87"]
-[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_fishp"]
-[ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_ulid5"]
-[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_lp7a6"]
-[ext_resource type="PackedScene" uid="uid://bh3tsnhbyxhu5" path="res://assets/hud/popups/yes_no_menu.tscn" id="6_1kvbx"]
-[ext_resource type="PackedScene" uid="uid://c6suespw4ygt7" path="res://assets/hud/sidescroller_hud.tscn" id="6_4rvqa"]
-[ext_resource type="Script" path="res://assets/hud/fps_counter.gd" id="6_aw2os"]
+[ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_w7s42"]
+[ext_resource type="PackedScene" uid="uid://bg36r2fh4oe7n" path="res://assets/characters/alisa/alisa.tscn" id="2_8nx3r"]
+[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_jpdgf"]
+[ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_h6djx"]
+[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_ha680"]
+[ext_resource type="Script" path="res://assets/hud/fps_counter.gd" id="6_xk1lb"]
+[ext_resource type="PackedScene" uid="uid://bh3tsnhbyxhu5" path="res://assets/hud/popups/yes_no_menu.tscn" id="7_8s6i4"]
+[ext_resource type="PackedScene" uid="uid://c6suespw4ygt7" path="res://assets/hud/sidescroller_hud.tscn" id="8_bocmk"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
@@ -18,15 +18,10 @@ _data = {
 }
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_jjc0c")
-player_actor = ExtResource("2_gxg87")
+script = ExtResource("1_w7s42")
+player_actor = ExtResource("2_8nx3r")
 initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
 initial_stage_enter_point = null
-
-[node name="CameraTransformer" type="RemoteTransform2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-712, 512)
-remote_path = NodePath("../GameplayCamera")
 
 [node name="GameplayCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -36,10 +31,10 @@ drag_vertical_enabled = true
 drag_top_margin = 0.3
 drag_bottom_margin = 0.3
 editor_draw_limits = true
-script = ExtResource("3_fishp")
+script = ExtResource("3_jpdgf")
 
 [node name="ScreenShakeCamera" type="Node" parent="GameplayCamera"]
-script = ExtResource("4_ulid5")
+script = ExtResource("4_h6djx")
 
 [node name="TransitionCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -66,7 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_lp7a6")
+theme = ExtResource("5_ha680")
 
 [node name="FPS Counter" type="Label" parent="DebugInfo/Control"]
 layout_mode = 1
@@ -80,7 +75,7 @@ offset_bottom = -44.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "FPS"
-script = ExtResource("6_aw2os")
+script = ExtResource("6_xk1lb")
 
 [node name="Work In Progress Label" type="Label" parent="DebugInfo/Control"]
 layout_mode = 1
@@ -118,7 +113,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="YesNoMenu" parent="CanvasLayer/PlayerDefeatedScreen" instance=ExtResource("6_1kvbx")]
+[node name="YesNoMenu" parent="CanvasLayer/PlayerDefeatedScreen" instance=ExtResource("7_8s6i4")]
 layout_mode = 1
 
 [node name="VBoxContainer" parent="CanvasLayer/PlayerDefeatedScreen/YesNoMenu" index="0"]
@@ -138,6 +133,6 @@ libraries = {
 "": SubResource("AnimationLibrary_ons8l")
 }
 
-[node name="SidescrollerHUD" parent="." instance=ExtResource("6_4rvqa")]
+[node name="SidescrollerHUD" parent="." instance=ExtResource("8_bocmk")]
 
 [editable path="CanvasLayer/PlayerDefeatedScreen/YesNoMenu"]

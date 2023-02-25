@@ -34,10 +34,10 @@ var save_data: Dictionary:
 @export var max_hp := 100.0
 @export var max_mp := 300.0
 @export var max_sp := 0.0
-@export var speed = 18: # In terms of tiles/sec
+@export var speed = 10: # In terms of tiles/sec
 	get:
 		return speed * GameUtilities.TILE_SIZE.x
-@export var jump_max_height := 6.1 : # In terms of tiles size
+@export var jump_max_height := 3.2 : # In terms of tiles size
 	get:
 		return jump_max_height * GameUtilities.TILE_SIZE.y
 @export var jump_max_height_time := 0.35 # Time between jump from ground and falling

@@ -1,8 +1,8 @@
-[gd_scene load_steps=43 format=3]
+[gd_scene load_steps=43 format=3 uid="uid://cdwmuw3uo0xnd"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
-[ext_resource type="Texture2D" path="res://assets/actors_2d/alisa/alisa.png" id="3_pyphh"]
+[ext_resource type="Texture2D" uid="uid://t60l0rcmdkof" path="res://assets/characters/alisa/sprites/alisa.png" id="3_pyphh"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/footstep_emitter.tscn" id="4_1rf3w"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_xdjc1"]
@@ -948,6 +948,7 @@ shader_parameter/outline_col = null
 radius = 24.0
 
 [node name="Dummy" instance=ExtResource("1_a8ind")]
+collision_layer = 2
 team = 2
 attack_input_listening = true
 attack_can_cancel = true
@@ -1000,5 +1001,6 @@ shape = SubResource("CircleShape2D_l4vct")
 
 [node name="Air" parent="StateMachine" index="2"]
 background_jumps_max = 1
+jump_speed_boost = 0.0
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

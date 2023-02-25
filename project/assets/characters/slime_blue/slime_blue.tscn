@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3]
+[gd_scene load_steps=50 format=3 uid="uid://c5tk70ccmexno"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -631,6 +631,9 @@ tracks/12/keys = {
 "values": [8, 0, 10, 11, 12, 13, 14, 15, 16]
 }
 
+[sub_resource type="Animation" id="Animation_ctuei"]
+resource_name = "fall"
+
 [sub_resource type="Animation" id="Animation_av62d"]
 length = 0.45
 loop_mode = 1
@@ -782,9 +785,6 @@ tracks/5/keys = {
 "update": 1,
 "values": [26, 18, 19, 20, 21, 22, 23, 24]
 }
-
-[sub_resource type="Animation" id="Animation_ctuei"]
-resource_name = "fall"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ojfvh"]
 _data = {
@@ -1107,7 +1107,6 @@ script = ExtResource("17_pskm8")
 [node name="CloseToTarget" type="Node" parent="InputStateMachine/WaitForTarget" index="0"]
 script = ExtResource("18_j5f6b")
 next_state = "IdleInput"
-distance_closer_than = 30.0
 
 [node name="IdleInput" type="Node" parent="InputStateMachine" index="2"]
 script = ExtResource("17_pskm8")
@@ -1169,6 +1168,7 @@ jump_animation = "bounce"
 background_jump_animation = "bounce"
 background_fall_animation = "bounce"
 background_jumps_max = 1
+jump_speed_boost = 0.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_ta8im")

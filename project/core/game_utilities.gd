@@ -14,7 +14,7 @@ const HOSTILE_TEAMS := {
 	Teams.TEAM_1 : [Teams.TEAM_2],
 	Teams.TEAM_2 : [Teams.TEAM_1]
 }
-const TILE_SIZE := Vector2(16, 16)
+const TILE_SIZE := Vector2(32, 32)
 
 static func team_friendly_with(source_team: Teams, other_team: Teams) -> bool:
 	return FRIENDLY_TEAMS[source_team].has(other_team)
@@ -52,3 +52,6 @@ func show_game_hud(duration := 1.0):
 
 func hide_game_hud(duration := 1.0):
 	GameManager.sidescroller_main.sidescroller_hud.hide_hud(duration)
+
+func screen_transition(transition_animation: ScreenEffectsClass.ScreenTransitions, duration := 1.0):
+	ScreenEffects.screen_transition(transition_animation, duration)

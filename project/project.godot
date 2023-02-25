@@ -11,21 +11,19 @@ config_version=5
 [application]
 
 config/name="Adventure Academy"
-run/main_scene="res://main.tscn"
+run/main_scene="res://core/main.tscn"
 config/features=PackedStringArray("4.0")
 
 [autoload]
 
-GlobalVariables="*res://core/autoloads/global_variables.gd"
 MusicManager="*res://assets/music/scripts/music_manager.tscn"
-GameManager="*res://core/autoloads/game_manager.tscn"
 SaveData="*res://core/autoloads/save_data.gd"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Events="*res://core/autoloads/event_bus.gd"
 FrameFreeze="*res://core/autoloads/frame_freeze.gd"
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 CameraTransition="*res://core/classes/camera/camera_transition.tscn"
 ScreenEffects="*res://core/autoloads/screen_effects.tscn"
+GameManager="*res://core/autoloads/game_manager.gd"
 
 [dialogic]
 

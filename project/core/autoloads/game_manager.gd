@@ -40,17 +40,8 @@ func request_stage_change(stage_file_path: String, player_entry_point := 0) -> v
 	SaveData.current_stage_file_path = stage_file_path
 	sidescroller_main.change_stage(load(stage_file_path), player_entry_point)
 
-
 func reload() -> void:
 	sidescroller_main.change_stage(load(SaveData.stage_file_path), 0, true)
 
-
 func screen_shake(trauma := 0.5):
 	sidescroller_main.gameplay_camera.add_trauma(trauma)
-
-
-func show_sidescroller_hud():
-	sidescroller_main.sidescroller_hud.show()
-
-func hide_sidescroller_hud():
-	sidescroller_main.sidescroller_hud.hide()

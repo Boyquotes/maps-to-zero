@@ -1,7 +1,7 @@
 class_name ScreenTransitionTrigger
 extends Trigger
 
-@export var transition: ScreenEffectsClass.ScreenTransition
+@export var transition: ScreenEffectsClass.ScreenTransitions
 @export var duration: float = 0.0
 
 

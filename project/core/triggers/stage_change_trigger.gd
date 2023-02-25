@@ -3,7 +3,7 @@ extends Trigger
 
 @export var stage_file_path: String
 @export var destination_entry_point: int
-@export var screen_transition: ScreenEffectsClass.ScreenTransition
+@export var screen_transition: ScreenEffectsClass.ScreenTransitions
 @export var transition_duration: float = 0.0
 
 

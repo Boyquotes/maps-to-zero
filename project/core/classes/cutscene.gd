@@ -8,60 +8,75 @@ signal finished
 		cutscene_mode = value
 		if _is_ready:
 			GameManager.cutscene_mode = value
+@export var enable_character_transformers_on_start : bool = true
+
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
 
 var skipping: bool = false
 var _is_ready: bool = false
 
 func _ready():
+	finished.connect(_on_finished)
 	set_process_input(false)
 	await get_tree().create_timer(1.1).timeout
 	_is_ready = true
+	
+	animation_player.animation_finished.connect(_on_animation_finished)
+	
+	for child in get_children():
+		if child is DialogTrigger:
+			child.finished_and_play_animation.connect(func(anim_name):
+				animation_player.play(anim_name)
+			)
 
 func start(_dummy_var=null) -> void:
 	_is_ready = true
-	assert ($AnimationPlayer.has_animation("start"))
-	$AnimationPlayer.play("start")
-	$AnimationPlayer.animation_finished.connect(_on_animation_finished)
+	assert (animation_player.has_animation("start"))
+	animation_player.play("start")
 	set_process_input(true)
 	
-	for child in get_children():
-		if child is ActorCutsceneTransformer:
-			child.teleport()
-			child.enable()
-		elif child is DialogTrigger:
-			child.finished_and_play_animation.connect(func(anim_name):
-				$AnimationPlayer.play(anim_name)
-				)
+	if enable_character_transformers_on_start:
+		for child in get_children():
+			if child is ActorCutsceneTransformer:
+				child.teleport()
+				child.enable()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("skip_cutscene"):
+	if event.is_action_pressed("skip_cutscene") and not skipping:
 		skip()
 
 func play_end() -> void:
-	set_process_input(false)
-	$AnimationPlayer.play("end")
+	animation_player.play("end")
 
 func skip() -> void:
 	skipping = true
-	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_IN, 0.3)
+	
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransitions.FADE_IN, 0.3)
 	await ScreenEffects.screen_transition_finished
-	await get_tree().create_timer(0.1).timeout
-	$AnimationPlayer.play("finished")
+	await get_tree().create_timer(0.5).timeout
+	
+	animation_player.play("finished")
+	finished.emit()
 	for child in get_children():
 		if child is ActorCutsceneTransformer:
 			child.disable()
-	await get_tree().create_timer(0.4).timeout
-	GameManager.gameplay_camera.force_update_scroll()
-	GameManager.gameplay_camera.reset_smoothing()
-	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_OUT, 0.3)
-	finished.emit()
+			
+	GameUtilities.get_main_camera().align()
+	GameUtilities.get_main_camera().reset_smoothing()
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransitions.FADE_OUT, 0.3)
+	
+	skipping = false
 
 func _on_animation_finished(anim_name: String) -> void:
 	if not skipping:
 		if anim_name == "end":
 			finished.emit()
-			if $AnimationPlayer.has_animation("finished"):
-				$AnimationPlayer.play("finished")
+			if animation_player.has_animation("finished"):
+				animation_player.play("finished")
 			for child in get_children():
 				if child is ActorCutsceneTransformer:
 					child.disable()
+
+
+func _on_finished() -> void:
+	set_process_input(false)

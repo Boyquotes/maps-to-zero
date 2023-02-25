@@ -4,10 +4,8 @@ extends Actor2DState
 enum AirState { RISE, FALL }
 var state : AirState
 
-@export var jump_off_animation := "jump"
 @export var jump_animation := "jump"
 @export var fall_animation := "fall"
-@export var background_jump_off_animation := "background_jump"
 @export var background_jump_animation := "background_jump"
 @export var background_fall_animation := "background_jump"
 @export var falling_gravity_multiplier := 1.7
@@ -19,6 +17,7 @@ var state : AirState
 			return SaveData.base_background_jumps
 		else:
 			return background_jumps_max
+@export var jump_speed_boost := 0.0 # In number of tiles
 
 var jump_buffer_timer : Timer
 var mid_air_jumps := 0
@@ -42,6 +41,8 @@ func enter(msg := {}) -> void:
 	actor.gravity = 2 * actor.jump_max_height / pow(actor.jump_max_height_time, 2) # Gravity = -2h / t^2
 	
 	if msg.has("do_jump"):
+		actor.velocity.x += jump_speed_boost * GameUtilities.TILE_SIZE.x * actor.input_direction.x
+		
 		var _initial_speed = 2 * actor.jump_max_height / actor.jump_max_height_time # Initial velocity = 2h / t
 		actor.velocity.y = -_initial_speed
 		state = AirState.RISE
@@ -51,15 +52,15 @@ func enter(msg := {}) -> void:
 		actor.gravity *= falling_gravity_multiplier
 	
 	if actor.velocity.y < 0:
-		var animation = jump_off_animation
 		if background_jump_ready:
-			animation = background_jump_off_animation
-		actor.play_animation(animation)
+			actor.play_animation(background_jump_animation)
+		else:
+			actor.play_animation(jump_animation)
 	else:
-		var animation = fall_animation
 		if actor.background_jump_area.has_overlapping_areas():
-			animation = background_fall_animation
-		actor.play_animation(animation)
+			actor.play_animation(background_fall_animation)
+		else:
+			actor.play_animation(fall_animation)
 
 
 func exit() -> void:
@@ -90,7 +91,7 @@ func physics_update(delta: float) -> void:
 	
 	# We move the run-specific input code to the state.
 	var old_velocity = actor.velocity
-	actor.velocity.x = actor.speed * actor.input_direction.x
+	actor.velocity.x = max(actor.speed, abs(actor.velocity.x)) * actor.input_direction.x
 	if sign(actor.velocity.x) != 0 \
 			and sign(old_velocity.x) != sign(actor.velocity.x):
 		actor.look_direction = Vector2(sign(actor.velocity.x), 0)
@@ -111,14 +112,14 @@ func physics_update(delta: float) -> void:
 	var current_animation = actor.animation_player.current_animation
 	if not background_jump_ready: # Default
 		if state == AirState.RISE:
-			if not(current_animation == jump_animation or current_animation == jump_off_animation or current_animation == "RESET"): 
+			if not(current_animation == jump_animation or current_animation == "RESET"): 
 				actor.play_animation(jump_animation)
 		else:
 			if not current_animation == fall_animation or current_animation == "RESET": 
 				actor.play_animation(fall_animation)
 	else:
 		if state == AirState.RISE:
-			if not(current_animation == background_jump_animation or current_animation == background_jump_off_animation or current_animation == "RESET"): 
+			if not(current_animation == background_jump_animation or current_animation == "RESET"): 
 				actor.play_animation(background_jump_animation)
 		else:
 			if not current_animation == background_fall_animation or current_animation == "RESET": 

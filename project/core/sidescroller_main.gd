@@ -6,7 +6,6 @@ extends Node2D
 @export var initial_stage_enter_point: int
 
 @onready var actors_parent := %ActorsParent
-@onready var camera_transformer: RemoteTransform2D = %CameraTransformer
 @onready var gameplay_camera: GameplayCamera2D = %GameplayCamera
 @onready var transition_camera: Camera2D = %TransitionCamera
 @onready var popup_canvas: CanvasLayer = %PopupCanvas
@@ -28,10 +27,9 @@ func _ready():
 	player.get_node("Resources").resource_changed.connect(Events._on_player_resource_changed)
 	GameManager.player = player
 	actors_parent.add_child(player)
-	camera_transformer.get_parent().remove_child(camera_transformer)
-	player.add_child(camera_transformer)
-	camera_transformer.position = Vector2.ZERO
-	camera_transformer.remote_path = camera_transformer.get_path_to(gameplay_camera)
+	gameplay_camera.get_parent().remove_child(gameplay_camera)
+	player.add_child(gameplay_camera)
+	gameplay_camera.position = Vector2.ZERO
 	
 	GameManager.request_stage_change(initial_stage_file_path, initial_stage_enter_point)
 
@@ -52,20 +50,11 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 	
 	if currently_loaded_stage.normal_entry:
 		var entry_point: StageEntryPoint = currently_loaded_stage.entry_points[player_entry_point]
-		player.global_position = entry_point.global_position
-		gameplay_camera.make_current()
-		gameplay_camera.force_update_scroll()
+		entry_point.enter(player)
 	
 		if player_respawning:
 			player_respawn_cutscene()
 			return
-		GameManager.screen_transition(entry_point.transition_animation, entry_point.transition_duration)
-		
-		if entry_point.animation_player and entry_point.animation_player.has_animation("enter"):
-			GameManager.show_cutscene_bars(0)
-			entry_point.animation_player.play("enter")
-			await entry_point.animation_player.animation_finished
-			GameManager.hide_cutscene_bars()
 
 
 func player_defeated() -> void:
@@ -100,7 +89,7 @@ func _input(event):
 func player_respawn_cutscene() -> void:
 	respawn_cutscene_playing = true
 	
-	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_IN, 0)
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransitions.FADE_IN, 0)
 	if MusicManager.current_song != currently_loaded_stage.song:
 		MusicManager.play(Music.Songs.SILENCE, 1.0)
 	player.global_position = SaveData.player_saved_position
@@ -118,7 +107,7 @@ func player_respawn_cutscene() -> void:
 	var tween = create_tween()
 	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom * 3, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
-	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransition.FADE_OUT, 0.2)
+	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransitions.FADE_OUT, 0.2)
 	await ScreenEffects.screen_transition_finished
 	await get_tree().create_timer(1.0).timeout
 	

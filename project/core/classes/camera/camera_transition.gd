@@ -7,6 +7,8 @@ var tween : Tween
 var transitioning: bool = false
 
 func switch_camera(to) -> void:
+	to.align()
+	to.reset_smoothing()
 	to.make_current()
 
 func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) -> void:
@@ -24,7 +26,6 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 		camera2D.limit_right = to_camera.limit_right
 		camera2D.limit_top = to_camera.limit_top
 		camera2D.global_transform = to_camera.global_transform
-		print_debug(camera2D.zoom)
 	
 	set_process(true)
 	to_camera = to
@@ -69,7 +70,7 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	await tween.finished
 	
 	# Make the second camera current
-	to.make_current()
+	switch_camera(to)
 	transitioning = false
 
 

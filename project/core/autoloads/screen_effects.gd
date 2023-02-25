@@ -3,7 +3,12 @@ extends CanvasLayer
 
 signal screen_transition_finished
 
-enum ScreenTransition { DEFAULT, FADE_IN, FADE_OUT }
+enum ScreenTransitions { DEFAULT, FADE_IN, FADE_OUT }
+const SCREEN_TRANSITION_DICT := {
+	ScreenTransitions.DEFAULT: "fade_in",
+	ScreenTransitions.FADE_IN: "fade_in",
+	ScreenTransitions.FADE_OUT: "fade_out"
+}
 
 @onready var cutscene_bars := $CutsceneBars
 @onready var speed_lines := $SpeedLines
@@ -36,14 +41,9 @@ func hide_skill_frame(duration:= 1.0) -> void:
 		$SkillFrames/AnimationPlayer.speed_scale = 1.0 / duration
 		$SkillFrames/AnimationPlayer.play("hide")
 
-func screen_transition(animation: ScreenTransition, duration:=1.0) -> void:
+func screen_transition(animation: ScreenTransitions, duration:=1.0) -> void:
 	var animation_player: AnimationPlayer = $ScreenTransition/AnimationPlayer
 	animation_player.speed_scale = 1.0 / duration
-	var dict := {
-		ScreenTransition.DEFAULT: "fade_in",
-		ScreenTransition.FADE_IN: "fade_in",
-		ScreenTransition.FADE_OUT: "fade_out"
-	}
-	animation_player.play(dict[animation])
+	animation_player.play(SCREEN_TRANSITION_DICT[animation])
 	await animation_player.animation_finished
 	screen_transition_finished.emit()

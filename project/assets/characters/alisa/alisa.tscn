@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3]
+[gd_scene load_steps=146 format=3 uid="uid://bg36r2fh4oe7n"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://t60l0rcmdkof" path="res://assets/characters/alisa/sprites/alisa.png" id="4_mtfgc"]
@@ -8076,7 +8076,7 @@ tracks/9/path = NodePath("../../..:attack_can_cancel")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.04),
+"times": PackedFloat32Array(0, 0.08),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -9052,10 +9052,9 @@ inputs = {
 }
 
 [node name="Air" parent="StateMachine" index="2"]
-jump_off_animation = "jump_off"
-background_jump_off_animation = "background_jump_off"
 background_fall_animation = "background_jump_fall"
 background_jumps_max = 1
+jump_speed_boost = 1.0
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Air" index="0"]
 script = ExtResource("52_5eego")
