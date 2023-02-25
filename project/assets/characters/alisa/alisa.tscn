@@ -8858,7 +8858,7 @@ position = Vector2(-256, 0)
 [node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Dash" index="0"]
 position = Vector2(256, 0)
 script = ExtResource("38_hnkwh")
-zoom_tween_duration = 3.0
+zoom_tween_duration = 2.0
 zoom = Vector2(3, 3)
 change_base_zoom = false
 reset_zoom_tween_duration = 0.5

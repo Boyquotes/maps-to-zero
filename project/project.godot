@@ -28,7 +28,7 @@ GameManager="*res://core/autoloads/game_manager.gd"
 [dialogic]
 
 editor/character_preview_mode=0
-editor/current_editor=&"Timeline Editor"
+editor/current_editor=&"Character Editor"
 editor/current_resources={
 "Character Editor": "res://assets/dialog/characters/alisa.dch",
 "Timeline Editor": "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl"

@@ -33,6 +33,7 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	transition_end_time = transition_start_time + duration
 	transition_start_position = from.global_position
 	transition_start_rotation = from.global_rotation
+	transition_start_zoom = from.zoom
 	
 	# Copy the parameters of the first camera
 	camera2D.zoom = from.zoom
@@ -59,7 +60,6 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_parallel(true)
-	tween.tween_property(camera2D, "zoom", to.zoom, duration)
 	tween.tween_property(camera2D, "offset", to.offset, duration)
 	tween.tween_property(camera2D, "limit_bottom", to.limit_bottom, duration)
 	tween.tween_property(camera2D, "limit_left", to.limit_left, duration)
@@ -79,6 +79,7 @@ var transition_start_time : float
 var transition_end_time : float
 var transition_start_position : Vector2
 var transition_start_rotation : float
+var transition_start_zoom : Vector2
 func _process(delta):
 	if not transitioning:
 		set_process(false)
@@ -86,5 +87,7 @@ func _process(delta):
 	
 	var time_elapsed = Time.get_unix_time_from_system() - transition_start_time
 	var duration = transition_end_time - transition_start_time
-	camera2D.global_position = lerp(transition_start_position, to_camera.global_position, time_elapsed / duration)
-	camera2D.global_rotation = lerp(transition_start_rotation, to_camera.global_rotation, time_elapsed / duration)
+	var lerp_step = time_elapsed / duration
+	camera2D.global_position = lerp(transition_start_position, to_camera.global_position, lerp_step)
+	camera2D.global_rotation = lerp(transition_start_rotation, to_camera.global_rotation, lerp_step)
+	camera2D.zoom = lerp(transition_start_zoom, to_camera.zoom, lerp_step)

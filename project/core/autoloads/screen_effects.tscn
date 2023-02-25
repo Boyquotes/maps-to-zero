@@ -67,7 +67,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 0.5),
 "update": 0,
-"values": [Vector2(-88, -16), Vector2(-88, -128)]
+"values": [Vector2(-88, -64), Vector2(-88, -128)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -79,7 +79,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 0.5),
 "update": 0,
-"values": [Vector2(-56, 632), Vector2(-56, 784)]
+"values": [Vector2(-56, 680), Vector2(-56, 784)]
 }
 
 [sub_resource type="Animation" id="Animation_2igc4"]
@@ -114,7 +114,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(-88, -128), Vector2(-88, -16)]
+"values": [Vector2(-88, -128), Vector2(-88, -64)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -126,7 +126,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(-56, 784), Vector2(-56, 632)]
+"values": [Vector2(-56, 784), Vector2(-56, 680)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -186,7 +186,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-88, -16)]
+"values": [Vector2(-88, -64)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -198,7 +198,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-56, 632)]
+"values": [Vector2(-56, 680)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6eo4y"]
@@ -260,7 +260,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 80)]
+"values": [Vector2(0, 2), Vector2(0, 2), Vector2(0, 82)]
 }
 
 [sub_resource type="Animation" id="Animation_aav4h"]
@@ -677,7 +677,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -88.0
 offset_top = -72.0
-offset_right = 45512.0
+offset_right = 46792.0
 offset_bottom = -12.0
 grow_horizontal = 2
 rotation = -0.0174533
@@ -708,7 +708,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
 offset_top = 392.0
-offset_right = 45552.0
+offset_right = 46832.0
 offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -769,7 +769,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -304.0
 offset_top = -232.0
-offset_right = 19536.0
+offset_right = 20816.0
 offset_bottom = -132.0
 grow_horizontal = 2
 rotation = 0.0523599
@@ -799,7 +799,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1400.0
 offset_top = -48.0
-offset_right = 21240.0
+offset_right = 22520.0
 offset_bottom = 52.0001
 grow_horizontal = 2
 rotation = 1.51844
@@ -829,7 +829,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1312.0
 offset_top = 864.0
-offset_right = 21152.0
+offset_right = 22432.0
 offset_bottom = 964.0
 grow_horizontal = 2
 rotation = 3.15905
@@ -859,7 +859,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -48.0
 offset_top = 656.0
-offset_right = 19792.0
+offset_right = 21072.0
 offset_bottom = 756.0
 grow_horizontal = 2
 rotation = 4.75777
