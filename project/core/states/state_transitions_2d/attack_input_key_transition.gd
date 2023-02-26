@@ -1,13 +1,13 @@
 extends StateTransition2D
 
-@export var inputs : Dictionary
+@export var action: String
+@export var go_to_state: String
 
 
 
 func handle_input(_event: InputEvent) -> void:
-	for input in inputs.keys():
-		if _event.is_action_pressed(input):
-			actor.request_attack_transition({
-				"state" = inputs[input],
-				"input" = input
+	if _event.is_action_pressed(action):
+		actor.request_attack_transition({
+				"state" = go_to_state,
+				"action" = action
 			})

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3]
+[gd_scene load_steps=83 format=3 uid="uid://cwyt3sd1wi2dx"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
@@ -2352,6 +2352,17 @@ inputs = {
 "action_1": "Attack",
 "action_2": "RunAttack"
 }
+action = "action_1"
+go_to_state = "Attack"
+
+[node name="InputKeyTransition2" type="Node" parent="StateMachine/Idle" index="1"]
+script = ExtResource("27_ba523")
+inputs = {
+"action_1": "Attack",
+"action_2": "RunAttack"
+}
+action = "action_2"
+go_to_state = "RunAttack"
 
 [node name="Run" parent="StateMachine" index="1"]
 animation = "walk"
@@ -2362,9 +2373,21 @@ inputs = {
 "action_1": "Attack",
 "action_2": "RunAttack"
 }
+action = "action_1"
+go_to_state = "Attack"
+
+[node name="InputKeyTransition2" type="Node" parent="StateMachine/Run" index="1"]
+script = ExtResource("27_ba523")
+inputs = {
+"action_1": "Attack",
+"action_2": "RunAttack"
+}
+action = "action_2"
+go_to_state = "RunAttack"
 
 [node name="Air" parent="StateMachine" index="2"]
 background_jumps_max = 1
+jump_speed_boost = 0.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("28_hjxcv")

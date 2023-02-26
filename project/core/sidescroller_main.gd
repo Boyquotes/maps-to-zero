@@ -6,6 +6,7 @@ extends Node2D
 @export var initial_stage_enter_point: int
 
 @onready var actors_parent := %ActorsParent
+@onready var camera_target_position: Node2D = %CameraTargetPosition
 @onready var gameplay_camera: GameplayCamera2D = %GameplayCamera
 @onready var transition_camera: Camera2D = %TransitionCamera
 @onready var popup_canvas: CanvasLayer = %PopupCanvas
@@ -27,12 +28,11 @@ func _ready():
 	player.get_node("Resources").resource_changed.connect(Events._on_player_resource_changed)
 	GameManager.player = player
 	actors_parent.add_child(player)
-	gameplay_camera.get_parent().remove_child(gameplay_camera)
-	player.add_child(gameplay_camera)
+	camera_target_position.get_parent().remove_child(camera_target_position)
+	player.add_child(camera_target_position)
 	gameplay_camera.position = Vector2.ZERO
 	
 	GameManager.request_stage_change(initial_stage_file_path, initial_stage_enter_point)
-
 
 func change_stage(stage_scene: PackedScene, player_entry_point: int, player_respawning: bool=false) -> void:
 	if currently_loaded_stage and is_instance_valid(currently_loaded_stage):

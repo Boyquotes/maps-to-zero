@@ -54,7 +54,7 @@ var save_data: Dictionary:
 @export var attack_input_listening : bool:
 	set(value):
 		attack_input_listening = value
-		if attack_request_buffer.has("input") and input_buffer.has_action(attack_request_buffer.input):
+		if attack_request_buffer.has("action") and input_buffer.has_action(attack_request_buffer.action):
 			go_to_next_attack = true
 @export var attack_can_cancel : bool:
 	set(value):

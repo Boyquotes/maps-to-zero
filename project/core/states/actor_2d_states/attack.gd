@@ -36,6 +36,9 @@ func enter(msg := {}) -> void:
 
 
 func exit() -> void:
+	for child in actor.inner.get_node("Attacks/" + str(name)).get_children():
+		if child is ActorTransformer2D:
+			child.disable()
 	super.exit()
 	if actor.inner.has_node("Attacks/" + str(name) + "/AnimationPlayer"):
 		actor.inner.get_node("Attacks/" + str(name) + "/AnimationPlayer").play("RESET")

@@ -23,8 +23,9 @@ func enable() -> void:
 
 func disable() -> void:
 	active = false
+	set_physics_process(active)
 	actor.rotation = 0
-	actor.velocity = Vector2.ZERO
+#	actor.velocity = Vector2.ZERO
 
 
 func look_other_way() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3]
+[gd_scene load_steps=40 format=3 uid="uid://cgy333u4dt7kf"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_uqq12"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -724,6 +724,8 @@ script = ExtResource("20_giydc")
 inputs = {
 "action_1": "Attack"
 }
+action = "action_1"
+go_to_state = "Attack"
 
 [node name="Run" parent="StateMachine" index="1"]
 animation = "bounce"
@@ -733,11 +735,14 @@ script = ExtResource("20_giydc")
 inputs = {
 "action_1": "Attack"
 }
+action = "action_1"
+go_to_state = "Attack"
 
 [node name="Air" parent="StateMachine" index="2"]
 jump_animation = "bounce"
 background_jump_animation = "bounce"
 background_jumps_max = 1
+jump_speed_boost = 0.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("21_hjhpt")

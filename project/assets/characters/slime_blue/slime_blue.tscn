@@ -1153,6 +1153,8 @@ script = ExtResource("11_d4qx0")
 inputs = {
 "action_1": "Attack"
 }
+action = "action_1"
+go_to_state = "Attack"
 
 [node name="Run" parent="StateMachine" index="1"]
 animation = "bounce"
@@ -1162,6 +1164,8 @@ script = ExtResource("11_d4qx0")
 inputs = {
 "action_1": "Attack"
 }
+action = "action_1"
+go_to_state = "Attack"
 
 [node name="Air" parent="StateMachine" index="2"]
 jump_animation = "bounce"

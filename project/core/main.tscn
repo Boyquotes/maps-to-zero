@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dos2ef4a5auih"]
+[gd_scene load_steps=12 format=3 uid="uid://dos2ef4a5auih"]
 
 [ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_w7s42"]
 [ext_resource type="PackedScene" uid="uid://bg36r2fh4oe7n" path="res://assets/characters/alisa/alisa.tscn" id="2_8nx3r"]
+[ext_resource type="Script" path="res://core/classes/camera/camera_target_position.gd" id="3_5rup2"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_jpdgf"]
 [ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_h6djx"]
 [ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_ha680"]
@@ -21,9 +22,12 @@ _data = {
 script = ExtResource("1_w7s42")
 player_actor = ExtResource("2_8nx3r")
 initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
-initial_stage_enter_point = null
 
-[node name="GameplayCamera" type="Camera2D" parent="."]
+[node name="CameraTargetPosition" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_5rup2")
+
+[node name="GameplayCamera" type="Camera2D" parent="CameraTargetPosition"]
 unique_name_in_owner = true
 position = Vector2(-712, 512)
 position_smoothing_enabled = true
@@ -33,7 +37,7 @@ drag_bottom_margin = 0.3
 editor_draw_limits = true
 script = ExtResource("3_jpdgf")
 
-[node name="ScreenShakeCamera" type="Node" parent="GameplayCamera"]
+[node name="ScreenShakeCamera" type="Node" parent="CameraTargetPosition/GameplayCamera"]
 script = ExtResource("4_h6djx")
 
 [node name="TransitionCamera" type="Camera2D" parent="."]
