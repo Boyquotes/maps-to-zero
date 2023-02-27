@@ -28,13 +28,13 @@ GameManager="*res://core/autoloads/game_manager.gd"
 [dialogic]
 
 editor/character_preview_mode=0
-editor/current_editor=&"Character Editor"
+editor/current_editor=&"Timeline Editor"
 editor/current_resources={
 "Character Editor": "res://assets/dialog/characters/alisa.dch",
-"Timeline Editor": "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl"
+"Timeline Editor": "res://assets/dialog/timelines/skills_tutorial_3.dtl"
 }
-editor/current_timeline_path="res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl"
-editor/last_resources=["res://assets/dialog/characters/alisa.dch", "res://assets/dialog/characters/time_goddess.dch"]
+editor/current_timeline_path="res://assets/dialog/timelines/skills_tutorial_3.dtl"
+editor/last_resources=["res://assets/dialog/timelines/skills_tutorial_3.dtl", "res://assets/dialog/timelines/skills_tutorial_1.dtl", "res://assets/dialog/timelines/skills_tutorial_2.dtl", "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl", "res://assets/dialog/characters/alisa.dch", "res://assets/dialog/characters/time_goddess.dch"]
 layout/mode=0
 variables={}
 glossary/default_case_sensitive=true
@@ -58,6 +58,7 @@ translation/enabled=false
 translation/original_locale="en"
 translation/file_mode=1
 translation/translation_folder=""
+glossary/glossary_files=["res://assets/dialog/glossary/game_mechanics.tres"]
 
 [display]
 

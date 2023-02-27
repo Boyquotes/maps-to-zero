@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DialogicGlossary" load_steps=2 format=3 uid="uid://uevr7836hu1p"]
+
+[ext_resource type="Script" path="res://addons/dialogic/Events/Glossary/glossary_resource.gd" id="1_5a765"]
+
+[resource]
+script = ExtResource("1_5a765")
+entries = {
+"Skill": {
+"alternatives": ["Skills", "skill", "skills"],
+"case_sensitive": true,
+"color": Color(0.886719, 0.498779, 0.507872, 1),
+"text": "Skills are learned actions that users practiced and use. They range in utilities: some help the user do chores in their day to day life, others help them fight better (although that's not to say fighting isn't part of day to day life.)
+
+Skills are linked to the user's belief that they can use the skill in question. This is inherently linked to magic, even if some skills may not seem very magical.",
+"title": "Skills"
+}
+}
+enabled = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://vm3dpyi8i87w"]
+[gd_scene load_steps=32 format=3 uid="uid://vm3dpyi8i87w"]
 
 [ext_resource type="Script" path="res://core/autoloads/screen_effects/cutscene_bars.gd" id="1_ibg84"]
 [ext_resource type="Script" path="res://core/autoloads/screen_effects.gd" id="1_xbhkq"]
@@ -604,6 +604,33 @@ tracks/1/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_21b24"]
+resource_name = "fade_in_white"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
 [sub_resource type="Animation" id="Animation_lqxi7"]
 resource_name = "hide"
 length = 0.1
@@ -624,6 +651,7 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_l4maa"),
 "fade_in": SubResource("Animation_r1tbw"),
+"fade_in_white": SubResource("Animation_21b24"),
 "hide": SubResource("Animation_lqxi7")
 }
 
@@ -658,6 +686,21 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_qmg46"]
+resource_name = "fade_out_white"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_1e2tg"]
 resource_name = "hide"
 length = 0.1
@@ -678,6 +721,7 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_nt0tg"),
 "fade_out": SubResource("Animation_k1tw1"),
+"fade_out_white": SubResource("Animation_qmg46"),
 "hide": SubResource("Animation_1e2tg")
 }
 
@@ -707,7 +751,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -88.0
 offset_top = -72.0
-offset_right = 64712.0
+offset_right = 68552.0
 offset_bottom = -12.0
 grow_horizontal = 2
 rotation = -0.0174533
@@ -738,7 +782,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
 offset_top = 392.0
-offset_right = 64752.0
+offset_right = 68592.0
 offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -799,7 +843,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -304.0
 offset_top = -232.0
-offset_right = 38736.0
+offset_right = 42576.0
 offset_bottom = -132.0
 grow_horizontal = 2
 rotation = 0.0523599
@@ -829,7 +873,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1400.0
 offset_top = -48.0
-offset_right = 40440.0
+offset_right = 44280.0
 offset_bottom = 52.0001
 grow_horizontal = 2
 rotation = 1.51844
@@ -859,7 +903,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1312.0
 offset_top = 864.0
-offset_right = 40352.0
+offset_right = 44192.0
 offset_bottom = 964.0
 grow_horizontal = 2
 rotation = 3.15905
@@ -889,7 +933,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -48.0
 offset_top = 656.0
-offset_right = 38992.0
+offset_right = 42832.0
 offset_bottom = 756.0
 grow_horizontal = 2
 rotation = 4.75777
@@ -959,4 +1003,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0)

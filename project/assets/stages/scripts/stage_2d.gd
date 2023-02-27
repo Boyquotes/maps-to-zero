@@ -18,5 +18,4 @@ func start_gameplay() -> void:
 	start_music()
 
 func start_music() -> void:
-	if song != Music.Songs.NULL:
-		MusicManager.play(song)
+	MusicManager.play(song)

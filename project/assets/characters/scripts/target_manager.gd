@@ -79,7 +79,7 @@ func get_target():
 
 func get_distance() -> float:
 	var _target = get_target()
-	return actor.global_position.distance_to(_target.global_position) if target else 0.0
+	return actor.global_position.distance_to(_target.global_position) if _target else 0.0
 
 func get_rotation_to() -> float: # in radians
 	var _target = get_target()

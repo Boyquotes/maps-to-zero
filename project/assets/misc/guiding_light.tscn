@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=15 format=3 uid="uid://pnhttpvyusar"]
 
 [ext_resource type="Texture2D" uid="uid://cnl7qw0hvxmp4" path="res://assets/particles/sprites/white_round_3x3.png" id="1_5lmyd"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="1_mxrlo"]
@@ -72,7 +72,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GlowSprite:scale")
+tracks/0/path = NodePath("Node2D/GlowSprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,7 +89,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GlowSprite:scale")
+tracks/0/path = NodePath("Node2D/GlowSprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -106,6 +106,7 @@ _data = {
 }
 
 [node name="GuidingLight" type="Node2D"]
+scale = Vector2(0.2, 0.2)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, -12)
@@ -134,7 +135,7 @@ texture_scale = 0.25
 [node name="GlowSprite" type="Sprite2D" parent="Node2D"]
 modulate = Color(1, 0.192157, 0.619608, 0.0823529)
 material = SubResource("CanvasItemMaterial_tvf5q")
-scale = Vector2(0.240822, 0.240822)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_mxrlo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/GlowSprite"]
