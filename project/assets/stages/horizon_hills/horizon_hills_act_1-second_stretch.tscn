@@ -66,8 +66,8 @@ adjustment_enabled = true
 adjustment_contrast = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_l16xj")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm4if"]
-size = Vector2(80, 120)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7txlc"]
+size = Vector2(112, 928)
 
 [sub_resource type="Animation" id="Animation_a0vf8"]
 length = 0.001
@@ -1059,27 +1059,24 @@ texture = ExtResource("18_a54mu")
 
 [node name="StageEntryPoint" parent="EntryPoints" instance=ExtResource("19_40c1v")]
 position = Vector2(-576, 256)
-animation = 3
+animation = 1
 entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="StageEntryPoint2" parent="EntryPoints" instance=ExtResource("19_40c1v")]
 position = Vector2(4544, -32)
-animation = 4
+animation = 2
+entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="ExitPoints" type="Node2D" parent="."]
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("20_jw15i")]
-position = Vector2(4656, -32)
-animation = 3
+position = Vector2(-808, 256)
 stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-first_cave.tscn"
+destination_entry_point = 1
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="ExitPoints/StageExitPoint/Area2D" index="0"]
-position = Vector2(16, -64)
-shape = SubResource("RectangleShape2D_fm4if")
-
-[node name="PlayerTransformer" parent="ExitPoints/StageExitPoint" index="3"]
-look_direction = null
-animation = ""
+position = Vector2(0, -464)
+shape = SubResource("RectangleShape2D_7txlc")
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -1274,33 +1271,18 @@ layer_0/tile_data = PackedInt32Array(786536, 131072, 11, 721000, 131072, 2, 6554
 
 [node name="SlimeBlue" parent="Enemies" instance=ExtResource("44_vx24s")]
 position = Vector2(2437, 44)
-speed = 160.0
-jump_max_height = 102.4
-max_falling_speed = 6400.0
 
 [node name="SlimeBlue2" parent="Enemies" instance=ExtResource("44_vx24s")]
 position = Vector2(2593, 52)
-speed = 160.0
-jump_max_height = 102.4
-max_falling_speed = 6400.0
 
 [node name="SlimeBlue3" parent="Enemies" instance=ExtResource("44_vx24s")]
 position = Vector2(2321, 53)
-speed = 160.0
-jump_max_height = 102.4
-max_falling_speed = 6400.0
 
 [node name="CloudBlue" parent="Enemies" instance=ExtResource("41_rt6hm")]
 position = Vector2(1160, 240)
-speed = 64.0
-jump_max_height = 102.4
-max_falling_speed = 6400.0
 
 [node name="CloudBlue2" parent="Enemies" instance=ExtResource("41_rt6hm")]
 position = Vector2(1472, 240)
-speed = 64.0
-jump_max_height = 102.4
-max_falling_speed = 6400.0
 
 [node name="Foreground" type="Node" parent="."]
 

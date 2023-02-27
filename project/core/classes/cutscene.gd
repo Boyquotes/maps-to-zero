@@ -60,7 +60,7 @@ func play_end() -> void:
 func skip() -> void:
 	skipping = true
 	
-	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_IN, 0.5)
+	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_TO_BLACK, 0.5)
 	await ScreenEffects.cover_finished
 	
 	animation_player.play("finished")
@@ -71,7 +71,7 @@ func skip() -> void:
 			
 	GameUtilities.get_main_camera().align()
 	GameUtilities.get_main_camera().reset_smoothing()
-	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT, 0.5)
+	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT_BLACK, 0.5)
 	
 	skipping = false
 

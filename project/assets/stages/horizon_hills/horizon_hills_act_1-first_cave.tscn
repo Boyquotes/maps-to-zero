@@ -89,13 +89,18 @@ color = Color(0.823529, 0.823529, 0.823529, 1)
 
 [node name="StageEntryPoint" parent="EntryPoints" instance=ExtResource("2_6iu74")]
 position = Vector2(-576, 256)
-animation = 3
+animation = 1
+entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
+
+[node name="StageEntryPoint2" parent="EntryPoints" instance=ExtResource("2_6iu74")]
+position = Vector2(3008, -1184)
+animation = 2
+entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="ExitPoints" type="Node2D" parent="."]
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("28_cqhh6")]
 position = Vector2(-824, 256)
-animation = 6
 stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
 destination_entry_point = 1
 
@@ -105,8 +110,7 @@ shape = SubResource("RectangleShape2D_fm4if")
 
 [node name="StageExitPoint2" parent="ExitPoints" instance=ExtResource("28_cqhh6")]
 position = Vector2(3072, -1184)
-animation = 3
-stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
+stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-second_stretch.tscn"
 
 [node name="Area2D" parent="ExitPoints/StageExitPoint2" index="0"]
 position = Vector2(160, 0)

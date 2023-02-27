@@ -1,9 +1,11 @@
 class_name StageExitPoint
 extends Node2D
 
-enum Animations { DEFAULT, SMOKE_TELEPORT_RIGHT, SMOKE_TELEPORT_LEFT, RUN_RIGHT, RUN_LEFT, WALK_RIGHT, WALK_LEFT }
+enum Animations { FAST_FADE_TO_BLACK, BLINK, FADE_TO_BLACK, SMOKE_TELEPORT_RIGHT, SMOKE_TELEPORT_LEFT, RUN_RIGHT, RUN_LEFT, WALK_RIGHT, WALK_LEFT }
 const ANIMATIONS := {
-	Animations.DEFAULT : "smoke_teleport",
+	Animations.FAST_FADE_TO_BLACK : "fast_fade_to_black",
+	Animations.BLINK : "blink",
+	Animations.FADE_TO_BLACK : "fade_to_black",
 	Animations.SMOKE_TELEPORT_RIGHT : "smoke_teleport_right",
 	Animations.SMOKE_TELEPORT_LEFT : "smoke_teleport_left",
 	Animations.RUN_RIGHT : "run_right",

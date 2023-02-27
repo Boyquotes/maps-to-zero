@@ -1,4 +1,4 @@
-[gd_scene load_steps=153 format=3 uid="uid://bg36r2fh4oe7n"]
+[gd_scene load_steps=154 format=3 uid="uid://bg36r2fh4oe7n"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
@@ -306,7 +306,6 @@ tracks/15/keys = {
 [sub_resource type="Animation" id="Animation_gpvdt"]
 resource_name = "air_attack_1"
 length = 0.8
-loop_mode = 1
 step = 0.05
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -528,7 +527,6 @@ tracks/17/keys = {
 [sub_resource type="Animation" id="Animation_okrjw"]
 resource_name = "air_attack_2"
 length = 1.15
-loop_mode = 1
 step = 0.05
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -754,7 +752,6 @@ tracks/17/keys = {
 
 [sub_resource type="Animation" id="Animation_4uc1e"]
 length = 0.6
-loop_mode = 1
 step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -961,6 +958,18 @@ tracks/16/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [105, 18, 17, 16, 0, 14, 13, 12, 69]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("AttackSwings:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, -16)]
 }
 
 [sub_resource type="Animation" id="Animation_hykxe"]
@@ -3562,7 +3571,6 @@ tracks/11/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_8ntag"]
-loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -7424,11 +7432,30 @@ tracks/6/keys = {
 "values": [Vector2(2, 0.5), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_bfqg0"]
+resource_name = "stop_grinding"
+length = 0.001
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../GrindParticles")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"deactivate"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5kqsb"]
 _data = {
 "RESET": SubResource("Animation_cdkth"),
 "jump": SubResource("Animation_3a6sb"),
-"land": SubResource("Animation_7mgbg")
+"land": SubResource("Animation_7mgbg"),
+"stop_grinding": SubResource("Animation_bfqg0")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1gj3w"]
@@ -9337,7 +9364,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 108
+frame = 99
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9437,7 +9464,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("32_sv8lv")
-animation = "attack"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
 collision_mask = 4
@@ -9463,7 +9490,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack2" index="1"]
 script = ExtResource("32_sv8lv")
-animation = "attack_2"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack2" index="2"]
 collision_mask = 4
@@ -9489,7 +9516,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack3" index="1"]
 script = ExtResource("32_sv8lv")
-animation = "attack_3"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack3" index="2"]
 collision_mask = 4
@@ -9515,7 +9542,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack1" index="1"]
 script = ExtResource("32_sv8lv")
-animation = "air_attack_1"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack1" index="2"]
 collision_mask = 4
@@ -9539,7 +9566,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack2" index="1"]
 script = ExtResource("32_sv8lv")
-animation = "air_attack_2"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack2" index="2"]
 collision_mask = 4
@@ -9563,7 +9590,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack3" index="1"]
 script = ExtResource("32_sv8lv")
-animation = "air_attack_3"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack3" index="2"]
 collision_mask = 4
@@ -9598,7 +9625,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Dash" index="2"]
 script = ExtResource("32_sv8lv")
-animation = "slide"
+actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Dash" index="3"]
 position = Vector2(256, 0)
@@ -9718,7 +9745,7 @@ disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="4"]
 script = ExtResource("32_sv8lv")
-animation = "rune_crash"
+actor_name = "Alisa"
 
 [node name="RuneSpawner" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="5"]
 script = ExtResource("38_1w5r1")

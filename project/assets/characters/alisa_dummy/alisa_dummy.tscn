@@ -2561,9 +2561,6 @@ size = Vector2(32, 48)
 [node name="Alisa Dummy" instance=ExtResource("1_a8ind")]
 collision_layer = 2
 max_hp = 500.0
-speed = 320.0
-jump_max_height = 102.4
-max_falling_speed = 6400.0
 team = 2
 attack_input_listening = true
 attack_can_cancel = true

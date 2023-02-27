@@ -60,6 +60,8 @@ func enter(msg := {}) -> void:
 
 func exit() -> void:
 	reset_jumps()
+	if actor.has_node("Inner/Visuals/GrindParticles"):
+		actor.get_node("Inner/Visuals/GrindParticles").deactivate()
 
 
 func reset_jumps() -> void:
@@ -144,8 +146,12 @@ func physics_update(delta: float) -> void:
 
 
 func can_background_jump() -> bool:
-	return background_jumps < background_jumps_max and (actor.background_jump_area.has_overlapping_bodies() \
+	var value = background_jumps < background_jumps_max and (actor.background_jump_area.has_overlapping_bodies() \
 				or actor.background_jump_area.has_overlapping_areas())
+	if not value:
+		if actor.has_node("Inner/Visuals/GrindParticles"):
+			actor.get_node("Inner/Visuals/GrindParticles").deactivate()
+	return value
 
 func can_mid_air_jump() -> bool:
 	return mid_air_jumps < mid_air_jumps_max

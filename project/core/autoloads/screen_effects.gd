@@ -6,15 +6,15 @@ signal uncover_finished
 signal cutscene_bars_show_finished
 signal cutscene_bars_hide_finished
 
-enum CoverAnimations { FADE_IN, FADE_IN_WHITE }
+enum CoverAnimations { FADE_TO_BLACK, FADE_TO_WHITE }
 const COVER_ANIMATIONS := {
-	CoverAnimations.FADE_IN: "fade_in",
-	CoverAnimations.FADE_IN_WHITE: "fade_in_white",
+	CoverAnimations.FADE_TO_BLACK: "fade_to_black",
+	CoverAnimations.FADE_TO_WHITE: "fade_to_white",
 }
 
-enum UncoverAnimations { FADE_OUT, FADE_OUT_WHITE }
+enum UncoverAnimations { FADE_OUT_BLACK, FADE_OUT_WHITE }
 const UNCOVER_ANIMATIONS := {
-	UncoverAnimations.FADE_OUT: "fade_out",
+	UncoverAnimations.FADE_OUT_BLACK: "fade_out_black",
 	UncoverAnimations.FADE_OUT_WHITE: "fade_out_white",
 }
 

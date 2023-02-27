@@ -26,7 +26,6 @@ func show_hud(duration:= 1.0):
 	else:
 		$AnimationPlayer.speed_scale = 1.0 / duration
 		$AnimationPlayer.play("show")
-		$Display/Control.visible = true
 		await $AnimationPlayer.animation_finished
 		show_finished.emit()
 
@@ -38,7 +37,6 @@ func hide_hud(duration:= 1.0):
 	else:
 		$AnimationPlayer.speed_scale = 1.0 / duration
 		$AnimationPlayer.play("hide")
-		$Display/Control.visible = true
 		await $AnimationPlayer.animation_finished
 		hide_finished.emit()
 

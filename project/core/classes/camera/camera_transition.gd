@@ -1,7 +1,7 @@
 extends Node
 
 
-@onready var camera2D: Camera2D = $Camera2D
+@onready var transition_camera: Camera2D = $TransitionCamera
 
 var tween : Tween
 var transitioning: bool = false
@@ -18,14 +18,14 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	
 	if transitioning:
 		# First finish the transition
-		camera2D.zoom = to_camera.zoom
-		camera2D.offset = to_camera.offset
-		camera2D.light_mask = to_camera.light_mask
-		camera2D.limit_bottom = to_camera.limit_bottom
-		camera2D.limit_left = to_camera.limit_left
-		camera2D.limit_right = to_camera.limit_right
-		camera2D.limit_top = to_camera.limit_top
-		camera2D.global_transform = to_camera.global_transform
+		transition_camera.zoom = to_camera.zoom
+		transition_camera.offset = to_camera.offset
+		transition_camera.light_mask = to_camera.light_mask
+		transition_camera.limit_bottom = to_camera.limit_bottom
+		transition_camera.limit_left = to_camera.limit_left
+		transition_camera.limit_right = to_camera.limit_right
+		transition_camera.limit_top = to_camera.limit_top
+		transition_camera.global_transform = to_camera.global_transform
 	
 	set_process(true)
 	to_camera = to
@@ -36,19 +36,19 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	transition_start_zoom = from.zoom
 	
 	# Copy the parameters of the first camera
-	camera2D.zoom = from.zoom
-	camera2D.offset = from.offset
-	camera2D.light_mask = from.light_mask
-	camera2D.limit_bottom = from.limit_bottom
-	camera2D.limit_left = from.limit_left
-	camera2D.limit_right = from.limit_right
-	camera2D.limit_top = from.limit_top
+	transition_camera.zoom = from.zoom
+	transition_camera.offset = from.offset
+	transition_camera.light_mask = from.light_mask
+	transition_camera.limit_bottom = from.limit_bottom
+	transition_camera.limit_left = from.limit_left
+	transition_camera.limit_right = from.limit_right
+	transition_camera.limit_top = from.limit_top
 	
 	# Move our transition camera to the first camera position
-	camera2D.global_transform = from.global_transform
+	transition_camera.global_transform = from.global_transform
 	
 	# Make our transition camera current
-	camera2D.make_current()
+#	transition_camera.make_current()
 	
 	transitioning = true
 	
@@ -60,18 +60,15 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_parallel(true)
-	tween.tween_property(camera2D, "offset", to.offset, duration)
-	tween.tween_property(camera2D, "limit_bottom", to.limit_bottom, duration)
-	tween.tween_property(camera2D, "limit_left", to.limit_left, duration)
-	tween.tween_property(camera2D, "limit_right", to.limit_right, duration)
-	tween.tween_property(camera2D, "limit_top", to.limit_top, duration)
-	
-	# Wait for the tween to complete
-	await tween.finished
-	
-	# Make the second camera current
-	switch_camera(to)
-	transitioning = false
+	tween.tween_property(transition_camera, "offset", to.offset, duration)
+	tween.tween_property(transition_camera, "limit_bottom", to.limit_bottom, duration)
+	tween.tween_property(transition_camera, "limit_left", to.limit_left, duration)
+	tween.tween_property(transition_camera, "limit_right", to.limit_right, duration)
+	tween.tween_property(transition_camera, "limit_top", to.limit_top, duration)
+	tween.finished.connect(func():
+		transitioning = false
+		switch_camera(to)
+		)
 
 
 var to_camera : Camera2D
@@ -88,6 +85,6 @@ func _process(delta):
 	var time_elapsed = Time.get_unix_time_from_system() - transition_start_time
 	var duration = transition_end_time - transition_start_time
 	var lerp_step = time_elapsed / duration
-	camera2D.global_position = lerp(transition_start_position, to_camera.global_position, lerp_step)
-	camera2D.global_rotation = lerp(transition_start_rotation, to_camera.global_rotation, lerp_step)
-	camera2D.zoom = lerp(transition_start_zoom, to_camera.zoom, lerp_step)
+	transition_camera.global_position = lerp(transition_start_position, to_camera.global_position, lerp_step)
+	transition_camera.global_rotation = lerp(transition_start_rotation, to_camera.global_rotation, lerp_step)
+	transition_camera.zoom = lerp(transition_start_zoom, to_camera.zoom, lerp_step)

@@ -62,8 +62,8 @@ func reset_zoom(tween_duration: float = 0.2) -> void:
 
 
 func set_current(value: bool, duration := 1.0):
+	var main_camera = GameUtilities.get_main_camera()
 	if value:
-		var main_camera = GameUtilities.get_main_camera()
 		if not self == main_camera and get_limits_from_main:
 			change_limits({
 				"left": main_camera.limit_left,
@@ -71,6 +71,6 @@ func set_current(value: bool, duration := 1.0):
 				"right": main_camera.limit_right,
 				"bottom": main_camera.limit_bottom,
 			}, 0.0)
-		CameraTransition.transition_camera2D(get_viewport().get_camera_2d(), self, duration)
+		CameraTransition.transition_camera2D(main_camera, self, duration)
 	else:
-		CameraTransition.transition_camera2D(self, GameUtilities.get_main_camera(), duration)
+		CameraTransition.transition_camera2D(self, main_camera, duration)

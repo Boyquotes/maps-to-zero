@@ -673,10 +673,6 @@ stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-first_c
 position = Vector2(16, -64)
 shape = SubResource("RectangleShape2D_fm4if")
 
-[node name="PlayerTransformer" parent="ExitPoints/StageExitPoint" index="3"]
-look_direction = null
-animation = ""
-
 [node name="Triggers" type="Node2D" parent="."]
 
 [node name="SkillsTutorialCutscene" type="Node2D" parent="Triggers"]
@@ -808,9 +804,9 @@ format = 2
 
 [node name="Alisa Dummy" parent="Enemies" instance=ExtResource("6_wo83y")]
 position = Vector2(688, 288)
-speed = 1.04858e+07
-jump_max_height = 3.35544e+06
-max_falling_speed = 2.09715e+08
+speed = 327680.0
+jump_max_height = 104858.0
+max_falling_speed = 6.5536e+06
 
 [node name="Foreground" type="Node" parent="."]
 

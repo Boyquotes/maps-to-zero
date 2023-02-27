@@ -1,3 +1,4 @@
+@tool
 class_name ActorTransformer2D
 extends ActorCutsceneTransformer
 

@@ -37,13 +37,19 @@ var save_data: Dictionary:
 @export var max_sp := 0.0
 @export var speed = 10: # In terms of tiles/sec
 	get:
+		if Engine.is_editor_hint():
+			return speed
 		return speed * GameUtilities.TILE_SIZE.x
 @export var jump_max_height := 3.2 : # In terms of tiles size
 	get:
+		if Engine.is_editor_hint():
+			return jump_max_height
 		return jump_max_height * GameUtilities.TILE_SIZE.y
 @export var jump_max_height_time := 0.35 # Time between jump from ground and falling
 @export var max_falling_speed := 200.0 : #In terms of tiles/sec
 	get:
+		if Engine.is_editor_hint():
+			return max_falling_speed
 		return max_falling_speed * GameUtilities.TILE_SIZE.y
 @export var team : GameUtilities.Teams:
 	set(value):
@@ -178,6 +184,8 @@ func play_animation(animation_name : String = "", \
 					_custom_blend : float = -1.0, \
 					_custom_speed : float = 1.0, \
 					_from_end : bool = false) -> void:
+	if Engine.is_editor_hint():
+		animation_player.stop()
 #	animation_player.play("RESET")
 #	await animation_player.animation_finished
 	animation_player.play(animation_name)
@@ -243,6 +251,8 @@ func _on_tree_exited():
 
 
 func _check_and_do_attack_cancel_inputs() -> void:
+	if Engine.is_editor_hint():
+		return
 	if not attack_can_cancel or not input_buffer:
 		return
 	

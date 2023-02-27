@@ -5,4 +5,4 @@
 [node name="CameraTransition" type="Node"]
 script = ExtResource("1_bfcjw")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="TransitionCamera" type="Camera2D" parent="."]
