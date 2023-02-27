@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://vm3dpyi8i87w"]
+[gd_scene load_steps=30 format=3 uid="uid://vm3dpyi8i87w"]
 
 [ext_resource type="Script" path="res://core/autoloads/screen_effects/cutscene_bars.gd" id="1_ibg84"]
 [ext_resource type="Script" path="res://core/autoloads/screen_effects.gd" id="1_xbhkq"]
@@ -562,93 +562,123 @@ _data = {
 "show": SubResource("Animation_u5s44")
 }
 
-[sub_resource type="Animation" id="Animation_yey8s"]
-resource_name = "RESET"
-length = 0.001
+[sub_resource type="Animation" id="Animation_r1tbw"]
+resource_name = "fade_in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.1, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_l4maa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_78c0x"]
-resource_name = "fade_in"
+[sub_resource type="Animation" id="Animation_lqxi7"]
+resource_name = "hide"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_t1spb"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vkt7w"]
+_data = {
+"RESET": SubResource("Animation_l4maa"),
+"fade_in": SubResource("Animation_r1tbw"),
+"hide": SubResource("Animation_lqxi7")
+}
+
+[sub_resource type="Animation" id="Animation_k1tw1"]
 resource_name = "fade_out"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_m8xb1"]
+[sub_resource type="Animation" id="Animation_nt0tg"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1e2tg"]
+resource_name = "hide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lq4oj"]
 _data = {
-"RESET": SubResource("Animation_yey8s"),
-"fade_in": SubResource("Animation_78c0x"),
-"fade_out": SubResource("Animation_t1spb")
+"RESET": SubResource("Animation_nt0tg"),
+"fade_out": SubResource("Animation_k1tw1"),
+"hide": SubResource("Animation_1e2tg")
 }
 
 [node name="ScreenEffects" type="CanvasLayer"]
@@ -677,7 +707,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -88.0
 offset_top = -72.0
-offset_right = 53192.0
+offset_right = 58312.0
 offset_bottom = -12.0
 grow_horizontal = 2
 rotation = -0.0174533
@@ -707,9 +737,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
-offset_top = 392.0
-offset_right = 53232.0
-offset_bottom = 452.0
+offset_top = -328.0
+offset_right = 58352.0
+offset_bottom = -268.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0174533
@@ -769,7 +799,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -304.0
 offset_top = -232.0
-offset_right = 27216.0
+offset_right = 32336.0
 offset_bottom = -132.0
 grow_horizontal = 2
 rotation = 0.0523599
@@ -799,7 +829,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1400.0
 offset_top = -48.0
-offset_right = 28920.0
+offset_right = 34040.0
 offset_bottom = 52.0001
 grow_horizontal = 2
 rotation = 1.51844
@@ -829,7 +859,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1312.0
 offset_top = 864.0
-offset_right = 28832.0
+offset_right = 33952.0
 offset_bottom = 964.0
 grow_horizontal = 2
 rotation = 3.15905
@@ -859,7 +889,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -48.0
 offset_top = 656.0
-offset_right = 27472.0
+offset_right = 32592.0
 offset_bottom = 756.0
 grow_horizontal = 2
 rotation = 4.75777
@@ -885,17 +915,48 @@ color = Color(0, 0, 0, 1)
 [node name="ScreenTransition" type="CanvasLayer" parent="."]
 layer = 101
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenTransition"]
-libraries = {
-"": SubResource("AnimationLibrary_m8xb1")
-}
-
-[node name="ColorRect" type="ColorRect" parent="ScreenTransition"]
+[node name="Cover" type="Control" parent="ScreenTransition"]
 visible = false
-modulate = Color(1, 1, 1, 0)
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenTransition/Cover"]
+libraries = {
+"": SubResource("AnimationLibrary_vkt7w")
+}
+
+[node name="ColorRect" type="ColorRect" parent="ScreenTransition/Cover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Uncover" type="Control" parent="ScreenTransition"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenTransition/Uncover"]
+libraries = {
+"": SubResource("AnimationLibrary_lq4oj")
+}
+
+[node name="ColorRect" type="ColorRect" parent="ScreenTransition/Uncover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)

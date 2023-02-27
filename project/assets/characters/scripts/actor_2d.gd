@@ -59,9 +59,7 @@ var save_data: Dictionary:
 @export var attack_can_cancel : bool:
 	set(value):
 		attack_can_cancel = value
-		if value and input_buffer and input_buffer.has_action("jump"):
-			state_machine.transition_to("Air", {do_jump = true})
-			attack_can_cancel = false
+		_check_and_do_attack_cancel_inputs()
 @export var attack_can_go_to_next : bool:
 	set(value):
 		attack_can_go_to_next = value
@@ -167,9 +165,7 @@ func unhandled_input(event: InputEvent) -> void:
 	input_buffer.add_input(event)
 	$StateMachine.unhandled_input(event)
 	
-	if attack_can_cancel and input_buffer and input_buffer.has_action("jump"):
-		state_machine.transition_to("Air", {do_jump = true})
-		attack_can_cancel = false
+	_check_and_do_attack_cancel_inputs()
 
 func play_animation(animation_name : String = "", \
 					_custom_blend : float = -1.0, \
@@ -233,3 +229,21 @@ func _on_tree_entered():
 
 func _on_tree_exited():
 	GameManager.actors.erase(str(name))
+
+
+func _check_and_do_attack_cancel_inputs() -> void:
+	if not attack_can_cancel or not input_buffer:
+		return
+	
+	if input_buffer.has_action("jump"):
+		if is_on_floor():
+			state_machine.transition_to("Air", {do_jump = true})
+			attack_can_cancel = false
+		else:
+			if state_machine.state.name == "Dash" or \
+			state_machine.get_state("Air").can_background_jump() or state_machine.get_state("Air").can_mid_air_jump():
+				state_machine.transition_to("Air", {do_jump = true})
+				attack_can_cancel = false
+	elif input_buffer.has_action("move_down"):
+		state_machine.transition_to("Stomp")
+		attack_can_cancel = false

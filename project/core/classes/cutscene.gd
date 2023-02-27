@@ -9,13 +9,22 @@ signal finished
 		if _is_ready:
 			GameManager.cutscene_mode = value
 @export var enable_character_transformers_on_start : bool = true
+@export var cutscene_name: String
+@export var queue_free_if_watched: bool = false
 
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 
 var skipping: bool = false
 var _is_ready: bool = false
 
+static func watched_cutscene(_cutscene_name: String) -> bool:
+	return SaveData.cutscenes.has(_cutscene_name) and SaveData.cutscenes[_cutscene_name]
+
 func _ready():
+	if queue_free_if_watched and watched_cutscene(cutscene_name):
+		queue_free()
+		return
+	
 	finished.connect(_on_finished)
 	set_process_input(false)
 	await get_tree().create_timer(1.1).timeout
@@ -51,9 +60,8 @@ func play_end() -> void:
 func skip() -> void:
 	skipping = true
 	
-	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransitions.FADE_IN, 0.3)
-	await ScreenEffects.screen_transition_finished
-	await get_tree().create_timer(0.5).timeout
+	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_IN, 0.5)
+	await ScreenEffects.cover_finished
 	
 	animation_player.play("finished")
 	finished.emit()
@@ -63,7 +71,7 @@ func skip() -> void:
 			
 	GameUtilities.get_main_camera().align()
 	GameUtilities.get_main_camera().reset_smoothing()
-	ScreenEffects.screen_transition(ScreenEffectsClass.ScreenTransitions.FADE_OUT, 0.3)
+	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT, 0.5)
 	
 	skipping = false
 
@@ -79,4 +87,5 @@ func _on_animation_finished(anim_name: String) -> void:
 
 
 func _on_finished() -> void:
+	SaveData.cutscenes[cutscene_name] = true
 	set_process_input(false)

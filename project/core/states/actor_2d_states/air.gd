@@ -22,11 +22,6 @@ var state : AirState
 var jump_buffer_timer : Timer
 var mid_air_jumps := 0
 var background_jumps := 0
-var background_jump_ready: bool:
-	get:
-		return (actor.background_jump_area.has_overlapping_bodies() \
-				or actor.background_jump_area.has_overlapping_areas()) \
-				and background_jumps < background_jumps_max
 
 
 func _ready():
@@ -52,18 +47,22 @@ func enter(msg := {}) -> void:
 		actor.gravity *= falling_gravity_multiplier
 	
 	if actor.velocity.y < 0:
-		if background_jump_ready:
+		if can_background_jump():
 			actor.play_animation(background_jump_animation)
 		else:
 			actor.play_animation(jump_animation)
 	else:
-		if actor.background_jump_area.has_overlapping_areas():
+		if can_background_jump():
 			actor.play_animation(background_fall_animation)
 		else:
 			actor.play_animation(fall_animation)
 
 
 func exit() -> void:
+	reset_jumps()
+
+
+func reset_jumps() -> void:
 	mid_air_jumps = 0
 	background_jumps = 0
 
@@ -71,7 +70,12 @@ func exit() -> void:
 # Virtual function. Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:
 	if _event.is_action_pressed("jump"):
-		if background_jump_ready:
+		if actor.has_node("FloorRaycast"):
+			if actor.get_node("FloorRaycast").is_colliding():
+				reset_jumps()
+				enter({"do_jump" = true})
+				return
+		if can_background_jump():
 			background_jumps += 1
 			enter({"do_jump" = true})
 			return
@@ -90,10 +94,8 @@ func physics_update(delta: float) -> void:
 	# Horizontal movement.
 	
 	# We move the run-specific input code to the state.
-	var old_velocity = actor.velocity
 	actor.velocity.x = max(actor.speed, abs(actor.velocity.x)) * actor.input_direction.x
-	if sign(actor.velocity.x) != 0 \
-			and sign(old_velocity.x) != sign(actor.velocity.x):
+	if sign(actor.velocity.x) != 0 and sign(actor.velocity.x) != sign(actor.look_direction.x):
 		actor.look_direction = Vector2(sign(actor.velocity.x), 0)
 	
 	# Vertical movement.
@@ -110,7 +112,7 @@ func physics_update(delta: float) -> void:
 	# Update animation
 	
 	var current_animation = actor.animation_player.current_animation
-	if not background_jump_ready: # Default
+	if not can_background_jump(): # Default
 		if state == AirState.RISE:
 			if not(current_animation == jump_animation or current_animation == "RESET"): 
 				actor.play_animation(jump_animation)
@@ -128,8 +130,7 @@ func physics_update(delta: float) -> void:
 	# Landing.
 	if actor.is_on_floor():
 		if jump_buffer_timer.time_left > 0:
-			mid_air_jumps = 0
-			background_jumps = 0
+			reset_jumps()
 			enter({do_jump = true})
 			return
 		if is_equal_approx(actor.velocity.x, 0.0):
@@ -140,3 +141,11 @@ func physics_update(delta: float) -> void:
 			if actor.animation_effects:
 				actor.animation_effects.play("land")
 			state_machine.transition_to("Run")
+
+
+func can_background_jump() -> bool:
+	return background_jumps < background_jumps_max and (actor.background_jump_area.has_overlapping_bodies() \
+				or actor.background_jump_area.has_overlapping_areas())
+
+func can_mid_air_jump() -> bool:
+	return mid_air_jumps < mid_air_jumps_max

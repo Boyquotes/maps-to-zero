@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://cvwomvdflffly"]
+[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://cvwomvdflffly"]
 
 [ext_resource type="Texture2D" uid="uid://c8ssw2bdiljvj" path="res://assets/stages/whitebox.png" id="1_hxxm7"]
+[ext_resource type="Texture2D" uid="uid://mlfo1vnxyoxa" path="res://assets/stages/whitebox_half_platform.png" id="2_g02qq"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3inuo"]
 vertices = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -1195,6 +1196,36 @@ texture_region_size = Vector2i(32, 32)
 8:4/0/terrains_peering_bit/left_side = 1
 8:4/0/terrains_peering_bit/top_side = 1
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4joew"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, -1, -16, -0.5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xk102"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 0, -16, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yvmwd"]
+texture = ExtResource("2_g02qq")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_4joew")
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 0, -16, 0)
+0:0/0/physics_layer_0/polygon_0/one_way = true
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/terrains_peering_bit/top_side = 2
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_xk102")
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 0, 16, 0, 16, 16, -16, 16)
+1:0/0/physics_layer_0/polygon_0/one_way = true
+1:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_1/angular_velocity = 0.0
+1:0/0/terrains_peering_bit/bottom_side = 2
+
 [resource]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
@@ -1206,6 +1237,9 @@ terrain_set_0/terrain_0/name = "Base Layer"
 terrain_set_0/terrain_0/color = Color(0.482353, 0, 0, 1)
 terrain_set_0/terrain_1/name = "Background Layer"
 terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
+terrain_set_0/terrain_2/name = "Half Platforms"
+terrain_set_0/terrain_2/color = Color(0.470588, 0.501961, 0.25098, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_uiamh")
 sources/1 = SubResource("TileSetAtlasSource_ycmnu")
+sources/3 = SubResource("TileSetAtlasSource_yvmwd")

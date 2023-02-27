@@ -13,7 +13,7 @@ var player_data: Dictionary
 var camera_zoom: Vector2
 
 # Event flags
-var movement_tutorial_cutscene_watched := false
+var cutscenes = {} # True if watched at least once, false otherwise
 
 
 
@@ -40,7 +40,7 @@ func write_savegame(save_file_number: int) -> void:
 		
 		"base_background_jumps" : base_background_jumps,
 		
-		"movement_tutorial_cutscene_watched" : movement_tutorial_cutscene_watched,
+		"cutscenes" : cutscenes,
 	}
 	
 	var json_string := JSON.stringify(data)
@@ -68,6 +68,6 @@ func load_savegame(save_file_number: int) -> void:
 	
 	base_background_jumps = data.base_background_jumps
 	
-	movement_tutorial_cutscene_watched = data.movement_tutorial_cutscene_watched
+	cutscenes = data.cutscenes
 	
 	loaded_data.emit()

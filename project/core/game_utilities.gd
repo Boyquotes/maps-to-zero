@@ -53,5 +53,8 @@ func show_game_hud(duration := 1.0):
 func hide_game_hud(duration := 1.0):
 	GameManager.sidescroller_main.sidescroller_hud.hide_hud(duration)
 
-func screen_transition(transition_animation: ScreenEffectsClass.ScreenTransitions, duration := 1.0):
-	ScreenEffects.screen_transition(transition_animation, duration)
+func cover_screen(cover_animation: ScreenEffectsClass.CoverAnimations, duration := 1.0):
+	ScreenEffects.cover_screen(cover_animation, duration)
+	
+func uncover_screen(uncover_animation: ScreenEffectsClass.UncoverAnimations, duration := 1.0):
+	ScreenEffects.uncover_screen(uncover_animation, duration)

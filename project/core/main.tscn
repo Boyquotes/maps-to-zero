@@ -21,7 +21,7 @@ _data = {
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w7s42")
 player_actor = ExtResource("2_8nx3r")
-initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
+initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-first_cave.tscn"
 
 [node name="CameraTargetPosition" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -36,6 +36,7 @@ drag_top_margin = 0.3
 drag_bottom_margin = 0.3
 editor_draw_limits = true
 script = ExtResource("3_jpdgf")
+get_limits_from_main = false
 
 [node name="ScreenShakeCamera" type="Node" parent="CameraTargetPosition/GameplayCamera"]
 script = ExtResource("4_h6djx")

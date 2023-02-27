@@ -79,3 +79,9 @@ func disable() -> void:
 	active = false
 	actor.rotation = 0
 	actor.velocity = Vector2.ZERO
+
+func show_character() -> void:
+	actor.visible = true
+
+func hide_character() -> void:
+	actor.visible = false

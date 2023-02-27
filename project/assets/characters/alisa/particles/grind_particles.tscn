@@ -1,4 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqosr3r0surae"]
+[gd_scene load_steps=16 format=3 uid="uid://bqosr3r0surae"]
+
+[ext_resource type="Script" path="res://assets/characters/alisa/particles/grind_particles.gd" id="1_cujml"]
+[ext_resource type="Script" path="res://addons/Trail/trail_2d.gd" id="2_5udrk"]
+[ext_resource type="AudioStream" uid="uid://cy6j1527uoqff" path="res://assets/sfx/grinding.wav" id="3_j53cr"]
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="4_b30wj"]
 
 [sub_resource type="Gradient" id="Gradient_7gq6r"]
 offsets = PackedFloat32Array(0, 0.0356164, 0.0712329, 0.216438, 0.306849, 0.391781, 0.468493, 0.523288, 1)
@@ -19,6 +24,200 @@ scale_min = 0.2
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_1p0wp")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xnb46"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_5lq4p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_7bri7"]
+offsets = PackedFloat32Array(0, 0.212346, 0.397531, 0.849383, 0.891358, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 0, 0, 1, 1, 0.0306236, 0, 1, 1, 0.175087, 0.563676, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_woscp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.121569, 0.266667, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_mcmae"]
+resource_name = "activate"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.121569, 0.266667, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.3]
+}
+
+[sub_resource type="Animation" id="Animation_quqjf"]
+resource_name = "active"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.121569, 0.266667, 1), Color(1, 0.301961, 0.105882, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 0.3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_w1fdj"]
+resource_name = "deactivate"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5l0et"]
+_data = {
+"RESET": SubResource("Animation_woscp"),
+"activate": SubResource("Animation_mcmae"),
+"active": SubResource("Animation_quqjf"),
+"deactivate": SubResource("Animation_w1fdj")
+}
+
 [node name="GrindParticles" type="GPUParticles2D"]
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_fh66s")
+script = ExtResource("1_cujml")
+
+[node name="Trail2D" type="Line2D" parent="."]
+material = SubResource("CanvasItemMaterial_xnb46")
+width = 5.0
+width_curve = SubResource("Curve_5lq4p")
+gradient = SubResource("Gradient_7bri7")
+script = ExtResource("2_5udrk")
+lifetime = 0.3
+distance = 1.0
+segments = 80
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_j53cr")
+bus = &"Sfx"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+enabled = false
+color = Color(1, 0.121569, 0.266667, 1)
+texture = ExtResource("4_b30wj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PointLight2D"]
+libraries = {
+"": SubResource("AnimationLibrary_5l0et")
+}
+next/activate = &"active"

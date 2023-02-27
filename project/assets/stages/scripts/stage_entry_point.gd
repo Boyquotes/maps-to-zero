@@ -11,13 +11,21 @@ const ANIMATIONS := {
 }
 
 @export var animation : Animations
-@export var transition_animation: ScreenEffectsClass.ScreenTransitions
-@export var transition_duration := 1.0
+@export var uncover_animation: ScreenEffectsClass.UncoverAnimations
+@export var uncover_duration := 1.0
+@export var entry_camera_settings: NodePath
+@export var show_game_hud_duration := 1.0
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer if has_node("AnimationPlayer") else null
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var show_game_hud_trigger: ShowGameHudTrigger = $ShowGameHudTrigger
 
 
 func enter(character: Actor2D):
+	var camera_settings = get_node(entry_camera_settings)
+	if camera_settings and camera_settings is CameraSettingsTrigger:
+		camera_settings.change_limits_immediately()
+		camera_settings.change_zoom_immediately()
+	
 	character.global_position = global_position
 	
 	GameUtilities.get_main_camera().align()
@@ -26,8 +34,9 @@ func enter(character: Actor2D):
 	
 	animation_player.play(ANIMATIONS[animation])
 	
-	ScreenEffects.screen_transition(transition_animation, transition_duration)
+	ScreenEffects.uncover_screen(uncover_animation, uncover_duration)
 	
 	ScreenEffects.show_cutscene_bars(0)
-	await animation_player.animation_finished
+	await ScreenEffects.uncover_finished
 	ScreenEffects.hide_cutscene_bars(1)
+	show_game_hud_trigger.show_game_hud(show_game_hud_duration)

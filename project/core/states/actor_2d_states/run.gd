@@ -38,12 +38,10 @@ func physics_update(delta: float) -> void:
 		coyote_timer.start(coyote_time)
 	
 	# We move the run-specific input code to the state.
-	var old_velocity = actor.velocity
 	actor.velocity.x = actor.speed * actor.input_direction.x
 	actor.velocity.y += actor.gravity * delta
 	
-	if sign(actor.velocity.x) != 0 \
-			and sign(old_velocity.x) != sign(actor.velocity.x):
+	if sign(actor.velocity.x) != 0 and sign(actor.velocity.x) != sign(actor.look_direction.x):
 		actor.look_direction = Vector2(sign(actor.velocity.x), 0)
 	
 	if is_equal_approx(actor.input_direction.x, 0.0):

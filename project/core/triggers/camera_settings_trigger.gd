@@ -8,6 +8,14 @@ class_name CameraSettingsTrigger
 @export var change_base_zoom := true
 @export var reset_zoom_tween_duration := 0.0
 
+func get_limits() -> Dictionary:
+	return {
+		"left": get_limit_left(),
+		"top": get_limit_top(),
+		"right": get_limit_right(),
+		"bottom": get_limit_bottom()
+	}
+
 func get_limit_left() -> float:
 	return $TopLeft.global_position.x
 
@@ -21,16 +29,18 @@ func get_limit_bottom() -> float:
 	return $BottomRight.global_position.y
 
 func change_limits() -> void:
-	var tweener = create_tween()
-	tweener.tween_property(GameManager.gameplay_camera, "limit_left", get_limit_left(), limits_tween_duration)
-	tweener.tween_property(GameManager.gameplay_camera, "limit_top", get_limit_top(), limits_tween_duration)
-	tweener.tween_property(GameManager.gameplay_camera, "limit_right", get_limit_right(), limits_tween_duration)
-	tweener.tween_property(GameManager.gameplay_camera, "limit_bottom", get_limit_bottom(), limits_tween_duration)
+	GameUtilities.get_main_camera().change_limits(get_limits(), limits_tween_duration)
+
+func change_limits_immediately() -> void:
+	GameUtilities.get_main_camera().change_limits(get_limits(), 0.0)
 
 func change_zoom() -> void:
 	if GameManager.sidescroller_main.respawn_cutscene_playing:
 		await GameManager.sidescroller_main.respawn_cutscene_finished
-	GameManager.gameplay_camera.change_zoom(zoom, zoom_tween_duration, change_base_zoom)
+	GameUtilities.get_main_camera().change_zoom(zoom, zoom_tween_duration, change_base_zoom)
+
+func change_zoom_immediately() -> void:
+	GameUtilities.get_main_camera().change_zoom(zoom, 0.0, change_base_zoom)
 
 func reset_zoom() -> void:
 	GameManager.gameplay_camera.reset_zoom(reset_zoom_tween_duration)

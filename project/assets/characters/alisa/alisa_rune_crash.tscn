@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b65gmdrsnkvp5"]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="1_x0ig2"]
 [ext_resource type="Texture2D" uid="uid://bpp8tj58hxtku" path="res://assets/characters/alisa/sprites/glyph.png" id="2_qrl8l"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://71ibxellpuwh" path="res://assets/characters/alisa/sprites/glyph_upper_half.png" id="5_m86x4"]
 [ext_resource type="Texture2D" uid="uid://c1ox3l4rhfx65" path="res://assets/other_sprites/blurred_white_circle_half.png" id="6_1g8gr"]
 [ext_resource type="Texture2D" uid="uid://d1hhh0aa7xxtg" path="res://assets/characters/alisa/sprites/glyph_lower_half.png" id="7_mk4ph"]
-[ext_resource type="AudioStream" uid="uid://bpsup87wn8a3o" path="res://assets/sfx/glass_shatter.wav" id="8_gj25i"]
+[ext_resource type="AudioStream" uid="uid://bpsup87wn8a3o" path="res://assets/characters/alisa/sfx/glass_shatter.wav" id="8_gj25i"]
 [ext_resource type="AudioStream" uid="uid://caxuem4cpx38t" path="res://assets/sfx/sword_slash.wav" id="9_we7cf"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="10_m7hlv"]
 
