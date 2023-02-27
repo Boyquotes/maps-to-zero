@@ -1,6 +1,6 @@
+@tool
 class_name ActorCutsceneTransformer
 extends Marker2D
-
 
 @export var actor_name: String = ""
 @export var center_offset: Vector2 = Vector2(0, 16)
@@ -9,6 +9,8 @@ extends Marker2D
 	set(value):
 		if not actor:
 			await ready
+		if not actor:
+			return
 		match value:
 			0:
 				actor.look_direction = Vector2.RIGHT
@@ -19,7 +21,13 @@ extends Marker2D
 
 @export var animation := "":
 	set(value):
-		if actor and actor.animation_player:
+		if Engine.is_editor_hint():
+			if not actor:
+				await ready
+			if not actor:
+				return
+			actor.play_animation(value)
+		elif actor and actor.animation_player:
 			if not actor.is_ready:
 				await actor.ready
 			actor.play_animation(value)
@@ -34,6 +42,12 @@ var actor: Actor2D
 
 
 func _ready():
+	if Engine.is_editor_hint():
+		if get_child_count() == 1 and get_child(0) is Actor2D:
+			actor = get_child(0)
+			actor_name = actor.name
+		return
+	
 	if actor_name == "":
 		actor = owner
 	elif actor_name == "PLAYER":
@@ -47,6 +61,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if Engine.is_editor_hint():
+		return
+	
 	if last_frame_position.is_equal_approx(position - center_offset):
 		actor.velocity = Vector2.ZERO
 	else:

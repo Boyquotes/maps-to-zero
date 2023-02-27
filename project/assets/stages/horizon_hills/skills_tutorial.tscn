@@ -1,14 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://bqu6koot4coaa"]
+[gd_scene load_steps=34 format=3 uid="uid://bqu6koot4coaa"]
 
-[ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_eeu70"]
-[ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="1_um15r"]
+[ext_resource type="PackedScene" uid="uid://cdwmuw3uo0xnd" path="res://assets/characters/alisa_dummy/alisa_dummy.tscn" id="6_wo83y"]
+[ext_resource type="Resource" path="res://assets/dialog/timelines/skills_stage_timeline.dtl" id="8_n57y6"]
+[ext_resource type="Resource" path="res://assets/dialog/timelines/skills_stage_2_timeline.dtl" id="10_jlk5v"]
 [ext_resource type="PackedScene" uid="uid://co4iojpt5cpxk" path="res://assets/stages/scripts/stage_entry_point.tscn" id="19_pimw6"]
 [ext_resource type="PackedScene" uid="uid://pcibvlsdjg14" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="20_v6vhl"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="21_8wab7"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="22_32gkh"]
 [ext_resource type="PackedScene" uid="uid://pnhttpvyusar" path="res://assets/misc/guiding_light.tscn" id="23_1vl1g"]
 [ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="24_bi7s4"]
-[ext_resource type="Resource" path="res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl" id="25_ocsde"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="26_crh3n"]
 [ext_resource type="Script" path="res://core/triggers/show_cutscene_bars_trigger.gd" id="27_ey78p"]
 [ext_resource type="Script" path="res://core/triggers/hide_game_hud_trigger.gd" id="28_jtx0c"]
@@ -18,6 +18,18 @@
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="36_r6edv"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_jl7ro"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="42_pd26t"]
+
+[sub_resource type="GDScript" id="GDScript_pybke"]
+resource_name = "Skills Tutorial Stage"
+script/source = "extends Stage
+
+@export var skills_tutorial_cutscene: NodePath
+
+func _ready():
+	if skills_tutorial_cutscene:
+		normal_entry = false
+		get_node(skills_tutorial_cutscene).start()
+"
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -52,7 +64,7 @@ curve = SubResource("Curve_oovpt")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6cidj"]
 emission_shape = 3
-emission_box_extents = Vector3(1920, 1080, 1)
+emission_box_extents = Vector3(3840, 2160, 1)
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 0.0
@@ -128,113 +140,65 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(-65, -20)]
 }
-tracks/5/type = "bezier"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("GuidingLight:position:x")
+tracks/5/path = NodePath("ActorCutsceneTransformer:look_direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-43, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/6/type = "bezier"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("GuidingLight:position:y")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-20, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("ActorCutsceneTransformer:look_direction")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("GameplayCamera2D:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GameplayCamera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(57, -87)]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("GameplayCamera2D:zoom")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GameplayCamera2D:zoom")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(2.5, 2.5)]
 }
-
-[sub_resource type="Animation" id="Animation_u0kgi"]
-resource_name = "end"
-length = 2.5
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GuidingLight:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(115, 0, 0, 0.25, 0, 736, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Alisa Dummy:look_direction")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GuidingLight:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(-20, -1.207, -50, 0.5, 50, -262, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameplayCamera2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [Vector2(57, -60), Vector2(391, -118)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameplayCamera2D:zoom")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [Vector2(3, 3), Vector2(2, 2)]
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Alisa Dummy:animation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
 }
 
 [sub_resource type="Animation" id="Animation_rrdlr"]
@@ -325,7 +289,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_t03o5"]
 resource_name = "start"
-length = 10.0
+length = 7.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -333,10 +297,10 @@ tracks/0/path = NodePath("ActorCutsceneTransformer:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["walk", "stand"]
+"values": ["stand"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -345,10 +309,10 @@ tracks/1/path = NodePath("ActorCutsceneTransformer:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-256, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -357,10 +321,10 @@ tracks/2/path = NodePath("GuidingLight:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(5, 6, 8.1, 10),
+"times": PackedFloat32Array(1.5, 2.5, 4.6, 6.5),
 "transitions": PackedFloat32Array(0.5, 2, 0.5, 0.5),
 "update": 0,
-"values": [Vector2(-43, -20), Vector2(-65, -20), Vector2(35, -20), Vector2(115, -20)]
+"values": [Vector2(0, -20), Vector2(-42, -20), Vector2(35, -20), Vector2(128, -20)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -369,7 +333,7 @@ tracks/3/path = NodePath("GuidingLight:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 5),
+"times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -381,7 +345,7 @@ tracks/4/path = NodePath("GuidingLight:z_index")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(5, 6),
+"times": PackedFloat32Array(1.5, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [-1, 25]
@@ -393,7 +357,7 @@ tracks/5/path = NodePath("GuidingLight:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(5, 8.1),
+"times": PackedFloat32Array(1.5, 4.6),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
@@ -405,7 +369,7 @@ tracks/6/path = NodePath("DialogTrigger")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(10),
+"times": PackedFloat32Array(7),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -419,7 +383,7 @@ tracks/7/path = NodePath("ActorCutsceneTransformer:look_direction")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 6.5, 7.8),
+"times": PackedFloat32Array(0, 3, 4.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 0]
@@ -459,10 +423,10 @@ tracks/10/path = NodePath("GameplayCamera2D:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 10),
+"times": PackedFloat32Array(0, 7),
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-36, -87), Vector2(57, -60)]
+"values": [Vector2(-36, -87), Vector2(64, -60)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -471,7 +435,7 @@ tracks/11/path = NodePath("GameplayCamera2D:zoom")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 10),
+"times": PackedFloat32Array(0, 7),
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
 "values": [Vector2(2.5, 2.5), Vector2(3, 3)]
@@ -547,11 +511,82 @@ tracks/16/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_u0kgi"]
+resource_name = "move_to_dummy"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GameplayCamera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(64, -60), Vector2(640, -64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameplayCamera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GuidingLight:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(128, -20), Vector2(640, -128)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DialogTrigger2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_o8fmq"]
+resource_name = "end"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GuidingLight:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2.73208, 1),
+"update": 0,
+"values": [Vector2(640, -128), Vector2(640, -512)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ebwjd"]
 _data = {
 "RESET": SubResource("Animation_fhe7q"),
-"end": SubResource("Animation_u0kgi"),
+"end": SubResource("Animation_o8fmq"),
 "finished": SubResource("Animation_rrdlr"),
+"move_to_dummy": SubResource("Animation_u0kgi"),
 "start": SubResource("Animation_t03o5")
 }
 
@@ -559,19 +594,18 @@ _data = {
 size = Vector2(1504, 768)
 
 [node name="Skills Tutorial" type="Node2D"]
-script = ExtResource("1_eeu70")
-song = 8
+script = SubResource("GDScript_pybke")
+skills_tutorial_cutscene = NodePath("Triggers/SkillsTutorialCutscene")
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mjjl6")
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_um15r")
-autoplay = true
 bus = &"Ambience"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="Background" type="Node" parent="."]
@@ -588,12 +622,12 @@ grow_vertical = 2
 color = Color(0.141176, 0, 0.152941, 1)
 
 [node name="-52" type="CanvasLayer" parent="Background"]
-layer = -51
+layer = -52
 follow_viewport_enabled = true
-follow_viewport_scale = 0.3
+follow_viewport_scale = 0.1
 
 [node name="StarsParticles" type="GPUParticles2D" parent="Background/-52"]
-amount = 128
+amount = 64
 process_material = SubResource("ParticleProcessMaterial_6cidj")
 lifetime = 5.0
 visibility_rect = Rect2(-10000, -10000, 20000, 20000)
@@ -601,7 +635,7 @@ visibility_rect = Rect2(-10000, -10000, 20000, 20000)
 [node name="-51" type="CanvasLayer" parent="Background"]
 layer = -52
 follow_viewport_enabled = true
-follow_viewport_scale = 0.1
+follow_viewport_scale = 0.3
 
 [node name="StarsParticles" type="GPUParticles2D" parent="Background/-51"]
 amount = 64
@@ -639,36 +673,48 @@ stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-first_c
 position = Vector2(16, -64)
 shape = SubResource("RectangleShape2D_fm4if")
 
+[node name="PlayerTransformer" parent="ExitPoints/StageExitPoint" index="3"]
+look_direction = null
+animation = ""
+
 [node name="Triggers" type="Node2D" parent="."]
 
-[node name="MoveTutorialCutscene" type="Node2D" parent="Triggers"]
-position = Vector2(-480, 256)
+[node name="SkillsTutorialCutscene" type="Node2D" parent="Triggers"]
+position = Vector2(-424, 320)
 script = ExtResource("21_8wab7")
-cutscene_name = "movement_tutorial"
+cutscene_name = "skills_tutorial"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Triggers/MoveTutorialCutscene"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Triggers/SkillsTutorialCutscene"]
 libraries = {
 "": SubResource("AnimationLibrary_ebwjd")
 }
 
-[node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/MoveTutorialCutscene"]
+[node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
 script = ExtResource("22_32gkh")
 actor_name = "Alisa"
-look_direction = 1
-animation = "walk"
 
-[node name="GuidingLight" type="Marker2D" parent="Triggers/MoveTutorialCutscene"]
+[node name="Alisa Dummy" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
+position = Vector2(640, 0)
+script = ExtResource("22_32gkh")
+actor_name = "Alisa Dummy"
+
+[node name="GuidingLight" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
 visible = false
-position = Vector2(-43, -20)
+position = Vector2(-65, -20)
 
-[node name="GuidingLight" parent="Triggers/MoveTutorialCutscene/GuidingLight" instance=ExtResource("23_1vl1g")]
+[node name="GuidingLight" parent="Triggers/SkillsTutorialCutscene/GuidingLight" instance=ExtResource("23_1vl1g")]
 
-[node name="DialogTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene"]
+[node name="DialogTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
 script = ExtResource("24_bi7s4")
-timeline = ExtResource("25_ocsde")
+timeline = ExtResource("8_n57y6")
+finished_cutscene_animation_name = "move_to_dummy"
+
+[node name="DialogTrigger2" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
+script = ExtResource("24_bi7s4")
+timeline = ExtResource("10_jlk5v")
 finished_cutscene_animation_name = "end"
 
-[node name="GameplayCamera2D" type="Camera2D" parent="Triggers/MoveTutorialCutscene"]
+[node name="GameplayCamera2D" type="Camera2D" parent="Triggers/SkillsTutorialCutscene"]
 position = Vector2(57, -87)
 zoom = Vector2(2.5, 2.5)
 limit_left = -800
@@ -676,25 +722,26 @@ limit_bottom = 352
 editor_draw_limits = true
 script = ExtResource("26_crh3n")
 
-[node name="Start" type="Node2D" parent="Triggers/MoveTutorialCutscene"]
+[node name="Start" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
 
-[node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Start"]
+[node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
 script = ExtResource("27_ey78p")
 
-[node name="HideGameHudTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Start"]
+[node name="HideGameHudTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
 script = ExtResource("28_jtx0c")
 
-[node name="UncoverScreenTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Start"]
+[node name="UncoverScreenTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
 script = ExtResource("29_ev46e")
+uncover_animation = 1
 uncover_duration = 1.0
 
-[node name="Finished" type="Node2D" parent="Triggers/MoveTutorialCutscene"]
+[node name="Finished" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
 
-[node name="HideCutsceneBarsTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Finished"]
+[node name="HideCutsceneBarsTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Finished"]
 script = ExtResource("30_kqcl0")
 duration = 1.0
 
-[node name="ShowGameHudTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Finished"]
+[node name="ShowGameHudTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Finished"]
 script = ExtResource("31_njqcu")
 duration = 1.0
 
@@ -737,7 +784,6 @@ layer_0/name = "Base"
 layer_0/z_index = -25
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
-visible = false
 tile_set = ExtResource("42_pd26t")
 cell_quadrant_size = 32
 format = 2
@@ -759,6 +805,12 @@ tile_set = ExtResource("40_jl7ro")
 format = 2
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="Alisa Dummy" parent="Enemies" instance=ExtResource("6_wo83y")]
+position = Vector2(688, 288)
+speed = 1.04858e+07
+jump_max_height = 3.35544e+06
+max_falling_speed = 2.09715e+08
 
 [node name="Foreground" type="Node" parent="."]
 

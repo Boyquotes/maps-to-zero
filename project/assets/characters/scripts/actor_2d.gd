@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody2D
 class_name Actor2D
 
@@ -145,6 +146,10 @@ var is_ready: bool = false
 
 
 func _ready():
+	if Engine.is_editor_hint():
+		is_ready = true
+		emit_signal("ready")
+		return
 	resources.set_max_resource(ActorResources.Type.HP, max_hp)
 	resources.set_resource(ActorResources.Type.HP, max_hp)
 	resources.set_max_resource(ActorResources.Type.MP, max_mp)
@@ -157,6 +162,8 @@ func _ready():
 	emit_signal("ready")
 
 func _physics_process(_delta):
+	if Engine.is_editor_hint():
+		return
 	move_and_slide()
 	if soft_collision.is_colliding():
 		move_and_collide(soft_collision.get_push_vector() * _delta)
@@ -171,8 +178,8 @@ func play_animation(animation_name : String = "", \
 					_custom_blend : float = -1.0, \
 					_custom_speed : float = 1.0, \
 					_from_end : bool = false) -> void:
-	animation_player.play("RESET")
-	await animation_player.animation_finished
+#	animation_player.play("RESET")
+#	await animation_player.animation_finished
 	animation_player.play(animation_name)
 
 
@@ -224,10 +231,14 @@ func _on_state_machine_transitioned(_to_state, _from_state):
 
 
 func _on_tree_entered():
+	if Engine.is_editor_hint():
+		return
 	GameManager.actors[str(name)] = self
 
 
 func _on_tree_exited():
+	if Engine.is_editor_hint():
+		return
 	GameManager.actors.erase(str(name))
 
 
