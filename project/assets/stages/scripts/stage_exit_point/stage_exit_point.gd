@@ -20,6 +20,7 @@ const ANIMATIONS := {
 @onready var stage_change_trigger: StageChangeTrigger = $StageChangeTrigger
 @onready var area_2d: Area2D = $Area2D
 
+
 func _ready() -> void:
 	stage_change_trigger.stage_file_path = stage_file_path
 	stage_change_trigger.destination_entry_point = destination_entry_point

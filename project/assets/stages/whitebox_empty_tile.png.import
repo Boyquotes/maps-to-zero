@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be7311krlwv7b"
-path="res://.godot/imported/Alisa.png-3e631245d0d48cca1cc73258256fd1ba.ctex"
+uid="uid://clgeq22xdy5u2"
+path="res://.godot/imported/whitebox_empty_tile.png-294c2b8c216e8ec98fe90061fd72478a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/alisa/sprites/Alisa.png"
-dest_files=["res://.godot/imported/Alisa.png-3e631245d0d48cca1cc73258256fd1ba.ctex"]
+source_file="res://assets/stages/whitebox_empty_tile.png"
+dest_files=["res://.godot/imported/whitebox_empty_tile.png-294c2b8c216e8ec98fe90061fd72478a.ctex"]
 
 [params]
 

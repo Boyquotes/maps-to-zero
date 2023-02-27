@@ -157,11 +157,6 @@ dialogic_default_action={
 2d_physics/layer_7="AIStoppers"
 2d_physics/layer_8="Background Jump Area"
 
-[physics]
-
-common/physics_ticks_per_second=144
-common/max_physics_steps_per_frame=16
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

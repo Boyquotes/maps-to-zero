@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be7311krlwv7b"
-path="res://.godot/imported/Alisa.png-3e631245d0d48cca1cc73258256fd1ba.ctex"
+uid="uid://06pguvkf41k8"
+path="res://.godot/imported/whitebox_background_jump_indicator_big.png-ce731aad9fba6d0186916542f5231df1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/alisa/sprites/Alisa.png"
-dest_files=["res://.godot/imported/Alisa.png-3e631245d0d48cca1cc73258256fd1ba.ctex"]
+source_file="res://assets/stages/whitebox_background_jump_indicator_big.png"
+dest_files=["res://.godot/imported/whitebox_background_jump_indicator_big.png-ce731aad9fba6d0186916542f5231df1.ctex"]
 
 [params]
 

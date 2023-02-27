@@ -1,8 +1,8 @@
-[gd_scene load_steps=151 format=3 uid="uid://bg36r2fh4oe7n"]
+[gd_scene load_steps=153 format=3 uid="uid://bg36r2fh4oe7n"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
-[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/Alisa.png" id="3_k3unl"]
+[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/alisa.png" id="3_k3unl"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/characters/alisa/sprites/Horns.png" id="5_p6dq2"]
 [ext_resource type="Texture2D" uid="uid://ujycnl6px0tg" path="res://assets/characters/alisa/sprites/attack_swings/attack.png" id="6_v2qci"]
 [ext_resource type="Texture2D" uid="uid://cxraq73g0qx5o" path="res://assets/characters/alisa/sprites/attack_swings/air_attack_3.png" id="7_e7b7x"]
@@ -41,8 +41,10 @@
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="39_rs0tk"]
 [ext_resource type="PackedScene" path="res://assets/characters/alisa/alisa_dash_explosion.tscn" id="41_5bwyw"]
 [ext_resource type="PackedScene" uid="uid://t7oexq6jcskh" path="res://assets/characters/alisa/particles/alisa_dash_line_particles.tscn" id="42_xjwjg"]
+[ext_resource type="Script" path="res://core/triggers/show_speed_lines_trigger.gd" id="43_pwui8"]
 [ext_resource type="Script" path="res://core/game_utilities.gd" id="43_umbqx"]
 [ext_resource type="PackedScene" uid="uid://tsqr6e168upm" path="res://assets/characters/alisa/particles/pink_hit_impact.tscn" id="44_6g7sh"]
+[ext_resource type="Script" path="res://core/triggers/hide_speed_lines_trigger.gd" id="44_vut77"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="45_mg4cx"]
 [ext_resource type="PackedScene" path="res://assets/characters/alisa/alisa_rune_crash.tscn" id="46_x7euw"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="47_sx4sk"]
@@ -287,6 +289,18 @@ tracks/14/keys = {
 "args": [],
 "method": &"deactivate"
 }]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("AttackSwings:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_gpvdt"]
@@ -8610,44 +8624,44 @@ tracks/9/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
-tracks/10/type = "method"
+tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("GameUtilities")
+tracks/10/path = NodePath("CanvasLayer/BlueShift:color")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"hide_speedlines"
-}]
+"update": 0,
+"values": [Color(0, 0, 1, 0)]
 }
-tracks/11/type = "value"
+tracks/11/type = "method"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CanvasLayer/BlueShift:color")
+tracks/11/path = NodePath("CameraSettingsTrigger")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 1, 0)]
+"values": [{
+"args": [],
+"method": &"reset_zoom"
+}]
 }
 tracks/12/type = "method"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CameraSettingsTrigger")
+tracks/12/path = NodePath("HideSpeedLinesTrigger")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"reset_zoom"
+"args": [null],
+"method": &"trigger"
 }]
 }
 
@@ -8882,42 +8896,25 @@ tracks/17/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(2, 0.5), Vector2(1, 1)]
 }
-tracks/18/type = "method"
+tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("GameUtilities")
+tracks/18/path = NodePath("CanvasLayer/BlueShift:color")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(0.05, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"show_speedlines"
-}, {
-"args": [],
-"method": &"hide_speedlines"
-}]
-}
-tracks/19/type = "value"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath("CanvasLayer/BlueShift:color")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = {
 "times": PackedFloat32Array(0.05, 0.09, 0.25, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 1, 0), Color(0, 0, 1, 0.0352941), Color(0, 0, 1, 0.0352941), Color(0, 0, 1, 0)]
 }
-tracks/20/type = "method"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("CameraSettingsTrigger")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
+tracks/19/type = "method"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("CameraSettingsTrigger")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
 "times": PackedFloat32Array(0.05, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -8926,6 +8923,34 @@ tracks/20/keys = {
 }, {
 "args": [],
 "method": &"reset_zoom"
+}]
+}
+tracks/20/type = "method"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("ShowSpeedLinesTrigger")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/21/type = "method"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("HideSpeedLinesTrigger")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
 }]
 }
 
@@ -9312,7 +9337,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 68
+frame = 108
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9622,10 +9647,7 @@ position = Vector2(241, 0)
 script = ExtResource("18_5ur3l")
 particles_scene = ExtResource("42_xjwjg")
 
-[node name="GameUtilities" type="Node" parent="Inner/Attacks/Dash" index="9"]
-script = ExtResource("43_umbqx")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Inner/Attacks/Dash" index="10"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Inner/Attacks/Dash" index="9"]
 layer = 100
 
 [node name="BlueShift" type="ColorRect" parent="Inner/Attacks/Dash/CanvasLayer" index="0"]
@@ -9635,6 +9657,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 1, 0)
+
+[node name="ShowSpeedLinesTrigger" type="Node2D" parent="Inner/Attacks/Dash" index="10"]
+script = ExtResource("43_pwui8")
+
+[node name="HideSpeedLinesTrigger" type="Node2D" parent="Inner/Attacks/Dash" index="11"]
+script = ExtResource("44_vut77")
 
 [node name="Rune Crash" type="Node2D" parent="Inner/Attacks" index="7"]
 

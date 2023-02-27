@@ -562,6 +562,21 @@ _data = {
 "show": SubResource("Animation_u5s44")
 }
 
+[sub_resource type="Animation" id="Animation_l4maa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_r1tbw"]
 resource_name = "fade_in"
 tracks/0/type = "value"
@@ -589,21 +604,6 @@ tracks/1/keys = {
 "values": [false, true]
 }
 
-[sub_resource type="Animation" id="Animation_l4maa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="Animation" id="Animation_lqxi7"]
 resource_name = "hide"
 length = 0.1
@@ -627,21 +627,6 @@ _data = {
 "hide": SubResource("Animation_lqxi7")
 }
 
-[sub_resource type="Animation" id="Animation_k1tw1"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_nt0tg"]
 resource_name = "RESET"
 length = 0.001
@@ -656,6 +641,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_k1tw1"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1e2tg"]
@@ -707,7 +707,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -88.0
 offset_top = -72.0
-offset_right = 58312.0
+offset_right = 64712.0
 offset_bottom = -12.0
 grow_horizontal = 2
 rotation = -0.0174533
@@ -737,9 +737,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
-offset_top = -328.0
-offset_right = 58352.0
-offset_bottom = -268.0
+offset_top = 392.0
+offset_right = 64752.0
+offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0174533
@@ -799,7 +799,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -304.0
 offset_top = -232.0
-offset_right = 32336.0
+offset_right = 38736.0
 offset_bottom = -132.0
 grow_horizontal = 2
 rotation = 0.0523599
@@ -829,7 +829,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1400.0
 offset_top = -48.0
-offset_right = 34040.0
+offset_right = 40440.0
 offset_bottom = 52.0001
 grow_horizontal = 2
 rotation = 1.51844
@@ -859,7 +859,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1312.0
 offset_top = 864.0
-offset_right = 33952.0
+offset_right = 40352.0
 offset_bottom = 964.0
 grow_horizontal = 2
 rotation = 3.15905
@@ -889,7 +889,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -48.0
 offset_top = 656.0
-offset_right = 32592.0
+offset_right = 38992.0
 offset_bottom = 756.0
 grow_horizontal = 2
 rotation = 4.75777
