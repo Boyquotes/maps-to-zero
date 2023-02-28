@@ -12,6 +12,9 @@ func switch_camera(to) -> void:
 	to.make_current()
 
 func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) -> void:
+	if tween:
+		tween.kill()
+	
 	if is_zero_approx(duration):
 		switch_camera(to)
 		return
@@ -48,14 +51,12 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	transition_camera.global_transform = from.global_transform
 	
 	# Make our transition camera current
-#	transition_camera.make_current()
+	transition_camera.make_current()
 	
 	transitioning = true
 	
 	# Move to the second camera, while also adjusting the parameters to
 	# match the second camera
-	if tween:
-		tween.kill()
 	tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN_OUT)
@@ -69,7 +70,6 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 		transitioning = false
 		switch_camera(to)
 		)
-
 
 var to_camera : Camera2D
 var transition_start_time : float
