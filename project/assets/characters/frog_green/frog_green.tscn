@@ -1,6 +1,6 @@
-[gd_scene load_steps=44 format=3 uid="uid://cgy333u4dt7kf"]
+[gd_scene load_steps=44 format=3]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_uqq12"]
+[ext_resource type="PackedScene" uid="uid://dnw8l1ttgh30v" path="res://assets/characters/scripts/actor_2d.tscn" id="1_uqq12"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_0y7nb"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/attack_incoming.tscn" id="12_q4oum"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="13_cpwx1"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="13_vq3qd"]
-[ext_resource type="Script" path="res://core/states/behavior_2d_states/idle_input.gd" id="14_vlxue"]
+[ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="14_vlxue"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="15_lyyil"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="16_b5phl"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/far_from_target.gd" id="17_scjh3"]

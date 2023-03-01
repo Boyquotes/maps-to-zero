@@ -39,10 +39,10 @@
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="36_7c02c"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="36_o0fow"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_4l3wq"]
-[ext_resource type="PackedScene" uid="uid://bpfbdgeubdluq" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="41_rt6hm"]
+[ext_resource type="PackedScene" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="41_rt6hm"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="42_t2rg6"]
 [ext_resource type="AnimationLibrary" uid="uid://dj88tv48ew0tp" path="res://assets/stages/background_jump_area_visuals_animation_library.tres" id="43_1wlhx"]
-[ext_resource type="PackedScene" uid="uid://c5tk70ccmexno" path="res://assets/characters/slime_blue/slime_blue.tscn" id="44_vx24s"]
+[ext_resource type="PackedScene" path="res://assets/characters/slime_blue/slime_blue.tscn" id="44_vx24s"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)

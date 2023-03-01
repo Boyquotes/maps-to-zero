@@ -60,7 +60,7 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 func player_defeated() -> void:
 	print_debug("player defeated")
 	MusicManager.play_song(Music.Songs.SILENCE)
-	player.input_enabled = false
+	player.disable_input()
 	player.play_animation("defeat")
 	animation_player.play("player_defeated")
 	await get_tree().create_timer(1.0).timeout

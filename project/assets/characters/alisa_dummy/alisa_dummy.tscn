@@ -1,6 +1,6 @@
 [gd_scene load_steps=53 format=3 uid="uid://cdwmuw3uo0xnd"]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
+[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/footstep_emitter.tscn" id="4_1rf3w"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_xdjc1"]
@@ -2561,6 +2561,7 @@ size = Vector2(32, 48)
 [node name="Alisa Dummy" instance=ExtResource("1_a8ind")]
 collision_layer = 2
 max_hp = 500.0
+speed = 10.0
 team = 2
 attack_input_listening = true
 attack_can_cancel = true
@@ -2623,12 +2624,8 @@ queue_count = 4
 [node name="CollisionShape2d" parent="Inner/Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_l4vct")
 
-[node name="InputStateMachine" parent="." index="4"]
-initial_state = NodePath("CutsceneMode")
-
-[node name="Air" parent="StateMachine" index="2"]
+[node name="Air" parent="StateMachine" index="3"]
 background_jumps_max = 1
-jump_speed_boost = 0.0
 
 [node name="SoftCollision" parent="." index="9"]
 force_multiplier_on_self = 0.0

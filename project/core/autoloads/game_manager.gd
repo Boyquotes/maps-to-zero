@@ -4,24 +4,6 @@ var actors := {}
 var actors_original_cutscene_mode_value := {}
 var sidescroller_main: SidescrollerMain
 var popup_canvas: CanvasLayer
-
-var cutscene_mode: bool:
-	set(value):
-		cutscene_mode = value
-		if value:
-			actors_original_cutscene_mode_value.clear()
-			for actor in actors.values():
-				actors_original_cutscene_mode_value[actor] = actor.cutscene_mode
-				actor.set_cutscene_mode(true)
-			ScreenEffects.show_cutscene_bars(1.0)
-		else:
-			for actor in actors.values():
-				if actors_original_cutscene_mode_value.has(actor):
-					actor.set_cutscene_mode(actors_original_cutscene_mode_value[actor])
-				else:
-					actor.set_cutscene_mode(false)
-			ScreenEffects.hide_cutscene_bars(1.0)
-
 var player: Actor2D
 var gameplay_camera: GameplayCamera2D
 var transition_camera: Camera2D

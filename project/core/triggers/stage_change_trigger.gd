@@ -8,8 +8,6 @@ extends Trigger
 
 
 func trigger(_dummy_var=null) -> void:
-	GameManager.cutscene_mode = true
-	GameManager.player.cutscene_mode = true
 	ScreenEffects.cover_screen(cover_animation, cover_duration)
 	await ScreenEffects.cover_finished
 	GameManager.request_stage_change(stage_file_path, destination_entry_point)

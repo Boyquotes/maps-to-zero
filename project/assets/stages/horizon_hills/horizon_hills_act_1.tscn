@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bucnpqit24lvy"]
+[gd_scene load_steps=66 format=3 uid="uid://bucnpqit24lvy"]
 
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_adxxg"]
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="4_sm1it"]
@@ -29,9 +29,10 @@
 [ext_resource type="Script" path="res://core/triggers/show_cutscene_bars_trigger.gd" id="28_7dr8o"]
 [ext_resource type="Script" path="res://core/triggers/hide_game_hud_trigger.gd" id="29_c32dk"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_04.png" id="29_u1thv"]
+[ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="30_1ml72"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl" id="30_in1ap"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="30_uct3q"]
-[ext_resource type="PackedScene" uid="uid://c5tk70ccmexno" path="res://assets/characters/slime_blue/slime_blue.tscn" id="31_i5s8k"]
+[ext_resource type="PackedScene" path="res://assets/characters/slime_blue/slime_blue.tscn" id="31_i5s8k"]
 [ext_resource type="Script" path="res://core/triggers/hide_cutscene_bars_trigger.gd" id="31_jyemb"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="31_tk3lf"]
 [ext_resource type="Script" path="res://core/triggers/show_game_hud_trigger.gd" id="32_a5nol"]
@@ -40,7 +41,6 @@
 [ext_resource type="Resource" path="res://assets/dialog/timelines/enemy_tutorial_cutscene_2.dtl" id="32_ydvh2"]
 [ext_resource type="PackedScene" uid="uid://pnhttpvyusar" path="res://assets/misc/guiding_light.tscn" id="34_atjre"]
 [ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="35_wm52x"]
-[ext_resource type="Script" path="res://core/triggers/cover_screen_trigger.gd" id="36_eag8x"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="36_piscd"]
 [ext_resource type="Script" path="res://core/triggers/uncover_screen_trigger.gd" id="37_dq1wv"]
 [ext_resource type="PackedScene" uid="uid://pcibvlsdjg14" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="39_xjy5a"]
@@ -467,24 +467,10 @@ tracks/7/keys = {
 tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("..")
+tracks/8/path = NodePath("GameplayCamera2D")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"start_music"
-}]
-}
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("GameplayCamera2D")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -492,29 +478,43 @@ tracks/9/keys = {
 "method": &"set_current"
 }]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("GameplayCamera2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(-36, -87), Vector2(57, -60)]
+}
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("GameplayCamera2D:position")
+tracks/10/path = NodePath("GameplayCamera2D:zoom")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-36, -87), Vector2(57, -60)]
+"values": [Vector2(2.5, 2.5), Vector2(3, 3)]
 }
-tracks/11/type = "value"
+tracks/11/type = "method"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("GameplayCamera2D:zoom")
+tracks/11/path = NodePath("ActorCutsceneTransformer")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 10),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [Vector2(2.5, 2.5), Vector2(3, 3)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}]
 }
 tracks/12/type = "method"
 tracks/12/imported = false
@@ -527,27 +527,27 @@ tracks/12/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"teleport"
+"method": &"enable"
 }]
 }
 tracks/13/type = "method"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("ActorCutsceneTransformer")
+tracks/13/path = NodePath("Start/ShowCutsceneBarsTrigger")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"enable"
+"args": [null],
+"method": &"trigger"
 }]
 }
 tracks/14/type = "method"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Start/ShowCutsceneBarsTrigger")
+tracks/14/path = NodePath("Start/HideGameHudTrigger")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -561,7 +561,7 @@ tracks/14/keys = {
 tracks/15/type = "method"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Start/HideGameHudTrigger")
+tracks/15/path = NodePath("Start/UncoverScreenTrigger")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
@@ -575,7 +575,7 @@ tracks/15/keys = {
 tracks/16/type = "method"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Start/UncoverScreenTrigger")
+tracks/16/path = NodePath("Start/MusicTrigger")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -925,66 +925,8 @@ tracks/5/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_huk5w"]
-resource_name = "start"
-length = 0.5
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Start/CoverScreenTrigger")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Start/ShowCutsceneBarsTrigger")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Start/HideGameHudTrigger")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"hide_game_hud"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_bl8as"]
-resource_name = "start_2"
+resource_name = "start"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1046,7 +988,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [true, 1.0],
+"args": [true, 2.0],
 "method": &"set_current"
 }]
 }
@@ -1113,15 +1055,15 @@ tracks/9/keys = {
 tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Start/UncoverScreenTrigger")
+tracks/10/path = NodePath("ActorCutsceneTransformer")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [null],
-"method": &"trigger"
+"args": [],
+"method": &"enable"
 }]
 }
 tracks/11/type = "method"
@@ -1135,34 +1077,74 @@ tracks/11/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"enable"
+"method": &"reset_speed"
 }]
 }
-tracks/12/type = "method"
+tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ActorCutsceneTransformer")
+tracks/12/path = NodePath("GuidingLight:z_index")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"teleport"
-}]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("GuidingLight:z_index")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [-1, 25, -1, 25]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Start/ShowCutsceneBarsTrigger")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/15/type = "method"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Start/HideGameHudTrigger")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/16/type = "method"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("ActorCutsceneTransformer")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"move_to_global_position"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq1w5"]
@@ -1172,8 +1154,7 @@ _data = {
 "finished": SubResource("Animation_k1l4h"),
 "move_back": SubResource("Animation_0lh7i"),
 "move_to_enemies": SubResource("Animation_ewax0"),
-"start": SubResource("Animation_huk5w"),
-"start_2": SubResource("Animation_bl8as")
+"start": SubResource("Animation_bl8as")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rain"]
@@ -1487,6 +1468,7 @@ libraries = {
 script = ExtResource("4_sm1it")
 actor_name = "Alisa"
 look_direction = 1
+animation = "walk"
 
 [node name="GuidingLight" type="Marker2D" parent="Triggers/MoveTutorialCutscene"]
 visible = false
@@ -1519,6 +1501,10 @@ script = ExtResource("29_c32dk")
 script = ExtResource("37_dq1wv")
 uncover_duration = 1.0
 
+[node name="MusicTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Start"]
+script = ExtResource("30_1ml72")
+song = 3
+
 [node name="Finished" type="Node2D" parent="Triggers/MoveTutorialCutscene"]
 
 [node name="HideCutsceneBarsTrigger" type="Node2D" parent="Triggers/MoveTutorialCutscene/Finished"]
@@ -1540,12 +1526,12 @@ cutscene_name = "enemy_tutorial"
 libraries = {
 "": SubResource("AnimationLibrary_rq1w5")
 }
-next/start = &"start_2"
 
 [node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/EnemyTutorialCutscene"]
-position = Vector2(28.8, 0)
 script = ExtResource("4_sm1it")
 actor_name = "Alisa"
+look_direction = 0
+animation = "idle"
 
 [node name="GuidingLight" type="Marker2D" parent="Triggers/EnemyTutorialCutscene"]
 visible = false
@@ -1590,21 +1576,11 @@ position = Vector2(-2336, 192)
 
 [node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Triggers/EnemyTutorialCutscene/Start"]
 script = ExtResource("28_7dr8o")
-duration = 0.5
+duration = 2.0
 
 [node name="HideGameHudTrigger" type="Node2D" parent="Triggers/EnemyTutorialCutscene/Start"]
 script = ExtResource("29_c32dk")
-duration = 0.5
-
-[node name="UncoverScreenTrigger" type="Node2D" parent="Triggers/EnemyTutorialCutscene/Start"]
-position = Vector2(2336, -192)
-script = ExtResource("37_dq1wv")
-uncover_duration = 0.5
-
-[node name="CoverScreenTrigger" type="Node2D" parent="Triggers/EnemyTutorialCutscene/Start"]
-position = Vector2(2336, -192)
-script = ExtResource("36_eag8x")
-cover_duration = 0.5
+duration = 2.0
 
 [node name="Finished" type="Node2D" parent="Triggers/EnemyTutorialCutscene"]
 

@@ -4,34 +4,39 @@ extends ActorCutsceneTransformer
 
 
 @export var move_with_look_direction: bool = true
-@export var reset_speed_on_disable: bool = true
 
 
 func _physics_process(delta):
-	if last_frame_position.is_equal_approx(position - center_offset):
-		actor.velocity = Vector2.ZERO
-	else:
-		var position_delta = (position - center_offset) - last_frame_position
-		if move_with_look_direction:
-			position_delta.x *= sign(actor.look_direction.x)
-		actor.velocity = position_delta / delta
-	last_frame_position = position - center_offset
+	if not _enabled or Engine.is_editor_hint():
+		set_physics_process(false)
+		return
 	
-	actor.rotation = rotation
-#	actor.inner.scale = scale
+	if _last_frame_position.is_equal_approx(position - center_offset):
+		_character.velocity = Vector2.ZERO
+	else:
+		var position_delta = (position - center_offset) - _last_frame_position
+		if move_with_look_direction:
+			position_delta.x *= sign(_character.look_direction.x)
+		_character.velocity = position_delta / delta
+	_last_frame_position = position - center_offset
+	
+	_character.rotation = rotation
+#	_character.inner.scale = scale
 
 
 func enable() -> void:
+	_enabled = true
 	set_physics_process(true)
-	last_frame_position = position - center_offset
+	_last_frame_position = position - center_offset
+	if animation:
+		_character.play_animation(animation)
 
 
 func disable() -> void:
+	_enabled = false
 	set_physics_process(false)
-	actor.rotation = 0
-	if reset_speed_on_disable:
-		actor.velocity = Vector2.ZERO
+	_character.rotation = 0
 
 
 func look_other_way() -> void:
-	actor.look_direction.x *= -1
+	_character.look_direction.x *= -1

@@ -7,7 +7,7 @@ signal defeated
 @export var max_hp := 100.0
 @export var max_mp := 300.0
 @export var max_sp := 0.0
-@export var speed = 10: # In terms of tiles/sec
+@export var speed := 10.0: # In terms of tiles/sec
 	get:
 		if Engine.is_editor_hint():
 			return speed
@@ -49,14 +49,6 @@ signal defeated
 			go_to_next_attack = false
 			attack_can_cancel = false
 @export var cutscene_mode: bool
-@export var input_enabled: bool:
-	set(value):
-		input_enabled = value
-		if value:
-			input_state_machine.enter_initial_state()
-		else:
-			input_state_machine.transition_to("CutsceneMode")
-		input_state_machine.set_physics_process(value)
 
 var attack_request_buffer: Dictionary
 var target:
@@ -114,17 +106,17 @@ var go_to_next_attack : bool:
 			attack_can_cancel = false
 
 
-@onready var input_state_machine: StateMachine = $InputStateMachine
-@onready var state_machine: StateMachine = $StateMachine
-@onready var gravity = 2 * jump_max_height / pow(jump_max_height_time, 2)
-@onready var background_jump_area: Area2D = $BackgroundJumpArea
-@onready var resources: ActorResources = $Resources
-@onready var inner: Node2D = $Inner
-@onready var target_manager: TargetManager = $TargetManager
-@onready var animation_player: AnimationPlayer = $Inner/Visuals/AnimationPlayer
-@onready var animation_effects: AnimationPlayer = $Inner/Visuals/AnimationPlayer/AnimationEffects if $Inner/Visuals/AnimationPlayer.has_node("AnimationEffects") else null
-@onready var input_buffer: InputBuffer = $InputBuffer
-@onready var soft_collision: SoftCollision = $SoftCollision
+@onready var input_state_machine := $InputStateMachine as StateMachine
+@onready var state_machine := $StateMachine as StateMachine
+@onready var gravity := 2 * jump_max_height / pow(jump_max_height_time, 2)
+@onready var background_jump_area := $BackgroundJumpArea as Area2D
+@onready var resources := $Resources as ActorResources
+@onready var inner := $Inner as Node2D
+@onready var target_manager := $TargetManager as TargetManager
+@onready var animation_player := $Inner/Visuals/AnimationPlayer as AnimationPlayer
+@onready var animation_effects: AnimationPlayer = $Inner/Visuals/AnimationPlayer/AnimationEffects as AnimationPlayer if $Inner/Visuals/AnimationPlayer.has_node("AnimationEffects") else null
+@onready var input_buffer := $InputBuffer as InputBuffer
+@onready var soft_collision := $SoftCollision as SoftCollision
 
 
 func _ready():
@@ -144,17 +136,17 @@ func _ready():
 	emit_signal("ready")
 
 
-func _physics_process(_delta):
+func _physics_process(delta: float):
 	if Engine.is_editor_hint():
 		return
 	move_and_slide()
 	if soft_collision.is_colliding():
-		move_and_collide(soft_collision.get_push_vector() * _delta)
+		move_and_collide(soft_collision.get_push_vector() * delta)
 
 
 func unhandled_input(event: InputEvent) -> void:
 	input_buffer.add_input(event)
-	$StateMachine.unhandled_input(event)
+	state_machine.unhandled_input(event)
 	
 	_check_and_do_attack_cancel_inputs()
 
@@ -164,7 +156,7 @@ func play_animation(animation_name : String = "", \
 					_custom_speed : float = 1.0, \
 					_from_end : bool = false) -> void:
 	if Engine.is_editor_hint():
-		animation_player.stop()
+		animation_player.stop() # Reset animation
 	animation_player.play("RESET")
 	await animation_player.animation_finished
 	animation_player.play(animation_name)
@@ -174,7 +166,7 @@ func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Ty
 	if hitbox and GameUtilities.team_hostile_to(hitbox.team, team):
 		ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
 		
-		var hit_sfx = AudioStreamPlayer2D.new()
+		var hit_sfx := AudioStreamPlayer2D.new() as AudioStreamPlayer2D
 		hit_sfx.name = "AudioStreamPlayer2d"
 		hit_sfx.stream = hitbox.hit_sfx
 		hit_sfx.bus = "Sfx"
@@ -212,23 +204,29 @@ func request_attack_transition(target_state : Dictionary, msg: Dictionary = {}):
 
 func set_cutscene_mode(value: bool) -> void:
 	cutscene_mode = value
-	if not is_ready:
-		await ready
 	if cutscene_mode:
 		state_machine.transition_to("Cutscene")
 	else:
 		state_machine.transition_to("Idle")
-	GameManager.actors_original_cutscene_mode_value[self] = value
 	
-	input_enabled = not cutscene_mode
+	if cutscene_mode:
+		disable_input()
+	else:
+		enable_input()
 	
 	state_machine.set_process(not cutscene_mode)
 	state_machine.set_physics_process(not cutscene_mode)
-	set_collision_layer_value(2, not cutscene_mode)
-	velocity = Vector2.ZERO
 	
 	if state_machine.state.name == "Defeat":
 		state_machine.enter_initial_state()
+
+
+func enable_input() -> void:
+	input_state_machine.enter_initial_state()
+
+
+func disable_input() -> void:
+	input_state_machine.transition_to("NoInput")
 
 
 func _on_state_machine_transitioned(_to_state, _from_state):

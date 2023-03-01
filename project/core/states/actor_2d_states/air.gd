@@ -40,6 +40,8 @@ func enter(msg := {}) -> void:
 		
 		var _initial_speed = 2 * actor.jump_max_height / actor.jump_max_height_time # Initial velocity = 2h / t
 		actor.velocity.y = -_initial_speed
+		if not Input.is_action_pressed("jump"):
+			actor.velocity.y /= 2
 		state = AirState.RISE
 		if actor.animation_effects:
 			actor.animation_effects.play("jump")
@@ -94,8 +96,6 @@ func handle_input(_event: InputEvent) -> void:
 
 func physics_update(delta: float) -> void:
 	# Horizontal movement.
-	
-	# We move the run-specific input code to the state.
 	actor.velocity.x = max(actor.speed, abs(actor.velocity.x)) * actor.input_direction.x
 	if sign(actor.velocity.x) != 0 and sign(actor.velocity.x) != sign(actor.look_direction.x):
 		actor.look_direction = Vector2(sign(actor.velocity.x), 0)

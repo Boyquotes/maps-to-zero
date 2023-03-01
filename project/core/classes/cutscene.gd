@@ -3,11 +3,7 @@ extends Node2D
 
 signal finished
 
-@export var cutscene_mode: bool = false:
-	set(value):
-		cutscene_mode = value
-		if _is_ready:
-			GameManager.cutscene_mode = value
+@export var cutscene_mode: bool = false
 @export var enable_character_transformers_on_start : bool = true
 @export var cutscene_name: String
 @export var queue_free_if_watched: bool = false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=155 format=3 uid="uid://bg36r2fh4oe7n"]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
+[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
 [ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/Alisa.png" id="3_k3unl"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/characters/alisa/sprites/Horns.png" id="5_p6dq2"]
@@ -50,7 +50,7 @@
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="47_sx4sk"]
 [ext_resource type="AudioStream" uid="uid://dy5pt4o6nla5e" path="res://assets/sfx/stomp.wav" id="48_ndf8c"]
 [ext_resource type="PackedScene" uid="uid://dmdeb5rc6ewxf" path="res://assets/characters/alisa/particles/alisa_stomp_land.tscn" id="49_ihgco"]
-[ext_resource type="PackedScene" path="res://core/states/core/state.tscn" id="50_r72u5"]
+[ext_resource type="PackedScene" uid="uid://dscf8c60pu3d4" path="res://core/states/core/state.tscn" id="50_r72u5"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/player_input.gd" id="51_6hmlq"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="52_5eego"]
 [ext_resource type="Script" path="res://core/states/actor_2d_states/stomp.gd" id="53_csobs"]
@@ -8034,27 +8034,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true]
 }
-tracks/5/type = "method"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D")
+tracks/5/path = NodePath("ActorTransformer2D:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"enable"
-}]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ActorTransformer2D:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
 "transitions": PackedFloat32Array(0.5, 0.5, 2),
 "update": 0,
@@ -8174,23 +8160,6 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(64, -16), Vector2(64, -16), Vector2(128, 0)]
 }
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ActorTransformer2D")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"enable"
-}, {
-"args": [],
-"method": &"disable"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2x750"]
 _data = {
@@ -8279,39 +8248,25 @@ tracks/3/keys = {
 "update": 1,
 "values": [true, false, true]
 }
-tracks/4/type = "method"
+tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D")
+tracks/4/path = NodePath("ActorTransformer2D:animation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"enable"
-}]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:animation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["air_attack_3"]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ActorTransformer2D:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ActorTransformer2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(0.5, 0.5, 1),
 "update": 0,
@@ -9069,7 +9024,6 @@ speed = 9
 team = 1
 attack_input_listening = true
 attack_can_cancel = true
-attack_can_go_to_next = true
 
 [node name="SignalManager" type="Node" parent="." index="0"]
 script = SubResource("GDScript_23cjj")
@@ -9255,6 +9209,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("32_sv8lv")
+animation = "attack"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
 collision_mask = 4
@@ -9332,6 +9287,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack1" index="1"]
 script = ExtResource("32_sv8lv")
+animation = "air_attack_1"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack1" index="2"]
 collision_mask = 4
@@ -9355,6 +9311,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack2" index="1"]
 script = ExtResource("32_sv8lv")
+animation = "air_attack_2"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack2" index="2"]
 collision_mask = 4
@@ -9612,7 +9569,7 @@ script = ExtResource("52_5eego")
 action = "action_4"
 go_to_state = "Rune Crash"
 
-[node name="Air" parent="StateMachine" index="2"]
+[node name="Air" parent="StateMachine" index="3"]
 background_fall_animation = "background_jump_fall"
 background_jumps_max = 1
 jump_speed_boost = 1.0

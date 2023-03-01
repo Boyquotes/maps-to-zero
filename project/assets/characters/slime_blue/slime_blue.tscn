@@ -1,6 +1,6 @@
-[gd_scene load_steps=52 format=3 uid="uid://c5tk70ccmexno"]
+[gd_scene load_steps=52 format=3]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
+[ext_resource type="PackedScene" uid="uid://dnw8l1ttgh30v" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_xdjc1"]
@@ -21,7 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://bnohujmie3ade" path="res://assets/sfx/footsteps_default_1.wav" id="15_bpqll"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="16_is8xi"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_target_input.gd" id="17_mim31"]
-[ext_resource type="Script" path="res://core/states/behavior_2d_states/idle_input.gd" id="17_pskm8"]
+[ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="17_pskm8"]
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/blue_slash_hit.tscn" id="17_xcjr3"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="18_j5f6b"]
 [ext_resource type="AudioStream" uid="uid://dkttpvsrimtgr" path="res://assets/sfx/qubodup__slash.wav" id="18_ue8hm"]
