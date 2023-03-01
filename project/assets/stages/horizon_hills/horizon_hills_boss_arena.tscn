@@ -35,7 +35,7 @@
 [ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/column_medium.tscn" id="38_h24ju"]
 [ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/column_small.tscn" id="39_lts7l"]
 [ext_resource type="Texture2D" uid="uid://ct4xiafwjqxnl" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Treasure+.png" id="54_xsvra"]
-[ext_resource type="PackedScene" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
+[ext_resource type="PackedScene" uid="uid://cwyt3sd1wi2dx" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="59_qjw7m"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="69_nr2gp"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="71_7t53a"]
@@ -1281,8 +1281,6 @@ environment = SubResource("Environment_mjjl6")
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints"]
 position = Vector2(-640, 256)
 script = ExtResource("3_nldxw")
-transition_animation = 2
-transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint"]
 libraries = {
@@ -2833,8 +2831,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 position = Vector2(-933, -487)
 script = ExtResource("71_7t53a")
 destination_entry_point = 1
-screen_transition = 1
-transition_duration = 0.5
 
 [node name="Area2d" type="Area2D" parent="StageChangeTrigger"]
 collision_layer = 0

@@ -635,6 +635,32 @@ tracks/4/keys = {
 "update": 1,
 "values": [3, 4]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CloudBlueAttackParticles:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CloudBlueAttackParticles/AttackSfx")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_wivkp"]
 length = 0.2
@@ -869,32 +895,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../Visuals/CloudBlueAttackParticles/AttackSfx")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"stop"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../Visuals/CloudBlueAttackParticles:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_jnn5x"]
 resource_name = "attack"
@@ -1048,7 +1048,7 @@ texture = ExtResource("5_ghal4")
 offset = Vector2(0, -32)
 hframes = 4
 vframes = 4
-frame = 12
+frame = 3
 region_rect = Rect2(0, 256, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Cloud Blue",
@@ -1134,6 +1134,7 @@ disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="2"]
 script = ExtResource("19_yaxwu")
+actor_name = "CloudBlue"
 animation = "attack_windup"
 
 [node name="CollisionShape2d" parent="Inner/Hurtbox" index="0"]
@@ -1195,6 +1196,7 @@ libraries = {
 
 [node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
 script = ExtResource("19_yaxwu")
+actor_name = "CloudBlue"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("26_u14du")

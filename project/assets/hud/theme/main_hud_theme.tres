@@ -1,0 +1,50 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b6b1xx6hde68w"]
+
+[ext_resource type="FontFile" uid="uid://kexwi7ccy05b" path="res://assets/hud/fonts/monogram_extended.ttf" id="1_6168k"]
+[ext_resource type="FontFile" uid="uid://chsnp3bedkflv" path="res://assets/hud/fonts/little_guy.ttf" id="2_gk8jm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15ntf"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04j7u"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52118"]
+bg_color = Color(0.694118, 0.156863, 0.145098, 1)
+
+[resource]
+default_font = ExtResource("1_6168k")
+default_font_size = 32
+Button/font_sizes/font_size = 64
+Button/fonts/font = ExtResource("1_6168k")
+KeyboardButtonLabel/base_type = &"Label"
+KeyboardButtonLabel/font_sizes/font_size = 48
+KeyboardButtonLabel/styles/normal = SubResource("StyleBoxFlat_15ntf")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(1, 1, 1, 1)
+Label/constants/line_spacing = 0
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
+Label/constants/shadow_outline_size = 0
+Label/font_sizes/font_size = 64
+ProgressBar/fonts/font = ExtResource("1_6168k")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_04j7u")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_52118")
+TutorialButton/base_type = &"Button"
+TutorialButton/fonts/font = ExtResource("2_gk8jm")
+TutorialHeaderLabel/base_type = &"TutorialTextLabel"
+TutorialHeaderLabel/colors/font_color = Color(1, 1, 1, 1)
+TutorialHeaderLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+TutorialHeaderLabel/font_sizes/font_size = 69
+TutorialHeaderLabel/fonts/font = ExtResource("2_gk8jm")
+TutorialTextLabel/base_type = &"Label"
+TutorialTextLabel/colors/font_color = Color(1, 1, 1, 1)
+TutorialTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+TutorialTextLabel/font_sizes/font_size = 32
+TutorialTextLabel/fonts/font = ExtResource("2_gk8jm")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bet7nkh2ka5fk"]
+[gd_scene load_steps=59 format=3 uid="uid://bet7nkh2ka5fk"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_0qeoe"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="1_200cg"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://core/triggers/uncover_screen_trigger.gd" id="29_xixio"]
 [ext_resource type="Script" path="res://core/triggers/hide_cutscene_bars_trigger.gd" id="30_1wklt"]
 [ext_resource type="Script" path="res://core/triggers/show_game_hud_trigger.gd" id="31_g5v04"]
+[ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="34_pl6qy"]
 [ext_resource type="Script" path="res://core/triggers/cover_screen_trigger.gd" id="35_ivngg"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="36_7c02c"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="36_o0fow"]
@@ -167,6 +168,18 @@ tracks/7/keys = {
 "update": 1,
 "values": ["idle"]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GuidingLight:z_index")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [25]
+}
 
 [sub_resource type="Animation" id="Animation_2vita"]
 resource_name = "end"
@@ -197,10 +210,24 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("GoToSkillTutorial/StageChangeTrigger")
+tracks/2/path = NodePath("Finished/StageChangeTrigger")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Finished/MusicTrigger")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -312,10 +339,24 @@ tracks/4/keys = {
 tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("GoToSkillTutorial/StageChangeTrigger")
+tracks/5/path = NodePath("Finished/StageChangeTrigger")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Finished/MusicTrigger")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -388,6 +429,42 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
 "values": [Vector2(2, 2), Vector2(3, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GuidingLight:z_index")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [25, 0, 25, 0, 25]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CloudBlueCutsceneTransformer2:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CloudBlueCutsceneTransformer:animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
 }
 
 [sub_resource type="Animation" id="Animation_ewax0"]
@@ -774,6 +851,42 @@ tracks/18/keys = {
 "update": 1,
 "values": ["idle"]
 }
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("GuidingLight:z_index")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 25, 0, 25]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("CloudBlueCutsceneTransformer:look_direction")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("CloudBlueCutsceneTransformer2:look_direction")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq1w5"]
 _data = {
@@ -1095,22 +1208,26 @@ next/move_to_enemies = &"enemies_loop"
 next/start = &"start_2"
 
 [node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
-position = Vector2(96, 0)
 script = ExtResource("22_oihn8")
 actor_name = "Alisa"
+look_direction = 0
+animation = "stand"
 
 [node name="CloudBlueCutsceneTransformer" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
 position = Vector2(656, 0)
 script = ExtResource("22_oihn8")
 actor_name = "CloudBlue"
+animation = "idle"
 
 [node name="CloudBlueCutsceneTransformer2" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
 position = Vector2(968, 0)
 script = ExtResource("22_oihn8")
 actor_name = "CloudBlue2"
+animation = "idle"
 
 [node name="GuidingLight" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
 visible = false
+z_index = 25
 
 [node name="GuidingLight" parent="Triggers/SkillsTutorialCutscene/GuidingLight" instance=ExtResource("23_f131p")]
 
@@ -1176,13 +1293,16 @@ duration = 1.0
 script = ExtResource("31_g5v04")
 duration = 1.0
 
-[node name="GoToSkillTutorial" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="MusicTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Finished"]
+script = ExtResource("34_pl6qy")
+song = 1
+previous_song_fade_out_time = 2.0
 
-[node name="StageChangeTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/GoToSkillTutorial"]
+[node name="StageChangeTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Finished"]
 script = ExtResource("36_7c02c")
 stage_file_path = "res://assets/stages/horizon_hills/skills_tutorial.tscn"
 cover_animation = 1
-cover_duration = 1.0
+cover_duration = 2.0
 
 [node name="CameraSettingsTrigger" type="Node2D" parent="Triggers"]
 z_index = 100

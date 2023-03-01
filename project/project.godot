@@ -31,10 +31,10 @@ editor/character_preview_mode=0
 editor/current_editor=&"Timeline Editor"
 editor/current_resources={
 "Character Editor": "res://assets/dialog/characters/alisa.dch",
-"Timeline Editor": "res://assets/dialog/timelines/skills_stage_timeline.dtl"
+"Timeline Editor": "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl"
 }
 editor/current_timeline_path="res://assets/dialog/timelines/skills_tutorial_3.dtl"
-editor/last_resources=["res://assets/dialog/timelines/skills_stage_timeline.dtl", "res://assets/dialog/timelines/skills_tutorial_3.dtl", "res://assets/dialog/timelines/skills_tutorial_1.dtl", "res://assets/dialog/timelines/skills_tutorial_2.dtl", "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl", "res://assets/dialog/characters/alisa.dch", "res://assets/dialog/characters/time_goddess.dch"]
+editor/last_resources=["res://assets/dialog/timelines/first_dash_successful.dtl", "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl", "res://assets/dialog/timelines/skills_stage_timeline.dtl", "res://assets/dialog/timelines/skills_tutorial_3.dtl", "res://assets/dialog/timelines/skills_tutorial_1.dtl", "res://assets/dialog/timelines/skills_tutorial_2.dtl", "res://assets/dialog/characters/alisa.dch", "res://assets/dialog/characters/time_goddess.dch"]
 layout/mode=0
 variables={}
 glossary/default_case_sensitive=true
@@ -69,6 +69,10 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/smoothing/plugin.cfg")
+
+[gui]
+
+theme/custom="res://assets/hud/theme/main_hud_theme.tres"
 
 [input]
 

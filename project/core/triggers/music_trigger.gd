@@ -1,3 +1,4 @@
+class_name MusicTrigger
 extends Trigger
 
 @export var song : Music.Songs

@@ -49,16 +49,35 @@
 [sub_resource type="GDScript" id="GDScript_a2rv7"]
 script/source = "extends Stage
 
-@export var movement_tutorial_cutscene: NodePath
-@export var enemy_tutorial_cutscene: NodePath
+@onready var move_tutorial_cutscene := %MoveTutorialCutscene as Cutscene
+@onready var enemy_tutorial_cutscene := %EnemyTutorialCutscene as Cutscene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Cutscene.watched_cutscene(\"movement_tutorial\"):
-		get_node(movement_tutorial_cutscene).queue_free()
+	if Cutscene.watched_cutscene(enemy_tutorial_cutscene.cutscene_name):
+		enemy_tutorial_cutscene.queue_free()
+	else:
+		enemy_tutorial_cutscene.finished.connect(func():
+			ScreenEffects.show_border_frame(1.0)
+			var tutorial := PopupFactory.popup_tutorial(Tutorial.Screens.ATTACKS_101) as Tutorial
+			tutorial.closed.connect(func():
+				ScreenEffects.hide_border_frame(1.0)
+			)
+		)
+	
+	if Cutscene.watched_cutscene(move_tutorial_cutscene.cutscene_name):
+		move_tutorial_cutscene.queue_free()
+		super._ready()
 	else:
 		normal_entry = false
-		get_node(movement_tutorial_cutscene).start()
+		move_tutorial_cutscene.finished.connect(func():
+			ScreenEffects.show_border_frame(1.0)
+			var tutorial := PopupFactory.popup_tutorial(Tutorial.Screens.MOVEMENT_101) as Tutorial
+			tutorial.closed.connect(func():
+				ScreenEffects.hide_border_frame(1.0)
+			)
+		)
+		move_tutorial_cutscene.start()
 "
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
@@ -650,6 +669,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GuidingLight:z_index")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_2vita"]
 resource_name = "end"
@@ -803,6 +834,18 @@ tracks/3/keys = {
 "method": &"trigger"
 }]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GuidingLight:z_index")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [25, 0, 25, 0, 25]
+}
 
 [sub_resource type="Animation" id="Animation_ewax0"]
 resource_name = "move_to_enemies"
@@ -942,6 +985,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_bl8as"]
 resource_name = "start_2"
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1108,6 +1152,18 @@ tracks/12/keys = {
 "method": &"teleport"
 }]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("GuidingLight:z_index")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [-1, 25, -1, 25]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq1w5"]
 _data = {
@@ -1131,8 +1187,6 @@ blend_mode = 1
 
 [node name="Horizon Hills Act 1" type="Node2D"]
 script = SubResource("GDScript_a2rv7")
-movement_tutorial_cutscene = NodePath("Triggers/MoveTutorialCutscene")
-enemy_tutorial_cutscene = NodePath("Triggers/EnemyTutorialCutscene")
 song = 3
 metadata/_edit_vertical_guides_ = []
 
@@ -1419,6 +1473,7 @@ shape = SubResource("RectangleShape2D_fm4if")
 [node name="Triggers" type="Node2D" parent="."]
 
 [node name="MoveTutorialCutscene" type="Node2D" parent="Triggers"]
+unique_name_in_owner = true
 position = Vector2(-480, 256)
 script = ExtResource("31_tk3lf")
 cutscene_name = "movement_tutorial"
@@ -1431,6 +1486,7 @@ libraries = {
 [node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/MoveTutorialCutscene"]
 script = ExtResource("4_sm1it")
 actor_name = "Alisa"
+look_direction = 1
 
 [node name="GuidingLight" type="Marker2D" parent="Triggers/MoveTutorialCutscene"]
 visible = false
@@ -1474,11 +1530,11 @@ script = ExtResource("32_a5nol")
 duration = 1.0
 
 [node name="EnemyTutorialCutscene" type="Node2D" parent="Triggers"]
+unique_name_in_owner = true
 position = Vector2(1856, 64)
 script = ExtResource("31_tk3lf")
 enable_character_transformers_on_start = false
 cutscene_name = "enemy_tutorial"
-queue_free_if_watched = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Triggers/EnemyTutorialCutscene"]
 libraries = {
@@ -1487,11 +1543,13 @@ libraries = {
 next/start = &"start_2"
 
 [node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/EnemyTutorialCutscene"]
+position = Vector2(28.8, 0)
 script = ExtResource("4_sm1it")
 actor_name = "Alisa"
 
 [node name="GuidingLight" type="Marker2D" parent="Triggers/EnemyTutorialCutscene"]
 visible = false
+z_index = 1
 
 [node name="GuidingLight" parent="Triggers/EnemyTutorialCutscene/GuidingLight" instance=ExtResource("34_atjre")]
 

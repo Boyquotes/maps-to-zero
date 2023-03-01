@@ -1,11 +1,24 @@
 class_name PopupFactory
 extends Node
 
-const YES_NO_PATH = "res://core/popups/yes_no_menu.tscn"
+const TUTORIAL_PATHS = {
+	Tutorial.Screens.MOVEMENT_101: "res://assets/hud/tutorials/screens/movement_101.tscn",
+	Tutorial.Screens.ATTACKS_101: "res://assets/hud/tutorials/screens/attacks_101.tscn",
+	Tutorial.Screens.SKILLS_101: "res://assets/hud/tutorials/screens/skills_101.tscn",
+} 
+const YES_NO_PATH = "res://assets/hud/components/yes_no_menu/yes_no_menu.tscn"
 
-static func MakeYesNo(message: String, yes_callback: Callable, no_callback: Callable, args := {}) -> YesNoMenu:
-	var popup: YesNoMenu = load(YES_NO_PATH).instantiate()
-	GameManager.popup_canvas.add_child(popup)
-	popup.initialize(message, yes_callback, no_callback)
-	popup.queue_free_on_selection = true
-	return popup
+
+static func popup_tutorial(tutorial: Tutorial.Screens) -> Tutorial:
+	var tutorial_prompt := load(TUTORIAL_PATHS[tutorial]).instantiate() as Tutorial
+	GameUtilities.get_popup_canvas().add_child(tutorial_prompt)
+	return tutorial_prompt
+
+
+static func popup_yes_no_menu(message: String, yes_callback: Callable, no_callback: Callable) -> YesNoMenu:
+	var yes_no_menu := load(YES_NO_PATH).instantiate() as YesNoMenu
+	GameUtilities.get_popup_canvas().add_child(yes_no_menu)
+	yes_no_menu.initialize(message, yes_callback, no_callback)
+	yes_no_menu.queue_free_on_selection = true
+	return yes_no_menu
+

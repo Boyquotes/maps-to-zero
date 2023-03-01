@@ -738,6 +738,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_ibg84")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars"]
@@ -752,10 +753,11 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -88.0
 offset_top = -72.0
-offset_right = 74952.0
+offset_right = 86472.0
 offset_bottom = -12.0
 grow_horizontal = 2
 rotation = -0.0174533
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars/TopBar"]
 root_node = NodePath("../..")
@@ -767,12 +769,14 @@ libraries = {
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 120.0
+mouse_filter = 2
 
 [node name="BlackBar" type="ColorRect" parent="CutsceneBars/TopBar"]
 layout_mode = 0
 offset_top = 80.0
 offset_right = 1600.0
 offset_bottom = 120.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="BottomBar" type="Control" parent="CutsceneBars"]
@@ -783,11 +787,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
 offset_top = 392.0
-offset_right = 74992.0
+offset_right = 86512.0
 offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0174533
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars/BottomBar"]
 libraries = {
@@ -798,11 +803,13 @@ libraries = {
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 120.0
+mouse_filter = 2
 
 [node name="BlackBar" type="ColorRect" parent="CutsceneBars/BottomBar"]
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 40.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="SpeedLines" type="Control" parent="."]
@@ -812,6 +819,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="SpeedLines"]
 position = Vector2(640, 360)
@@ -830,6 +838,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SkillFrames"]
 autoplay = "RESET"
@@ -844,10 +853,11 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -304.0
 offset_top = -232.0
-offset_right = 48976.0
+offset_right = 60496.0
 offset_bottom = -132.0
 grow_horizontal = 2
 rotation = 0.0523599
+mouse_filter = 2
 
 [node name="White" type="ColorRect" parent="SkillFrames/TopBar"]
 layout_mode = 1
@@ -856,6 +866,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Black" type="ColorRect" parent="SkillFrames/TopBar"]
 layout_mode = 1
@@ -865,6 +876,7 @@ anchor_bottom = 1.0
 offset_top = 80.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="RightBar" type="Control" parent="SkillFrames"]
@@ -874,10 +886,11 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1400.0
 offset_top = -48.0
-offset_right = 50680.0
+offset_right = 62200.0
 offset_bottom = 52.0001
 grow_horizontal = 2
 rotation = 1.51844
+mouse_filter = 2
 
 [node name="White" type="ColorRect" parent="SkillFrames/RightBar"]
 layout_mode = 1
@@ -886,6 +899,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Black" type="ColorRect" parent="SkillFrames/RightBar"]
 layout_mode = 1
@@ -895,6 +909,7 @@ anchor_bottom = 1.0
 offset_top = 80.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="BottomBar" type="Control" parent="SkillFrames"]
@@ -904,10 +919,11 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = 1312.0
 offset_top = 864.0
-offset_right = 50592.0
+offset_right = 62112.0
 offset_bottom = 964.0
 grow_horizontal = 2
 rotation = 3.15905
+mouse_filter = 2
 
 [node name="White" type="ColorRect" parent="SkillFrames/BottomBar"]
 layout_mode = 1
@@ -916,6 +932,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Black" type="ColorRect" parent="SkillFrames/BottomBar"]
 layout_mode = 1
@@ -925,6 +942,7 @@ anchor_bottom = 1.0
 offset_top = 80.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="LeftBar" type="Control" parent="SkillFrames"]
@@ -934,10 +952,11 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_left = -48.0
 offset_top = 656.0
-offset_right = 49232.0
+offset_right = 60752.0
 offset_bottom = 756.0
 grow_horizontal = 2
 rotation = 4.75777
+mouse_filter = 2
 
 [node name="White" type="ColorRect" parent="SkillFrames/LeftBar"]
 layout_mode = 1
@@ -946,6 +965,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Black" type="ColorRect" parent="SkillFrames/LeftBar"]
 layout_mode = 1
@@ -955,6 +975,7 @@ anchor_bottom = 1.0
 offset_top = 80.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ScreenTransition" type="CanvasLayer" parent="."]
@@ -968,6 +989,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenTransition/Cover"]
 libraries = {
@@ -981,6 +1003,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Uncover" type="Control" parent="ScreenTransition"]
@@ -991,6 +1014,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenTransition/Uncover"]
 libraries = {
@@ -1004,4 +1028,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.888889)

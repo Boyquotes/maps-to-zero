@@ -1,14 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dos2ef4a5auih"]
+[gd_scene load_steps=11 format=3 uid="uid://c3i2qg7f3e6hq"]
 
 [ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_w7s42"]
 [ext_resource type="PackedScene" uid="uid://bg36r2fh4oe7n" path="res://assets/characters/alisa/alisa.tscn" id="2_8nx3r"]
 [ext_resource type="Script" path="res://core/classes/camera/camera_target_position.gd" id="3_5rup2"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_jpdgf"]
 [ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_h6djx"]
-[ext_resource type="Theme" uid="uid://u6n8alqxmbcj" path="res://assets/hud/general_theme.tres" id="5_ha680"]
 [ext_resource type="Script" path="res://assets/hud/fps_counter.gd" id="6_xk1lb"]
-[ext_resource type="PackedScene" uid="uid://bh3tsnhbyxhu5" path="res://assets/hud/popups/yes_no_menu.tscn" id="7_8s6i4"]
-[ext_resource type="PackedScene" uid="uid://c6suespw4ygt7" path="res://assets/hud/sidescroller_hud.tscn" id="8_bocmk"]
+[ext_resource type="PackedScene" path="res://assets/hud/components/yes_no_menu/yes_no_menu.tscn" id="7_8s6i4"]
+[ext_resource type="PackedScene" path="res://assets/hud/action_hud/sidescroller_hud.tscn" id="8_bocmk"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
@@ -66,7 +65,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_ha680")
 
 [node name="FPS Counter" type="Label" parent="DebugInfo/Control"]
 layout_mode = 1

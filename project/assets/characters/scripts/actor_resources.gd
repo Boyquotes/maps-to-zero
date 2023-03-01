@@ -40,6 +40,8 @@ func set_max_resource(type: Type, new_value: float) -> void:
 func get_max_resource(type: Type):
 	return _max_resources[type]
 
+func max_out(type: Type) -> void:
+	set_resource(type, max(_max_resources[type], _resources[type]))
 
 func _on_mp_regen_timer_timeout():
 	change_resource(Type.MP, 1, true)

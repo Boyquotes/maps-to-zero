@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhyiqf6fhhccc"]
+
+[ext_resource type="Script" path="res://assets/hud/tutorials/tutorial.gd" id="1_12hid"]
+[ext_resource type="AudioStream" uid="uid://bp3syvblutlg4" path="res://assets/hud/tutorials/chalk_writing.wav" id="3_bmj5y"]
+[ext_resource type="Texture2D" uid="uid://ygxoousvnt4o" path="res://assets/hud/keys/jumbo/dark/Z.png" id="3_mtfe1"]
+
+[node name="TutorialScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 112.0
+offset_top = 68.0
+offset_right = -104.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_12hid")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Content" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Pages" type="Control" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CloseButton" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -92.0001
+offset_right = -61.0001
+offset_bottom = -40.0001
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 0.0523599
+theme_type_variation = &"TutorialButton"
+text = "OK"
+icon = ExtResource("3_mtfe1")
+flat = true
+expand_icon = true
+
+[node name="PageNumberLabel" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 696.0
+offset_top = 468.0
+offset_right = 837.0
+offset_bottom = 540.0
+theme_type_variation = &"TutorialTextLabel"
+theme_override_font_sizes/font_size = 64
+text = "1 / 2"
+
+[node name="PageChangeSfx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_bmj5y")
+bus = &"Sfx"

@@ -7,6 +7,7 @@ extends Marker2D
 
 @export_enum("Right", "Left") var look_direction:
 	set(value):
+		look_direction = value
 		if not actor:
 			await ready
 		if not actor:
@@ -21,6 +22,7 @@ extends Marker2D
 
 @export var animation := "":
 	set(value):
+		animation = value
 		if Engine.is_editor_hint():
 			if not actor:
 				await ready
@@ -31,11 +33,6 @@ extends Marker2D
 			if not actor.is_ready:
 				await actor.ready
 			actor.play_animation(value)
-
-@export var active: bool = false:
-	set(value):
-		active = value
-		set_physics_process(active)
 
 var last_frame_position : Vector2
 var actor: Actor2D
@@ -91,12 +88,12 @@ func teleport() -> void:
 
 func enable() -> void:
 	actor.set_cutscene_mode(true)
-	active = true
+	set_physics_process(true)
 	last_frame_position = position - center_offset
 
 func disable() -> void:
 	actor.set_cutscene_mode(false)
-	active = false
+	set_physics_process(false)
 	actor.rotation = 0
 	actor.velocity = Vector2.ZERO
 

@@ -12,13 +12,15 @@ signal finished
 @export var cutscene_name: String
 @export var queue_free_if_watched: bool = false
 
-@onready var animation_player : AnimationPlayer = $AnimationPlayer
-
-var skipping: bool = false
+var _skipping: bool = false
 var _is_ready: bool = false
+
+@onready var _animation_player : AnimationPlayer = $AnimationPlayer
+
 
 static func watched_cutscene(_cutscene_name: String) -> bool:
 	return SaveData.cutscenes.has(_cutscene_name) and SaveData.cutscenes[_cutscene_name]
+
 
 func _ready():
 	if queue_free_if_watched and watched_cutscene(cutscene_name):
@@ -30,18 +32,19 @@ func _ready():
 	await get_tree().create_timer(1.1).timeout
 	_is_ready = true
 	
-	animation_player.animation_finished.connect(_on_animation_finished)
+	_animation_player.animation_finished.connect(_on_animation_finished)
 	
 	for child in get_children():
 		if child is DialogTrigger:
 			child.finished_and_play_animation.connect(func(anim_name):
-				animation_player.play(anim_name)
+				_animation_player.play(anim_name)
 			)
+
 
 func start(_dummy_var=null) -> void:
 	_is_ready = true
-	assert (animation_player.has_animation("start"))
-	animation_player.play("start")
+	assert (_animation_player.has_animation("start"))
+	_animation_player.play("start")
 	set_process_input(true)
 	
 	if enable_character_transformers_on_start:
@@ -50,20 +53,23 @@ func start(_dummy_var=null) -> void:
 				child.teleport()
 				child.enable()
 
+
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("skip_cutscene") and not skipping:
+	if event.is_action_pressed("skip_cutscene") and not _skipping:
 		skip()
 
+
 func play_end() -> void:
-	animation_player.play("end")
+	_animation_player.play("end")
+
 
 func skip() -> void:
-	skipping = true
+	_skipping = true
 	
 	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_TO_BLACK, 0.5)
 	await ScreenEffects.cover_finished
 	
-	animation_player.play("finished")
+	_animation_player.play("finished")
 	finished.emit()
 	for child in get_children():
 		if child is ActorCutsceneTransformer:
@@ -73,14 +79,15 @@ func skip() -> void:
 	GameUtilities.get_main_camera().reset_smoothing()
 	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT_BLACK, 0.5)
 	
-	skipping = false
+	_skipping = false
+
 
 func _on_animation_finished(anim_name: String) -> void:
-	if not skipping:
+	if not _skipping:
 		if anim_name == "end":
 			finished.emit()
-			if animation_player.has_animation("finished"):
-				animation_player.play("finished")
+			if _animation_player.has_animation("finished"):
+				_animation_player.play("finished")
 			for child in get_children():
 				if child is ActorCutsceneTransformer:
 					child.disable()

@@ -28,6 +28,11 @@ static func get_hostile_teams(team: Teams) -> Array:
 static func get_main_camera() -> GameplayCamera2D:
 	return GameManager.gameplay_camera
 
+static func get_player() -> Actor2D:
+	return GameManager.player
+
+static func get_popup_canvas() -> CanvasLayer:
+	return GameManager.sidescroller_main.popup_canvas
 
 func show_cutscene_bars(duration:= 1.0) -> void:
 	ScreenEffects.show_cutscene_bars(duration)
@@ -42,10 +47,10 @@ func hide_speedlines() -> void:
 	ScreenEffects.hide_speedlines()
 
 func show_skill_frame(duration:= 1.0) -> void:
-	ScreenEffects.show_skill_frame(duration)
+	ScreenEffects.show_border_frame(duration)
 
 func hide_skill_frame(duration:= 1.0) -> void:
-	ScreenEffects.hide_skill_frame(duration)
+	ScreenEffects.hide_border_frame(duration)
 
 func show_game_hud(duration := 1.0):
 	GameManager.sidescroller_main.sidescroller_hud.show_hud(duration)

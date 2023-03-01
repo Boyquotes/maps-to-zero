@@ -1,0 +1,160 @@
+[gd_scene load_steps=6 format=3 uid="uid://hs4mmvol0v58"]
+
+[ext_resource type="PackedScene" uid="uid://bhyiqf6fhhccc" path="res://assets/hud/tutorials/tutorial_screen.tscn" id="1_ackv8"]
+[ext_resource type="PackedScene" uid="uid://sp45w4ng5d0t" path="res://assets/hud/tutorials/chalk_board.tscn" id="2_lwt5f"]
+
+[sub_resource type="Animation" id="Animation_k1cl7"]
+resource_name = "show"
+length = 2.0
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChalkBoard/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("slam_down"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_avwge"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ak1u"]
+_data = {
+"RESET": SubResource("Animation_avwge"),
+"show": SubResource("Animation_k1cl7")
+}
+
+[node name="Movement101" instance=ExtResource("1_ackv8")]
+
+[node name="AnimationPlayer" parent="." index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_3ak1u")
+}
+
+[node name="ChalkBoard" parent="." index="1" instance=ExtResource("2_lwt5f")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1098.0
+offset_bottom = 584.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0349066
+
+[node name="Content" parent="." index="2"]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Page1" type="Control" parent="Content/Pages" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HeaderLabel" type="Label" parent="Content/Pages/Page1" index="0"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 137.0
+grow_horizontal = 2
+theme_type_variation = &"TutorialHeaderLabel"
+text = "MOVEMENT 101"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RunMessage" type="HBoxContainer" parent="Content/Pages/Page1" index="1"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -96.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Content/Pages/Page1/RunMessage" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TutorialTextLabel"
+text = "- Move with the <- and -> keys.
+"
+horizontal_alignment = 2
+
+[node name="JumpMessage" type="HBoxContainer" parent="Content/Pages/Page1" index="2"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 8.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="Content/Pages/Page1/JumpMessage" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/Pages/Page1/JumpMessage" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Content/Pages/Page1/JumpMessage/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TutorialTextLabel"
+text = "  - Press the ^ arrow key to jump."
+
+[node name="Label2" type="Label" parent="Content/Pages/Page1/JumpMessage/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TutorialTextLabel"
+text = " - Hold longer to jump higher."
+
+[node name="Label3" type="Label" parent="Content/Pages/Page1/JumpMessage/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TutorialTextLabel"
+text = "- Jump right before touching the
+  ground to build up speed!"
+
+[editable path="ChalkBoard"]
