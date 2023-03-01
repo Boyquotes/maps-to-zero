@@ -1035,6 +1035,7 @@ libraries = {
 
 [node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
 script = ExtResource("13_cpwx1")
+actor_name = "FrogGreen"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("20_giydc")

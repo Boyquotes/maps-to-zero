@@ -198,92 +198,80 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:frame")
+tracks/7/path = NodePath("TailConnection:z_index")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [117]
+"values": [0]
 }
-tracks/8/type = "value"
+tracks/8/type = "bezier"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("TailConnection:z_index")
+tracks/8/path = NodePath("AttackSwings:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/9/type = "bezier"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AttackSwings:frame")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/10/type = "bezier"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("AttackSwings:hframes")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AttackSwings:hframes")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(5, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("AttackSwings:position")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AttackSwings:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(56, -19)]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AttackSwings:texture")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_tmpp0")]
+}
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("AttackSwings:texture")
+tracks/12/path = NodePath("AttackSwings:vframes")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_tmpp0")]
+"values": [1]
 }
-tracks/13/type = "value"
+tracks/13/type = "method"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("AttackSwings:vframes")
+tracks/13/path = NodePath("GrindParticles")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/14/type = "method"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("GrindParticles")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -291,13 +279,13 @@ tracks/14/keys = {
 "method": &"deactivate"
 }]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("AttackSwings:visible")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("AttackSwings:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -7936,7 +7924,7 @@ tracks/6/path = NodePath("ActorTransformer2D")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0, 0.45),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -8298,17 +8286,11 @@ tracks/4/path = NodePath("ActorTransformer2D")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"disable"
-}, {
-"args": [],
 "method": &"enable"
-}, {
-"args": [],
-"method": &"disable"
 }]
 }
 tracks/5/type = "value"
@@ -8486,6 +8468,20 @@ tracks/10/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("ActorTransformer2D")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable_no_speed_loss"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_tsibi"]
 resource_name = "attack"
@@ -8534,14 +8530,11 @@ tracks/3/path = NodePath("ActorTransformer2D")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.45),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"enable"
-}, {
-"args": [],
-"method": &"disable"
 }]
 }
 tracks/4/type = "method"
@@ -9076,6 +9069,7 @@ speed = 9
 team = 1
 attack_input_listening = true
 attack_can_cancel = true
+attack_can_go_to_next = true
 
 [node name="SignalManager" type="Node" parent="." index="0"]
 script = SubResource("GDScript_23cjj")
@@ -9139,7 +9133,7 @@ texture = ExtResource("3_k3unl")
 offset = Vector2(0, -32)
 hframes = 16
 vframes = 15
-frame = 117
+frame = 231
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Alisa",
@@ -9161,7 +9155,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 8
+frame = 69
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9261,7 +9255,6 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
 collision_mask = 4
@@ -9287,7 +9280,6 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack2" index="1"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack2" index="2"]
 collision_mask = 4
@@ -9313,9 +9305,10 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack3" index="1"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
+animation = "attack_3"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack3" index="2"]
+position = Vector2(-1, 0)
 collision_mask = 4
 script = ExtResource("33_x7obb")
 base_value = 5.0
@@ -9339,7 +9332,6 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack1" index="1"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack1" index="2"]
 collision_mask = 4
@@ -9363,7 +9355,6 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack2" index="1"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack2" index="2"]
 collision_mask = 4
@@ -9387,7 +9378,7 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack3" index="1"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
+animation = "air_attack_3"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack3" index="2"]
 collision_mask = 4
@@ -9422,8 +9413,8 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Dash" index="2"]
 script = ExtResource("32_sv8lv")
-actor_name = "Alisa"
-animation = "slide"
+reset_speed_on_disable = false
+animation = "idle"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Dash" index="3"]
 position = Vector2(256, 0)
@@ -9473,7 +9464,7 @@ script = ExtResource("18_5ur3l")
 particles_scene = ExtResource("42_xjwjg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Inner/Attacks/Dash" index="9"]
-layer = 100
+layer = 89
 
 [node name="BlueShift" type="ColorRect" parent="Inner/Attacks/Dash/CanvasLayer" index="0"]
 anchors_preset = 15

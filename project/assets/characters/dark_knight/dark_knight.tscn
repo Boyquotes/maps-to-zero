@@ -943,19 +943,11 @@ tick_rate = 0.9
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("26_1hb2y")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_1"
 go_to_state = "Attack"
 
 [node name="InputKeyTransition2" type="Node" parent="StateMachine/Idle" index="1"]
 script = ExtResource("26_1hb2y")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_2"
 go_to_state = "RunAttack"
 
@@ -964,19 +956,11 @@ animation = "walk"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
 script = ExtResource("26_1hb2y")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_1"
 go_to_state = "Attack"
 
 [node name="InputKeyTransition2" type="Node" parent="StateMachine/Run" index="1"]
 script = ExtResource("26_1hb2y")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_2"
 go_to_state = "RunAttack"
 

@@ -4,6 +4,9 @@ extends Node
 signal screen_transition_finished
 
 enum Teams { NEUTRAL, TEAM_1, TEAM_2 }
+
+
+const TILE_SIZE := Vector2(32, 32)
 const FRIENDLY_TEAMS := {
 	Teams.NEUTRAL : [Teams.NEUTRAL, Teams.TEAM_1, Teams.TEAM_2],
 	Teams.TEAM_1 : [Teams.NEUTRAL, Teams.TEAM_1],
@@ -14,7 +17,6 @@ const HOSTILE_TEAMS := {
 	Teams.TEAM_1 : [Teams.TEAM_2],
 	Teams.TEAM_2 : [Teams.TEAM_1]
 }
-const TILE_SIZE := Vector2(32, 32)
 
 static func team_friendly_with(source_team: Teams, other_team: Teams) -> bool:
 	return FRIENDLY_TEAMS[source_team].has(other_team)

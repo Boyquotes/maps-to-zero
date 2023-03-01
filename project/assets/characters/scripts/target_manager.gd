@@ -32,7 +32,7 @@ func _find_closest_enemy(max_distance:=-1.0):
 	
 	var enemy_teams = GameUtilities.get_hostile_teams(actor.team)
 	for enemy_team in enemy_teams:
-		for target_actor in get_tree().get_nodes_in_group("team" + str(enemy_team)):
+		for target_actor in get_tree().get_nodes_in_group("team_" + str(enemy_team)):
 			if closest_target == null:
 				closest_target = target_actor
 			

@@ -4,6 +4,8 @@ extends ActorCutsceneTransformer
 
 
 @export var move_with_look_direction: bool = true
+@export var reset_speed_on_disable: bool = true
+
 
 func _physics_process(delta):
 	if last_frame_position.is_equal_approx(position - center_offset):
@@ -18,14 +20,17 @@ func _physics_process(delta):
 	actor.rotation = rotation
 #	actor.inner.scale = scale
 
+
 func enable() -> void:
 	set_physics_process(true)
 	last_frame_position = position - center_offset
 
+
 func disable() -> void:
 	set_physics_process(false)
 	actor.rotation = 0
-#	actor.velocity = Vector2.ZERO
+	if reset_speed_on_disable:
+		actor.velocity = Vector2.ZERO
 
 
 func look_other_way() -> void:

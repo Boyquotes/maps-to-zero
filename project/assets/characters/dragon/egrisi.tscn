@@ -2008,7 +2008,7 @@ position = Vector2(11, -96)
 texture = ExtResource("2_twwhm")
 hframes = 7
 vframes = 7
-frame = 17
+frame = 15
 region_rect = Rect2(1536, 1408, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -2348,19 +2348,11 @@ next_state = "Attack"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("27_ba523")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_1"
 go_to_state = "Attack"
 
 [node name="InputKeyTransition2" type="Node" parent="StateMachine/Idle" index="1"]
 script = ExtResource("27_ba523")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_2"
 go_to_state = "RunAttack"
 
@@ -2369,19 +2361,11 @@ animation = "walk"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
 script = ExtResource("27_ba523")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_1"
 go_to_state = "Attack"
 
 [node name="InputKeyTransition2" type="Node" parent="StateMachine/Run" index="1"]
 script = ExtResource("27_ba523")
-inputs = {
-"action_1": "Attack",
-"action_2": "RunAttack"
-}
 action = "action_2"
 go_to_state = "RunAttack"
 

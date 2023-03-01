@@ -895,6 +895,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorTransformer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_jnn5x"]
 resource_name = "attack"
@@ -974,7 +988,7 @@ pressed = true
 
 [sub_resource type="Animation" id="Animation_jurmx"]
 resource_name = "enter"
-length = 2.5
+length = 3.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1048,7 +1062,7 @@ texture = ExtResource("5_ghal4")
 offset = Vector2(0, -32)
 hframes = 4
 vframes = 4
-frame = 3
+frame = 10
 region_rect = Rect2(0, 256, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Cloud Blue",
@@ -1134,7 +1148,6 @@ disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="2"]
 script = ExtResource("19_yaxwu")
-actor_name = "CloudBlue"
 animation = "attack_windup"
 
 [node name="CollisionShape2d" parent="Inner/Hurtbox" index="0"]
@@ -1196,6 +1209,7 @@ libraries = {
 
 [node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
 script = ExtResource("19_yaxwu")
+reset_speed_on_disable = null
 actor_name = "CloudBlue"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]

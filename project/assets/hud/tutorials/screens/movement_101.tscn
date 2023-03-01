@@ -64,8 +64,6 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
 offset_right = 1098.0
 offset_bottom = 584.0
 grow_horizontal = 1
@@ -142,13 +140,13 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TutorialTextLabel"
-text = "  - Press the ^ arrow key to jump."
+text = "- Press the ^ arrow key to jump."
 
 [node name="Label2" type="Label" parent="Content/Pages/Page1/JumpMessage/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"TutorialTextLabel"
-text = " - Hold longer to jump higher."
+text = "- Hold longer to jump higher."
 
 [node name="Label3" type="Label" parent="Content/Pages/Page1/JumpMessage/VBoxContainer" index="2"]
 layout_mode = 2

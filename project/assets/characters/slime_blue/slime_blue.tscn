@@ -121,7 +121,6 @@ tracks/6/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ki2ou"]
-loop_mode = 1
 step = 0.025
 tracks/0/type = "audio"
 tracks/0/imported = false
@@ -921,8 +920,9 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hf4h6"]
+resource_local_to_scene = true
 shader = ExtResource("4_0j2ua")
-shader_parameter/outline_col = null
+shader_parameter/outline_col = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_84a33"]
 length = 0.001
@@ -1095,16 +1095,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lt0v"]
-size = Vector2(32, 26)
+size = Vector2(48, 50)
 
 [node name="SlimeBlue" instance=ExtResource("1_a8ind")]
 collision_layer = 2
 max_hp = 50.0
 speed = 5
 team = 2
-attack_input_listening = true
-attack_can_cancel = true
-attack_can_go_to_next = true
 
 [node name="CollisionShape2d" parent="." index="1"]
 shape = SubResource("RectangleShape2D_mvr6v")
@@ -1140,7 +1137,7 @@ texture = ExtResource("6_j1odf")
 offset = Vector2(0, -29)
 hframes = 6
 vframes = 6
-frame = 5
+frame = 35
 region_rect = Rect2(0, 256, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -1273,6 +1270,7 @@ libraries = {
 
 [node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
 script = ExtResource("14_ahw5i")
+actor_name = "SlimeBlue"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("11_d4qx0")
@@ -1298,7 +1296,7 @@ jump_speed_boost = 0.0
 script = ExtResource("11_ta8im")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
-position = Vector2(0, -3)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_2lt0v")
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

@@ -1,16 +1,11 @@
 class_name PopupFactory
 extends Node
 
-const TUTORIAL_PATHS = {
-	Tutorial.Screens.MOVEMENT_101: "res://assets/hud/tutorials/screens/movement_101.tscn",
-	Tutorial.Screens.ATTACKS_101: "res://assets/hud/tutorials/screens/attacks_101.tscn",
-	Tutorial.Screens.SKILLS_101: "res://assets/hud/tutorials/screens/skills_101.tscn",
-} 
 const YES_NO_PATH = "res://assets/hud/components/yes_no_menu/yes_no_menu.tscn"
 
 
 static func popup_tutorial(tutorial: Tutorial.Screens) -> Tutorial:
-	var tutorial_prompt := load(TUTORIAL_PATHS[tutorial]).instantiate() as Tutorial
+	var tutorial_prompt := load(Tutorial.TUTORIAL_PATHS[tutorial]).instantiate() as Tutorial
 	GameUtilities.get_popup_canvas().add_child(tutorial_prompt)
 	return tutorial_prompt
 

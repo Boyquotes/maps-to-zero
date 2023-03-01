@@ -42,10 +42,8 @@ func _ready():
 	if Engine.is_editor_hint():
 		if get_child_count() == 1 and get_child(0) is Actor2D:
 			actor = get_child(0)
-			actor_name = actor.name
 		elif owner is Actor2D:
 			actor = owner
-			actor_name = actor.name
 		return
 	
 	if actor_name == "":

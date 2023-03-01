@@ -1,9 +1,16 @@
 class_name Tutorial
 extends Control
 
-enum Screens { MOVEMENT_101, ATTACKS_101, SKILLS_101 } 
-
 signal closed
+
+enum Screens { MOVEMENT_101, ATTACKS_101, SKILLS_101, FAST_PASS } 
+
+const TUTORIAL_PATHS = {
+	Tutorial.Screens.MOVEMENT_101: "res://assets/hud/tutorials/screens/movement_101.tscn",
+	Tutorial.Screens.ATTACKS_101: "res://assets/hud/tutorials/screens/attacks_101.tscn",
+	Tutorial.Screens.SKILLS_101: "res://assets/hud/tutorials/screens/skills_101.tscn",
+	Tutorial.Screens.FAST_PASS: "res://assets/hud/tutorials/screens/fast_pass_101.tscn",
+} 
 
 var _CLOSE_BUFFER: float = 1.0
 var _page: int = 0
