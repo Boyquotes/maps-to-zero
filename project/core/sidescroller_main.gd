@@ -87,41 +87,42 @@ func _input(event):
 
 
 func player_respawn_cutscene() -> void:
-	respawn_cutscene_playing = true
-	
-	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_TO_BLACK, 0)
-	if MusicManager.current_song != currently_loaded_stage.song:
-		MusicManager.play(Music.Songs.SILENCE, 1.0)
-	player.global_position = SaveData.player_saved_position
-	player.save_data = SaveData.player_data
-	
-	gameplay_camera.current = true
-	gameplay_camera.zoom = Vector2(99, 99)
-	
-	await get_tree().create_timer(0.1).timeout
-	
-	player.set_cutscene_mode(true)
-	player.play_animation("ragged_breathing")
-	GameManager.show_cutscene_bars(0)
-	
-	var tween = create_tween()
-	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom * 3, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	
-	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT_BLACK, 0.2)
-	await ScreenEffects.uncovered_finished
-	await get_tree().create_timer(1.0).timeout
-	
-	player.play_animation("focus")
-	
-	tween = create_tween()
-	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	
-	await get_tree().create_timer(1.0).timeout
-	
-	player.set_cutscene_mode(false)
-	player.play_animation("idle")
-	GameManager.hide_cutscene_bars()
-	currently_loaded_stage.start_music()
-	
-	respawn_cutscene_playing = false
-	respawn_cutscene_finished.emit()
+#	respawn_cutscene_playing = true
+#
+#	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_TO_BLACK, 0)
+#	if MusicManager.current_song != currently_loaded_stage.song:
+#		MusicManager.play(Music.Songs.SILENCE, 1.0)
+#	player.global_position = SaveData.player_saved_position
+#	player.save_data = SaveData.player_data
+#
+#	gameplay_camera.current = true
+#	gameplay_camera.zoom = Vector2(99, 99)
+#
+#	await get_tree().create_timer(0.1).timeout
+#
+#	player.set_cutscene_mode(true)
+#	player.play_animation("ragged_breathing")
+#	GameManager.show_cutscene_bars(0)
+#
+#	var tween = create_tween()
+#	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom * 3, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+#
+#	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT_BLACK, 0.2)
+#	await ScreenEffects.uncovered_finished
+#	await get_tree().create_timer(1.0).timeout
+#
+#	player.play_animation("focus")
+#
+#	tween = create_tween()
+#	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+#
+#	await get_tree().create_timer(1.0).timeout
+#
+#	player.set_cutscene_mode(false)
+#	player.play_animation("idle")
+#	GameManager.hide_cutscene_bars()
+#	currently_loaded_stage.start_music()
+#
+#	respawn_cutscene_playing = false
+#	respawn_cutscene_finished.emit()
+	pass

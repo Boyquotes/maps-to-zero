@@ -1,6 +1,6 @@
-[gd_scene load_steps=52 format=3]
+[gd_scene load_steps=52 format=3 uid="uid://d3x4ilng7uk8q"]
 
-[ext_resource type="PackedScene" uid="uid://dnw8l1ttgh30v" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
+[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/footstep_emitter.tscn" id="4_1rf3w"]
@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/clap.tscn" id="13_0aral"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_target_input.gd" id="13_d0td8"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="14_0fr44"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="15_gdipv"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="20_3fqi7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvr6v"]
 size = Vector2(16, 32)
@@ -919,6 +919,7 @@ _data = {
 }
 
 [node name="Kanna" instance=ExtResource("1_a8ind")]
+collision_layer = 2
 team = 2
 attack_input_listening = true
 attack_can_cancel = true
@@ -985,7 +986,7 @@ queue_count = 4
 shape = SubResource("CircleShape2D_l4vct")
 
 [node name="InputStateMachine" parent="." index="4"]
-initial_state = NodePath("IdleInput")
+reset_state_name = "Move"
 
 [node name="Move" type="Node" parent="InputStateMachine" index="1"]
 script = ExtResource("13_d0td8")
@@ -1008,7 +1009,7 @@ libraries = {
 }
 
 [node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
-script = ExtResource("15_gdipv")
+script = ExtResource("20_3fqi7")
 
 [node name="IdleInput" type="Node" parent="InputStateMachine" index="3"]
 script = ExtResource("8_6jswc")
@@ -1021,7 +1022,7 @@ next_state = "Move"
 script = ExtResource("12_ib0ho")
 next_state = "Attack"
 
-[node name="Air" parent="StateMachine" index="2"]
+[node name="Air" parent="StateMachine" index="3"]
 background_jumps_max = 1
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

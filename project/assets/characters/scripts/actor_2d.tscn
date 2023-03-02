@@ -22,7 +22,6 @@
 collision_layer = 0
 collision_mask = 99
 script = ExtResource("1_7iiwt")
-speed = 10
 
 [node name="Resources" type="Node" parent="."]
 script = ExtResource("8_gowqb")
@@ -51,7 +50,7 @@ monitoring = false
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Hurtbox"]
 
 [node name="InputStateMachine" parent="." instance=ExtResource("2_550gp")]
-initial_state = NodePath("NoInput")
+reset_state_name = "NoInput"
 
 [node name="NoInput" type="Node" parent="InputStateMachine"]
 script = ExtResource("5_1m0ex")
@@ -63,7 +62,7 @@ script = ExtResource("6_yk730")
 script = ExtResource("7_jo6qf")
 
 [node name="StateMachine" parent="." instance=ExtResource("2_550gp")]
-initial_state = NodePath("Idle")
+reset_state_name = "Idle"
 
 [node name="Cutscene" type="Node" parent="StateMachine"]
 script = ExtResource("11_hb3w8")

@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="1_fl1lg"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_fqrya"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="3_rdtxy"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_fqrya"]
 [ext_resource type="Script" path="res://core/triggers/trigger.gd" id="5_byv5k"]
-[ext_resource type="PackedScene" path="res://core/triggers/InteractionArea2D.tscn" id="7_fn8yw"]
+[ext_resource type="PackedScene" path="res://core/interactions/InteractionArea2D.tscn" id="7_fn8yw"]
 [ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particles/sprites/exclamation_mark.png" id="8_03dpt"]
-[ext_resource type="PackedScene" path="res://assets/characters/kanna.tscn" id="9_gt63a"]
+[ext_resource type="PackedScene" uid="uid://cvknvk2qx4kcc" path="res://assets/characters/kanna/kanna.tscn" id="9_gt63a"]
 
 [sub_resource type="Animation" id="Animation_o8qul"]
 resource_name = "1"
@@ -517,7 +516,6 @@ size = Vector2(32, 336)
 [node name="Kanna Got Lost Cutscene" type="Node2D"]
 unique_name_in_owner = true
 script = ExtResource("1_fl1lg")
-cutscene_mode = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
@@ -533,10 +531,8 @@ animation = "idle"
 
 [node name="KannaTransformer" type="Marker2D" parent="."]
 position = Vector2(384, 0)
-script = ExtResource("3_rdtxy")
-move_with_look_direction = false
+script = ExtResource("2_fqrya")
 actor_name = "Kanna"
-look_direction = 1
 animation = "walk"
 
 [node name="Trigger" type="Node2D" parent="."]
@@ -579,7 +575,6 @@ shape = SubResource("RectangleShape2D_foxkk")
 
 [node name="Kanna" parent="." instance=ExtResource("9_gt63a")]
 position = Vector2(384, -24)
-collision_layer = 2
 
 [connection signal="triggered" from="Trigger" to="." method="start"]
 [connection signal="area_entered" from="Trigger/Area2D" to="Trigger" method="trigger"]

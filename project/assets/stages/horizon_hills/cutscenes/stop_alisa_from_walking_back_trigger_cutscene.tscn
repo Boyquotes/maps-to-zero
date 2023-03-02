@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="1_fl1lg"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_ekhq3"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_ekhq3"]
 [ext_resource type="Script" path="res://core/triggers/trigger.gd" id="5_byv5k"]
 
 [sub_resource type="Animation" id="Animation_pw0o5"]

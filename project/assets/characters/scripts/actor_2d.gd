@@ -48,7 +48,6 @@ signal defeated
 			state_machine.transition_to(attack_request_buffer.state)
 			go_to_next_attack = false
 			attack_can_cancel = false
-@export var cutscene_mode: bool
 
 var attack_request_buffer: Dictionary
 var target:
@@ -200,25 +199,6 @@ func request_attack_transition(target_state : Dictionary, msg: Dictionary = {}):
 	
 	if attack_input_listening:
 		go_to_next_attack = true
-
-
-func set_cutscene_mode(value: bool) -> void:
-	cutscene_mode = value
-	if cutscene_mode:
-		state_machine.transition_to("Cutscene")
-	else:
-		state_machine.transition_to("Idle")
-	
-	if cutscene_mode:
-		disable_input()
-	else:
-		enable_input()
-	
-	state_machine.set_process(not cutscene_mode)
-	state_machine.set_physics_process(not cutscene_mode)
-	
-	if state_machine.state.name == "Defeat":
-		state_machine.enter_initial_state()
 
 
 func enable_input() -> void:

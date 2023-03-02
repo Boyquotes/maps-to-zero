@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=3 uid="uid://joreqjugm1tr"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_cu8x1"]
-[ext_resource type="PackedScene" uid="uid://co4iojpt5cpxk" path="res://assets/stages/scripts/stage_entry_point.tscn" id="2_6iu74"]
+[ext_resource type="PackedScene" path="res://assets/stages/scripts/stage_entry_point.tscn" id="2_6iu74"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_j33nj"]
 [ext_resource type="Texture2D" uid="uid://cbatu1oq0kr8a" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/back.png" id="5_c1b5q"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="6_rg4w4"]
@@ -27,11 +27,11 @@
 [ext_resource type="Texture2D" uid="uid://bygkf23u0kfsb" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_01.png" id="25_hbexl"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="26_inotx"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="27_r5deu"]
-[ext_resource type="PackedScene" uid="uid://pcibvlsdjg14" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="28_cqhh6"]
+[ext_resource type="PackedScene" uid="uid://duwrhyca3ogoy" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="28_cqhh6"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="29_en1wm"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_04.png" id="30_2tubc"]
-[ext_resource type="PackedScene" uid="uid://cgy333u4dt7kf" path="res://assets/characters/frog_green/frog_green.tscn" id="30_ome41"]
-[ext_resource type="PackedScene" uid="uid://c5tk70ccmexno" path="res://assets/characters/slime_blue/slime_blue.tscn" id="32_rv2w2"]
+[ext_resource type="PackedScene" uid="uid://cb13ijfqdqqd0" path="res://assets/characters/frog_green/frog_green.tscn" id="30_ome41"]
+[ext_resource type="PackedScene" uid="uid://cumr4mb87qykw" path="res://assets/characters/slime_blue/slime_blue.tscn" id="32_rv2w2"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -101,6 +101,7 @@ entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("28_cqhh6")]
 position = Vector2(-824, 256)
+animation = 6
 stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
 destination_entry_point = 1
 

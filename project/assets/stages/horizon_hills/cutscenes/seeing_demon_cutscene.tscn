@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="1_eyuwg"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_awdds"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="3_hjoea"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_awdds"]
 [ext_resource type="Script" path="res://core/triggers/cover_screen_trigger.gd" id="4_nbw37"]
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="5_7xgit"]
-[ext_resource type="PackedScene" path="res://sidescroller/actors_2d/dark_knight.tscn" id="8_dig2v"]
+[ext_resource type="PackedScene" uid="uid://cqi2cap20v2t8" path="res://assets/characters/dark_knight/dark_knight.tscn" id="8_dig2v"]
 
 [sub_resource type="Animation" id="Animation_txh1a"]
 resource_name = "1"
@@ -582,8 +581,7 @@ animation = "idle"
 
 [node name="DarkKnightTransformer" type="Marker2D" parent="."]
 position = Vector2(192, 0)
-script = ExtResource("3_hjoea")
-move_with_look_direction = false
+script = ExtResource("2_awdds")
 actor_name = "DarkKnight"
 center_offset = Vector2(0, 32)
 look_direction = 1
@@ -591,8 +589,6 @@ animation = "stand"
 
 [node name="ScreenTransitionTrigger" type="Node2D" parent="."]
 script = ExtResource("4_nbw37")
-transition = 2
-duration = 1.0
 
 [node name="SilenceTrigger" type="Node2D" parent="."]
 script = ExtResource("5_7xgit")
@@ -604,4 +600,3 @@ script = ExtResource("5_7xgit")
 song = 6
 
 [node name="DarkKnight" parent="." instance=ExtResource("8_dig2v")]
-collision_layer = 2

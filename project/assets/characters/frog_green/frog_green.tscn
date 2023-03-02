@@ -1,6 +1,6 @@
-[gd_scene load_steps=44 format=3]
+[gd_scene load_steps=44 format=3 uid="uid://cb13ijfqdqqd0"]
 
-[ext_resource type="PackedScene" uid="uid://dnw8l1ttgh30v" path="res://assets/characters/scripts/actor_2d.tscn" id="1_uqq12"]
+[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_uqq12"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_0y7nb"]
@@ -12,9 +12,9 @@
 [ext_resource type="AudioStream" uid="uid://clv0c1odiv1fu" path="res://assets/sfx/bloody_slash.wav" id="11_chcgu"]
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="11_xsall"]
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/attack_incoming.tscn" id="12_q4oum"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="13_cpwx1"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="13_vq3qd"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="14_vlxue"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="14_xf0kf"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="15_lyyil"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="16_b5phl"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/far_from_target.gd" id="17_scjh3"]
@@ -874,7 +874,7 @@ radius = 19.0
 [node name="FrogGreen" instance=ExtResource("1_uqq12")]
 collision_layer = 2
 max_hp = 50.0
-speed = 5
+speed = 5.0
 team = 2
 attack_input_listening = true
 attack_can_cancel = true
@@ -970,7 +970,7 @@ shape = SubResource("RectangleShape2D_2g671")
 disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="3"]
-script = ExtResource("13_cpwx1")
+script = ExtResource("14_xf0kf")
 animation = "attack"
 
 [node name="Line2D" type="Line2D" parent="Inner/Attacks/Attack" index="4"]
@@ -985,7 +985,7 @@ default_color = Color(1, 0.164706, 0.376471, 1)
 shape = SubResource("CircleShape2D_l4vct")
 
 [node name="InputStateMachine" parent="." index="4"]
-initial_state = NodePath("WaitForTarget")
+reset_state_name = "WaitForTarget"
 
 [node name="WaitForTarget" type="Node" parent="InputStateMachine" index="1"]
 script = ExtResource("14_vlxue")
@@ -1034,7 +1034,7 @@ libraries = {
 }
 
 [node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
-script = ExtResource("13_cpwx1")
+script = ExtResource("14_xf0kf")
 actor_name = "FrogGreen"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
@@ -1042,7 +1042,7 @@ script = ExtResource("20_giydc")
 action = "action_1"
 go_to_state = "Attack"
 
-[node name="Run" parent="StateMachine" index="1"]
+[node name="Run" parent="StateMachine" index="2"]
 animation = "bounce"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
@@ -1050,14 +1050,14 @@ script = ExtResource("20_giydc")
 action = "action_1"
 go_to_state = "Attack"
 
-[node name="Air" parent="StateMachine" index="2"]
+[node name="Air" parent="StateMachine" index="3"]
 jump_animation = "bounce"
 background_jump_animation = "bounce"
 background_jumps_max = 1
-jump_speed_boost = 0.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("21_hjhpt")
+next_state = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
 shape = SubResource("CircleShape2D_isivv")

@@ -1,7 +1,6 @@
 extends Node
 
 var actors := {}
-var actors_original_cutscene_mode_value := {}
 var sidescroller_main: SidescrollerMain
 var popup_canvas: CanvasLayer
 var player: Actor2D

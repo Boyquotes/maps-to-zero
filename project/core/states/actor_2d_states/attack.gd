@@ -28,8 +28,8 @@ func enter(msg := {}) -> void:
 	super.enter(msg)
 	
 	for child in _attack_node.get_children():
-		if child is ActorTransformer2D:
-			child.enable()
+		if child is CharacterAnimator:
+			child.enable(false)
 	
 	if _attack_node_animation_player:
 		_attack_node_animation_player.play("attack")
@@ -41,8 +41,8 @@ func enter(msg := {}) -> void:
 
 func exit() -> void:
 	for child in _attack_node.get_children():
-		if child is ActorTransformer2D:
-			child.disable()
+		if child is CharacterAnimator:
+			child.disable(false)
 	super.exit()
 	if _attack_node_animation_player:
 		_attack_node_animation_player.play("RESET")

@@ -6,11 +6,13 @@ extends Node
 # Emitted when transitioning to a new state.
 signal transitioned(to, from)
 
+
 # Path to the initial active state. We export it to be able to pick the initial state in the inspector.
-@export var initial_state := NodePath()
+@export var reset_state_name: String
+
 
 # The current active state. At the start of the game, we get the `initial_state`.
-@onready var state : State = get_node(initial_state)
+@onready var state := get_node(reset_state_name) as State
 
 
 func _ready() -> void:
@@ -18,11 +20,14 @@ func _ready() -> void:
 	# The state machine assigns itself to the State objects' state_machine property.
 	for child in get_children():
 		child.state_machine = self
-	enter_initial_state()
+	reset()
 
 
-func enter_initial_state() -> void:
-	transition_to(get_node(initial_state).name)
+func reset(state_name:="") -> void:
+	if state_name == "":
+		transition_to(reset_state_name)
+	else:
+		transition_to(state_name)
 
 
 # The state machine subscribes to node callbacks and delegates them to the state objects.
@@ -48,6 +53,7 @@ func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	# We don't use an assert here to help with code reuse. If you reuse a state in different state machines
 	# but you don't want them all, they won't be able to transition to states that aren't in the scene tree.
 	if not has_node(target_state_name):
+		print_debug(owner.name + " does not have a " + target_state_name + " state in " + name)
 		return
 	
 	var old_state = state

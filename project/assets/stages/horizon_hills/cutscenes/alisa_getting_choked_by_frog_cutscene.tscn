@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="1_i44vk"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="2_sp3l6"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="5_h4sba"]
-[ext_resource type="PackedScene" path="res://assets/characters/frog_green.tscn" id="6_4d6he"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="7_pcjbi"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="5_h4sba"]
+[ext_resource type="PackedScene" uid="uid://ojwwpcnms0wt" path="res://assets/characters/frog_green/frog_green.tscn" id="6_4d6he"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="8_fg7an"]
 
 [sub_resource type="Animation" id="Animation_vp861"]
@@ -802,12 +801,10 @@ default_color = Color(1, 0.541176, 0.670588, 1)
 
 [node name="FrogGreen" parent="." instance=ExtResource("6_4d6he")]
 position = Vector2(-560, -344)
-collision_layer = 2
-cutscene_mode = true
 
 [node name="FrogGreenTransformer" type="Marker2D" parent="."]
 position = Vector2(-552, -336)
-script = ExtResource("7_pcjbi")
+script = ExtResource("5_h4sba")
 actor_name = "FrogGreen"
 center_offset = Vector2(0, -21)
 animation = "idle"
@@ -817,7 +814,5 @@ position = Vector2(-160, -80)
 
 [node name="StageChangeTrigger" type="Node2D" parent="."]
 script = ExtResource("8_fg7an")
-screen_transition = 1
-transition_duration = 1.0
 
 [connection signal="area_entered" from="Area2d" to="Cutscene" method="start"]

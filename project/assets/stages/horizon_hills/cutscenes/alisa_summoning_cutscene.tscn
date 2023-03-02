@@ -1,11 +1,10 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="1_nr30c"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_cutscene_transformer.gd" id="2_fqn4g"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="3_ja6nu"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_fqn4g"]
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="4_f1r4s"]
 [ext_resource type="Texture2D" uid="uid://68jrjt3dwqg" path="res://assets/other_sprites/alisa_gem.png" id="7_m27ri"]
-[ext_resource type="PackedScene" path="res://assets/characters/kanna.tscn" id="8_hedb3"]
+[ext_resource type="PackedScene" uid="uid://cvknvk2qx4kcc" path="res://assets/characters/kanna/kanna.tscn" id="8_hedb3"]
 
 [sub_resource type="Animation" id="Animation_sd1x2"]
 resource_name = "A"
@@ -1188,8 +1187,7 @@ animation = "stand"
 
 [node name="KannaTransformer" type="Marker2D" parent="."]
 position = Vector2(192, 0)
-script = ExtResource("3_ja6nu")
-move_with_look_direction = false
+script = ExtResource("2_fqn4g")
 actor_name = "Kanna"
 animation = "walk"
 
@@ -1219,5 +1217,3 @@ texture = ExtResource("7_m27ri")
 
 [node name="Kanna" parent="." instance=ExtResource("8_hedb3")]
 position = Vector2(0, -16)
-collision_layer = 2
-cutscene_mode = true

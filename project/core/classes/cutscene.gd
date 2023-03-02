@@ -3,7 +3,6 @@ extends Node2D
 
 signal finished
 
-@export var cutscene_mode: bool = false
 @export var enable_character_transformers_on_start : bool = true
 @export var cutscene_name: String
 @export var queue_free_if_watched: bool = false
@@ -45,7 +44,7 @@ func start(_dummy_var=null) -> void:
 	
 	if enable_character_transformers_on_start:
 		for child in get_children():
-			if child is ActorCutsceneTransformer:
+			if child is CharacterAnimator:
 				child.teleport()
 				child.enable()
 
@@ -68,9 +67,9 @@ func skip() -> void:
 	_animation_player.play("finished")
 	finished.emit()
 	for child in get_children():
-		if child is ActorCutsceneTransformer:
+		if child is CharacterAnimator:
 			child.disable()
-			
+	
 	GameUtilities.get_main_camera().align()
 	GameUtilities.get_main_camera().reset_smoothing()
 	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT_BLACK, 0.5)
@@ -85,7 +84,7 @@ func _on_animation_finished(anim_name: String) -> void:
 			if _animation_player.has_animation("finished"):
 				_animation_player.play("finished")
 			for child in get_children():
-				if child is ActorCutsceneTransformer:
+				if child is CharacterAnimator:
 					child.disable()
 
 

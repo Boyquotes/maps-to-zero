@@ -1,6 +1,6 @@
-[gd_scene load_steps=83 format=3]
+[gd_scene load_steps=83 format=3 uid="uid://r2rqtldiiwye"]
 
-[ext_resource type="PackedScene" uid="uid://dnw8l1ttgh30v" path="res://assets/characters/scripts/actor_2d.tscn" id="1_u48va"]
+[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
 [ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="4_gju0s"]
 [ext_resource type="AudioStream" uid="uid://dan1r41xxyl3d" path="res://assets/sfx/swing.wav" id="4_xr1et"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/attack_incoming.tscn" id="5_t5n0j"]
 [ext_resource type="AudioStream" uid="uid://dt55o66x0xrv4" path="res://assets/sfx/sword_unsheath.wav" id="6_4kdoa"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="6_oygrj"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="13_x30it"]
 [ext_resource type="AudioStream" uid="uid://ymux3atn0sb4" path="res://assets/sfx/fire_breathing_1.wav" id="17_arr3s"]
 [ext_resource type="AudioStream" uid="uid://clv0c1odiv1fu" path="res://assets/sfx/bloody_slash.wav" id="18_ey1bq"]
 [ext_resource type="AudioStream" uid="uid://c7k7n7w01dlou" path="res://assets/sfx/fire_breathing_3.wav" id="18_n6l8v"]
@@ -17,7 +18,6 @@
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="20_aoahs"]
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="20_ilq0q"]
 [ext_resource type="Texture2D" uid="uid://seuil2tia6f5" path="res://assets/other_sprites/blurred_white_cylinder.png" id="21_00hy2"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_transformer.gd" id="21_ils11"]
 [ext_resource type="Texture2D" uid="uid://c1ox3l4rhfx65" path="res://assets/other_sprites/blurred_white_circle_half.png" id="22_ls6c7"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="23_ys8xl"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="24_fpwyr"]
@@ -1981,7 +1981,7 @@ size = Vector2(216, 120)
 [node name="Egrisi Dragon" instance=ExtResource("1_u48va")]
 collision_mask = 97
 max_hp = 500.0
-speed = 6
+speed = 6.0
 team = 2
 attack_input_listening = true
 attack_can_cancel = true
@@ -2029,7 +2029,6 @@ libraries = {
 
 [node name="AttackSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="2"]
 position = Vector2(104, -48)
-stream = ExtResource("4_xr1et")
 bus = &"Sfx"
 
 [node name="WallImpactSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="3"]
@@ -2087,7 +2086,7 @@ shape = SubResource("RectangleShape2D_pehw2")
 disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="4"]
-script = ExtResource("21_ils11")
+script = ExtResource("13_x30it")
 animation = "attack"
 
 [node name="Claw" type="Node2D" parent="Inner/Attacks" index="1"]
@@ -2113,7 +2112,7 @@ shape = SubResource("RectangleShape2D_4tesy")
 disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Claw" index="3"]
-script = ExtResource("21_ils11")
+script = ExtResource("13_x30it")
 animation = "claw_windup"
 
 [node name="WallImpact" type="Node2D" parent="Inner/Attacks" index="2"]
@@ -2139,7 +2138,7 @@ shape = SubResource("RectangleShape2D_1726l")
 disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/WallImpact" index="3"]
-script = ExtResource("21_ils11")
+script = ExtResource("13_x30it")
 animation = "idle"
 
 [node name="FireBreath" type="Node2D" parent="Inner/Attacks" index="3"]
@@ -2154,7 +2153,7 @@ volume_db = -60.0
 bus = &"Sfx"
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/FireBreath" index="2"]
-script = ExtResource("21_ils11")
+script = ExtResource("13_x30it")
 animation = "hover_attack"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/FireBreath" index="3"]
@@ -2299,7 +2298,7 @@ libraries = {
 stream = ExtResource("4_xr1et")
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/FlyToCenter" index="2"]
-script = ExtResource("21_ils11")
+script = ExtResource("13_x30it")
 animation = "fly_up"
 
 [node name="FlyBackIn" type="Node2D" parent="Inner/Attacks" index="5"]
@@ -2313,7 +2312,7 @@ libraries = {
 stream = ExtResource("4_xr1et")
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/FlyBackIn" index="2"]
-script = ExtResource("21_ils11")
+script = ExtResource("13_x30it")
 animation = "roar"
 
 [node name="WallImpactDetector" type="Area2D" parent="Inner" index="3"]
@@ -2324,18 +2323,9 @@ shape = SubResource("RectangleShape2D_o7chn")
 disabled = true
 
 [node name="InputStateMachine" parent="." index="5"]
-initial_state = NodePath("IdleInput")
+reset_state_name = "IdleInput"
 
-[node name="Attack" type="Node" parent="InputStateMachine" index="1"]
-script = ExtResource("25_hydwd")
-finished_to_state = "IdleInput"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InputStateMachine/Attack" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_1uyk0")
-}
-
-[node name="IdleInput" type="Node" parent="InputStateMachine" index="2"]
+[node name="IdleInput" type="Node" parent="InputStateMachine" index="3"]
 script = ExtResource("26_82qhv")
 
 [node name="Wait" type="Node" parent="InputStateMachine/IdleInput" index="0"]
@@ -2345,6 +2335,15 @@ next_state = "Move"
 [node name="CloseToTarget" type="Node" parent="InputStateMachine/IdleInput" index="1"]
 script = ExtResource("24_fpwyr")
 next_state = "Attack"
+
+[node name="Attack" type="Node" parent="InputStateMachine" index="4"]
+script = ExtResource("25_hydwd")
+finished_to_state = "IdleInput"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="InputStateMachine/Attack" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_1uyk0")
+}
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("27_ba523")
@@ -2356,7 +2355,7 @@ script = ExtResource("27_ba523")
 action = "action_2"
 go_to_state = "RunAttack"
 
-[node name="Run" parent="StateMachine" index="1"]
+[node name="Run" parent="StateMachine" index="2"]
 animation = "walk"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
@@ -2369,9 +2368,8 @@ script = ExtResource("27_ba523")
 action = "action_2"
 go_to_state = "RunAttack"
 
-[node name="Air" parent="StateMachine" index="2"]
+[node name="Air" parent="StateMachine" index="3"]
 background_jumps_max = 1
-jump_speed_boost = 0.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("28_hjxcv")
@@ -2379,6 +2377,7 @@ next_state = "Claw"
 
 [node name="Claw" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("28_hjxcv")
+next_state = null
 
 [node name="WallImpact" type="Node" parent="StateMachine" index="6"]
 script = ExtResource("28_hjxcv")
@@ -2394,6 +2393,7 @@ next_state = "FlyBackIn"
 
 [node name="FlyBackIn" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("28_hjxcv")
+next_state = null
 
 [node name="Actor2DInterfaceSmoothing" parent="." index="7"]
 position = Vector2(0, 27)
