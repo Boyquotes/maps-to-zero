@@ -6,6 +6,11 @@ extends Node
 var tween : Tween
 var transitioning: bool = false
 
+
+func _ready() -> void:
+	set_process(false)
+
+
 func switch_camera(to) -> void:
 	to.align()
 	to.reset_smoothing()
@@ -78,6 +83,9 @@ var transition_start_position : Vector2
 var transition_start_rotation : float
 var transition_start_zoom : Vector2
 func _process(delta):
+	if not is_instance_valid(to_camera):
+		switch_camera(GameUtilities.get_main_camera())
+		transitioning = false
 	if not transitioning:
 		set_process(false)
 		return

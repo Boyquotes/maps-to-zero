@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cdwmuw3uo0xnd"]
+[gd_scene load_steps=54 format=3 uid="uid://cdwmuw3uo0xnd"]
 
 [ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -2509,8 +2509,13 @@ tracks/4/keys = {
 "values": [136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 161, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217]
 }
 
+[sub_resource type="Animation" id="Animation_713pq"]
+resource_name = "RESET"
+length = 0.001
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x0jfs"]
 _data = {
+"RESET": SubResource("Animation_713pq"),
 "air_attack_1": SubResource("Animation_qy387"),
 "air_attack_2": SubResource("Animation_7dmf8"),
 "air_attack_3": SubResource("Animation_rc46l"),
@@ -2561,7 +2566,6 @@ size = Vector2(32, 48)
 [node name="Alisa Dummy" instance=ExtResource("1_a8ind")]
 collision_layer = 2
 max_hp = 500.0
-speed = 10.0
 team = 2
 attack_input_listening = true
 attack_can_cancel = true

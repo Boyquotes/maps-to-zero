@@ -7,7 +7,7 @@ var normal_entry: bool = true
 var player_respawning: bool = false
 var entry_points: Array:
 	get:
-		return $EntryPoints.get_children()
+		return %EntryPoints.get_children()
 
 func _ready():
 	if normal_entry:

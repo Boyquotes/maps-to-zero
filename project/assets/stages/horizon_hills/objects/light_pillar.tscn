@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cjf0nqv1sxox6"]
 
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="1_5di8k"]
 
@@ -28,7 +28,7 @@ sub_emitter_amount_at_end = 1
 
 [node name="LightPillar" type="GPUParticles2D"]
 amount = 32
-visibility_rect = Rect2(-500, -500, 1000, 1000)
-trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_ddcb8")
 texture = ExtResource("1_5di8k")
+visibility_rect = Rect2(-500, -500, 1000, 1000)
+trail_enabled = true

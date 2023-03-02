@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3]
+[gd_scene load_steps=40 format=3 uid="uid://crmn65k01sc6t"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_owwcp"]
 [ext_resource type="AudioStream" uid="uid://dlnpcu5kao83d" path="res://assets/sfx/ambience/jungle_thunderstorm.ogg" id="2_wl2t7"]
@@ -195,12 +195,11 @@ bus = &"Ambience"
 environment = SubResource("Environment_mjjl6")
 
 [node name="EntryPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints"]
 position = Vector2(-640, 256)
 script = ExtResource("3_5ivps")
-transition_animation = 2
-transition_duration = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint"]
 libraries = {
@@ -604,8 +603,6 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 position = Vector2(4795, -98)
 script = ExtResource("30_dibs2")
 destination_entry_point = 1
-screen_transition = 1
-transition_duration = 0.5
 
 [node name="Area2d" type="Area2D" parent="StageChangeTrigger"]
 collision_layer = 0

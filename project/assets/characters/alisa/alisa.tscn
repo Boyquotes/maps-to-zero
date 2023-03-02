@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
-[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/Alisa.png" id="3_k3unl"]
+[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/alisa.png" id="3_k3unl"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/characters/alisa/sprites/Horns.png" id="5_p6dq2"]
 [ext_resource type="Texture2D" uid="uid://ujycnl6px0tg" path="res://assets/characters/alisa/sprites/attack_swings/attack.png" id="6_v2qci"]
 [ext_resource type="Texture2D" uid="uid://cxraq73g0qx5o" path="res://assets/characters/alisa/sprites/attack_swings/air_attack_3.png" id="7_e7b7x"]

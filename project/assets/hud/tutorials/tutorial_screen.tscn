@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhyiqf6fhhccc"]
+[gd_scene load_steps=6 format=3 uid="uid://bp7miaa6gtq4h"]
 
 [ext_resource type="Script" path="res://assets/hud/tutorials/tutorial.gd" id="1_12hid"]
-[ext_resource type="AudioStream" uid="uid://bp3syvblutlg4" path="res://assets/hud/tutorials/chalk_writing.wav" id="3_bmj5y"]
+[ext_resource type="AudioStream" uid="uid://bp3syvblutlg4" path="res://assets/hud/tutorials/sfx/chalk_writing.wav" id="3_bmj5y"]
 [ext_resource type="Texture2D" uid="uid://ygxoousvnt4o" path="res://assets/hud/keys/jumbo/dark/Z.png" id="3_mtfe1"]
+[ext_resource type="AudioStream" uid="uid://log12o5kfnsv" path="res://assets/hud/tutorials/sfx/drop_004.ogg" id="4_cnly6"]
+[ext_resource type="AudioStream" uid="uid://bpor1561rqps8" path="res://assets/hud/tutorials/sfx/drop_002.ogg" id="5_0a61k"]
 
 [node name="TutorialScreen" type="Control"]
 layout_mode = 3
@@ -19,6 +21,21 @@ script = ExtResource("1_12hid")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
+
+[node name="PageChangeSfx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_bmj5y")
+bus = &"Sfx"
+
+[node name="OpenSfx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_0a61k")
+bus = &"Sfx"
+
+[node name="CloseSfx" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_cnly6")
+bus = &"Sfx"
 
 [node name="Content" type="Control" parent="."]
 layout_mode = 1
@@ -62,6 +79,7 @@ expand_icon = true
 
 [node name="PageNumberLabel" type="Label" parent="Content"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 696.0
 offset_top = 468.0
@@ -70,8 +88,3 @@ offset_bottom = 540.0
 theme_type_variation = &"TutorialTextLabel"
 theme_override_font_sizes/font_size = 64
 text = "1 / 2"
-
-[node name="PageChangeSfx" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("3_bmj5y")
-bus = &"Sfx"

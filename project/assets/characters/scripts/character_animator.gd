@@ -83,6 +83,11 @@ func enable(disable_input:=true) -> void:
 		_character.input_state_machine.transition_to("NoInput")
 
 
+func enable_cutscene_mode() -> void:
+	_character.state_machine.transition_to("Cutscene")
+	enable()
+
+
 func disable(reset_state_machine:=true) -> void:
 	_movement_mode == MovementModes.DISABLED
 	set_physics_process(false)

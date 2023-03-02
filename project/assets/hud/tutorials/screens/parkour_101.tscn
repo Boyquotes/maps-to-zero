@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjsguwnu6udy1"]
+[gd_scene load_steps=8 format=3 uid="uid://btk4bhhbfn23m"]
 
-[ext_resource type="PackedScene" uid="uid://bhyiqf6fhhccc" path="res://assets/hud/tutorials/tutorial_screen.tscn" id="1_h8174"]
-[ext_resource type="PackedScene" uid="uid://sp45w4ng5d0t" path="res://assets/hud/tutorials/chalk_board.tscn" id="2_uhvmc"]
+[ext_resource type="PackedScene" uid="uid://bp7miaa6gtq4h" path="res://assets/hud/tutorials/tutorial_screen.tscn" id="1_h8174"]
+[ext_resource type="PackedScene" uid="uid://64ds46i65d13" path="res://assets/hud/tutorials/components/chalk_board.tscn" id="2_uhvmc"]
 [ext_resource type="Texture2D" uid="uid://06pguvkf41k8" path="res://assets/stages/whitebox_background_jump_indicator_big.png" id="3_76nro"]
 
 [sub_resource type="Animation" id="Animation_1dxp5"]
@@ -44,10 +44,64 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OpenSfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_k16os"]
+resource_name = "close"
+tracks/0/type = "animation"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChalkBoard/AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": PackedStringArray("close"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloseSfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a3jcy"]
 _data = {
 "RESET": SubResource("Animation_1dxp5"),
+"close": SubResource("Animation_k16os"),
 "show": SubResource("Animation_ykl1w")
 }
 
@@ -62,7 +116,7 @@ libraries = {
 "": SubResource("AnimationLibrary_a3jcy")
 }
 
-[node name="ChalkBoard" parent="." index="1" instance=ExtResource("2_uhvmc")]
+[node name="ChalkBoard" parent="." index="4" instance=ExtResource("2_uhvmc")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -74,11 +128,12 @@ offset_bottom = 584.0
 grow_horizontal = 1
 grow_vertical = 1
 rotation = 0.0349066
+scale = Vector2(2, 2)
 
 [node name="NinePatchRect" parent="ChalkBoard" index="1"]
 modulate = Color(0.890196, 0.807843, 0.290196, 1)
 
-[node name="Content" parent="." index="2"]
+[node name="Content" parent="." index="5"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="Page1" type="Control" parent="Content/Pages" index="0"]

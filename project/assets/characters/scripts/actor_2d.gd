@@ -202,7 +202,7 @@ func request_attack_transition(target_state : Dictionary, msg: Dictionary = {}):
 
 
 func enable_input() -> void:
-	input_state_machine.enter_initial_state()
+	input_state_machine.reset()
 
 
 func disable_input() -> void:

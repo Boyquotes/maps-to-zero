@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3]
+[gd_scene load_steps=65 format=3 uid="uid://b1evavocdwoh3"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_lla00"]
 [ext_resource type="AudioStream" uid="uid://d3ritdwea4qby" path="res://assets/sfx/ambience/cave_echo.wav" id="2_75hde"]
@@ -35,7 +35,7 @@
 [ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/column_medium.tscn" id="38_h24ju"]
 [ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/column_small.tscn" id="39_lts7l"]
 [ext_resource type="Texture2D" uid="uid://ct4xiafwjqxnl" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Treasure+.png" id="54_xsvra"]
-[ext_resource type="PackedScene" uid="uid://cf0qy46327kr7" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
+[ext_resource type="PackedScene" uid="uid://r2rqtldiiwye" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="59_qjw7m"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="69_nr2gp"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="71_7t53a"]
@@ -1277,6 +1277,7 @@ background_animation_player_node_path = NodePath("../Background/AnimationPlayer"
 environment = SubResource("Environment_mjjl6")
 
 [node name="EntryPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageEntryPoint" type="Node2D" parent="EntryPoints"]
 position = Vector2(-640, 256)

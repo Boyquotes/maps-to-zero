@@ -5,7 +5,7 @@ const YES_NO_PATH = "res://assets/hud/components/yes_no_menu/yes_no_menu.tscn"
 
 
 static func popup_tutorial(tutorial: Tutorial.Screens) -> Tutorial:
-	var tutorial_prompt := load(Tutorial.TUTORIAL_PATHS[tutorial]).instantiate() as Tutorial
+	var tutorial_prompt := Tutorial.get_tutorial_screen(tutorial).instantiate() as Tutorial
 	GameUtilities.get_popup_canvas().add_child(tutorial_prompt)
 	return tutorial_prompt
 

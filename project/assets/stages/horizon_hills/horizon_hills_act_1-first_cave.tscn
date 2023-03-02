@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=3 uid="uid://joreqjugm1tr"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_cu8x1"]
-[ext_resource type="PackedScene" path="res://assets/stages/scripts/stage_entry_point.tscn" id="2_6iu74"]
+[ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="2_6iu74"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_j33nj"]
 [ext_resource type="Texture2D" uid="uid://cbatu1oq0kr8a" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/back.png" id="5_c1b5q"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="6_rg4w4"]
@@ -70,7 +70,7 @@ blend_mode = 1
 
 [node name="Horizon Hills Act 1 First Cave" type="Node2D"]
 script = ExtResource("1_cu8x1")
-song = 3
+song = 2
 metadata/_edit_vertical_guides_ = []
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
@@ -86,6 +86,7 @@ clip_children = 1
 color = Color(0.823529, 0.823529, 0.823529, 1)
 
 [node name="EntryPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageEntryPoint" parent="EntryPoints" instance=ExtResource("2_6iu74")]
 position = Vector2(-576, 256)
@@ -98,10 +99,10 @@ animation = 2
 entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="ExitPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("28_cqhh6")]
 position = Vector2(-824, 256)
-animation = 6
 stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1.tscn"
 destination_entry_point = 1
 

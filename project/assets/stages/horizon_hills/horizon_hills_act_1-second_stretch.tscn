@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cyxerfv5bf2eo"]
+[gd_scene load_steps=61 format=3 uid="uid://cyxerfv5bf2eo"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_0qeoe"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="1_200cg"]
@@ -28,11 +28,7 @@
 [ext_resource type="Resource" path="res://assets/dialog/timelines/skills_tutorial_1.dtl" id="26_f8oin"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="26_uf4v3"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/skills_tutorial_2.dtl" id="27_54qqm"]
-[ext_resource type="Script" path="res://core/triggers/show_cutscene_bars_trigger.gd" id="27_hbsg1"]
-[ext_resource type="Script" path="res://core/triggers/hide_game_hud_trigger.gd" id="28_42rid"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/skills_tutorial_3.dtl" id="28_51pi8"]
-[ext_resource type="Script" path="res://core/triggers/hide_cutscene_bars_trigger.gd" id="30_1wklt"]
-[ext_resource type="Script" path="res://core/triggers/show_game_hud_trigger.gd" id="31_g5v04"]
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="34_pl6qy"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="36_7c02c"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/parkour_tutorial_timeline.dtl" id="36_8iqku"]
@@ -695,34 +691,6 @@ tracks/20/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/21/type = "method"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("Start/ShowCutsceneBarsTrigger")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/22/type = "method"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("Start/HideGameHudTrigger")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq1w5"]
 _data = {
@@ -826,7 +794,7 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Finished/HideCutsceneBarsTrigger")
+tracks/2/path = NodePath("Finished/IncreaseBackgroundJumpsTrigger")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -835,136 +803,66 @@ tracks/2/keys = {
 "values": [{
 "args": [null],
 "method": &"trigger"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Finished/ShowGameHudTrigger")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GuidingLight:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Finished/IncreaseBackgroundJumpsTrigger")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_tbgnr"]
-resource_name = "start"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Start/ShowCutsceneBarsTrigger")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Start/HideGameHudTrigger")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimator")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"disable_input"
 }]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimator:animation")
+tracks/3/path = NodePath("GuidingLight:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tbgnr"]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAnimator:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
 "values": ["stand"]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GuidingLight:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GuidingLight:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GuidingLight:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GuidingLight:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(184, -200)]
 }
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("GameplayCamera2D")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GameplayCamera2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -972,13 +870,13 @@ tracks/6/keys = {
 "method": &"set_current"
 }]
 }
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("DialogTrigger")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DialogTrigger")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -986,17 +884,31 @@ tracks/7/keys = {
 "method": &"trigger"
 }]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Area2D/CollisionShape2D:disabled")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PlayerAnimator")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable_input"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vx5xo"]
@@ -1015,7 +927,7 @@ size = Vector2(1504, 768)
 
 [node name="Horizon Hills Act 1 - Second Stretch" type="Node2D"]
 script = ExtResource("1_0qeoe")
-song = 3
+song = 2
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -1387,6 +1299,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("18_a54mu")
 
 [node name="EntryPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageEntryPoint0" parent="EntryPoints" instance=ExtResource("19_40c1v")]
 position = Vector2(-576, 256)
@@ -1409,10 +1322,10 @@ show_game_hud_duration = 2.0
 [node name="StageEntryPoint3" parent="EntryPoints" instance=ExtResource("19_40c1v")]
 position = Vector2(10040, -928)
 animation = 2
-uncover_animation = 1
 entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="ExitPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("20_jw15i")]
 position = Vector2(-744, 256)
@@ -1425,7 +1338,9 @@ shape = SubResource("RectangleShape2D_7txlc")
 
 [node name="StageExitPoint2" parent="ExitPoints" instance=ExtResource("20_jw15i")]
 position = Vector2(10128, -928)
-stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-tall_cave.tscn"
+animation = 7
+stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-save_point.tscn"
+fade_out_song = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="ExitPoints/StageExitPoint2/Area2D" index="0"]
 position = Vector2(64, -464)
@@ -1439,6 +1354,7 @@ script = ExtResource("21_r6u4o")
 enable_character_transformers_on_start = false
 cutscene_name = "skills_tutorial"
 queue_free_if_watched = true
+hide_cutscene_hud_on_finish = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cutscenes/SkillsTutorialCutscene"]
 libraries = {
@@ -1450,7 +1366,7 @@ next/move_to_enemies = &"enemies_loop"
 script = ExtResource("23_alu5g")
 actor_name = "PLAYER"
 look_direction = 0
-animation = "idle"
+animation = "stand"
 
 [node name="CloudBlueCutsceneTransformer" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 position = Vector2(656, 0)
@@ -1503,16 +1419,6 @@ script = ExtResource("26_uf4v3")
 position = Vector2(-408, -448)
 shape = SubResource("RectangleShape2D_0rain")
 
-[node name="Start" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
-
-[node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Start"]
-script = ExtResource("27_hbsg1")
-duration = 0.5
-
-[node name="HideGameHudTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Start"]
-script = ExtResource("28_42rid")
-duration = 2.0
-
 [node name="Finished" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
 
 [node name="MusicTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Finished"]
@@ -1562,25 +1468,7 @@ finished_cutscene_animation_name = "end"
 position = Vector2(86, -79)
 shape = SubResource("RectangleShape2D_rrd45")
 
-[node name="Start" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene"]
-
-[node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene/Start"]
-script = ExtResource("27_hbsg1")
-duration = 0.5
-
-[node name="HideGameHudTrigger" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene/Start"]
-script = ExtResource("28_42rid")
-duration = 2.0
-
 [node name="Finished" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene"]
-
-[node name="HideCutsceneBarsTrigger" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene/Finished"]
-script = ExtResource("30_1wklt")
-duration = 1.0
-
-[node name="ShowGameHudTrigger" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene/Finished"]
-script = ExtResource("31_g5v04")
-duration = 1.0
 
 [node name="TutorialTrigger" type="Node2D" parent="Cutscenes/ParkourTutorialCutscene/Finished"]
 script = ExtResource("36_we068")

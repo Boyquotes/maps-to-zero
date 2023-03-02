@@ -1,23 +1,20 @@
-[gd_scene load_steps=42 format=3 uid="uid://bfpoaruaayyb5"]
+[gd_scene load_steps=39 format=3 uid="uid://bfpoaruaayyb5"]
 
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="4_5bsju"]
 [ext_resource type="PackedScene" uid="uid://cdwmuw3uo0xnd" path="res://assets/characters/alisa_dummy/alisa_dummy.tscn" id="6_wo83y"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/skills_stage_timeline.dtl" id="8_n57y6"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/skills_stage_2_timeline.dtl" id="10_jlk5v"]
+[ext_resource type="Script" path="res://core/triggers/tutorial_trigger.gd" id="12_w1lxx"]
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="15_cqgns"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/first_dash_successful.dtl" id="15_xfmp0"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="17_aq1kb"]
-[ext_resource type="PackedScene" path="res://assets/stages/scripts/stage_entry_point.tscn" id="19_pimw6"]
+[ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="19_pimw6"]
 [ext_resource type="PackedScene" uid="uid://duwrhyca3ogoy" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="20_v6vhl"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="21_8wab7"]
 [ext_resource type="PackedScene" uid="uid://pnhttpvyusar" path="res://assets/misc/guiding_light.tscn" id="23_1vl1g"]
 [ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="24_bi7s4"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="26_crh3n"]
-[ext_resource type="Script" path="res://core/triggers/show_cutscene_bars_trigger.gd" id="27_ey78p"]
-[ext_resource type="Script" path="res://core/triggers/hide_game_hud_trigger.gd" id="28_jtx0c"]
 [ext_resource type="Script" path="res://core/triggers/uncover_screen_trigger.gd" id="29_ev46e"]
-[ext_resource type="Script" path="res://core/triggers/hide_cutscene_bars_trigger.gd" id="30_kqcl0"]
-[ext_resource type="Script" path="res://core/triggers/show_game_hud_trigger.gd" id="31_njqcu"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="36_r6edv"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_jl7ro"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="42_pd26t"]
@@ -33,16 +30,6 @@ var first_dash := false
 
 func _ready():
 	normal_entry = false
-	skills_tutorial_cutscene.finished.connect(func():
-		ScreenEffects.show_border_frame(1.0)
-		var tutorial := PopupFactory.popup_tutorial(Tutorial.Screens.SKILLS_101) as Tutorial
-		tutorial.closed.connect(func():
-			var fast_pass_tutorial := PopupFactory.popup_tutorial(Tutorial.Screens.FAST_PASS) as Tutorial
-			fast_pass_tutorial.closed.connect(func():
-				ScreenEffects.hide_border_frame(1.0)
-			)
-		)
-	)
 	skills_tutorial_cutscene.start()
 	
 	var player = GameUtilities.get_player()
@@ -113,7 +100,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorCutsceneTransformer:position")
+tracks/0/path = NodePath("PlayerAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -173,7 +160,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ActorCutsceneTransformer:look_direction")
+tracks/5/path = NodePath("PlayerAnimator:look_direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -278,7 +265,7 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorCutsceneTransformer")
+tracks/2/path = NodePath("PlayerAnimator")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -292,24 +279,10 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Finished/HideCutsceneBarsTrigger")
+tracks/3/path = NodePath("Finished/TutorialTrigger")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Finished/ShowGameHudTrigger")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -378,7 +351,7 @@ length = 7.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorCutsceneTransformer:animation")
+tracks/0/path = NodePath("PlayerAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -390,7 +363,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorCutsceneTransformer:position")
+tracks/1/path = NodePath("PlayerAnimator:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -464,7 +437,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("ActorCutsceneTransformer:look_direction")
+tracks/7/path = NodePath("PlayerAnimator:look_direction")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -476,24 +449,10 @@ tracks/7/keys = {
 tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("..")
+tracks/8/path = NodePath("GameplayCamera2D")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"start_music"
-}]
-}
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("GameplayCamera2D")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -501,37 +460,37 @@ tracks/9/keys = {
 "method": &"set_current"
 }]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("GameplayCamera2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(-36, -87), Vector2(64, -60)]
+}
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("GameplayCamera2D:position")
+tracks/10/path = NodePath("GameplayCamera2D:zoom")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0, 7),
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-36, -87), Vector2(64, -60)]
+"values": [Vector2(2.5, 2.5), Vector2(3, 3)]
 }
-tracks/11/type = "value"
+tracks/11/type = "method"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("GameplayCamera2D:zoom")
+tracks/11/path = NodePath("PlayerAnimator")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 7),
-"transitions": PackedFloat32Array(-2, 1),
-"update": 0,
-"values": [Vector2(2.5, 2.5), Vector2(3, 3)]
-}
-tracks/12/type = "method"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("ActorCutsceneTransformer")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -539,69 +498,93 @@ tracks/12/keys = {
 "method": &"teleport"
 }]
 }
+tracks/12/type = "method"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("PlayerAnimator")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable_cutscene_mode"
+}]
+}
 tracks/13/type = "method"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("ActorCutsceneTransformer")
+tracks/13/path = NodePath("Start/MusicTrigger")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"enable"
+"args": [null],
+"method": &"trigger"
 }]
 }
 tracks/14/type = "method"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Start/ShowCutsceneBarsTrigger")
+tracks/14/path = NodePath("Alisa Dummy")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [null],
-"method": &"trigger"
+"args": [],
+"method": &"teleport"
 }]
 }
 tracks/15/type = "method"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Start/HideGameHudTrigger")
+tracks/15/path = NodePath("Alisa Dummy")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [null],
-"method": &"trigger"
+"args": [],
+"method": &"enable_cutscene_mode"
 }]
 }
-tracks/16/type = "method"
+tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Start/UncoverScreenTrigger")
+tracks/16/path = NodePath("Alisa Dummy:look_direction")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
+"update": 1,
+"values": [1]
 }
-tracks/17/type = "method"
+tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Start/MusicTrigger")
+tracks/17/path = NodePath("Alisa Dummy:animation")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["idle", "idle", "idle", "idle"]
+}
+tracks/18/type = "method"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Start/UncoverScreenTrigger")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -646,80 +629,28 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_4jifi"]
 resource_name = "start"
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorCutsceneTransformer:animation")
+tracks/0/path = NodePath("PlayerAnimator")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["idle"]
+"values": [{
+"args": [],
+"method": &"disable_input"
+}]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorCutsceneTransformer:position")
+tracks/1/path = NodePath("DialogTrigger")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorCutsceneTransformer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"enable"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Start/ShowCutsceneBarsTrigger")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Start/HideGameHudTrigger")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("DialogTrigger")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [null],
@@ -740,6 +671,7 @@ size = Vector2(1504, 768)
 
 [node name="Skills Tutorial" type="Node2D"]
 script = SubResource("GDScript_pybke")
+song = 8
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -798,6 +730,7 @@ lifetime = 5.0
 visibility_rect = Rect2(-10000, -10000, 20000, 20000)
 
 [node name="EntryPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageEntryPoint" parent="EntryPoints" instance=ExtResource("19_pimw6")]
 position = Vector2(-520, 312)
@@ -806,6 +739,7 @@ uncover_animation = 1
 entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="ExitPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("20_v6vhl")]
 position = Vector2(768, 328)
@@ -816,135 +750,114 @@ stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-first_c
 position = Vector2(16, -64)
 shape = SubResource("RectangleShape2D_fm4if")
 
-[node name="Triggers" type="Node2D" parent="."]
+[node name="Cutscenes" type="Node2D" parent="."]
 
-[node name="SkillsTutorialCutscene" type="Node2D" parent="Triggers"]
+[node name="SkillsTutorialCutscene" type="Node2D" parent="Cutscenes"]
 unique_name_in_owner = true
 position = Vector2(-424, 320)
 script = ExtResource("21_8wab7")
-enable_character_transformers_on_start = null
 cutscene_name = "skills_tutorial"
-queue_free_if_watched = null
+show_cutscene_hud_duration = 0.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Triggers/SkillsTutorialCutscene"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cutscenes/SkillsTutorialCutscene"]
 libraries = {
 "": SubResource("AnimationLibrary_0raol")
 }
 
-[node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="PlayerAnimator" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 script = ExtResource("4_5bsju")
-actor_name = "Alisa"
-look_direction = 1
+actor_name = "PLAYER"
+look_direction = 0
 animation = "stand"
 
-[node name="Alisa Dummy" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="Alisa Dummy" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 position = Vector2(640, 0)
 script = ExtResource("4_5bsju")
 actor_name = "Alisa Dummy"
 look_direction = 1
 animation = "idle"
 
-[node name="GuidingLight" type="Marker2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="GuidingLight" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 visible = false
-position = Vector2(-65, -20)
+position = Vector2(0, -20)
+scale = Vector2(1e-05, 1e-05)
 
-[node name="GuidingLight" parent="Triggers/SkillsTutorialCutscene/GuidingLight" instance=ExtResource("23_1vl1g")]
+[node name="GuidingLight" parent="Cutscenes/SkillsTutorialCutscene/GuidingLight" instance=ExtResource("23_1vl1g")]
 
-[node name="DialogTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="DialogTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
 script = ExtResource("24_bi7s4")
 timeline = ExtResource("8_n57y6")
 finished_cutscene_animation_name = "move_to_dummy"
 
-[node name="DialogTrigger2" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="DialogTrigger2" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
 script = ExtResource("24_bi7s4")
 timeline = ExtResource("10_jlk5v")
 finished_cutscene_animation_name = "end"
 
-[node name="GameplayCamera2D" type="Camera2D" parent="Triggers/SkillsTutorialCutscene"]
-position = Vector2(57, -87)
+[node name="GameplayCamera2D" type="Camera2D" parent="Cutscenes/SkillsTutorialCutscene"]
+position = Vector2(-36, -87)
 zoom = Vector2(2.5, 2.5)
 limit_left = -800
 limit_bottom = 352
 editor_draw_limits = true
 script = ExtResource("26_crh3n")
 
-[node name="Start" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="Start" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
 
-[node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
-script = ExtResource("27_ey78p")
-
-[node name="HideGameHudTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
-script = ExtResource("28_jtx0c")
-
-[node name="UncoverScreenTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
+[node name="UncoverScreenTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Start"]
 script = ExtResource("29_ev46e")
 uncover_animation = 1
-uncover_duration = 1.0
+uncover_duration = 2.0
 
-[node name="MusicTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Start"]
+[node name="MusicTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Start"]
 position = Vector2(424, -320)
 script = ExtResource("15_cqgns")
 song = 8
 
-[node name="Finished" type="Node2D" parent="Triggers/SkillsTutorialCutscene"]
+[node name="Finished" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
 
-[node name="HideCutsceneBarsTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Finished"]
-script = ExtResource("30_kqcl0")
-duration = 1.0
+[node name="TutorialTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Finished"]
+script = ExtResource("12_w1lxx")
+tutorial = 2
 
-[node name="ShowGameHudTrigger" type="Node2D" parent="Triggers/SkillsTutorialCutscene/Finished"]
-script = ExtResource("31_njqcu")
-duration = 1.0
+[node name="TutorialTrigger2" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Finished"]
+script = ExtResource("12_w1lxx")
+tutorial = 3
 
-[node name="FirstDashSuccessfulCutscene" type="Node2D" parent="Triggers"]
+[node name="FirstDashSuccessfulCutscene" type="Node2D" parent="Cutscenes"]
 unique_name_in_owner = true
 position = Vector2(-424, 320)
 script = ExtResource("21_8wab7")
-enable_character_transformers_on_start = null
-cutscene_name = "skills_tutorial"
-queue_free_if_watched = null
+enable_character_transformers_on_start = false
+cutscene_name = "first_dash_successful"
+hide_cutscene_hud_on_finish = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Triggers/FirstDashSuccessfulCutscene"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cutscenes/FirstDashSuccessfulCutscene"]
 libraries = {
 "": SubResource("AnimationLibrary_ebwjd")
 }
 
-[node name="ActorCutsceneTransformer" type="Marker2D" parent="Triggers/FirstDashSuccessfulCutscene"]
+[node name="PlayerAnimator" type="Marker2D" parent="Cutscenes/FirstDashSuccessfulCutscene"]
 script = ExtResource("4_5bsju")
-actor_name = "Alisa"
+actor_name = "PLAYER"
 look_direction = 0
 animation = "idle"
 
-[node name="DialogTrigger" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene"]
+[node name="DialogTrigger" type="Node2D" parent="Cutscenes/FirstDashSuccessfulCutscene"]
 script = ExtResource("24_bi7s4")
 timeline = ExtResource("15_xfmp0")
 finished_cutscene_animation_name = "end"
 
-[node name="Start" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene"]
+[node name="Finished" type="Node2D" parent="Cutscenes/FirstDashSuccessfulCutscene"]
 
-[node name="ShowCutsceneBarsTrigger" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene/Start"]
-script = ExtResource("27_ey78p")
-duration = 1.0
-
-[node name="HideGameHudTrigger" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene/Start"]
-script = ExtResource("28_jtx0c")
-
-[node name="Finished" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene"]
-
-[node name="HideCutsceneBarsTrigger" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene/Finished"]
-script = ExtResource("30_kqcl0")
-duration = 1.0
-
-[node name="ShowGameHudTrigger" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene/Finished"]
-script = ExtResource("31_njqcu")
-duration = 1.0
-
-[node name="StageChangeTrigger" type="Node2D" parent="Triggers/FirstDashSuccessfulCutscene/Finished"]
+[node name="StageChangeTrigger" type="Node2D" parent="Cutscenes/FirstDashSuccessfulCutscene/Finished"]
 script = ExtResource("17_aq1kb")
 stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-second_stretch.tscn"
 destination_entry_point = 2
 cover_animation = 1
 cover_duration = 2.0
+
+[node name="Triggers" type="Node2D" parent="."]
 
 [node name="CameraSettingsTrigger" type="Node2D" parent="Triggers"]
 script = ExtResource("36_r6edv")
@@ -1016,6 +929,7 @@ max_falling_speed = 6.5536e+06
 
 [node name="Foreground" type="Node" parent="."]
 
+[connection signal="closed" from="Cutscenes/SkillsTutorialCutscene/Finished/TutorialTrigger" to="Cutscenes/SkillsTutorialCutscene/Finished/TutorialTrigger2" method="trigger"]
 [connection signal="area_entered" from="Triggers/CameraSettingsTrigger/Area2d" to="Triggers/CameraSettingsTrigger" method="trigger"]
 
 [editable path="ExitPoints/StageExitPoint"]

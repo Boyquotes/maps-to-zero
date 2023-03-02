@@ -3,14 +3,16 @@ extends Control
 
 signal closed
 
-enum Screens { MOVEMENT_101, ATTACKS_101, SKILLS_101, FAST_PASS, PARKOUR_101 } 
-
-const TUTORIAL_PATHS = {
-	Tutorial.Screens.MOVEMENT_101: "res://assets/hud/tutorials/screens/movement_101.tscn",
-	Tutorial.Screens.ATTACKS_101: "res://assets/hud/tutorials/screens/attacks_101.tscn",
-	Tutorial.Screens.SKILLS_101: "res://assets/hud/tutorials/screens/skills_101.tscn",
-	Tutorial.Screens.FAST_PASS: "res://assets/hud/tutorials/screens/fast_pass_101.tscn",
-	Tutorial.Screens.PARKOUR_101: "res://assets/hud/tutorials/screens/parkour_101.tscn",
+enum Screens { MOVEMENT_101, ATTACKS_101, SKILLS_101, FAST_PASS, PARKOUR_101, REST_AREAS, SAVE_POINTS } 
+const SCREENS_FOLDER = "res://assets/hud/tutorials/screens/"
+const TUTORIAL_FILE_NAMES = {
+	Screens.MOVEMENT_101: "movement_101.tscn",
+	Screens.ATTACKS_101: "attacks_101.tscn",
+	Screens.SKILLS_101: "skills_101.tscn",
+	Screens.FAST_PASS: "fast_pass_101.tscn",
+	Screens.PARKOUR_101: "parkour_101.tscn",
+	Screens.REST_AREAS: "rest_areas.tscn",
+	Screens.SAVE_POINTS: "save_points.tscn",
 } 
 
 var _CLOSE_BUFFER: float = 1.0
@@ -22,6 +24,10 @@ var _page: int = 0
 @onready var _num_pages :int = _pages.get_child_count()
 @onready var _page_number_label := %PageNumberLabel as Label
 @onready var _page_change_sfx := %PageChangeSfx as AudioStreamPlayer
+
+
+static func get_tutorial_screen(screen: Screens) -> Resource:
+	return load(SCREENS_FOLDER + TUTORIAL_FILE_NAMES[screen])
 
 
 func _ready() -> void:
@@ -38,27 +44,17 @@ func _ready() -> void:
 	_enable_closing()
 
 
-func _disable_closing() -> void:
-	_close_button.disabled = true
-	set_process_input(false)
-
-
-func _enable_closing() -> void:
-	_close_button.disabled = false
-	_close_button.grab_focus()
-	set_process_input(true)
-
-
 func _input(event) -> void:
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
-		next_page()
-		if _page >= _num_pages:
+	if event.is_action_pressed("hud_enter") or event.is_action_pressed("hud_select"):
+		if _page < _num_pages - 1:
+			next_page()
+		else:
 			close()
-	elif event.is_action_pressed("ui_right"):
+	elif event.is_action_pressed("hud_next"):
 		next_page()
-	elif event.is_action_pressed("ui_left"):
+	elif event.is_action_pressed("hud_previous"):
 		previous_page()
-	elif event.is_action_pressed("ui_cancel"):
+	elif event.is_action_pressed("hud_cancel"):
 		close()
 
 
@@ -88,5 +84,22 @@ func previous_page() -> void:
 
 
 func close() -> void:
+	set_process_input(false)
+	_close_button.disabled = true
+	_close_button.release_focus()
 	closed.emit()
+	if _animation_player.has_animation("close"):
+		_animation_player.play("close")
+		await _animation_player.animation_finished
 	queue_free()
+
+
+func _disable_closing() -> void:
+	set_process_input(false)
+	_close_button.disabled = true
+
+
+func _enable_closing() -> void:
+	set_process_input(true)
+	_close_button.disabled = false
+	_close_button.grab_focus()

@@ -409,10 +409,11 @@ scale = Vector2(4, 4)
 texture = ExtResource("19_8th7n")
 
 [node name="EntryPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageEntryPoint0" parent="EntryPoints" instance=ExtResource("20_rdvs5")]
-position = Vector2(-576, 256)
-animation = 1
+position = Vector2(-411, 256)
+animation = 3
 entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="StageEntryPoint1" parent="EntryPoints" instance=ExtResource("20_rdvs5")]
@@ -421,11 +422,14 @@ animation = 2
 entry_camera_settings = NodePath("../../Triggers/CameraSettingsTrigger")
 
 [node name="ExitPoints" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="StageExitPoint" parent="ExitPoints" instance=ExtResource("21_pnkef")]
 position = Vector2(-744, 256)
-stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-second_stretch.tscn"
-destination_entry_point = 3
+animation = 8
+stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-save_point.tscn"
+destination_entry_point = 1
+fade_out_song = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="ExitPoints/StageExitPoint/Area2D" index="0"]
 position = Vector2(64, -464)

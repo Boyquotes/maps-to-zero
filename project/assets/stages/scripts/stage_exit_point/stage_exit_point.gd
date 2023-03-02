@@ -17,6 +17,7 @@ const ANIMATIONS := {
 @export var animation : Animations
 @export var stage_file_path: String
 @export var destination_entry_point: int
+@export var fade_out_song: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var stage_change_trigger: StageChangeTrigger = $StageChangeTrigger
@@ -31,3 +32,6 @@ func _ready() -> void:
 func trigger(_dummy_var=null):
 	animation_player.play(ANIMATIONS[animation])
 	area_2d.set_collision_mask_value(4, false)
+	if fade_out_song:
+		var animation := animation_player.get_animation(animation_player.current_animation) as Animation
+		MusicManager.play(Music.Songs.SILENCE, animation.length)

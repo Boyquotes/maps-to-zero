@@ -6,6 +6,10 @@ signal finished
 @export var enable_character_transformers_on_start : bool = true
 @export var cutscene_name: String
 @export var queue_free_if_watched: bool = false
+@export var show_cutscene_hud := true
+@export var show_cutscene_hud_duration: float = 1.0
+@export var hide_cutscene_hud_on_finish := true
+@export var hide_cutscene_hud_duration: float = 1.0
 
 var _skipping: bool = false
 var _is_ready: bool = false
@@ -46,7 +50,11 @@ func start(_dummy_var=null) -> void:
 		for child in get_children():
 			if child is CharacterAnimator:
 				child.teleport()
-				child.enable()
+				child.enable_cutscene_mode()
+	
+	if show_cutscene_hud:
+		ScreenEffects.show_cutscene_bars(show_cutscene_hud_duration)
+		GameManager.sidescroller_main.sidescroller_hud.hide_hud(show_cutscene_hud_duration)
 
 
 func _input(event: InputEvent) -> void:
@@ -91,3 +99,7 @@ func _on_animation_finished(anim_name: String) -> void:
 func _on_finished() -> void:
 	SaveData.cutscenes[cutscene_name] = true
 	set_process_input(false)
+	
+	if hide_cutscene_hud_on_finish:
+		ScreenEffects.hide_cutscene_bars(hide_cutscene_hud_duration)
+		GameManager.sidescroller_main.sidescroller_hud.show_hud(hide_cutscene_hud_duration)

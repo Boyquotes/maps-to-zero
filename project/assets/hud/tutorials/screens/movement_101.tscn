@@ -1,7 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://hs4mmvol0v58"]
+[gd_scene load_steps=7 format=3 uid="uid://ntffo03she27"]
 
-[ext_resource type="PackedScene" uid="uid://bhyiqf6fhhccc" path="res://assets/hud/tutorials/tutorial_screen.tscn" id="1_ackv8"]
-[ext_resource type="PackedScene" uid="uid://sp45w4ng5d0t" path="res://assets/hud/tutorials/chalk_board.tscn" id="2_lwt5f"]
+[ext_resource type="PackedScene" uid="uid://bp7miaa6gtq4h" path="res://assets/hud/tutorials/tutorial_screen.tscn" id="1_ackv8"]
+[ext_resource type="PackedScene" uid="uid://64ds46i65d13" path="res://assets/hud/tutorials/components/chalk_board.tscn" id="2_lwt5f"]
+
+[sub_resource type="Animation" id="Animation_avwge"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_k1cl7"]
 resource_name = "show"
@@ -28,25 +43,64 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OpenSfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
-[sub_resource type="Animation" id="Animation_avwge"]
-length = 0.001
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_wd5hs"]
+resource_name = "close"
+tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Content:modulate")
+tracks/0/path = NodePath("ChalkBoard/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"clips": PackedStringArray("close"),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Content:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CloseSfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ak1u"]
 _data = {
 "RESET": SubResource("Animation_avwge"),
+"close": SubResource("Animation_wd5hs"),
 "show": SubResource("Animation_k1cl7")
 }
 
@@ -57,7 +111,7 @@ libraries = {
 "": SubResource("AnimationLibrary_3ak1u")
 }
 
-[node name="ChalkBoard" parent="." index="1" instance=ExtResource("2_lwt5f")]
+[node name="ChalkBoard" parent="." index="4" instance=ExtResource("2_lwt5f")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -69,8 +123,9 @@ offset_bottom = 584.0
 grow_horizontal = 1
 grow_vertical = 1
 rotation = 0.0349066
+scale = Vector2(2, 2)
 
-[node name="Content" parent="." index="2"]
+[node name="Content" parent="." index="5"]
 modulate = Color(1, 1, 1, 0)
 
 [node name="Page1" type="Control" parent="Content/Pages" index="0"]

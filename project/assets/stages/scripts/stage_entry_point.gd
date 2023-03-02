@@ -16,13 +16,13 @@ const ANIMATIONS := {
 @export var entry_camera_settings: NodePath
 @export var show_game_hud_duration := 1.0
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var show_game_hud_trigger: ShowGameHudTrigger = $ShowGameHudTrigger
+@onready var _animation_player := $AnimationPlayer as AnimationPlayer
+@onready var _show_game_hud_trigger := $ShowGameHudTrigger as ShowGameHudTrigger
 
 
 func enter(character: Actor2D):
-	var camera_settings = get_node(entry_camera_settings)
-	if camera_settings and camera_settings is CameraSettingsTrigger:
+	var camera_settings := get_node(entry_camera_settings) as CameraSettingsTrigger
+	if camera_settings:
 		camera_settings.change_limits_immediately()
 		camera_settings.change_zoom_immediately()
 	
@@ -32,11 +32,11 @@ func enter(character: Actor2D):
 	GameUtilities.get_main_camera().reset_smoothing()
 	GameUtilities.get_main_camera().make_current()
 	
-	animation_player.play(ANIMATIONS[animation])
+	_animation_player.play(ANIMATIONS[animation])
 	
 	ScreenEffects.uncover_screen(uncover_animation, uncover_duration)
 	
 	ScreenEffects.show_cutscene_bars(0)
 	await ScreenEffects.uncover_finished
 	ScreenEffects.hide_cutscene_bars(1)
-	show_game_hud_trigger.show_game_hud(show_game_hud_duration)
+	_show_game_hud_trigger.show_game_hud(show_game_hud_duration)

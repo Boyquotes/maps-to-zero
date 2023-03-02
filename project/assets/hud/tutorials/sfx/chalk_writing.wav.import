@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bp3syvblutlg4"
-path="res://.godot/imported/chalk_writing.wav-f66c95795720b36538a5653a9344561b.sample"
+path="res://.godot/imported/chalk_writing.wav-779b1e5ecb3842b53f3d28f60478203e.sample"
 
 [deps]
 
-source_file="res://assets/hud/tutorials/chalk_writing.wav"
-dest_files=["res://.godot/imported/chalk_writing.wav-f66c95795720b36538a5653a9344561b.sample"]
+source_file="res://assets/hud/tutorials/sfx/chalk_writing.wav"
+dest_files=["res://.godot/imported/chalk_writing.wav-779b1e5ecb3842b53f3d28f60478203e.sample"]
 
 [params]
 
