@@ -9,8 +9,7 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 @export_enum("Right", "Left") var look_direction:
 	set(value):
 		look_direction = value
-		if not _movement_mode == MovementModes.DISABLED or Engine.is_editor_hint():
-			update_look_direction()
+		update_look_direction()
 @export var animation := "":
 	set(value):
 		animation = value
@@ -34,9 +33,10 @@ var _character: Actor2D:
 		elif actor_name == "PLAYER":
 			_character = GameManager.player
 		else:
-			_character = GameManager.actors[actor_name]
+			if GameManager.actors.has(actor_name):
+				_character = GameManager.actors[actor_name]
 		return _character as Actor2D
-var _move_to_position_buffer := Vector2(32, 32) as Vector2
+var _move_to_position_buffer := Vector2(8, 8) as Vector2
 var _movement_mode: MovementModes
 
 
@@ -122,6 +122,8 @@ func move_to_global_position() -> void:
 
 
 func update_look_direction() -> void:
+	if not _character:
+		return
 	match look_direction:
 		0:
 			_character.look_direction = Vector2.RIGHT

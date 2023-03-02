@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://byg3unuyga2h8"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_entry_point.gd" id="1_b5p0c"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_yiour"]
