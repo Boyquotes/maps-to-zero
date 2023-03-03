@@ -14,6 +14,10 @@ size = Vector2(16, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tw8l2"]
 
+[sub_resource type="Animation" id="Animation_713pq"]
+resource_name = "RESET"
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_qy387"]
 length = 0.8
 loop_mode = 1
@@ -2508,10 +2512,6 @@ tracks/4/keys = {
 "update": 1,
 "values": [136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 161, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217]
 }
-
-[sub_resource type="Animation" id="Animation_713pq"]
-resource_name = "RESET"
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x0jfs"]
 _data = {

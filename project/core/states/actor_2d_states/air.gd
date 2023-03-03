@@ -8,7 +8,7 @@ var state : AirState
 @export var fall_animation := "fall"
 @export var background_jump_animation := "background_jump"
 @export var background_fall_animation := "background_jump"
-@export var falling_gravity_multiplier := 1.7
+@export var falling_gravity_multiplier := 1.5
 @export var jump_buffer_time := 0.1
 @export var mid_air_jumps_max := 0
 @export var background_jumps_max := 0:

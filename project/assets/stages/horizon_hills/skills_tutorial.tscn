@@ -767,7 +767,7 @@ libraries = {
 [node name="PlayerAnimator" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 script = ExtResource("4_5bsju")
 actor_name = "PLAYER"
-look_direction = 0
+look_direction = 1
 animation = "stand"
 
 [node name="Alisa Dummy" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
@@ -779,8 +779,7 @@ animation = "idle"
 
 [node name="GuidingLight" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 visible = false
-position = Vector2(0, -20)
-scale = Vector2(1e-05, 1e-05)
+position = Vector2(-65, -20)
 
 [node name="GuidingLight" parent="Cutscenes/SkillsTutorialCutscene/GuidingLight" instance=ExtResource("23_1vl1g")]
 
@@ -795,7 +794,7 @@ timeline = ExtResource("10_jlk5v")
 finished_cutscene_animation_name = "end"
 
 [node name="GameplayCamera2D" type="Camera2D" parent="Cutscenes/SkillsTutorialCutscene"]
-position = Vector2(-36, -87)
+position = Vector2(57, -87)
 zoom = Vector2(2.5, 2.5)
 limit_left = -800
 limit_bottom = 352
