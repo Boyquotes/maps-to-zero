@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://r2rqtldiiwye"]
+[gd_scene load_steps=83 format=3]
 
 [ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
@@ -19,8 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="20_ilq0q"]
 [ext_resource type="Texture2D" uid="uid://seuil2tia6f5" path="res://assets/other_sprites/blurred_white_cylinder.png" id="21_00hy2"]
 [ext_resource type="Texture2D" uid="uid://c1ox3l4rhfx65" path="res://assets/other_sprites/blurred_white_circle_half.png" id="22_ls6c7"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="23_ys8xl"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="24_fpwyr"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/wait_transition.gd" id="23_ys8xl"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target_transition.gd" id="24_fpwyr"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="25_hydwd"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="26_82qhv"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="27_ba523"]

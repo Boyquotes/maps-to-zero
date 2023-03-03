@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=3 uid="uid://df11fo47jl1el"]
+[gd_scene load_steps=155 format=3 uid="uid://hyl2t02y6wli"]
 
 [ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
@@ -56,50 +56,53 @@
 [ext_resource type="Script" path="res://core/states/actor_2d_states/stomp.gd" id="53_csobs"]
 [ext_resource type="Script" path="res://core/states/actor_2d_states/attack.gd" id="54_nopje"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/attack_input_key_transition.gd" id="55_maxgv"]
-[ext_resource type="Script" path="res://core/states/transition_requirements/resource_requirement.gd" id="56_v6da0"]
 [ext_resource type="Script" path="res://core/interactions/interaction_area_activator_2d.gd" id="57_h5aei"]
+[ext_resource type="Script" path="res://core/states/transition_requirements/stat_requirement.gd" id="57_ui81h"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/jump_with_speed_transition.gd" id="58_g5qbg"]
 
 [sub_resource type="GDScript" id="GDScript_23cjj"]
 resource_name = "AlisaSignalManager"
 script/source = "extends Node
 
-var actor: Actor2D
+var _character: Actor2D
 
 func _ready():
 	await owner.ready
-	actor = owner
+	_character = owner
 	
-	actor.state_machine.get_state(\"Attack\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
-		)
-	actor.state_machine.get_state(\"Attack2\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
-		)
-	actor.state_machine.get_state(\"Attack3\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
-		)
-	actor.state_machine.get_state(\"Attack3\").first_hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.SP, 1, true)
-		)
-	actor.state_machine.get_state(\"AirAttack1\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
-		)
-	actor.state_machine.get_state(\"AirAttack2\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
-		)
-	actor.state_machine.get_state(\"AirAttack3\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.SP, 1, true)
-		)
-	actor.state_machine.get_state(\"Dash\").hit_confirmed.connect(func():
-		actor.resources.change_resource(ActorResources.Type.MP, 5, true)
-		)
-	actor.get_node(\"Inner/Attacks/Dash/DashExplosionSpawner\").spawned.connect(func(object):
+	_character.get_state(\"Attack\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_state(\"Attack2\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_state(\"Attack3\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_state(\"Attack3\").first_hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.SP, 1)
+	)
+	_character.get_state(\"AirAttack1\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_state(\"AirAttack2\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_state(\"AirAttack3\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_state(\"AirAttack3\").first_hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.SP, 1)
+	)
+	_character.get_state(\"Dash\").hit_confirmed.connect(func():
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
+	)
+	_character.get_attack(\"Dash\").get_node(\"DashExplosionSpawner\").spawned.connect(func(object):
 		var dash_explosion = object
 		var hitbox = dash_explosion.get_node(\"ParticleSpawner/Hitbox\")
-		hitbox.set_actor(actor)
+		hitbox.set_actor(_character)
 		hitbox.hit.connect(func(hit_actor):
-			actor.resources.change_resource(ActorResources.Type.MP, 5, true)
+			_character.change_stat_by(CharacterStats.Types.MP, 5)
 			)
 		)
 "
@@ -8915,14 +8918,14 @@ max_sp = 3.0
 speed = 9.0
 team = 1
 
-[node name="SignalManager" type="Node" parent="." index="0"]
-script = SubResource("GDScript_23cjj")
-
-[node name="MPRegenTimer" type="Timer" parent="Resources" index="0"]
+[node name="Resources@MPRegenTimer" type="Timer" parent="." index="0"]
 wait_time = 0.3
 autostart = true
 
-[node name="CollisionShape2d" parent="." index="2"]
+[node name="SignalManager" type="Node" parent="." index="1"]
+script = SubResource("GDScript_23cjj")
+
+[node name="CollisionShape2d" parent="." index="3"]
 shape = SubResource("RectangleShape2D_mvr6v")
 
 [node name="CollisionShape2d" parent="BackgroundJumpArea" index="0"]
@@ -9423,7 +9426,7 @@ bus = &"Sfx"
 script = ExtResource("18_5ur3l")
 particles_scene = ExtResource("49_ihgco")
 
-[node name="InputStateMachine" parent="." index="5"]
+[node name="InputStateMachine" parent="." index="6"]
 reset_state_name = "PlayerInput"
 
 [node name="PlayerInput" parent="InputStateMachine" index="3" instance=ExtResource("50_r72u5")]
@@ -9522,9 +9525,9 @@ script = ExtResource("54_nopje")
 [node name="Rune Crash" type="Node" parent="StateMachine" index="11"]
 script = ExtResource("54_nopje")
 
-[node name="ResourceRequirement" type="Node" parent="StateMachine/Rune Crash" index="0"]
-script = ExtResource("56_v6da0")
-resource_type = 1
+[node name="StatRequirement" type="Node" parent="StateMachine/Rune Crash" index="0"]
+script = ExtResource("57_ui81h")
+stat_type = 1
 amount = 100.0
 
 [node name="Dash" type="Node" parent="StateMachine" index="12"]
@@ -9545,14 +9548,17 @@ script = ExtResource("52_5eego")
 action = "action_4"
 go_to_state = "Rune Crash"
 
-[node name="ResourceRequirement" type="Node" parent="StateMachine/Dash" index="3"]
-script = ExtResource("56_v6da0")
-resource_type = 2
+[node name="StatRequirement" type="Node" parent="StateMachine/Dash" index="3"]
+script = ExtResource("57_ui81h")
+stat_type = 2
 amount = 1.0
 
 [node name="JumpWithSpeedStateTransition" type="Node" parent="StateMachine/Dash" index="4"]
 script = ExtResource("58_g5qbg")
 base_speed = 20.0
+
+[node name="CharacterHUDSmoothingNode" parent="." index="8"]
+visible = false
 
 [node name="InteractionAreaActivator2D" type="Area2D" parent="." index="9"]
 collision_layer = 8
@@ -9563,14 +9569,13 @@ script = ExtResource("57_h5aei")
 [node name="CollisionShape2d" type="CollisionShape2D" parent="InteractionAreaActivator2D" index="0"]
 shape = SubResource("CircleShape2D_7nr68")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_vmy5l")
-
 [node name="FloorRaycast" type="RayCast2D" parent="." index="12"]
 position = Vector2(0, 17)
 target_position = Vector2(0, 16)
 collide_with_areas = true
 
-[connection signal="timeout" from="Resources/MPRegenTimer" to="Resources" method="_on_mp_regen_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_vmy5l")
+
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

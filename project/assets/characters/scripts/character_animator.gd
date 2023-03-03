@@ -13,8 +13,9 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 @export var animation := "":
 	set(value):
 		animation = value
-		if not _movement_mode == MovementModes.DISABLED or Engine.is_editor_hint():
-			_character.play_animation(animation)
+		if not _movement_mode == MovementModes.DISABLED:
+			if _character:
+				_character.play_animation(animation)
 
 
 var _last_frame_position : Vector2

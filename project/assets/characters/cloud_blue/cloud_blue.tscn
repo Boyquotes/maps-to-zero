@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ccf65y4tg73ss"]
+[gd_scene load_steps=50 format=3]
 
 [ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_2gcfk"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_pf34q"]
@@ -15,9 +15,9 @@
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/blue_slash_hit.tscn" id="17_s41pk"]
 [ext_resource type="AudioStream" uid="uid://dkttpvsrimtgr" path="res://assets/sfx/qubodup__slash.wav" id="18_1xamr"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="20_7mvpo"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="21_c5gp3"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="22_3dle7"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/far_from_target.gd" id="23_kus46"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target_transition.gd" id="21_c5gp3"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/wait_transition.gd" id="22_3dle7"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/far_from_target_transition.gd" id="23_kus46"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_target_input.gd" id="24_w034c"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="25_5q5h8"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="26_u14du"]

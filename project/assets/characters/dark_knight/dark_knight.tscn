@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://xioiq41r2584"]
+[gd_scene load_steps=58 format=3]
 
 [ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -13,10 +13,10 @@
 [ext_resource type="Script" path="res://core/classes/audio_stream_player_2d_extended.gd" id="9_17uex"]
 [ext_resource type="AudioStream" uid="uid://j0oijjpw8pdx" path="res://assets/sfx/soft_clap_1.wav" id="9_hu03c"]
 [ext_resource type="AudioStream" uid="uid://dereymv700dev" path="res://assets/sfx/soft_clap_2.wav" id="10_xqmog"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/wait.gd" id="11_e6xjo"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/wait_transition.gd" id="11_e6xjo"]
 [ext_resource type="AudioStream" uid="uid://psqwo7v72qxw" path="res://assets/sfx/soft_clap_3.wav" id="11_yjwj2"]
 [ext_resource type="AudioStream" uid="uid://d1s2m86v7dpkh" path="res://assets/sfx/soft_clap_4.wav" id="12_63fic"]
-[ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target.gd" id="12_ib0ho"]
+[ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target_transition.gd" id="12_ib0ho"]
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/clap.tscn" id="13_0aral"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_target_input.gd" id="13_d0td8"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="14_0fr44"]

@@ -8,7 +8,7 @@ signal hit(hit_character)
 @export var base_value := 0.0
 @export var hit_particles : PackedScene
 @export var hit_sfx : AudioStream
-@export var on_hit_resource_gain_type: ActorResources.Type
+@export var on_hit_resource_gain_type: CharacterStats.Types
 @export var on_hit_resource_gain_amount: float = 0.0
 @export var frame_freeze_duration_milliseconds: int = 0
 @export var screen_shake_trauma: float = 0.0
@@ -42,5 +42,5 @@ func set_actor(actor: Actor2D):
 
 func confirm_hit(hit_character: Actor2D) -> void:
 	if _character:
-		_character.resources.change_resource(on_hit_resource_gain_type, on_hit_resource_gain_amount)
+		_character.change_stat_by(on_hit_resource_gain_type, on_hit_resource_gain_amount)
 	hit.emit(hit_character)

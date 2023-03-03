@@ -1,3 +1,4 @@
+class_name AttackInputKeyTransition
 extends StateTransition2D
 
 @export var action: String

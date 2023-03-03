@@ -1,3 +1,4 @@
+class_name WaitTransition
 extends StateTransition2D
 
 @export var next_state := ""

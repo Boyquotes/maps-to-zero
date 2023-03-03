@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://c3i2qg7f3e6hq"]
 
 [ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_w7s42"]
-[ext_resource type="PackedScene" uid="uid://df11fo47jl1el" path="res://assets/characters/alisa/alisa.tscn" id="2_8nx3r"]
+[ext_resource type="PackedScene" uid="uid://hyl2t02y6wli" path="res://assets/characters/alisa/alisa.tscn" id="2_8nx3r"]
 [ext_resource type="Script" path="res://core/classes/camera/camera_target_position.gd" id="3_5rup2"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_jpdgf"]
 [ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_h6djx"]

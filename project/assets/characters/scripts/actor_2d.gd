@@ -2,6 +2,7 @@
 extends CharacterBody2D
 class_name Actor2D
 
+signal stat_changed(type, new_value, old_value, max_value)
 signal defeated
 
 @export var max_hp := 100.0
@@ -80,7 +81,7 @@ var save_data: Dictionary:
 		team = data.team
 		gravity = data.gravity
 		self.look_direction = data.look_direction
-		_resources = data._resources
+		_stats = data._stats
 	get:
 		var data = {}
 		data.max_hp = max_hp
@@ -93,7 +94,7 @@ var save_data: Dictionary:
 		data.team = team
 		data.gravity = gravity
 		data.look_direction = look_direction
-		data._resources = _resources
+		data._stats = _stats
 		return data
 var go_to_next_attack : bool:
 	set(value):
@@ -110,7 +111,7 @@ var go_to_next_attack : bool:
 @onready var input_state_machine := %InputStateMachine as StateMachine
 @onready var state_machine := %StateMachine as StateMachine
 @onready var gravity := 2 * jump_max_height / pow(jump_max_height_time, 2) # Gravity at start of jump
-@onready var _resources := %Resources as ActorResources
+@onready var _stats := %CharacterStats as CharacterStats
 @onready var _inner := %Inner as Node2D
 @onready var _animation_player := _inner.get_node("Visuals/AnimationPlayer") as AnimationPlayer
 @onready var _animation_effects := _animation_player.get_node("AnimationEffects") as AnimationPlayer
@@ -119,6 +120,7 @@ var go_to_next_attack : bool:
 @onready var _input_buffer := %InputBuffer as InputBuffer
 @onready var _soft_collision := %SoftCollision as SoftCollision
 @onready var _hurtbox := %Hurtbox as Area2D
+@onready var _hud := %CharacterHUD as CharacterHUD
 
 
 func _ready():
@@ -127,13 +129,18 @@ func _ready():
 		emit_signal("ready")
 		return
 	
-	_resources.set_max_resource(ActorResources.Type.HP, max_hp)
-	_resources.set_resource(ActorResources.Type.HP, max_hp)
-	_resources.set_max_resource(ActorResources.Type.MP, max_mp)
-	_resources.set_resource(ActorResources.Type.MP, max_mp)
-	_resources.set_max_resource(ActorResources.Type.SP, max_sp)
-	_resources.set_resource(ActorResources.Type.SP, max_sp)
-	_resources.resource_depleted.connect(_on_resource_depleted)
+	input_state_machine.init(self)
+	state_machine.init(self)
+	_hud.init(self)
+	
+	
+	_stats.stat_changed.connect(_on_stat_changed)
+	_stats.set_max_resource(CharacterStats.Types.HP, max_hp)
+	_stats.set_resource(CharacterStats.Types.HP, max_hp)
+	_stats.set_max_resource(CharacterStats.Types.MP, max_mp)
+	_stats.set_resource(CharacterStats.Types.MP, max_mp)
+	_stats.set_max_resource(CharacterStats.Types.SP, max_sp)
+	_stats.set_resource(CharacterStats.Types.SP, max_sp)
 	
 	_hurtbox.area_entered.connect(_on_hurtbox_entered)
 	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
@@ -143,8 +150,6 @@ func _ready():
 	_hurtbox.monitoring = true
 	_hurtbox.monitorable = false
 	
-	input_state_machine.init(self)
-	state_machine.init(self)
 	
 	is_ready = true
 	emit_signal("ready")
@@ -191,8 +196,8 @@ func play_animation_effect(effect_name:="") -> void:
 		_animation_effects.play(effect_name)
 
 
-func take_damage(value: float, type: ActorResources.Type=ActorResources.Type.HP):
-	_resources.change_resource(type, -value)
+func take_damage(value: float, type: CharacterStats.Types=CharacterStats.Types.HP):
+	_stats.change_resource(type, -value)
 
 
 func defeat() -> void:
@@ -246,14 +251,34 @@ func get_attack(attack_name:String) -> Node2D:
 	return _inner.get_node("Attacks/" + str(attack_name))
 
 
+func get_stat(type: CharacterStats.Types):
+	return _stats.get_resource(type)
+
+
+func get_max_stat(type: CharacterStats.Types):
+	return _stats.get_max_resource(type)
+
+
+func change_stat_by(type: CharacterStats.Types, value, clamp_value := true) -> void:
+	_stats.change_resource(type, value)
+
+
+func get_state(state_name: StringName) -> State:
+	return state_machine.get_state(state_name)
+
+
 func _on_state_machine_transitioned(_to_state, _from_state):
 	attack_request_buffer = { }
 
 
-func _on_resource_depleted(type: ActorResources.Type) -> void:
+func _on_stat_changed(type: CharacterStats.Types, new_value, old_value, max_value):
+	stat_changed.emit(type, new_value, old_value, max_value)
+	
 	match type:
-		ActorResources.Type.HP:
-			defeat()
+		CharacterStats.Types.HP:
+			if new_value <= 0:
+				defeat()
+
 
 
 func _check_and_do_attack_cancel_inputs() -> void:
@@ -282,7 +307,7 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 	if not hitbox or not GameUtilities.team_hostile_to(hitbox.team, team):
 		return
 	
-	take_damage(hitbox.base_value, ActorResources.Type.HP)
+	take_damage(hitbox.base_value, CharacterStats.Types.HP)
 	
 	ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
 	

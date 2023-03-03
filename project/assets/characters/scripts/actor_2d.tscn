@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/characters/scripts/actor_2d.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://dxnwad4fyiqqc" path="res://core/states/core/state_machine.tscn" id="2_550gp"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_stats.gd" id="2_g6ihf"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_xo8fg"]
 [ext_resource type="PackedScene" uid="uid://dscf8c60pu3d4" path="res://core/states/core/state.tscn" id="3_ljg6w"]
 [ext_resource type="Script" path="res://core/states/actor_2d_states/idle.gd" id="4_c2pic"]
@@ -10,8 +11,7 @@
 [ext_resource type="Script" path="res://core/states/actor_2d_states/air.gd" id="6_d0dbr"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_direction.gd" id="6_yk730"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_position.gd" id="7_jo6qf"]
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_resources.gd" id="8_gowqb"]
-[ext_resource type="PackedScene" uid="uid://n0m88miedrsd" path="res://assets/characters/scripts/actor_2d_interface.tscn" id="9_dm5po"]
+[ext_resource type="PackedScene" uid="uid://cckn3gvlx808k" path="res://assets/characters/scripts/character_hud.tscn" id="9_dm5po"]
 [ext_resource type="Script" path="res://core/states/actor_2d_states/play_animation.gd" id="9_kan2l"]
 [ext_resource type="Script" path="res://assets/characters/scripts/target_manager.gd" id="11_bqsqr"]
 [ext_resource type="Script" path="res://core/states/core/state.gd" id="11_hb3w8"]
@@ -23,9 +23,9 @@ collision_layer = 0
 collision_mask = 99
 script = ExtResource("1_7iiwt")
 
-[node name="Resources" type="Node" parent="."]
+[node name="CharacterStats" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("8_gowqb")
+script = ExtResource("2_g6ihf")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
 
@@ -98,12 +98,13 @@ jump_speed_boost = 0.0
 [node name="Defeat" type="Node" parent="StateMachine"]
 script = ExtResource("9_kan2l")
 
-[node name="Actor2DInterfaceSmoothing" type="Node2D" parent="."]
+[node name="CharacterHUDSmoothingNode" type="Node2D" parent="."]
 script = ExtResource("2_xo8fg")
 target = NodePath("..")
 flags = 51
 
-[node name="Actor2DInterface" parent="Actor2DInterfaceSmoothing" instance=ExtResource("9_dm5po")]
+[node name="CharacterHUD" parent="CharacterHUDSmoothingNode" instance=ExtResource("9_dm5po")]
+unique_name_in_owner = true
 
 [node name="TargetManager" type="Node" parent="."]
 unique_name_in_owner = true

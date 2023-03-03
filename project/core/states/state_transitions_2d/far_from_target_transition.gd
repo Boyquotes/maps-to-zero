@@ -1,9 +1,10 @@
+class_name FarFromTargetTransition
 extends StateTransition2D
 
 @export var next_state := ""
-@export var distance_closer_than := 10.0: # In tiles
+@export var distance_greater_than := 10.0: # In tiles
 	get:
-		return distance_closer_than * GameUtilities.TILE_SIZE.x
+		return distance_greater_than * GameUtilities.TILE_SIZE.x
 @export var tick_rate := 0.5
 
 var _timer : Timer
@@ -20,12 +21,11 @@ func enter(msg:={}) -> void:
 	super.enter(msg)
 	_timer.start()
 
-
 func exit() -> void:
 	super.exit()
 	_timer.stop()
 
 
 func _check() -> void:
-	if actor.get_distance_from_target() < self.distance_closer_than:
+	if actor.get_distance_from_target() > self.distance_greater_than:
 		state.state_machine.transition_to(next_state)

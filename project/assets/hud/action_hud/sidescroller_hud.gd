@@ -42,12 +42,12 @@ func hide_hud(duration:= 1.0):
 
 func _on_player_resource_changed(type, new_value, old_value, max_value) -> void:
 	match type:
-		ActorResources.Type.HP:
+		CharacterStats.Types.HP:
 			hp_bar.max_value = max_value
 			hp_bar.value = new_value
-		ActorResources.Type.MP:
+		CharacterStats.Types.MP:
 			mp_bar.max_value = max_value
 			mp_bar.value = new_value
-		ActorResources.Type.SP:
+		CharacterStats.Types.SP:
 			sp_bar.max_value = max_value
 			sp_bar.value = new_value

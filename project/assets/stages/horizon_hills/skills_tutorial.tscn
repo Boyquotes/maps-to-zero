@@ -34,12 +34,12 @@ func _ready():
 	
 	var player = GameUtilities.get_player()
 	player.state_machine.transitioned.connect(_on_player_state_machine_transitioned)
-	player.resources.max_out(ActorResources.Type.SP)
+	player.change_stat_by(CharacterStats.Types.SP, player.get_max_stat(CharacterStats.Types.SP))
 
 
 func _on_player_state_machine_transitioned(to, from) -> void:
 	var player = GameUtilities.get_player()
-	player.resources.max_out(ActorResources.Type.SP)
+	player.change_stat_by(CharacterStats.Types.SP, player.get_max_stat(CharacterStats.Types.SP))
 	
 	if not first_dash:
 		if to == \"Dash\":

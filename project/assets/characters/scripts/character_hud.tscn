@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://n0m88miedrsd"]
+[gd_scene load_steps=3 format=3 uid="uid://cckn3gvlx808k"]
 
-[ext_resource type="Script" path="res://assets/characters/scripts/actor_2d_interface.gd" id="1_56aqw"]
-[ext_resource type="Texture2D" uid="uid://dpfr0rbjsey4h" path="res://assets/hud/progress_bar/border.png" id="3_80asd"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_hud.gd" id="1_pfwjm"]
+[ext_resource type="Texture2D" uid="uid://dpfr0rbjsey4h" path="res://assets/hud/progress_bar/border.png" id="2_uqq0e"]
 
-[node name="Actor2DInterface" type="Control"]
+[node name="CharacterHUD" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
-script = ExtResource("1_56aqw")
+script = ExtResource("1_pfwjm")
 
 [node name="HP" type="Control" parent="."]
 layout_mode = 1
@@ -43,7 +43,7 @@ offset_right = 5.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_80asd")
+texture = ExtResource("2_uqq0e")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
