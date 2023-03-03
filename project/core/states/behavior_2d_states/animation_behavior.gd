@@ -9,7 +9,6 @@ var enter_position: Vector2
 
 
 func _ready():
-	super._ready()
 	animation_player.animation_finished.connect(_on_animation_finished)
 
 func play_animation(animation_name: String):

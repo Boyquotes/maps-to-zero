@@ -25,7 +25,6 @@ var background_jumps := 0
 
 
 func _ready():
-	super._ready()
 	jump_buffer_timer = Timer.new()
 	jump_buffer_timer.one_shot = true
 	add_child(jump_buffer_timer)

@@ -7,14 +7,5 @@ extends State
 var actor : Actor2D
 
 
-func _ready() -> void:
-	# The states are children of the Actor2D` node so their `_ready()` callback will execute first.
-	# That's why we wait for the `owner` to be ready first.
-	await owner.ready
-	# The `as` keyword casts the `owner` variable to the Actor2D` type.
-	# If the `owner` is not a Actor2D`, we'll get `null`.
-	actor = owner as Actor2D
-	# This check will tell us if we inadvertently assign a derived state script
-	# in a scene other than Actor2D.tscn`, which would be unintended. This can
-	# help prevent some bugs that are difficult to understand.
-	assert(actor != null)
+func init(character: Actor2D) -> void:
+	self.actor = character

@@ -1892,6 +1892,7 @@ libraries = {
 }
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
+visible = false
 tile_set = ExtResource("37_occer")
 cell_quadrant_size = 32
 format = 2

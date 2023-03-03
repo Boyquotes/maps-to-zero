@@ -1232,7 +1232,6 @@ background_jumps_max = 1
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("27_exxdp")
-next_state = null
 
 [node name="SoftCollision" parent="." index="9"]
 push_force = 1000.0

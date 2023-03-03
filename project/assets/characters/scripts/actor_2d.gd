@@ -141,6 +141,9 @@ func _ready():
 	_hurtbox.monitoring = true
 	_hurtbox.monitorable = false
 	
+	input_state_machine.init(self)
+	state_machine.init(self)
+	
 	is_ready = true
 	emit_signal("ready")
 
@@ -151,6 +154,18 @@ func _physics_process(delta: float):
 	move_and_slide()
 	if soft_collision.is_colliding():
 		move_and_collide(soft_collision.get_push_vector() * delta)
+
+
+func _on_tree_entered():
+	if Engine.is_editor_hint():
+		return
+	GameManager.actors[str(name)] = self
+
+
+func _on_tree_exited():
+	if Engine.is_editor_hint():
+		return
+	GameManager.actors.erase(str(name))
 
 
 func unhandled_input(event: InputEvent) -> void:
@@ -213,18 +228,6 @@ func _on_resource_depleted(type: ActorResources.Type) -> void:
 	match type:
 		ActorResources.Type.HP:
 			defeat()
-
-
-func _on_tree_entered():
-	if Engine.is_editor_hint():
-		return
-	GameManager.actors[str(name)] = self
-
-
-func _on_tree_exited():
-	if Engine.is_editor_hint():
-		return
-	GameManager.actors.erase(str(name))
 
 
 func _check_and_do_attack_cancel_inputs() -> void:

@@ -1276,7 +1276,6 @@ background_jumps_max = 1
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_ta8im")
-next_state = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
 position = Vector2(0, -15)

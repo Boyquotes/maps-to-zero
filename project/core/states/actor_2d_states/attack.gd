@@ -1,6 +1,7 @@
 # attack.gd
 extends Actor2DState
 
+
 signal first_hit_confirmed
 signal hit_confirmed
 
@@ -12,17 +13,17 @@ var _attack_node
 var _attack_node_animation_player: AnimationPlayer
 
 
-func _ready():
-	super._ready()
-	await owner.ready
-	_attack_node = actor.inner.get_node("Attacks/" + str(name))
-	if actor.inner.has_node("Attacks/" + str(name) + "/AnimationPlayer"):
+
+func init(character: Actor2D) -> void:
+	super.init(character)
+	_attack_node = character.inner.get_node("Attacks/" + str(name))
+	if character.inner.has_node("Attacks/" + str(name) + "/AnimationPlayer"):
 		_attack_node_animation_player = _attack_node.get_node("AnimationPlayer")
 		_attack_node_animation_player.animation_finished.connect(attack_animation_finished)
 		for child in _attack_node.get_children():
 			if child is Hitbox:
 				child.hit.connect(_on_attack_hit)
-		
+
 
 func enter(msg := {}) -> void:
 	super.enter(msg)

@@ -16,11 +16,20 @@ signal transitioned(to, from)
 
 
 func _ready() -> void:
-	await owner.ready
 	# The state machine assigns itself to the State objects' state_machine property.
 	for child in get_children():
 		child.state_machine = self
+	set_process(false)
+	set_physics_process(false)
+
+
+func init(character: Actor2D) -> void:
+	for child in get_children():
+		if child is Actor2DState:
+			child.init(character)
 	reset()
+	set_process(true)
+	set_physics_process(true)
 
 
 func reset(state_name:="") -> void:

@@ -6489,25 +6489,13 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/4/type = "value"
+tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Horn R:hframes")
+tracks/4/path = NodePath("../StompHitbox/ParticleSpawner")
 tracks/4/interp = 1
-tracks/4/loop_wrap = false
+tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../StompHitbox/ParticleSpawner")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -6515,106 +6503,118 @@ tracks/5/keys = {
 "method": &"spawn"
 }]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CharacterSprite:scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterSprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(2, 0.5), Vector2(1, 1)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("TailConnection:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TailConnection:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [1.5708, 0.0]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CharacterSprite:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_k3unl")]
+}
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:texture")
+tracks/8/path = NodePath("CharacterSprite:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_k3unl")]
+"values": [16]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:hframes")
+tracks/9/path = NodePath("CharacterSprite:vframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [16]
+"values": [15]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite:vframes")
+tracks/10/path = NodePath("CharacterSprite:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [true]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite:visible")
+tracks/11/path = NodePath("CharacterSprite:frame")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [23]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite:frame")
+tracks/12/path = NodePath("CharacterSprite/Horns:texture")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [23]
+"values": [ExtResource("5_p6dq2")]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:texture")
+tracks/13/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_p6dq2")]
+"values": [11]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/14/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
@@ -6626,34 +6626,22 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/15/path = NodePath("CharacterSprite/Horns:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = false
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [true]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:visible")
+tracks/16/path = NodePath("CharacterSprite/Horns:frame")
 tracks/16/interp = 1
 tracks/16/loop_wrap = false
 tracks/16/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("CharacterSprite/Horns:frame")
-tracks/17/interp = 1
-tracks/17/loop_wrap = false
-tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -8989,7 +8977,7 @@ texture = ExtResource("3_k3unl")
 offset = Vector2(0, -32)
 hframes = 16
 vframes = 15
-frame = 77
+frame = 23
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Alisa",
@@ -9011,7 +8999,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 94
+frame = 11
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9495,7 +9483,6 @@ recover_duration = 0.2
 
 [node name="Attack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Attack" index="0"]
 script = ExtResource("55_maxgv")
@@ -9504,7 +9491,6 @@ go_to_state = "Attack2"
 
 [node name="Attack2" type="Node" parent="StateMachine" index="6"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Attack2" index="0"]
 script = ExtResource("55_maxgv")
@@ -9513,11 +9499,9 @@ go_to_state = "Attack3"
 
 [node name="Attack3" type="Node" parent="StateMachine" index="7"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="AirAttack1" type="Node" parent="StateMachine" index="8"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/AirAttack1" index="0"]
 script = ExtResource("55_maxgv")
@@ -9526,7 +9510,6 @@ go_to_state = "AirAttack2"
 
 [node name="AirAttack2" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/AirAttack2" index="0"]
 script = ExtResource("55_maxgv")
@@ -9535,11 +9518,9 @@ go_to_state = "AirAttack3"
 
 [node name="AirAttack3" type="Node" parent="StateMachine" index="10"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="Rune Crash" type="Node" parent="StateMachine" index="11"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="ResourceRequirement" type="Node" parent="StateMachine/Rune Crash" index="0"]
 script = ExtResource("56_v6da0")
@@ -9548,7 +9529,6 @@ amount = 100.0
 
 [node name="Dash" type="Node" parent="StateMachine" index="12"]
 script = ExtResource("54_nopje")
-next_state = null
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Dash" index="0"]
 script = ExtResource("52_5eego")

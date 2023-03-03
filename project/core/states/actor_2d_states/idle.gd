@@ -7,7 +7,6 @@ extends Actor2DState
 var coyote_timer : Timer
 
 func _ready():
-	super._ready()
 	coyote_timer = Timer.new()
 	coyote_timer.one_shot = true
 	coyote_timer.timeout.connect(_on_coyote_timeout)
