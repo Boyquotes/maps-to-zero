@@ -13,11 +13,10 @@ func _ready():
 	coyote_timer.timeout.connect(_on_coyote_timeout)
 	add_child(coyote_timer)
 
+
 func enter(_msg := {}) -> void:
-	if _msg.has("animation") and _msg.animation == "land" and actor.animation_player.has_animation("run_land"):
-		actor.play_animation("run_land")
-	else:
-		actor.play_animation(animation)
+	actor.play_animation(animation)
+
 
 func exit() -> void:
 	super.exit()
@@ -45,6 +44,7 @@ func physics_update(delta: float) -> void:
 	
 	if is_equal_approx(actor.input_direction.x, 0.0):
 		state_machine.transition_to("Idle")
+
 
 func _on_coyote_timeout():
 	if not actor.is_on_floor():

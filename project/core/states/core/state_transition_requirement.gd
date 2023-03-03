@@ -9,12 +9,9 @@ var is_ready : bool:
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	actor_state = get_parent()
-	assert(actor_state != null)
+func init(state: Actor2DState):
+	actor_state = state
 	actor_state.transition_requirements.append(self)
-	await actor_state.ready
-	await owner.ready
 	actor = actor_state.actor
 
 

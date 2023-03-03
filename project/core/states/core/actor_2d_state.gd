@@ -9,3 +9,6 @@ var actor : Actor2D
 
 func init(character: Actor2D) -> void:
 	self.actor = character
+	for child in get_children():
+		if child is StateTransition2D or child is StateTransitionRequirement:
+			child.init(self)

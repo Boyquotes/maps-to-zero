@@ -6,26 +6,25 @@ extends StateTransition2D
 		return distance_greater_than * GameUtilities.TILE_SIZE.x
 @export var tick_rate := 0.5
 
-var timer : Timer
+var _timer : Timer
 
 func _ready():
-	super._ready()
-	timer = Timer.new()
-	timer.one_shot = false
-	timer.wait_time = tick_rate
-	timer.timeout.connect(check)
-	add_child(timer)
+	_timer = Timer.new()
+	_timer.one_shot = false
+	_timer.wait_time = tick_rate
+	_timer.timeout.connect(_check)
+	add_child(_timer)
 
 
 func enter(msg:={}) -> void:
 	super.enter(msg)
-	timer.start()
+	_timer.start()
 
 func exit() -> void:
 	super.exit()
-	timer.stop()
+	_timer.stop()
 
 
-func check() -> void:
-	if actor.target_manager.get_distance() > self.distance_greater_than:
+func _check() -> void:
+	if actor.get_distance_from_target() > self.distance_greater_than:
 		state.state_machine.transition_to(next_state)

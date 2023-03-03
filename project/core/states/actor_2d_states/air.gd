@@ -42,8 +42,7 @@ func enter(msg := {}) -> void:
 		if not Input.is_action_pressed("jump"):
 			actor.velocity.y /= 2
 		state = AirState.RISE
-		if actor.animation_effects:
-			actor.animation_effects.play("jump")
+		actor.play_animation_effect("jump")
 	else:
 		actor.gravity *= falling_gravity_multiplier
 	
@@ -112,21 +111,16 @@ func physics_update(delta: float) -> void:
 			actor.gravity *= falling_gravity_multiplier
 	# Update animation
 	
-	var current_animation = actor.animation_player.current_animation
 	if not can_background_jump(): # Default
 		if state == AirState.RISE:
-			if not(current_animation == jump_animation or current_animation == "RESET"): 
-				actor.play_animation(jump_animation)
+			actor.play_animation(jump_animation, false)
 		else:
-			if not current_animation == fall_animation or current_animation == "RESET": 
-				actor.play_animation(fall_animation)
+			actor.play_animation(fall_animation, false)
 	else:
 		if state == AirState.RISE:
-			if not(current_animation == background_jump_animation or current_animation == "RESET"): 
-				actor.play_animation(background_jump_animation)
+			actor.play_animation(background_jump_animation, false)
 		else:
-			if not current_animation == background_fall_animation or current_animation == "RESET": 
-				actor.play_animation(background_fall_animation)
+			actor.play_animation(background_fall_animation, false)
 	
 	# Landing.
 	if actor.is_on_floor():
@@ -135,18 +129,15 @@ func physics_update(delta: float) -> void:
 			enter({do_jump = true})
 			return
 		if is_equal_approx(actor.velocity.x, 0.0):
-			if actor.animation_effects:
-				actor.animation_effects.play("land")
+			actor.play_animation_effect("land")
 			state_machine.transition_to("Idle")
 		else:
-			if actor.animation_effects:
-				actor.animation_effects.play("land")
+			actor.play_animation_effect("land")
 			state_machine.transition_to("Run")
 
 
 func can_background_jump() -> bool:
-	var value = background_jumps < background_jumps_max and (actor.background_jump_area.has_overlapping_bodies() \
-				or actor.background_jump_area.has_overlapping_areas())
+	var value = background_jumps < background_jumps_max and actor.is_on_background_jump_terrain()
 	if not value:
 		if actor.has_node("Inner/Visuals/GrindParticles"):
 			actor.get_node("Inner/Visuals/GrindParticles").deactivate()

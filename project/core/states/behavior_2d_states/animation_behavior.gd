@@ -11,8 +11,10 @@ var enter_position: Vector2
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 
+
 func play_animation(animation_name: String):
 	actor.play_animation(animation_name)
+
 
 func enter(msg := {}) -> void:
 	super.enter(msg)
@@ -32,8 +34,10 @@ func _on_animation_finished(animation_name) -> void:
 		return
 	state_machine.transition_to(finished_to_state)
 
+
 func get_input_direction() -> Vector2:
 	return Vector2.ZERO
 
+
 func face_target() -> void:
-	actor.look_direction = Vector2(sign(actor.target_manager.get_direction().x), 0)
+	actor.look_direction = Vector2(sign(actor.get_direction_to_target().x), 0)

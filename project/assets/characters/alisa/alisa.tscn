@@ -9554,9 +9554,6 @@ amount = 1.0
 script = ExtResource("58_g5qbg")
 base_speed = 20.0
 
-[node name="Actor2DInterfaceSmoothing" parent="." index="7"]
-visible = false
-
 [node name="InteractionAreaActivator2D" type="Area2D" parent="." index="9"]
 collision_layer = 8
 collision_mask = 0

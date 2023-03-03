@@ -20,10 +20,7 @@ func enter(_msg := {}) -> void:
 		state_machine.transition_to("Run", _msg)
 		return
 	actor.velocity = Vector2.ZERO
-	if _msg.has("animation") and actor.animation_player.has_animation(_msg.animation):
-		actor.play_animation(_msg.animation)
-	else:
-		actor.play_animation(animation)
+	actor.play_animation(animation)
 
 func exit() -> void:
 	super.exit()

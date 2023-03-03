@@ -16,13 +16,15 @@ var _attack_node_animation_player: AnimationPlayer
 
 func init(character: Actor2D) -> void:
 	super.init(character)
-	_attack_node = character.inner.get_node("Attacks/" + str(name))
-	if character.inner.has_node("Attacks/" + str(name) + "/AnimationPlayer"):
-		_attack_node_animation_player = _attack_node.get_node("AnimationPlayer")
-		_attack_node_animation_player.animation_finished.connect(attack_animation_finished)
+	_attack_node = character.get_attack(name) as Node2D
+	if _attack_node:
 		for child in _attack_node.get_children():
 			if child is Hitbox:
 				child.hit.connect(_on_attack_hit)
+		
+		_attack_node_animation_player = _attack_node.get_node("AnimationPlayer") as AnimationPlayer
+		if _attack_node_animation_player:
+			_attack_node_animation_player.animation_finished.connect(attack_animation_finished)
 
 
 func enter(msg := {}) -> void:

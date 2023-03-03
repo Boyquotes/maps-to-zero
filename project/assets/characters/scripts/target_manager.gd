@@ -85,7 +85,7 @@ func get_rotation_to() -> float: # in radians
 	var _target = get_target()
 	return (_target.global_position - actor.global_position).angle()
 
-func get_direction() -> Vector2:
+func get_direction_to() -> Vector2:
 	var _target = get_target()
 	if not _target:
 		return actor.look_direction

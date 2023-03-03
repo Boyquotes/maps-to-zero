@@ -25,14 +25,16 @@ signal defeated
 		return max_falling_speed * GameUtilities.TILE_SIZE.y
 @export var team : GameUtilities.Teams:
 	set(value):
+		team = value
+		if Engine.is_editor_hint():
+			return
 		if team:
 			remove_from_group("team_" + str(team))
-		team = value
 		add_to_group("team_" + str(team))
 @export var attack_input_listening : bool:
 	set(value):
 		attack_input_listening = value
-		if attack_request_buffer.has("action") and input_buffer.has_action(attack_request_buffer.action):
+		if attack_request_buffer.has("action") and _input_buffer.has_action(attack_request_buffer.action):
 			go_to_next_attack = true
 @export var attack_can_cancel : bool:
 	set(value):
@@ -52,17 +54,17 @@ signal defeated
 var attack_request_buffer: Dictionary
 var target:
 	get:
-		return target_manager.get_target()
+		return _target_manager.get_target()
 var input_direction : Vector2 :
 	get:
-		return $InputStateMachine.state.input_direction
+		return input_state_machine.state.input_direction
 var look_direction : Vector2 :
 	set(value):
 		look_direction = value
 		if sign(value.x) == 1:
-			$Inner.scale.x = abs($Inner.scale.x)
+			_inner.scale.x = abs(_inner.scale.x)
 		elif sign(value.x) == -1:
-			$Inner.scale.x = -abs($Inner.scale.x)
+			_inner.scale.x = -abs(_inner.scale.x)
 	get:
 		return look_direction if not is_equal_approx(look_direction.x, 0) else Vector2.RIGHT
 var is_ready: bool = false
@@ -78,7 +80,7 @@ var save_data: Dictionary:
 		team = data.team
 		gravity = data.gravity
 		self.look_direction = data.look_direction
-		resources = data.resources
+		_resources = data._resources
 	get:
 		var data = {}
 		data.max_hp = max_hp
@@ -91,7 +93,7 @@ var save_data: Dictionary:
 		data.team = team
 		data.gravity = gravity
 		data.look_direction = look_direction
-		data.resources = resources
+		data._resources = _resources
 		return data
 var go_to_next_attack : bool:
 	set(value):
@@ -108,14 +110,14 @@ var go_to_next_attack : bool:
 @onready var input_state_machine := %InputStateMachine as StateMachine
 @onready var state_machine := %StateMachine as StateMachine
 @onready var gravity := 2 * jump_max_height / pow(jump_max_height_time, 2) # Gravity at start of jump
-@onready var background_jump_area := %BackgroundJumpArea as Area2D
-@onready var resources := %Resources as ActorResources
-@onready var inner := %Inner as Node2D
-@onready var target_manager := %TargetManager as TargetManager
-@onready var animation_player := $Inner/Visuals/AnimationPlayer as AnimationPlayer
-@onready var animation_effects: AnimationPlayer = $Inner/Visuals/AnimationPlayer/AnimationEffects as AnimationPlayer if $Inner/Visuals/AnimationPlayer.has_node("AnimationEffects") else null
-@onready var input_buffer := %InputBuffer as InputBuffer
-@onready var soft_collision := %SoftCollision as SoftCollision
+@onready var _resources := %Resources as ActorResources
+@onready var _inner := %Inner as Node2D
+@onready var _animation_player := _inner.get_node("Visuals/AnimationPlayer") as AnimationPlayer
+@onready var _animation_effects := _animation_player.get_node("AnimationEffects") as AnimationPlayer
+@onready var _background_jump_area := %BackgroundJumpArea as Area2D
+@onready var _target_manager := %TargetManager as TargetManager
+@onready var _input_buffer := %InputBuffer as InputBuffer
+@onready var _soft_collision := %SoftCollision as SoftCollision
 @onready var _hurtbox := %Hurtbox as Area2D
 
 
@@ -125,13 +127,13 @@ func _ready():
 		emit_signal("ready")
 		return
 	
-	resources.set_max_resource(ActorResources.Type.HP, max_hp)
-	resources.set_resource(ActorResources.Type.HP, max_hp)
-	resources.set_max_resource(ActorResources.Type.MP, max_mp)
-	resources.set_resource(ActorResources.Type.MP, max_mp)
-	resources.set_max_resource(ActorResources.Type.SP, max_sp)
-	resources.set_resource(ActorResources.Type.SP, max_sp)
-	resources.resource_depleted.connect(_on_resource_depleted)
+	_resources.set_max_resource(ActorResources.Type.HP, max_hp)
+	_resources.set_resource(ActorResources.Type.HP, max_hp)
+	_resources.set_max_resource(ActorResources.Type.MP, max_mp)
+	_resources.set_resource(ActorResources.Type.MP, max_mp)
+	_resources.set_max_resource(ActorResources.Type.SP, max_sp)
+	_resources.set_resource(ActorResources.Type.SP, max_sp)
+	_resources.resource_depleted.connect(_on_resource_depleted)
 	
 	_hurtbox.area_entered.connect(_on_hurtbox_entered)
 	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
@@ -152,8 +154,8 @@ func _physics_process(delta: float):
 	if Engine.is_editor_hint():
 		return
 	move_and_slide()
-	if soft_collision.is_colliding():
-		move_and_collide(soft_collision.get_push_vector() * delta)
+	if _soft_collision.is_colliding():
+		move_and_collide(_soft_collision.get_push_vector() * delta)
 
 
 func _on_tree_entered():
@@ -169,25 +171,28 @@ func _on_tree_exited():
 
 
 func unhandled_input(event: InputEvent) -> void:
-	input_buffer.add_input(event)
+	_input_buffer.add_input(event)
 	state_machine.unhandled_input(event)
 	
 	_check_and_do_attack_cancel_inputs()
 
 
-func play_animation(animation_name : String = "", \
-					_custom_blend : float = -1.0, \
-					_custom_speed : float = 1.0, \
-					_from_end : bool = false) -> void:
+func play_animation(animation_name:="", reset:=true) -> void:
 	if Engine.is_editor_hint():
-		animation_player.stop() # Reset animation
-	animation_player.play("RESET")
-	await animation_player.animation_finished
-	animation_player.play(animation_name)
+		_animation_player.stop() # Reset animation
+	if reset:
+		_animation_player.play("RESET")
+		await _animation_player.animation_finished
+	_animation_player.play(animation_name)
+
+
+func play_animation_effect(effect_name:="") -> void:
+	if _animation_effects:
+		_animation_effects.play(effect_name)
 
 
 func take_damage(value: float, type: ActorResources.Type=ActorResources.Type.HP):
-	resources.change_resource(type, -value)
+	_resources.change_resource(type, -value)
 
 
 func defeat() -> void:
@@ -220,6 +225,27 @@ func disable_input() -> void:
 	input_state_machine.transition_to("NoInput")
 
 
+func get_target() -> Actor2D:
+	return _target_manager.get_target()
+
+
+func get_direction_to_target() -> Vector2:
+	return _target_manager.get_direction_to()
+
+
+func get_distance_from_target() -> float:
+	return _target_manager.get_distance()
+
+
+func is_on_background_jump_terrain() -> bool:
+	return _background_jump_area.has_overlapping_bodies() \
+			or _background_jump_area.has_overlapping_areas()
+
+
+func get_attack(attack_name:String) -> Node2D:
+	return _inner.get_node("Attacks/" + str(attack_name))
+
+
 func _on_state_machine_transitioned(_to_state, _from_state):
 	attack_request_buffer = { }
 
@@ -233,19 +259,20 @@ func _on_resource_depleted(type: ActorResources.Type) -> void:
 func _check_and_do_attack_cancel_inputs() -> void:
 	if Engine.is_editor_hint():
 		return
-	if not attack_can_cancel or not input_buffer:
+	if not attack_can_cancel or not _input_buffer:
 		return
 	
-	if input_buffer.has_action("jump"):
+	if _input_buffer.has_action("jump"):
 		if is_on_floor():
 			state_machine.transition_to("Air", {do_jump = true})
 			attack_can_cancel = false
 		else:
-			if state_machine.state.name == "Dash" or \
-			state_machine.get_state("Air").can_background_jump() or state_machine.get_state("Air").can_mid_air_jump():
+			if state_machine.state.name == "Dash" \
+					or state_machine.get_state("Air").can_background_jump() \
+					or state_machine.get_state("Air").can_mid_air_jump():
 				state_machine.transition_to("Air", {do_jump = true})
 				attack_can_cancel = false
-	elif input_buffer.has_action("move_down"):
+	elif _input_buffer.has_action("move_down"):
 		state_machine.transition_to("Stomp")
 		attack_can_cancel = false
 

@@ -5,21 +5,19 @@ var actor: Actor2D
 var state: Actor2DState
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	state = get_parent()
-	assert(state != null)
+func init(state: Actor2DState):
+	self.state = state
 	state.state_transitions.append(self)
-	await state.ready
-	await owner.ready
 	actor = state.actor
 
 
 func enter(_msg:={}) -> void:
 	pass
 
+
 func exit() -> void:
 	pass
+
 
 # Virtual function. Receives events from the `_unhandled_input()` callback.
 func handle_input(_event: InputEvent) -> void:
