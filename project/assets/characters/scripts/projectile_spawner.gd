@@ -5,10 +5,10 @@ extends Node2D
 @onready var shoot_position : Marker2D = $ShootPosition
 
 var team : GameUtilities.Teams
-var actor: Actor2D
+var actor: Character
 
 func _ready() -> void:
-	if owner is Actor2D:
+	if owner is Character:
 		actor = owner
 
 

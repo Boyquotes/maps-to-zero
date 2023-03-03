@@ -22,5 +22,6 @@ func exit() -> void:
 	super.exit()
 	_timer.stop()
 
+
 func _on_timeout() -> void:
-	state.state_machine.transition_to(next_state)
+	_state.state_machine.transition_to(next_state)

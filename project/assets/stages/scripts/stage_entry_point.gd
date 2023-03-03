@@ -20,7 +20,7 @@ const ANIMATIONS := {
 @onready var _show_game_hud_trigger := $ShowGameHudTrigger as ShowGameHudTrigger
 
 
-func enter(character: Actor2D):
+func enter(character: Character):
 	var camera_settings := get_node(entry_camera_settings) as CameraSettingsTrigger
 	if camera_settings:
 		camera_settings.change_limits_immediately()

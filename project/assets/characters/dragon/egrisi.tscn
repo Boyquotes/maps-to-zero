@@ -1,6 +1,6 @@
 [gd_scene load_steps=83 format=3]
 
-[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_u48va"]
+[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
 [ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="4_gju0s"]
 [ext_resource type="AudioStream" uid="uid://dan1r41xxyl3d" path="res://assets/sfx/swing.wav" id="4_xr1et"]
@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="25_hydwd"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="26_82qhv"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="27_ba523"]
-[ext_resource type="Script" path="res://core/states/actor_2d_states/attack.gd" id="28_hjxcv"]
+[ext_resource type="Script" path="res://core/states/character_states/attack.gd" id="28_hjxcv"]
 
 [sub_resource type="GDScript" id="GDScript_36cir"]
 script/source = "extends Node

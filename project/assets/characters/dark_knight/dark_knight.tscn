@@ -1,6 +1,6 @@
 [gd_scene load_steps=58 format=3]
 
-[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
+[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/footstep_emitter.tscn" id="4_1rf3w"]
@@ -26,7 +26,7 @@
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="17_y16v1"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="20_jfret"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="21_bhnme"]
-[ext_resource type="Script" path="res://core/states/actor_2d_states/attack.gd" id="22_krupa"]
+[ext_resource type="Script" path="res://core/states/character_states/attack.gd" id="22_krupa"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="26_1hb2y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mhy3f"]

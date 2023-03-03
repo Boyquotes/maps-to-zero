@@ -19,16 +19,16 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 
 
 var _last_frame_position : Vector2
-var _character: Actor2D:
+var _character: Character:
 	get:
 		if _character:
-			return _character as Actor2D
+			return _character as Character
 		if Engine.is_editor_hint():
-			if get_child_count() == 1 and get_child(0) is Actor2D:
+			if get_child_count() == 1 and get_child(0) is Character:
 				_character = get_child(0)
-			elif owner is Actor2D:
+			elif owner is Character:
 				_character = owner
-			return _character as Actor2D
+			return _character as Character
 		if actor_name == "":
 			_character = owner
 		elif actor_name == "PLAYER":
@@ -36,7 +36,7 @@ var _character: Actor2D:
 		else:
 			if GameManager.actors.has(actor_name):
 				_character = GameManager.actors[actor_name]
-		return _character as Actor2D
+		return _character as Character
 var _move_to_position_buffer := Vector2(8, 8) as Vector2
 var _movement_mode: MovementModes
 

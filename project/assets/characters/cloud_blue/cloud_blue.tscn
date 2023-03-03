@@ -1,6 +1,6 @@
 [gd_scene load_steps=50 format=3]
 
-[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_2gcfk"]
+[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_2gcfk"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_pf34q"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_tc4mi"]
 [ext_resource type="Texture2D" uid="uid://bmxpyjt51ilsc" path="res://assets/characters/cloud_blue/Cloud Blue.png" id="5_ghal4"]
@@ -21,7 +21,7 @@
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_target_input.gd" id="24_w034c"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="25_5q5h8"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="26_u14du"]
-[ext_resource type="Script" path="res://core/states/actor_2d_states/attack.gd" id="27_exxdp"]
+[ext_resource type="Script" path="res://core/states/character_states/attack.gd" id="27_exxdp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8l4v"]
 size = Vector2(48, 32)

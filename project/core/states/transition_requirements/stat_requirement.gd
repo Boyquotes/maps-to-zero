@@ -7,9 +7,9 @@ extends StateTransitionRequirement
 
 
 func get_is_ready() -> bool:
-	return actor.get_stat(stat_type) >= amount
+	return _character.get_stat(stat_type) >= amount
 
 
 func enter(msg:={}) -> void:
 	if reduce_on_transition:
-		actor.change_stat_by(stat_type, -amount)
+		_character.change_stat_by(stat_type, -amount)

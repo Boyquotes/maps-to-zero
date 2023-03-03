@@ -15,7 +15,7 @@ signal hit(hit_character)
 @export var team : GameUtilities.Teams
 
 
-var _character: Actor2D
+var _character: Character
 
 
 func _ready():
@@ -27,7 +27,7 @@ func _ready():
 	monitorable = true
 	
 	await owner.ready
-	if owner is Actor2D:
+	if owner is Character:
 		_character = owner
 		team = _character.team
 	elif owner is Projectile:
@@ -35,12 +35,12 @@ func _ready():
 		team = _character.team
 
 
-func set_actor(actor: Actor2D):
+func set_actor(actor: Character):
 	self._character = actor
 	team = _character.team
 
 
-func confirm_hit(hit_character: Actor2D) -> void:
+func confirm_hit(hit_character: Character) -> void:
 	if _character:
 		_character.change_stat_by(on_hit_resource_gain_type, on_hit_resource_gain_amount)
 	hit.emit(hit_character)

@@ -1,7 +1,8 @@
 # play_animation.gd
-extends Actor2DState
+extends CharacterState
 
 @export var animation := "defeat"
 
+
 func enter(_msg := {}) -> void:
-	actor.play_animation(animation)
+	_character.play_animation(animation)

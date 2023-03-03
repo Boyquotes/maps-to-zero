@@ -1,6 +1,6 @@
 [gd_scene load_steps=52 format=3]
 
-[ext_resource type="PackedScene" uid="uid://cgw17nuigd32h" path="res://assets/characters/scripts/actor_2d.tscn" id="1_a8ind"]
+[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="4_0j2ua"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_xdjc1"]
@@ -12,7 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://be45afr4o5hmv" path="res://assets/sfx/slime_bounce.wav" id="8_27be6"]
 [ext_resource type="Texture2D" uid="uid://cje3ay8whfyjf" path="res://assets/characters/slime_blue/attack.png" id="9_177pj"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="11_d4qx0"]
-[ext_resource type="Script" path="res://core/states/actor_2d_states/attack.gd" id="11_ta8im"]
+[ext_resource type="Script" path="res://core/states/character_states/attack.gd" id="11_ta8im"]
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="12_om4q0"]
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/attack_incoming.tscn" id="12_q4oum"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="13_q36hh"]

@@ -1,18 +1,18 @@
 class_name StateTransitionRequirement
 extends Node
 
-var actor: Actor2D
-var actor_state: Actor2DState
+var _character: Character
+var _state: CharacterState
 var is_ready : bool:
 	get:
 		return get_is_ready()
 
 
 # Called when the node enters the scene tree for the first time.
-func init(state: Actor2DState):
-	actor_state = state
-	actor_state.transition_requirements.append(self)
-	actor = actor_state.actor
+func init(state: CharacterState):
+	_state = state
+	_state.transition_requirements.append(self)
+	_character = _state._character
 
 
 # Virtual function.

@@ -5,11 +5,14 @@ extends Behavior2DScript
 func enter(_msg := {}) -> void:
 	set_process_input(true)
 
+
 func exit() -> void:
 	set_process_input(false)
 
+
 func _input(event:InputEvent) -> void:
-	actor.unhandled_input(event)
+	_character.unhandled_input(event)
+
 
 func get_input_direction() -> Vector2:
 	var input_direction_x: float = (

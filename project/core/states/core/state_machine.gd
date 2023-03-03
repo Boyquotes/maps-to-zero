@@ -23,9 +23,9 @@ func _ready() -> void:
 	set_physics_process(false)
 
 
-func init(character: Actor2D) -> void:
+func init(character: Character) -> void:
 	for child in get_children():
-		if child is Actor2DState:
+		if child is CharacterState:
 			child.init(character)
 	reset()
 	set_process(true)

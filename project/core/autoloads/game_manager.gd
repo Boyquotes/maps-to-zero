@@ -3,7 +3,7 @@ extends Node
 var actors := {}
 var sidescroller_main: SidescrollerMain
 var popup_canvas: CanvasLayer
-var player: Actor2D
+var player: Character
 var gameplay_camera: GameplayCamera2D
 var transition_camera: Camera2D
 

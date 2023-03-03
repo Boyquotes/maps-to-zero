@@ -1,14 +1,14 @@
 class_name StateTransition2D
 extends Node
 
-var actor: Actor2D
-var state: Actor2DState
+var _character: Character
+var _state: CharacterState
 
 
-func init(state: Actor2DState):
-	self.state = state
-	state.state_transitions.append(self)
-	actor = state.actor
+func init(state: CharacterState):
+	_state = state
+	_state.state_transitions.append(self)
+	_character = _state._character
 
 
 func enter(_msg:={}) -> void:

@@ -14,7 +14,7 @@ extends Node2D
 @onready var sidescroller_hud : Control = $SidescrollerHUD
 
 var currently_loaded_stage: Stage
-var player: Actor2D
+var player: Character
 var respawn_cutscene_playing: bool = false
 signal respawn_cutscene_finished
 
@@ -24,7 +24,10 @@ func _ready():
 	GameManager.popup_canvas = popup_canvas
 	GameManager.sidescroller_main = self
 	
-	player = player_actor.instantiate()
+	player = player_actor.instantiate() as Character
+	player.max_background_jumps = SaveData.player_data.base_max_background_jumps
+	player.max_mid_air_jumps = SaveData.player_data.base_max_mid_air_jumps
+	
 	player.stat_changed.connect(Events._on_player_resource_changed)
 	GameManager.player = player
 	actors_parent.add_child(player)
@@ -58,8 +61,7 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 
 
 func player_defeated() -> void:
-	print_debug("player defeated")
-	MusicManager.play_song(Music.Songs.SILENCE)
+	MusicManager.play(Music.Songs.SILENCE, 2.0)
 	player.disable_input()
 	player.play_animation("defeat")
 	animation_player.play("player_defeated")

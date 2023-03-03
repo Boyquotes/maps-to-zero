@@ -32,7 +32,7 @@ static func get_hostile_teams(team: Teams) -> Array:
 static func get_main_camera() -> GameplayCamera2D:
 	return GameManager.gameplay_camera
 
-static func get_player() -> Actor2D:
+static func get_player() -> Character:
 	return GameManager.player
 
 static func get_popup_canvas() -> CanvasLayer:

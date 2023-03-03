@@ -4,7 +4,7 @@ extends Control
 @onready var hp_bar : ProgressBar = $HP/ProgressBar
 
 
-func init(character: Actor2D):
+func init(character: Character):
 	character.stat_changed.connect(_on_stat_changed)
 	_on_stat_changed(CharacterStats.Types.HP, \
 			character.get_stat(CharacterStats.Types.HP), \

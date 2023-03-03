@@ -6,14 +6,16 @@ signal loaded_data
 
 # Save file data
 var version := 1
-var base_background_jumps := 1
 var current_stage_file_path : String
 var player_saved_position: Vector2
-var player_data: Dictionary
 var camera_zoom: Vector2
+var player_data := {
+	"base_max_background_jumps" = 1,
+	"base_max_mid_air_jumps" = 0,
+}
 
 # Event flags
-var cutscenes = {} # True if watched at least once, false otherwise
+var cutscenes := {} # True if watched at least once, false otherwise
 
 
 
@@ -37,9 +39,6 @@ func write_savegame(save_file_number: int) -> void:
 		"current_stage_file_path" : current_stage_file_path,
 		"player_saved_position": player_saved_position,
 		"player_data": player_data,
-		
-		"base_background_jumps" : base_background_jumps,
-		
 		"cutscenes" : cutscenes,
 	}
 	
@@ -65,9 +64,6 @@ func load_savegame(save_file_number: int) -> void:
 	current_stage_file_path = data.current_stage_file_path
 	player_saved_position = data.player_saved_position
 	player_data = data.player_data
-	
-	base_background_jumps = data.base_background_jumps
-	
 	cutscenes = data.cutscenes
 	
 	loaded_data.emit()

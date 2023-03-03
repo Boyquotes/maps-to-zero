@@ -1,6 +1,6 @@
 @tool
 extends CharacterBody2D
-class_name Actor2D
+class_name Character
 
 signal stat_changed(type, new_value, old_value, max_value)
 signal defeated
@@ -24,6 +24,8 @@ signal defeated
 		if Engine.is_editor_hint():
 			return max_falling_speed
 		return max_falling_speed * GameUtilities.TILE_SIZE.y
+@export var max_mid_air_jumps := 0
+@export var max_background_jumps := 0
 @export var team : GameUtilities.Teams:
 	set(value):
 		team = value
@@ -45,8 +47,9 @@ signal defeated
 	set(value):
 		attack_can_go_to_next = value
 		if go_to_next_attack and not attack_request_buffer == {}:
-			for req in state_machine.get_state(attack_request_buffer.state).transition_requirements:
-				if not req.is_ready:
+			var next_attack_state: State = state_machine.get_state(attack_request_buffer.state)
+			for req in next_attack_state.transition_requirements:
+				if not req.get_is_ready():
 					return
 			state_machine.transition_to(attack_request_buffer.state)
 			go_to_next_attack = false
@@ -100,12 +103,15 @@ var go_to_next_attack : bool:
 	set(value):
 		go_to_next_attack = value
 		if value and attack_can_go_to_next and not attack_request_buffer == {}:
-			for req in state_machine.get_state(attack_request_buffer.state).transition_requirements:
-				if not req.is_ready:
+			var next_attack_state: State = state_machine.get_state(attack_request_buffer.state)
+			for req in next_attack_state.transition_requirements:
+				if not req.get_is_ready():
 					return
 			state_machine.transition_to(attack_request_buffer.state)
 			go_to_next_attack = false
 			attack_can_cancel = false
+var current_mid_air_jumps: int
+var current_background_jumps: int
 
 
 @onready var input_state_machine := %InputStateMachine as StateMachine
@@ -206,18 +212,19 @@ func defeat() -> void:
 
 
 func request_state_transition(target_state_name : String, msg: Dictionary = {}):
-	for req in state_machine.get_state(target_state_name).transition_requirements:
-		if not req.is_ready:
+	var target_state := state_machine.get_state(target_state_name)
+	for req in target_state.transition_requirements:
+		if not req.get_is_ready():
 			return
 	state_machine.transition_to(target_state_name)
 
 
-func request_attack_transition(target_state : Dictionary, msg: Dictionary = {}):
-	attack_request_buffer = target_state
-	for req in state_machine.get_state(target_state.state).transition_requirements:
-		if not req.is_ready:
+func request_attack_transition(target_state_dictionary : Dictionary, msg: Dictionary = {}):
+	attack_request_buffer = target_state_dictionary
+	var target_state := state_machine.get_state(target_state_dictionary.state)
+	for req in target_state.transition_requirements:
+		if not req.get_is_ready():
 			return
-	
 	if attack_input_listening:
 		go_to_next_attack = true
 
@@ -230,7 +237,7 @@ func disable_input() -> void:
 	input_state_machine.transition_to("NoInput")
 
 
-func get_target() -> Actor2D:
+func get_target() -> Character:
 	return _target_manager.get_target()
 
 

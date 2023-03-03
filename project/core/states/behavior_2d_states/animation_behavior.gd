@@ -2,7 +2,7 @@ extends Behavior2DScript
 
 @export var finished_to_state := "Idle"
 
-@onready var actor_transformer: Marker2D = $Actor2dTransformer
+@onready var actor_transformer: Marker2D = $CharacterTransformer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var enter_position: Vector2
@@ -13,15 +13,15 @@ func _ready():
 
 
 func play_animation(animation_name: String):
-	actor.play_animation(animation_name)
+	_character.play_animation(animation_name)
 
 
 func enter(msg := {}) -> void:
 	super.enter(msg)
-	actor.velocity = Vector2.ZERO
+	_character.velocity = Vector2.ZERO
 	animation_player.play("enter")
 	
-	enter_position = actor.position
+	enter_position = _character.position
 
 
 func exit() -> void:
@@ -40,4 +40,4 @@ func get_input_direction() -> Vector2:
 
 
 func face_target() -> void:
-	actor.look_direction = Vector2(sign(actor.get_direction_to_target().x), 0)
+	_character.look_direction = Vector2(sign(_character.get_direction_to_target().x), 0)

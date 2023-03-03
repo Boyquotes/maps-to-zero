@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var lifetime := 3.0
 
 var direction := Vector2.RIGHT
-var actor: Actor2D
+var actor: Character
 
 @onready var timer : Timer = $Timer
 @onready var hitbox : Hitbox = $Hitbox
@@ -38,5 +38,5 @@ func _on_impact() -> void:
 	queue_free()
 
 
-func _on_hit(hit_actor: Actor2D) -> void:
+func _on_hit(hit_actor: Character) -> void:
 	_on_impact()

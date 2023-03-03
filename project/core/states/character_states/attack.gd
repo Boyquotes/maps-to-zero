@@ -1,5 +1,5 @@
 # attack.gd
-extends Actor2DState
+extends CharacterState
 
 
 signal first_hit_confirmed
@@ -14,7 +14,7 @@ var _attack_node_animation_player: AnimationPlayer
 
 
 
-func init(character: Actor2D) -> void:
+func init(character: Character) -> void:
 	super.init(character)
 	_attack_node = character.get_attack(name) as Node2D
 	if _attack_node:
@@ -57,7 +57,7 @@ func attack_animation_finished(anim_name: String) -> void:
 		state_machine.transition_to(next_state)
 
 
-func _on_attack_hit(actor) -> void:
+func _on_attack_hit(_character) -> void:
 	if not _first_confirmed_hit:
 		_first_confirmed_hit = true
 		first_hit_confirmed.emit()

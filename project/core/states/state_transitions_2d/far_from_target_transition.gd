@@ -27,5 +27,5 @@ func exit() -> void:
 
 
 func _check() -> void:
-	if actor.get_distance_from_target() > self.distance_greater_than:
-		state.state_machine.transition_to(next_state)
+	if _character.get_distance_from_target() > self.distance_greater_than:
+		_state.state_machine.transition_to(next_state)
