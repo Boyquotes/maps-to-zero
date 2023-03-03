@@ -75,12 +75,12 @@ func teleport() -> void:
 	_character.global_position = global_position - center_offset
 
 
-func enable(disable_input:=true) -> void:
+func enable(disable_input_on_enable:=true) -> void:
 	_movement_mode = MovementModes.MATCH
 	set_physics_process(true)
 	_last_frame_position = position - center_offset
 	_character.play_animation(animation)
-	if disable_input:
+	if disable_input_on_enable:
 		_character.input_state_machine.transition_to("NoInput")
 
 
@@ -90,7 +90,7 @@ func enable_cutscene_mode() -> void:
 
 
 func disable(reset_state_machine:=true) -> void:
-	_movement_mode == MovementModes.DISABLED
+	_movement_mode = MovementModes.DISABLED
 	set_physics_process(false)
 	_character.rotation = 0
 	_character.input_state_machine.reset()
@@ -141,7 +141,6 @@ func update_look_direction() -> void:
 
 func move_right() -> void:
 	_movement_mode = MovementModes.MOVE_RIGHT
-	var move_direction_state = _character.input_state_machine.get_state("MoveDirection")
 	_character.input_state_machine.transition_to("MoveDirection", {
 		"direction": Vector2.RIGHT
 	})
@@ -150,7 +149,6 @@ func move_right() -> void:
 
 func move_left() -> void:
 	_movement_mode = MovementModes.MOVE_LEFT
-	var move_direction_state = _character.input_state_machine.get_state("MoveDirection")
 	_character.input_state_machine.transition_to("MoveDirection", {
 		"direction": Vector2.LEFT
 	})

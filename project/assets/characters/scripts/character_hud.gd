@@ -12,7 +12,7 @@ func init(character: Character):
 			character.get_max_stat(CharacterStats.Types.HP))
 
 
-func _on_stat_changed(type: CharacterStats.Types, new_value, old_value, max_value) -> void:
+func _on_stat_changed(type: CharacterStats.Types, new_value, _old_value, max_value) -> void:
 	match type:
 		CharacterStats.Types.HP:
 			hp_bar.max_value = max_value

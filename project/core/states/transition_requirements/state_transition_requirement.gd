@@ -21,5 +21,5 @@ func get_is_ready() -> bool:
 
 
 # Virtual function
-func enter(msg:={}) -> void:
+func enter(_msg:={}) -> void:
 	pass

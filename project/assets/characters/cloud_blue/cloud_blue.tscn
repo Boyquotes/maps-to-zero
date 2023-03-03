@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3]
+[gd_scene load_steps=50 format=3 uid="uid://csn4qxvuyb07i"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_2gcfk"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_pf34q"]
@@ -895,20 +895,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"disable"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_jnn5x"]
 resource_name = "attack"
@@ -916,7 +902,7 @@ length = 3.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:animation")
+tracks/0/path = NodePath("CharacterAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -992,7 +978,7 @@ length = 3.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("CharacterAnimator")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1006,7 +992,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("CharacterAnimator")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1146,7 +1132,7 @@ screen_shake_trauma = 0.1
 shape = SubResource("CircleShape2D_5tpq0")
 disabled = true
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="2"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack" index="2"]
 script = ExtResource("14_1qerm")
 animation = "attack_windup"
 
@@ -1207,7 +1193,7 @@ libraries = {
 "": SubResource("AnimationLibrary_1uyk0")
 }
 
-[node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
 script = ExtResource("14_1qerm")
 actor_name = "CloudBlue"
 
@@ -1228,7 +1214,6 @@ go_to_state = "Attack"
 jump_animation = "bounce"
 background_jump_animation = "bounce"
 background_fall_animation = "bounce"
-background_jumps_max = 1
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("27_exxdp")

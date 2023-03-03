@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene load_steps=24 format=3 uid="uid://b8337f0s5pw3q"]
 
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="1_x0ig2"]
 [ext_resource type="Texture2D" uid="uid://bpp8tj58hxtku" path="res://assets/characters/alisa/sprites/glyph.png" id="2_qrl8l"]

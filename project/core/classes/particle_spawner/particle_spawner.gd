@@ -32,5 +32,9 @@ static func spawn_one_shot(one_shot_particles: PackedScene, \
 
 
 func spawn() -> void:
-	var parent = GameManager.sidescroller_main if particles_top_level else self
+	var parent
+	if particles_top_level:
+		parent = GameManager.sidescroller_main 
+	else:
+		parent = self
 	spawn_one_shot(particles_scene, global_position, parent)

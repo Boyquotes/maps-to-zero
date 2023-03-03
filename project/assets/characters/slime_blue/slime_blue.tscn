@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3]
+[gd_scene load_steps=52 format=3 uid="uid://bir8uc6rhrdnq"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -86,38 +86,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("AttackSprite:frame")
+tracks/4/path = NodePath("CharacterSprite:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 8)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("AttackSprite:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-32, 16)]
 }
 
 [sub_resource type="Animation" id="Animation_ki2ou"]
@@ -941,7 +917,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/path = NodePath("CharacterAnimator:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -957,7 +933,7 @@ length = 2.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:animation")
+tracks/0/path = NodePath("CharacterAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -981,7 +957,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:position")
+tracks/2/path = NodePath("CharacterAnimator:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1045,7 +1021,7 @@ length = 2.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("CharacterAnimator")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1059,7 +1035,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("CharacterAnimator")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1120,7 +1096,7 @@ texture = ExtResource("6_j1odf")
 offset = Vector2(0, -29)
 hframes = 6
 vframes = 6
-frame = 35
+frame = 27
 region_rect = Rect2(0, 256, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -1196,7 +1172,7 @@ position = Vector2(64, -3)
 shape = SubResource("RectangleShape2D_2g671")
 disabled = true
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="3"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack" index="3"]
 script = ExtResource("19_0uhae")
 animation = "charge"
 
@@ -1251,7 +1227,7 @@ libraries = {
 "": SubResource("AnimationLibrary_1uyk0")
 }
 
-[node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
 script = ExtResource("19_0uhae")
 actor_name = "SlimeBlue"
 
@@ -1272,7 +1248,6 @@ go_to_state = "Attack"
 jump_animation = "bounce"
 background_jump_animation = "bounce"
 background_fall_animation = "bounce"
-background_jumps_max = 1
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_ta8im")

@@ -1,8 +1,8 @@
-[gd_scene load_steps=155 format=3]
+[gd_scene load_steps=155 format=3 uid="uid://duso0ahb6lxjg"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
-[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/alisa.png" id="3_k3unl"]
+[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/Alisa.png" id="3_k3unl"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/characters/alisa/sprites/Horns.png" id="5_p6dq2"]
 [ext_resource type="Texture2D" uid="uid://ujycnl6px0tg" path="res://assets/characters/alisa/sprites/attack_swings/attack.png" id="6_v2qci"]
 [ext_resource type="Texture2D" uid="uid://cxraq73g0qx5o" path="res://assets/characters/alisa/sprites/attack_swings/air_attack_3.png" id="7_e7b7x"]
@@ -39,14 +39,14 @@
 [ext_resource type="Script" path="res://core/classes/spawner_2d.gd" id="38_1w5r1"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="38_hnkwh"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="39_rs0tk"]
-[ext_resource type="PackedScene" path="res://assets/characters/alisa/alisa_dash_explosion.tscn" id="41_5bwyw"]
+[ext_resource type="PackedScene" uid="uid://w6blq5t63ino" path="res://assets/characters/alisa/alisa_dash_explosion.tscn" id="41_5bwyw"]
 [ext_resource type="PackedScene" uid="uid://t7oexq6jcskh" path="res://assets/characters/alisa/particles/alisa_dash_line_particles.tscn" id="42_xjwjg"]
 [ext_resource type="Script" path="res://core/triggers/show_speed_lines_trigger.gd" id="43_pwui8"]
 [ext_resource type="Script" path="res://core/game_utilities.gd" id="43_umbqx"]
 [ext_resource type="PackedScene" uid="uid://tsqr6e168upm" path="res://assets/characters/alisa/particles/pink_hit_impact.tscn" id="44_6g7sh"]
 [ext_resource type="Script" path="res://core/triggers/hide_speed_lines_trigger.gd" id="44_vut77"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="45_mg4cx"]
-[ext_resource type="PackedScene" path="res://assets/characters/alisa/alisa_rune_crash.tscn" id="46_x7euw"]
+[ext_resource type="PackedScene" uid="uid://b8337f0s5pw3q" path="res://assets/characters/alisa/alisa_rune_crash.tscn" id="46_x7euw"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="47_sx4sk"]
 [ext_resource type="AudioStream" uid="uid://dy5pt4o6nla5e" path="res://assets/sfx/stomp.wav" id="48_ndf8c"]
 [ext_resource type="PackedScene" uid="uid://dmdeb5rc6ewxf" path="res://assets/characters/alisa/particles/alisa_stomp_land.tscn" id="49_ihgco"]
@@ -101,7 +101,7 @@ func _ready():
 		var dash_explosion = object
 		var hitbox = dash_explosion.get_node(\"ParticleSpawner/Hitbox\")
 		hitbox.set_actor(_character)
-		hitbox.hit.connect(func(hit_actor):
+		hitbox.hit.connect(func(_hit_actor):
 			_character.change_stat_by(CharacterStats.Types.MP, 5)
 			)
 		)
@@ -9474,10 +9474,6 @@ script = ExtResource("52_5eego")
 action = "action_4"
 go_to_state = "Rune Crash"
 
-[node name="Run" parent="StateMachine" index="2"]
-animation = null
-coyote_time = null
-
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
 script = ExtResource("52_5eego")
 action = "action_1"
@@ -9494,14 +9490,7 @@ action = "action_4"
 go_to_state = "Rune Crash"
 
 [node name="Air" parent="StateMachine" index="3"]
-jump_animation = null
-fall_animation = null
-background_jump_animation = null
 background_fall_animation = "background_jump_fall"
-falling_gravity_multiplier = null
-jump_buffer_time = null
-mid_air_jumps_max = null
-background_jumps_max = 1
 jump_speed_boost = 1.0
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Air" index="0"]

@@ -5,16 +5,39 @@ extends Node
 
 var tween : Tween
 var transitioning: bool = false
+var to_camera : Camera2D
+var transition_start_time : float
+var transition_end_time : float
+var transition_start_position : Vector2
+var transition_start_rotation : float
+var transition_start_zoom : Vector2
 
 
 func _ready() -> void:
 	set_process(false)
 
 
+func _process(_delta):
+	if not is_instance_valid(to_camera):
+		switch_camera(GameUtilities.get_main_camera())
+		transitioning = false
+	if not transitioning:
+		set_process(false)
+		return
+	
+	var time_elapsed = Time.get_unix_time_from_system() - transition_start_time
+	var duration = transition_end_time - transition_start_time
+	var lerp_step = time_elapsed / duration
+	transition_camera.global_position = lerp(transition_start_position, to_camera.global_position, lerp_step)
+	transition_camera.global_rotation = lerp(transition_start_rotation, to_camera.global_rotation, lerp_step)
+	transition_camera.zoom = lerp(transition_start_zoom, to_camera.zoom, lerp_step)
+
+
 func switch_camera(to) -> void:
 	to.align()
 	to.reset_smoothing()
 	to.make_current()
+
 
 func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) -> void:
 	if tween:
@@ -74,25 +97,4 @@ func transition_camera2D(from: Camera2D, to: Camera2D, duration: float = 1.0) ->
 	tween.finished.connect(func():
 		transitioning = false
 		switch_camera(to)
-		)
-
-var to_camera : Camera2D
-var transition_start_time : float
-var transition_end_time : float
-var transition_start_position : Vector2
-var transition_start_rotation : float
-var transition_start_zoom : Vector2
-func _process(delta):
-	if not is_instance_valid(to_camera):
-		switch_camera(GameUtilities.get_main_camera())
-		transitioning = false
-	if not transitioning:
-		set_process(false)
-		return
-	
-	var time_elapsed = Time.get_unix_time_from_system() - transition_start_time
-	var duration = transition_end_time - transition_start_time
-	var lerp_step = time_elapsed / duration
-	transition_camera.global_position = lerp(transition_start_position, to_camera.global_position, lerp_step)
-	transition_camera.global_rotation = lerp(transition_start_rotation, to_camera.global_rotation, lerp_step)
-	transition_camera.zoom = lerp(transition_start_zoom, to_camera.zoom, lerp_step)
+	)

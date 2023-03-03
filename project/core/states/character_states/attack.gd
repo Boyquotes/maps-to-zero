@@ -57,7 +57,7 @@ func attack_animation_finished(anim_name: String) -> void:
 		state_machine.transition_to(next_state)
 
 
-func _on_attack_hit(_character) -> void:
+func _on_attack_hit(_hit_character: Character) -> void:
 	if not _first_confirmed_hit:
 		_first_confirmed_hit = true
 		first_hit_confirmed.emit()

@@ -141,12 +141,12 @@ func _ready():
 	
 	
 	_stats.stat_changed.connect(_on_stat_changed)
-	_stats.set_max_resource(CharacterStats.Types.HP, max_hp)
-	_stats.set_resource(CharacterStats.Types.HP, max_hp)
-	_stats.set_max_resource(CharacterStats.Types.MP, max_mp)
-	_stats.set_resource(CharacterStats.Types.MP, max_mp)
-	_stats.set_max_resource(CharacterStats.Types.SP, max_sp)
-	_stats.set_resource(CharacterStats.Types.SP, max_sp)
+	_stats.set_max_stat(CharacterStats.Types.HP, max_hp)
+	_stats.set_stat(CharacterStats.Types.HP, max_hp)
+	_stats.set_max_stat(CharacterStats.Types.MP, max_mp)
+	_stats.set_stat(CharacterStats.Types.MP, max_mp)
+	_stats.set_max_stat(CharacterStats.Types.SP, max_sp)
+	_stats.set_stat(CharacterStats.Types.SP, max_sp)
 	
 	_hurtbox.area_entered.connect(_on_hurtbox_entered)
 	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
@@ -198,7 +198,7 @@ func play_animation(animation_name:="", reset:=true) -> void:
 
 
 func play_animation_effect(effect_name:="") -> void:
-	if _animation_effects:
+	if _animation_effects and _animation_effects.has_animation(effect_name):
 		_animation_effects.play(effect_name)
 
 
@@ -216,10 +216,10 @@ func request_state_transition(target_state_name : String, msg: Dictionary = {}):
 	for req in target_state.transition_requirements:
 		if not req.get_is_ready():
 			return
-	state_machine.transition_to(target_state_name)
+	state_machine.transition_to(target_state_name, msg)
 
 
-func request_attack_transition(target_state_dictionary : Dictionary, msg: Dictionary = {}):
+func request_attack_transition(target_state_dictionary : Dictionary, _msg: Dictionary = {}):
 	attack_request_buffer = target_state_dictionary
 	var target_state := state_machine.get_state(target_state_dictionary.state)
 	for req in target_state.transition_requirements:
@@ -259,15 +259,15 @@ func get_attack(attack_name:String) -> Node2D:
 
 
 func get_stat(type: CharacterStats.Types):
-	return _stats.get_resource(type)
+	return _stats.get_stat(type)
 
 
 func get_max_stat(type: CharacterStats.Types):
-	return _stats.get_max_resource(type)
+	return _stats.get_max_stat(type)
 
 
 func change_stat_by(type: CharacterStats.Types, value, clamp_value := true) -> void:
-	_stats.change_resource(type, value)
+	_stats.change_stat_by(type, value, clamp_value)
 
 
 func get_state(state_name: StringName) -> State:

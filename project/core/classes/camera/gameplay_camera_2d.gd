@@ -22,7 +22,7 @@ func add_trauma(additional_trauma := 0.1) -> void:
 		screen_shake.add_trauma(additional_trauma)
 
 
-func _process(delta):
+func _process(_delta):
 	offset = Vector2.ZERO
 	if screen_shake:
 		offset += screen_shake.shake_offset

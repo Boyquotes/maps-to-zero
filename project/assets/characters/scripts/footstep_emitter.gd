@@ -26,7 +26,7 @@ func emit_footstep() -> void:
 	var footstep_type = FootstepTypes.DEFAULT
 	
 	var particles_scene = footstep_particles[footstep_type][0]
-	var particles = ParticleSpawner.spawn_one_shot(particles_scene, global_position, self)
+	ParticleSpawner.spawn_one_shot(particles_scene, global_position, self)
 	
 	sfx_player.streams = sfx_library[footstep_type]
 	sfx_player.play_random()

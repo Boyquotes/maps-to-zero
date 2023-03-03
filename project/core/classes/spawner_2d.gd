@@ -10,7 +10,10 @@ func spawn(parent):
 	var new_object = scene.instantiate()
 	
 	if not parent:
-		parent = GameManager.sidescroller_main if spawned_object_is_top_level else self
+		if spawned_object_is_top_level:
+			parent = GameManager.sidescroller_main 
+		else:
+			parent =  self
 	parent.add_child(new_object)
 	new_object.global_position = global_position
 	new_object.global_transform = global_transform

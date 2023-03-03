@@ -40,7 +40,7 @@ func hide_hud(duration:= 1.0):
 		await $AnimationPlayer.animation_finished
 		hide_finished.emit()
 
-func _on_player_resource_changed(type, new_value, old_value, max_value) -> void:
+func _on_player_resource_changed(type, new_value, _old_value, max_value) -> void:
 	match type:
 		CharacterStats.Types.HP:
 			hp_bar.max_value = max_value

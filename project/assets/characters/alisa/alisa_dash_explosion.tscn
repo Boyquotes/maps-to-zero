@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://w6blq5t63ino"]
 
 [ext_resource type="PackedScene" uid="uid://tsqr6e168upm" path="res://assets/characters/alisa/particles/pink_hit_impact.tscn" id="2_1xfle"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="2_5p5ah"]
@@ -181,5 +181,5 @@ frame_freeze_duration_milliseconds = 33
 screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="ParticleSpawner/Hitbox"]
-position = Vector2(-102, 0)
 shape = SubResource("RectangleShape2D_67ive")
+disabled = true

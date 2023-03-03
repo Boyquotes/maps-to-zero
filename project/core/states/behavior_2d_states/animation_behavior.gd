@@ -2,14 +2,13 @@ extends Behavior2DScript
 
 @export var finished_to_state := "Idle"
 
-@onready var actor_transformer: Marker2D = $CharacterTransformer
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+var _enter_position: Vector2
+@onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
-var enter_position: Vector2
 
 
 func _ready():
-	animation_player.animation_finished.connect(_on_animation_finished)
+	_animation_player.animation_finished.connect(_on_animation_finished)
 
 
 func play_animation(animation_name: String):
@@ -19,14 +18,14 @@ func play_animation(animation_name: String):
 func enter(msg := {}) -> void:
 	super.enter(msg)
 	_character.velocity = Vector2.ZERO
-	animation_player.play("enter")
+	_animation_player.play("enter")
 	
-	enter_position = _character.position
+	_enter_position = _character.position
 
 
 func exit() -> void:
 	super.exit()
-	animation_player.play("RESET")
+	_animation_player.play("RESET")
 
 
 func _on_animation_finished(animation_name) -> void:

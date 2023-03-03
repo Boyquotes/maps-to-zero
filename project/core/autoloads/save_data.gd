@@ -1,24 +1,23 @@
 extends Node
 
-const SAVE_GAME_FOLDER := "user://saves/"
-
 signal loaded_data
+
+const SAVE_GAME_FOLDER := "user://saves/"
 
 # Save file data
 var version := 1
-var current_stage_file_path : String
-var player_saved_position: Vector2
-var camera_zoom: Vector2
 var player_data := {
-	"base_max_background_jumps" = 1,
-	"base_max_mid_air_jumps" = 0,
+	stats = {},
+	max_stats = {},
+	base_max_background_jumps = 1,
+	base_max_mid_air_jumps = 0,
 }
-
-# Event flags
+var stage_data := {
+	current_stage_file_path = "",
+	player_saved_position = Vector2.ZERO,
+	camera_zoom = Vector2.ONE,
+}
 var cutscenes := {} # True if watched at least once, false otherwise
-
-
-
 
 
 func save_exists(save_file_number: int) -> bool:
@@ -36,8 +35,7 @@ func write_savegame(save_file_number: int) -> void:
 	
 	var data := {
 		"version" : version,
-		"current_stage_file_path" : current_stage_file_path,
-		"player_saved_position": player_saved_position,
+		"stage_data" : stage_data,
 		"player_data": player_data,
 		"cutscenes" : cutscenes,
 	}
@@ -61,9 +59,8 @@ func load_savegame(save_file_number: int) -> void:
 	var data: Dictionary = JSON.parse_string(content).result
 	
 	version = data.version
-	current_stage_file_path = data.current_stage_file_path
-	player_saved_position = data.player_saved_position
 	player_data = data.player_data
+	stage_data = data.stage_data
 	cutscenes = data.cutscenes
 	
 	loaded_data.emit()

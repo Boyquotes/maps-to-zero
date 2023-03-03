@@ -7,15 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://bfqenr2gqptvc" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_04.png" id="9_jotfq"]
 [ext_resource type="Texture2D" uid="uid://bygi5isn1tc6q" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_05.png" id="10_acsxe"]
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_06.png" id="11_xasay"]
-[ext_resource type="PackedScene" uid="uid://cb13ijfqdqqd0" path="res://assets/characters/frog_green/frog_green.tscn" id="15_gejaj"]
+[ext_resource type="PackedScene" uid="uid://bnw8pebx4vyk" path="res://assets/characters/frog_green/frog_green.tscn" id="15_gejaj"]
 [ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="20_6f68t"]
 [ext_resource type="PackedScene" uid="uid://duwrhyca3ogoy" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="21_5hfj1"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="35_kyjn7"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="36_d4uyu"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="37_occer"]
 [ext_resource type="AnimationLibrary" uid="uid://dj88tv48ew0tp" path="res://assets/stages/background_jump_area_visuals_animation_library.tres" id="38_0csvx"]
-[ext_resource type="PackedScene" uid="uid://cumr4mb87qykw" path="res://assets/characters/slime_blue/slime_blue.tscn" id="39_qu5e0"]
-[ext_resource type="PackedScene" uid="uid://ccf65y4tg73ss" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="40_utps5"]
+[ext_resource type="PackedScene" uid="uid://bir8uc6rhrdnq" path="res://assets/characters/slime_blue/slime_blue.tscn" id="39_qu5e0"]
+[ext_resource type="PackedScene" uid="uid://csn4qxvuyb07i" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="40_utps5"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
