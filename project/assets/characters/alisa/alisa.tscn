@@ -9114,6 +9114,7 @@ script = ExtResource("33_ahjeu")
 animation = "attack"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
+collision_layer = 0
 collision_mask = 4
 script = ExtResource("33_x7obb")
 base_value = 10.0

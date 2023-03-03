@@ -24,11 +24,13 @@ collision_mask = 99
 script = ExtResource("1_7iiwt")
 
 [node name="Resources" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("8_gowqb")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
 
 [node name="BackgroundJumpArea" type="Area2D" parent="."]
+unique_name_in_owner = true
 visible = false
 collision_layer = 0
 collision_mask = 128
@@ -36,6 +38,7 @@ collision_mask = 128
 [node name="CollisionShape2d" type="CollisionShape2D" parent="BackgroundJumpArea"]
 
 [node name="Inner" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Visuals" type="Node2D" parent="Inner"]
 script = ExtResource("2_xo8fg")
@@ -43,13 +46,15 @@ target = NodePath("../..")
 flags = 51
 
 [node name="Hurtbox" type="Area2D" parent="Inner"]
-collision_layer = 4
-collision_mask = 0
-monitoring = false
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+monitorable = false
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Hurtbox"]
 
 [node name="InputStateMachine" parent="." instance=ExtResource("2_550gp")]
+unique_name_in_owner = true
 reset_state_name = "NoInput"
 
 [node name="NoInput" type="Node" parent="InputStateMachine"]
@@ -62,6 +67,7 @@ script = ExtResource("6_yk730")
 script = ExtResource("7_jo6qf")
 
 [node name="StateMachine" parent="." instance=ExtResource("2_550gp")]
+unique_name_in_owner = true
 reset_state_name = "Idle"
 
 [node name="Cutscene" type="Node" parent="StateMachine"]
@@ -100,12 +106,15 @@ flags = 51
 [node name="Actor2DInterface" parent="Actor2DInterfaceSmoothing" instance=ExtResource("9_dm5po")]
 
 [node name="TargetManager" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("11_bqsqr")
 
 [node name="InputBuffer" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("13_gxgy6")
 
 [node name="SoftCollision" type="Area2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("14_kjlhh")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

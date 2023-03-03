@@ -105,17 +105,18 @@ var go_to_next_attack : bool:
 			attack_can_cancel = false
 
 
-@onready var input_state_machine := $InputStateMachine as StateMachine
-@onready var state_machine := $StateMachine as StateMachine
-@onready var gravity := 2 * jump_max_height / pow(jump_max_height_time, 2)
-@onready var background_jump_area := $BackgroundJumpArea as Area2D
-@onready var resources := $Resources as ActorResources
-@onready var inner := $Inner as Node2D
-@onready var target_manager := $TargetManager as TargetManager
+@onready var input_state_machine := %InputStateMachine as StateMachine
+@onready var state_machine := %StateMachine as StateMachine
+@onready var gravity := 2 * jump_max_height / pow(jump_max_height_time, 2) # Gravity at start of jump
+@onready var background_jump_area := %BackgroundJumpArea as Area2D
+@onready var resources := %Resources as ActorResources
+@onready var inner := %Inner as Node2D
+@onready var target_manager := %TargetManager as TargetManager
 @onready var animation_player := $Inner/Visuals/AnimationPlayer as AnimationPlayer
 @onready var animation_effects: AnimationPlayer = $Inner/Visuals/AnimationPlayer/AnimationEffects as AnimationPlayer if $Inner/Visuals/AnimationPlayer.has_node("AnimationEffects") else null
-@onready var input_buffer := $InputBuffer as InputBuffer
-@onready var soft_collision := $SoftCollision as SoftCollision
+@onready var input_buffer := %InputBuffer as InputBuffer
+@onready var soft_collision := %SoftCollision as SoftCollision
+@onready var _hurtbox := %Hurtbox as Area2D
 
 
 func _ready():
@@ -123,6 +124,7 @@ func _ready():
 		is_ready = true
 		emit_signal("ready")
 		return
+	
 	resources.set_max_resource(ActorResources.Type.HP, max_hp)
 	resources.set_resource(ActorResources.Type.HP, max_hp)
 	resources.set_max_resource(ActorResources.Type.MP, max_mp)
@@ -130,7 +132,15 @@ func _ready():
 	resources.set_max_resource(ActorResources.Type.SP, max_sp)
 	resources.set_resource(ActorResources.Type.SP, max_sp)
 	resources.resource_depleted.connect(_on_resource_depleted)
-	await get_tree().create_timer(0.01).timeout
+	
+	_hurtbox.area_entered.connect(_on_hurtbox_entered)
+	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
+	_hurtbox.set_collision_mask_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
+	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)
+	_hurtbox.set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
+	_hurtbox.monitoring = true
+	_hurtbox.monitorable = false
+	
 	is_ready = true
 	emit_signal("ready")
 
@@ -161,22 +171,8 @@ func play_animation(animation_name : String = "", \
 	animation_player.play(animation_name)
 
 
-func take_damage(base_damage: float, type: ActorResources.Type=ActorResources.Type.HP, hitbox: Hitbox=null) -> bool:
-	if hitbox and GameUtilities.team_hostile_to(hitbox.team, team):
-		ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
-		
-		var hit_sfx := AudioStreamPlayer2D.new() as AudioStreamPlayer2D
-		hit_sfx.name = "AudioStreamPlayer2d"
-		hit_sfx.stream = hitbox.hit_sfx
-		hit_sfx.bus = "Sfx"
-		hit_sfx.finished.connect(hit_sfx.queue_free)
-		add_child(hit_sfx)
-		hit_sfx.global_position = global_position
-		hit_sfx.play()
-		
-		resources.change_resource(type, -base_damage)
-		return true
-	return false
+func take_damage(value: float, type: ActorResources.Type=ActorResources.Type.HP):
+	resources.change_resource(type, -value)
 
 
 func defeat() -> void:
@@ -249,3 +245,29 @@ func _check_and_do_attack_cancel_inputs() -> void:
 	elif input_buffer.has_action("move_down"):
 		state_machine.transition_to("Stomp")
 		attack_can_cancel = false
+
+
+func _on_hurtbox_entered(area: Area2D) -> void:
+	var hitbox := area as Hitbox
+	if not hitbox or not GameUtilities.team_hostile_to(hitbox.team, team):
+		return
+	
+	take_damage(hitbox.base_value, ActorResources.Type.HP)
+	
+	ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
+	
+	var hit_sfx := AudioStreamPlayer2D.new() as AudioStreamPlayer2D
+	hit_sfx.name = "AudioStreamPlayer2d"
+	hit_sfx.stream = hitbox.hit_sfx
+	hit_sfx.bus = "Sfx"
+	hit_sfx.finished.connect(hit_sfx.queue_free)
+	add_child(hit_sfx)
+	hit_sfx.global_position = global_position
+	hit_sfx.play()
+	
+	if hitbox.frame_freeze_duration_milliseconds > 0:
+		FrameFreeze.request(hitbox.frame_freeze_duration_milliseconds)
+	if hitbox.screen_shake_trauma > 0:
+		GameManager.screen_shake(hitbox.screen_shake_trauma)
+	
+	hitbox.confirm_hit(self)
