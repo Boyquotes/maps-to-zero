@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3]
+[gd_scene load_steps=83 format=3 uid="uid://bcjr7f372y2of"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
@@ -2368,9 +2368,6 @@ script = ExtResource("27_ba523")
 action = "action_2"
 go_to_state = "RunAttack"
 
-[node name="Air" parent="StateMachine" index="3"]
-background_jumps_max = 1
-
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("28_hjxcv")
 next_state = "Claw"
@@ -2394,9 +2391,6 @@ next_state = "FlyBackIn"
 [node name="FlyBackIn" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("28_hjxcv")
 next_state = null
-
-[node name="Actor2DInterfaceSmoothing" parent="." index="7"]
-position = Vector2(0, 27)
 
 [node name="SoftCollision" parent="." index="10"]
 force_multiplier_on_self = 0.0

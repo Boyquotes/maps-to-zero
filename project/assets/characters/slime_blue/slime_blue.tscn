@@ -1021,29 +1021,29 @@ length = 2.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterAnimator")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [SubResource("InputEventAction_iemrm")],
-"method": &"simulate_input"
+"args": [],
+"method": &"face_target"
 }]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CharacterAnimator")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"face_target"
+"args": [SubResource("InputEventAction_iemrm")],
+"method": &"simulate_input"
 }]
 }
 
@@ -1226,10 +1226,6 @@ finished_to_state = "IdleInput"
 libraries = {
 "": SubResource("AnimationLibrary_1uyk0")
 }
-
-[node name="CharacterAnimator" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
-script = ExtResource("19_0uhae")
-actor_name = "SlimeBlue"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("11_d4qx0")

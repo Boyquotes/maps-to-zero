@@ -978,7 +978,7 @@ length = 3.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterAnimator")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -992,7 +992,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CharacterAnimator")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1192,10 +1192,6 @@ finished_to_state = "IdleInput"
 libraries = {
 "": SubResource("AnimationLibrary_1uyk0")
 }
-
-[node name="CharacterAnimator" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
-script = ExtResource("14_1qerm")
-actor_name = "CloudBlue"
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("26_u14du")

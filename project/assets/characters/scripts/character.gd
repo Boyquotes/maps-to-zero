@@ -203,7 +203,7 @@ func play_animation_effect(effect_name:="") -> void:
 
 
 func take_damage(value: float, type: CharacterStats.Types=CharacterStats.Types.HP):
-	_stats.change_resource(type, -value)
+	_stats.change_stat_by(type, -value)
 
 
 func defeat() -> void:

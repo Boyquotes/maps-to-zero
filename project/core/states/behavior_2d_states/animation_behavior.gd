@@ -28,15 +28,15 @@ func exit() -> void:
 	_animation_player.play("RESET")
 
 
-func _on_animation_finished(animation_name) -> void:
-	if animation_name == "RESET":
-		return
-	state_machine.transition_to(finished_to_state)
-
-
 func get_input_direction() -> Vector2:
 	return Vector2.ZERO
 
 
 func face_target() -> void:
 	_character.look_direction = Vector2(sign(_character.get_direction_to_target().x), 0)
+
+
+func _on_animation_finished(animation_name) -> void:
+	if animation_name == "RESET":
+		return
+	state_machine.transition_to(finished_to_state)

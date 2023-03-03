@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3]
+[gd_scene load_steps=58 format=3 uid="uid://bptetg42tclww"]
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -963,9 +963,6 @@ go_to_state = "Attack"
 script = ExtResource("26_1hb2y")
 action = "action_2"
 go_to_state = "RunAttack"
-
-[node name="Air" parent="StateMachine" index="3"]
-background_jumps_max = 1
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("22_krupa")
