@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqosr3r0surae"]
+[gd_scene load_steps=17 format=3 uid="uid://bqosr3r0surae"]
 
 [ext_resource type="Script" path="res://assets/characters/alisa/particles/grind_particles.gd" id="1_cujml"]
 [ext_resource type="Script" path="res://addons/Trail/trail_2d.gd" id="2_5udrk"]
@@ -24,12 +24,14 @@ scale_min = 0.2
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_1p0wp")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4i3dr"]
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xnb46"]
 blend_mode = 1
 light_mode = 1
 
 [sub_resource type="Curve" id="Curve_5lq4p"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, -0.0312466, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_7bri7"]
@@ -198,12 +200,27 @@ amount = 64
 process_material = SubResource("ParticleProcessMaterial_fh66s")
 script = ExtResource("1_cujml")
 
-[node name="Trail2D" type="Line2D" parent="."]
+[node name="DecalTrailTemplate" type="Line2D" parent="."]
+unique_name_in_owner = true
+z_index = -1
+material = SubResource("CanvasItemMaterial_4i3dr")
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("2_5udrk")
+emit = false
+distance = 10.0
+segments = 100
+grow_smaller_over_time = false
+
+[node name="GrindTrailTemplate" type="Line2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
 material = SubResource("CanvasItemMaterial_xnb46")
 width = 5.0
 width_curve = SubResource("Curve_5lq4p")
 gradient = SubResource("Gradient_7bri7")
 script = ExtResource("2_5udrk")
+emit = false
 lifetime = 0.3
 distance = 1.0
 segments = 80

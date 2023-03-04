@@ -19,8 +19,8 @@
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="39_mh6v4"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_aqloh"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="41_ntg2t"]
-[ext_resource type="PackedScene" uid="uid://cumr4mb87qykw" path="res://assets/characters/slime_blue/slime_blue.tscn" id="43_iy24b"]
-[ext_resource type="PackedScene" uid="uid://ccf65y4tg73ss" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="44_06d6y"]
+[ext_resource type="PackedScene" uid="uid://bir8uc6rhrdnq" path="res://assets/characters/slime_blue/slime_blue.tscn" id="43_iy24b"]
+[ext_resource type="PackedScene" uid="uid://csn4qxvuyb07i" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="44_06d6y"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -1116,6 +1116,10 @@ autoplay = "a"
 libraries = {
 "": SubResource("AnimationLibrary_u7t2k")
 }
+
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
 visible = false

@@ -9,7 +9,7 @@ var version := 1
 var player_data := {
 	stats = {},
 	max_stats = {},
-	base_max_background_jumps = 1,
+	base_max_background_jumps = 3,
 	base_max_mid_air_jumps = 0,
 }
 var stage_data := {

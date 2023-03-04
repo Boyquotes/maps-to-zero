@@ -52,6 +52,10 @@ static func get_all_subchildren(node: Node) -> Array[Node]:
 	return array
 
 
+static func get_stage() -> Stage:
+	return GameManager.sidescroller_main.currently_loaded_stage
+
+
 func show_cutscene_bars(duration:= 1.0) -> void:
 	ScreenEffects.show_cutscene_bars(duration)
 

@@ -330,7 +330,7 @@ size = Vector2(1504, 768)
 
 [node name="Horizon Hills Act 1 - Second Stretch" type="Node2D"]
 script = ExtResource("1_x4off")
-song = 8
+song = 9
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -830,7 +830,7 @@ z_index = -20
 position = Vector2(-256, 96)
 
 [node name="CaveBackground" type="TileMap" parent="Layout"]
-modulate = Color(0.490196, 0.490196, 0.490196, 1)
+modulate = Color(0.513726, 0.513726, 0.513726, 1)
 z_index = -25
 tile_set = ExtResource("40_xxk7e")
 format = 2
@@ -859,6 +859,10 @@ autoplay = "animation"
 libraries = {
 "": ExtResource("42_mqcwg")
 }
+
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
 visible = false

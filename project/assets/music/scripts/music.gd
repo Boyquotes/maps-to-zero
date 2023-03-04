@@ -10,7 +10,8 @@ enum Songs {
 	HORIZON_HILLS_ACT_3,
 	HORIZON_HILLS_BOSS,
 	HORIZON_HILLS_ACT_1_RETRO,
-	SAVE_POINT
+	SAVE_POINT,
+	HORIZON_HILLS_REST_AREA,
 }
 
 const SONG_PATHS := {
@@ -23,6 +24,7 @@ const SONG_PATHS := {
 	Songs.HORIZON_HILLS_BOSS : "res://assets/music/horizon_hills_boss.ogg",
 	Songs.HORIZON_HILLS_ACT_1_RETRO : "res://assets/music/horizon_hills_act_1_retro.ogg",
 	Songs.SAVE_POINT : "res://assets/music/save_point.ogg",
+	Songs.HORIZON_HILLS_REST_AREA : "res://assets/music/horizon_hills_rest_area.ogg",
 }
 
 

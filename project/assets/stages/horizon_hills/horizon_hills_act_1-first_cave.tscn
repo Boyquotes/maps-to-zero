@@ -30,8 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://duwrhyca3ogoy" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="28_cqhh6"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="29_en1wm"]
 [ext_resource type="Texture2D" uid="uid://bxeli2hn3c7v0" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/005_crystal_04.png" id="30_2tubc"]
-[ext_resource type="PackedScene" uid="uid://cb13ijfqdqqd0" path="res://assets/characters/frog_green/frog_green.tscn" id="30_ome41"]
-[ext_resource type="PackedScene" uid="uid://cumr4mb87qykw" path="res://assets/characters/slime_blue/slime_blue.tscn" id="32_rv2w2"]
+[ext_resource type="PackedScene" uid="uid://bnw8pebx4vyk" path="res://assets/characters/frog_green/frog_green.tscn" id="30_ome41"]
+[ext_resource type="PackedScene" uid="uid://bir8uc6rhrdnq" path="res://assets/characters/slime_blue/slime_blue.tscn" id="32_rv2w2"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -419,6 +419,10 @@ autoplay = "animation"
 libraries = {
 "": ExtResource("24_gs4xw")
 }
+
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
 visible = false

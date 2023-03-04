@@ -35,7 +35,7 @@
 [ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/column_medium.tscn" id="38_h24ju"]
 [ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/column_small.tscn" id="39_lts7l"]
 [ext_resource type="Texture2D" uid="uid://ct4xiafwjqxnl" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Treasure+.png" id="54_xsvra"]
-[ext_resource type="PackedScene" uid="uid://r2rqtldiiwye" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
+[ext_resource type="PackedScene" uid="uid://bcjr7f372y2of" path="res://assets/characters/dragon/egrisi.tscn" id="56_g1esd"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="59_qjw7m"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="69_nr2gp"]
 [ext_resource type="Script" path="res://core/triggers/stage_change_trigger.gd" id="71_7t53a"]
@@ -203,6 +203,12 @@ _data = {
 "RESET": SubResource("Animation_771j0"),
 "enter": SubResource("Animation_1jycl")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
+size = Vector2(1504, 768)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm4if"]
+size = Vector2(80, 120)
 
 [sub_resource type="Animation" id="Animation_tmt1p"]
 length = 0.001
@@ -655,18 +661,12 @@ color_ramp = SubResource("GradientTexture1D_5dycf")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v6ae7"]
 blend_mode = 1
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
-size = Vector2(1504, 768)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm4if"]
-size = Vector2(80, 120)
-
 [sub_resource type="Animation" id="Animation_jn4fx"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Background/Torches/Torch 1/GPUParticles2D:emitting")
+tracks/0/path = NodePath("../Layout/Props/Torches/Torch 1/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -678,7 +678,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Background/Torches/Torch 1/PointLight2D:energy")
+tracks/1/path = NodePath("../Layout/Props/Torches/Torch 1/PointLight2D:energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -690,7 +690,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../Background/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
+tracks/2/path = NodePath("../Layout/Props/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -702,7 +702,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../Background/Torches/Torch 2/GPUParticles2D:emitting")
+tracks/3/path = NodePath("../Layout/Props/Torches/Torch 2/GPUParticles2D:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -714,7 +714,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Background/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/4/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -726,7 +726,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../Background/Torches/Torch 2/PointLight2D:energy")
+tracks/5/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D:energy")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -738,7 +738,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../Background/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/6/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -838,7 +838,7 @@ length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Background/Torches/Torch 1/GPUParticles2D:emitting")
+tracks/0/path = NodePath("../Layout/Props/Torches/Torch 1/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -850,7 +850,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Background/Torches/Torch 1/PointLight2D:energy")
+tracks/1/path = NodePath("../Layout/Props/Torches/Torch 1/PointLight2D:energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -862,7 +862,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../Background/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
+tracks/2/path = NodePath("../Layout/Props/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -874,7 +874,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../Background/Torches/Torch 2/Ambience2:playing")
+tracks/3/path = NodePath("../Layout/Props/Torches/Torch 2/Ambience2:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -886,7 +886,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Background/Torches/Torch 2/GPUParticles2D:emitting")
+tracks/4/path = NodePath("../Layout/Props/Torches/Torch 2/GPUParticles2D:emitting")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -898,7 +898,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../Background/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/5/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -910,7 +910,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../Background/Torches/Torch 2/PointLight2D:energy")
+tracks/6/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D:energy")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1117,7 +1117,7 @@ tracks/22/keys = {
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("../Background/Torches/Torch 1/Ambience:playing")
+tracks/23/path = NodePath("../Layout/Props/Torches/Torch 1/Ambience:playing")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
@@ -1129,7 +1129,7 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("../Background/Torches/Torch 2/Ambience2:playing")
+tracks/24/path = NodePath("../Layout/Props/Torches/Torch 2/Ambience2:playing")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
@@ -1270,8 +1270,8 @@ bus = &"Ambience"
 script = SubResource("GDScript_ahe6p")
 dragon_node_path = NodePath("../Egrisi Dragon")
 camera_settings_trigger_node_path = NodePath("../CameraSettingsTrigger")
-falling_rocks_animation_player_node_path = NodePath("../Falling Rocks/AnimationPlayer")
-background_animation_player_node_path = NodePath("../Background/AnimationPlayer")
+falling_rocks_animation_player_node_path = NodePath("../Layout/Falling Rocks/AnimationPlayer")
+background_animation_player_node_path = NodePath("../Layout/Props/AnimationPlayer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mjjl6")
@@ -1295,10 +1295,12 @@ actor_name = "PLAYER"
 look_direction = 1
 animation = "walk"
 
-[node name="Skybox" type="CanvasLayer" parent="."]
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Skybox" type="CanvasLayer" parent="Background"]
 layer = -100
 
-[node name="ColorRect" type="ColorRect" parent="Skybox"]
+[node name="ColorRect" type="ColorRect" parent="Background/Skybox"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1306,1270 +1308,1306 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="-53" type="CanvasLayer" parent="."]
+[node name="-53" type="CanvasLayer" parent="Background"]
 layer = -53
 scale = Vector2(8, 8)
 transform = Transform2D(8, 0, 0, 8, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.05
 
-[node name="Node2D" type="Node2D" parent="-53"]
+[node name="Node2D" type="Node2D" parent="Background/-53"]
 modulate = Color(0.192157, 0.054902, 0.0862745, 1)
 
-[node name="Background" type="Sprite2D" parent="-53/Node2D"]
+[node name="Background" type="Sprite2D" parent="Background/-53/Node2D"]
 position = Vector2(-685, -378.889)
 scale = Vector2(3, 3)
 texture = ExtResource("11_3m6c3")
 
-[node name="RightColor" type="Sprite2D" parent="-53/Node2D"]
+[node name="RightColor" type="Sprite2D" parent="Background/-53/Node2D"]
 modulate = Color(0.392157, 0.262745, 0.415686, 1)
 position = Vector2(1265, -180)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="-52" type="CanvasLayer" parent="."]
+[node name="-52" type="CanvasLayer" parent="Background"]
 layer = -52
 scale = Vector2(4, 4)
 transform = Transform2D(4, 0, 0, 4, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.1
 
-[node name="Node2D" type="Node2D" parent="-52"]
+[node name="Node2D" type="Node2D" parent="Background/-52"]
 modulate = Color(2, 0.6, 0.6, 1)
 
-[node name="Crystal" type="Sprite2D" parent="-52/Node2D"]
+[node name="Crystal" type="Sprite2D" parent="Background/-52/Node2D"]
 position = Vector2(-60, -412.5)
 scale = Vector2(2, 2)
 texture = ExtResource("13_vitd8")
 
-[node name="Crystal2" type="Sprite2D" parent="-52/Node2D"]
+[node name="Crystal2" type="Sprite2D" parent="Background/-52/Node2D"]
 position = Vector2(-40.4999, -756.5)
 texture = ExtResource("14_fi8d7")
 
-[node name="Crystal3" type="Sprite2D" parent="-52/Node2D"]
+[node name="Crystal3" type="Sprite2D" parent="Background/-52/Node2D"]
 position = Vector2(-616.5, -716.5)
 texture = ExtResource("15_vpgp4")
 
-[node name="Crystal4" type="Sprite2D" parent="-52/Node2D"]
+[node name="Crystal4" type="Sprite2D" parent="Background/-52/Node2D"]
 position = Vector2(-536.5, -772.5)
 texture = ExtResource("16_t1vrc")
 
-[node name="Crystal5" type="Sprite2D" parent="-52/Node2D"]
+[node name="Crystal5" type="Sprite2D" parent="Background/-52/Node2D"]
 position = Vector2(-512.5, -220.5)
 texture = ExtResource("17_ob6jo")
 
-[node name="Crystal6" type="Sprite2D" parent="-52/Node2D"]
+[node name="Crystal6" type="Sprite2D" parent="Background/-52/Node2D"]
 position = Vector2(199.5, -284.5)
 scale = Vector2(2, 2)
 texture = ExtResource("18_l0yx7")
 
-[node name="-51" type="CanvasLayer" parent="."]
+[node name="-51" type="CanvasLayer" parent="Background"]
 layer = -51
 scale = Vector2(4, 4)
 transform = Transform2D(4, 0, 0, 4, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.15
 
-[node name="Node2D" type="Node2D" parent="-51"]
+[node name="Node2D" type="Node2D" parent="Background/-51"]
 modulate = Color(2, 0.1, 0.2, 1)
 position = Vector2(0, -137.333)
 
-[node name="Crystal" type="Sprite2D" parent="-51/Node2D"]
+[node name="Crystal" type="Sprite2D" parent="Background/-51/Node2D"]
 position = Vector2(-77, -5)
 texture = ExtResource("12_x2h4y")
 
-[node name="Crystal2" type="Sprite2D" parent="-51/Node2D"]
+[node name="Crystal2" type="Sprite2D" parent="Background/-51/Node2D"]
 position = Vector2(-557, -5)
 texture = ExtResource("13_80f3q")
 
-[node name="Crystal3" type="Sprite2D" parent="-51/Node2D"]
+[node name="Crystal3" type="Sprite2D" parent="Background/-51/Node2D"]
 position = Vector2(-229, -5)
 texture = ExtResource("14_kuwaj")
 
-[node name="Crystal4" type="Sprite2D" parent="-51/Node2D"]
+[node name="Crystal4" type="Sprite2D" parent="Background/-51/Node2D"]
 position = Vector2(379, -5)
 texture = ExtResource("15_l4qe1")
 
-[node name="Crystal5" type="Sprite2D" parent="-51/Node2D"]
+[node name="Crystal5" type="Sprite2D" parent="Background/-51/Node2D"]
 position = Vector2(307, -5)
 texture = ExtResource("16_v3nqw")
 
-[node name="-50" type="CanvasLayer" parent="."]
+[node name="-50" type="CanvasLayer" parent="Background"]
 layer = -50
 scale = Vector2(3, 3)
 transform = Transform2D(3, 0, 0, 3, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.2
 
-[node name="Layer 2" type="Node2D" parent="-50"]
+[node name="Layer 2" type="Node2D" parent="Background/-50"]
 modulate = Color(0.192157, 0.192157, 0.192157, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-50/Layer 2"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-50/Layer 2"]
 modulate = Color(1, 0.690196, 0.639216, 1)
 position = Vector2(-316.555, -324.444)
 scale = Vector2(3, 3)
 texture = ExtResource("11_3m6c3")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-50/Layer 2"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-50/Layer 2"]
 modulate = Color(0.498039, 0.321569, 0.435294, 1)
 position = Vector2(-285.555, 1198.56)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="-49" type="CanvasLayer" parent="."]
+[node name="-49" type="CanvasLayer" parent="Background"]
 layer = -49
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.24
 
-[node name="Node2D" type="Node2D" parent="-49"]
+[node name="Node2D" type="Node2D" parent="Background/-49"]
 modulate = Color(0.294118, 0.294118, 0.294118, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-49/Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-49/Node2D"]
 modulate = Color(1, 0.690196, 0.639216, 1)
 position = Vector2(-289.571, -437.143)
 scale = Vector2(3, 3)
 texture = ExtResource("17_g606d")
 
-[node name="BottomColor" type="Sprite2D" parent="-49/Node2D"]
+[node name="BottomColor" type="Sprite2D" parent="Background/-49/Node2D"]
 modulate = Color(0.392157, 0.262745, 0.415686, 1)
 position = Vector2(-308.571, 1097.86)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="RightColor" type="Sprite2D" parent="-49/Node2D"]
+[node name="RightColor" type="Sprite2D" parent="Background/-49/Node2D"]
 modulate = Color(0.392157, 0.262745, 0.415686, 1)
 position = Vector2(1640, -180)
 scale = Vector2(500, 500)
 texture = ExtResource("25_yydpt")
 
-[node name="-48" type="CanvasLayer" parent="."]
+[node name="-48" type="CanvasLayer" parent="Background"]
 layer = -48
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.44
 
-[node name="RightPillar" type="Node2D" parent="-48"]
+[node name="RightPillar" type="Node2D" parent="Background/-48"]
 modulate = Color(0.298039, 0.298039, 0.298039, 1)
 position = Vector2(200, 2)
 
-[node name="Pillar11" type="Node2D" parent="-48/RightPillar"]
+[node name="Pillar11" type="Node2D" parent="Background/-48/RightPillar"]
 position = Vector2(-75, 143.091)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar11"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/RightPillar/Pillar11"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar11"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/RightPillar/Pillar11"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar11"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/RightPillar/Pillar11"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar11"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/RightPillar/Pillar11"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar11"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/RightPillar/Pillar11"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar11"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/RightPillar/Pillar11"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar12" type="Node2D" parent="-48/RightPillar"]
+[node name="Pillar12" type="Node2D" parent="Background/-48/RightPillar"]
 position = Vector2(-15, 110.091)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar12"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/RightPillar/Pillar12"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar12"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/RightPillar/Pillar12"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar12"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/RightPillar/Pillar12"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar12"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/RightPillar/Pillar12"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar12"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/RightPillar/Pillar12"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar12"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/RightPillar/Pillar12"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar13" type="Node2D" parent="-48/RightPillar"]
+[node name="Pillar13" type="Node2D" parent="Background/-48/RightPillar"]
 position = Vector2(46, 57.0909)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar13"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/RightPillar/Pillar13"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar13"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/RightPillar/Pillar13"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar13"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/RightPillar/Pillar13"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar13"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/RightPillar/Pillar13"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar13"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/RightPillar/Pillar13"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar13"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/RightPillar/Pillar13"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar14" type="Node2D" parent="-48/RightPillar"]
+[node name="Pillar14" type="Node2D" parent="Background/-48/RightPillar"]
 position = Vector2(106, 98.0909)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar14"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/RightPillar/Pillar14"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar14"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/RightPillar/Pillar14"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar14"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/RightPillar/Pillar14"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar14"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/RightPillar/Pillar14"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar14"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/RightPillar/Pillar14"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar14"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/RightPillar/Pillar14"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar15" type="Node2D" parent="-48/RightPillar"]
+[node name="Pillar15" type="Node2D" parent="Background/-48/RightPillar"]
 position = Vector2(163, 135.091)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/RightPillar/Pillar15"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/RightPillar/Pillar15"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/RightPillar/Pillar15"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/RightPillar/Pillar15"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/RightPillar/Pillar15"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/RightPillar/Pillar15"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/RightPillar/Pillar15"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/RightPillar/Pillar15"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/RightPillar/Pillar15"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/RightPillar/Pillar15"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/RightPillar/Pillar15"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/RightPillar/Pillar15"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="LeftPillar" type="Node2D" parent="-48"]
+[node name="LeftPillar" type="Node2D" parent="Background/-48"]
 modulate = Color(0.298039, 0.298039, 0.298039, 1)
 position = Vector2(-263.636, 70)
 
-[node name="Pillar11" type="Node2D" parent="-48/LeftPillar"]
+[node name="Pillar11" type="Node2D" parent="Background/-48/LeftPillar"]
 position = Vector2(-85, 23)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar11"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar11"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar11"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar11"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar11"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar11"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar11"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar11"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar11"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar11"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar11"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar11"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar12" type="Node2D" parent="-48/LeftPillar"]
+[node name="Pillar12" type="Node2D" parent="Background/-48/LeftPillar"]
 position = Vector2(-134, 50)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar12"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar12"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar12"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar12"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar12"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar12"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar12"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar12"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar12"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar12"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar12"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar12"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar13" type="Node2D" parent="-48/LeftPillar"]
+[node name="Pillar13" type="Node2D" parent="Background/-48/LeftPillar"]
 position = Vector2(-33, -11)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar13"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar13"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar13"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar13"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar13"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar13"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar13"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar13"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar13"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar13"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar13"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar13"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar14" type="Node2D" parent="-48/LeftPillar"]
+[node name="Pillar14" type="Node2D" parent="Background/-48/LeftPillar"]
 position = Vector2(31, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar14"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar14"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar14"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar14"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar14"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar14"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar14"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar14"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar14"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar14"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar14"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar14"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar15" type="Node2D" parent="-48/LeftPillar"]
+[node name="Pillar15" type="Node2D" parent="Background/-48/LeftPillar"]
 position = Vector2(87, 14)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-48/LeftPillar/Pillar15"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar15"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-48/LeftPillar/Pillar15"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar15"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-48/LeftPillar/Pillar15"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar15"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-48/LeftPillar/Pillar15"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar15"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-48/LeftPillar/Pillar15"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar15"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-48/LeftPillar/Pillar15"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-48/LeftPillar/Pillar15"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="-47" type="CanvasLayer" parent="."]
+[node name="-47" type="CanvasLayer" parent="Background"]
 layer = -47
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.46
 
-[node name="Left Tower" type="Node2D" parent="-47"]
+[node name="Left Tower" type="Node2D" parent="Background/-47"]
 modulate = Color(0.486275, 0.486275, 0.486275, 1)
 position = Vector2(-248.913, -1)
 
-[node name="Pillar6" type="Node2D" parent="-47/Left Tower"]
+[node name="Pillar6" type="Node2D" parent="Background/-47/Left Tower"]
 position = Vector2(-89, 122)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar6"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Left Tower/Pillar6"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar6"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Left Tower/Pillar6"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar6"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Left Tower/Pillar6"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar6"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Left Tower/Pillar6"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar6"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Left Tower/Pillar6"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar6"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Left Tower/Pillar6"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar7" type="Node2D" parent="-47/Left Tower"]
+[node name="Pillar7" type="Node2D" parent="Background/-47/Left Tower"]
 position = Vector2(-40, 106)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar7"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Left Tower/Pillar7"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar7"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Left Tower/Pillar7"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar7"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Left Tower/Pillar7"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar7"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Left Tower/Pillar7"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar7"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Left Tower/Pillar7"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar7"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Left Tower/Pillar7"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar8" type="Node2D" parent="-47/Left Tower"]
+[node name="Pillar8" type="Node2D" parent="Background/-47/Left Tower"]
 position = Vector2(-3, 84)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar8"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Left Tower/Pillar8"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar8"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Left Tower/Pillar8"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar8"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Left Tower/Pillar8"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar8"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Left Tower/Pillar8"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar8"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Left Tower/Pillar8"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar8"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Left Tower/Pillar8"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar9" type="Node2D" parent="-47/Left Tower"]
+[node name="Pillar9" type="Node2D" parent="Background/-47/Left Tower"]
 position = Vector2(44, 109)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar9"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Left Tower/Pillar9"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar9"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Left Tower/Pillar9"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar9"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Left Tower/Pillar9"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar9"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Left Tower/Pillar9"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar9"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Left Tower/Pillar9"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar9"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Left Tower/Pillar9"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar10" type="Node2D" parent="-47/Left Tower"]
+[node name="Pillar10" type="Node2D" parent="Background/-47/Left Tower"]
 position = Vector2(100, 126)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Left Tower/Pillar10"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Left Tower/Pillar10"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Left Tower/Pillar10"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Left Tower/Pillar10"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Left Tower/Pillar10"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Left Tower/Pillar10"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Left Tower/Pillar10"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Left Tower/Pillar10"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Left Tower/Pillar10"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Left Tower/Pillar10"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Left Tower/Pillar10"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Left Tower/Pillar10"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Right Tower" type="Node2D" parent="-47"]
+[node name="Right Tower" type="Node2D" parent="Background/-47"]
 modulate = Color(0.486275, 0.486275, 0.486275, 1)
 position = Vector2(216.304, 6)
 
-[node name="Pillar6" type="Node2D" parent="-47/Right Tower"]
+[node name="Pillar6" type="Node2D" parent="Background/-47/Right Tower"]
 position = Vector2(-78.2608, 131.696)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar6"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Right Tower/Pillar6"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar6"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Right Tower/Pillar6"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar6"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Right Tower/Pillar6"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar6"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Right Tower/Pillar6"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar6"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Right Tower/Pillar6"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar6"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Right Tower/Pillar6"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar7" type="Node2D" parent="-47/Right Tower"]
+[node name="Pillar7" type="Node2D" parent="Background/-47/Right Tower"]
 position = Vector2(-26.2608, 108.696)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar7"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Right Tower/Pillar7"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar7"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Right Tower/Pillar7"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar7"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Right Tower/Pillar7"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar7"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Right Tower/Pillar7"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar7"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Right Tower/Pillar7"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar7"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Right Tower/Pillar7"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar8" type="Node2D" parent="-47/Right Tower"]
+[node name="Pillar8" type="Node2D" parent="Background/-47/Right Tower"]
 position = Vector2(26.7392, 77.6957)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar8"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Right Tower/Pillar8"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar8"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Right Tower/Pillar8"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar8"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Right Tower/Pillar8"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar8"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Right Tower/Pillar8"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar8"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Right Tower/Pillar8"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar8"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Right Tower/Pillar8"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar9" type="Node2D" parent="-47/Right Tower"]
+[node name="Pillar9" type="Node2D" parent="Background/-47/Right Tower"]
 position = Vector2(79.7392, 107.696)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar9"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Right Tower/Pillar9"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar9"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Right Tower/Pillar9"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar9"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Right Tower/Pillar9"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar9"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Right Tower/Pillar9"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar9"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Right Tower/Pillar9"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar9"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Right Tower/Pillar9"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar10" type="Node2D" parent="-47/Right Tower"]
+[node name="Pillar10" type="Node2D" parent="Background/-47/Right Tower"]
 position = Vector2(134.739, 125.696)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-47/Right Tower/Pillar10"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-47/Right Tower/Pillar10"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-47/Right Tower/Pillar10"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-47/Right Tower/Pillar10"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-47/Right Tower/Pillar10"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-47/Right Tower/Pillar10"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-47/Right Tower/Pillar10"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-47/Right Tower/Pillar10"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-47/Right Tower/Pillar10"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-47/Right Tower/Pillar10"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-47/Right Tower/Pillar10"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-47/Right Tower/Pillar10"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="-46" type="CanvasLayer" parent="."]
+[node name="-46" type="CanvasLayer" parent="Background"]
 layer = -46
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.48
 
-[node name="Left Tower" type="Node2D" parent="-46"]
+[node name="Left Tower" type="Node2D" parent="Background/-46"]
 modulate = Color(0.607843, 0.607843, 0.607843, 1)
 position = Vector2(-250, -4)
 
-[node name="Pillar6" type="Node2D" parent="-46/Left Tower"]
+[node name="Pillar6" type="Node2D" parent="Background/-46/Left Tower"]
 position = Vector2(-64, 149)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar6"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Left Tower/Pillar6"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar6"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Left Tower/Pillar6"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar6"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Left Tower/Pillar6"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar6"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Left Tower/Pillar6"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar6"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Left Tower/Pillar6"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar6"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Left Tower/Pillar6"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar7" type="Node2D" parent="-46/Left Tower"]
+[node name="Pillar7" type="Node2D" parent="Background/-46/Left Tower"]
 position = Vector2(-33, 126)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar7"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Left Tower/Pillar7"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar7"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Left Tower/Pillar7"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar7"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Left Tower/Pillar7"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar7"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Left Tower/Pillar7"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar7"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Left Tower/Pillar7"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar7"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Left Tower/Pillar7"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar8" type="Node2D" parent="-46/Left Tower"]
+[node name="Pillar8" type="Node2D" parent="Background/-46/Left Tower"]
 position = Vector2(2, 104)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar8"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Left Tower/Pillar8"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar8"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Left Tower/Pillar8"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar8"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Left Tower/Pillar8"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar8"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Left Tower/Pillar8"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar8"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Left Tower/Pillar8"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar8"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Left Tower/Pillar8"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar9" type="Node2D" parent="-46/Left Tower"]
+[node name="Pillar9" type="Node2D" parent="Background/-46/Left Tower"]
 position = Vector2(50, 133)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar9"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Left Tower/Pillar9"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar9"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Left Tower/Pillar9"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar9"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Left Tower/Pillar9"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar9"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Left Tower/Pillar9"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar9"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Left Tower/Pillar9"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar9"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Left Tower/Pillar9"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar10" type="Node2D" parent="-46/Left Tower"]
+[node name="Pillar10" type="Node2D" parent="Background/-46/Left Tower"]
 position = Vector2(93, 162)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Left Tower/Pillar10"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Left Tower/Pillar10"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Left Tower/Pillar10"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Left Tower/Pillar10"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Left Tower/Pillar10"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Left Tower/Pillar10"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Left Tower/Pillar10"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Left Tower/Pillar10"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Left Tower/Pillar10"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Left Tower/Pillar10"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Left Tower/Pillar10"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Left Tower/Pillar10"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Right Tower" type="Node2D" parent="-46"]
+[node name="Right Tower" type="Node2D" parent="Background/-46"]
 modulate = Color(0.607843, 0.607843, 0.607843, 1)
 position = Vector2(194.792, 1)
 
-[node name="Pillar6" type="Node2D" parent="-46/Right Tower"]
+[node name="Pillar6" type="Node2D" parent="Background/-46/Right Tower"]
 position = Vector2(-37.5, 149.625)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar6"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Right Tower/Pillar6"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar6"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Right Tower/Pillar6"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar6"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Right Tower/Pillar6"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar6"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Right Tower/Pillar6"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar6"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Right Tower/Pillar6"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar6"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Right Tower/Pillar6"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar7" type="Node2D" parent="-46/Right Tower"]
+[node name="Pillar7" type="Node2D" parent="Background/-46/Right Tower"]
 position = Vector2(-2.50002, 136.625)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar7"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Right Tower/Pillar7"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar7"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Right Tower/Pillar7"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar7"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Right Tower/Pillar7"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar7"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Right Tower/Pillar7"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar7"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Right Tower/Pillar7"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar7"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Right Tower/Pillar7"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar8" type="Node2D" parent="-46/Right Tower"]
+[node name="Pillar8" type="Node2D" parent="Background/-46/Right Tower"]
 position = Vector2(37.5, 114.625)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar8"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Right Tower/Pillar8"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar8"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Right Tower/Pillar8"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar8"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Right Tower/Pillar8"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar8"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Right Tower/Pillar8"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar8"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Right Tower/Pillar8"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar8"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Right Tower/Pillar8"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar9" type="Node2D" parent="-46/Right Tower"]
+[node name="Pillar9" type="Node2D" parent="Background/-46/Right Tower"]
 position = Vector2(91.5, 131.625)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar9"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Right Tower/Pillar9"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar9"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Right Tower/Pillar9"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar9"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Right Tower/Pillar9"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar9"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Right Tower/Pillar9"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar9"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Right Tower/Pillar9"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar9"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Right Tower/Pillar9"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar10" type="Node2D" parent="-46/Right Tower"]
+[node name="Pillar10" type="Node2D" parent="Background/-46/Right Tower"]
 position = Vector2(138.5, 153.625)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-46/Right Tower/Pillar10"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-46/Right Tower/Pillar10"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-46/Right Tower/Pillar10"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-46/Right Tower/Pillar10"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-46/Right Tower/Pillar10"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-46/Right Tower/Pillar10"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-46/Right Tower/Pillar10"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-46/Right Tower/Pillar10"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-46/Right Tower/Pillar10"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-46/Right Tower/Pillar10"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-46/Right Tower/Pillar10"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-46/Right Tower/Pillar10"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="-45" type="CanvasLayer" parent="."]
+[node name="-45" type="CanvasLayer" parent="Background"]
 layer = -45
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 follow_viewport_enabled = true
 follow_viewport_scale = 0.5
 
-[node name="Left Tower" type="Node2D" parent="-45"]
+[node name="Left Tower" type="Node2D" parent="Background/-45"]
 modulate = Color(0.686275, 0.686275, 0.686275, 1)
 position = Vector2(-261, -4)
 
-[node name="Pillar" type="Node2D" parent="-45/Left Tower"]
+[node name="Pillar" type="Node2D" parent="Background/-45/Left Tower"]
 position = Vector2(30, 118)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Left Tower/Pillar"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Left Tower/Pillar"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Left Tower/Pillar"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Left Tower/Pillar"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Left Tower/Pillar"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Left Tower/Pillar"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar2" type="Node2D" parent="-45/Left Tower"]
+[node name="Pillar2" type="Node2D" parent="Background/-45/Left Tower"]
 position = Vector2(82, 181)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar2"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Left Tower/Pillar2"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar2"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Left Tower/Pillar2"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar2"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Left Tower/Pillar2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar2"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Left Tower/Pillar2"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar2"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Left Tower/Pillar2"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar2"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Left Tower/Pillar2"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar3" type="Node2D" parent="-45/Left Tower"]
+[node name="Pillar3" type="Node2D" parent="Background/-45/Left Tower"]
 position = Vector2(-1, 141)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar3"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Left Tower/Pillar3"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar3"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Left Tower/Pillar3"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar3"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Left Tower/Pillar3"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar3"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Left Tower/Pillar3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar3"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Left Tower/Pillar3"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar3"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Left Tower/Pillar3"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar4" type="Node2D" parent="-45/Left Tower"]
+[node name="Pillar4" type="Node2D" parent="Background/-45/Left Tower"]
 position = Vector2(-19, 162)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar4"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Left Tower/Pillar4"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar4"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Left Tower/Pillar4"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar4"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Left Tower/Pillar4"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar4"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Left Tower/Pillar4"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar4"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Left Tower/Pillar4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar4"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Left Tower/Pillar4"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar5" type="Node2D" parent="-45/Left Tower"]
+[node name="Pillar5" type="Node2D" parent="Background/-45/Left Tower"]
 position = Vector2(58, 136)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Left Tower/Pillar5"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Left Tower/Pillar5"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Left Tower/Pillar5"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Left Tower/Pillar5"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Left Tower/Pillar5"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Left Tower/Pillar5"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Left Tower/Pillar5"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Left Tower/Pillar5"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Left Tower/Pillar5"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Left Tower/Pillar5"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Left Tower/Pillar5"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Left Tower/Pillar5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Right Tower" type="Node2D" parent="-45"]
+[node name="Right Tower" type="Node2D" parent="Background/-45"]
 modulate = Color(0.686275, 0.686275, 0.686275, 1)
 position = Vector2(185, -1)
 
-[node name="Pillar" type="Node2D" parent="-45/Right Tower"]
+[node name="Pillar" type="Node2D" parent="Background/-45/Right Tower"]
 position = Vector2(46, 126)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Right Tower/Pillar"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Right Tower/Pillar"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Right Tower/Pillar"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Right Tower/Pillar"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Right Tower/Pillar"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Right Tower/Pillar"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar2" type="Node2D" parent="-45/Right Tower"]
+[node name="Pillar2" type="Node2D" parent="Background/-45/Right Tower"]
 position = Vector2(98, 189)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar2"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Right Tower/Pillar2"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar2"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Right Tower/Pillar2"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar2"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Right Tower/Pillar2"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar2"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Right Tower/Pillar2"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar2"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Right Tower/Pillar2"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar2"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Right Tower/Pillar2"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar3" type="Node2D" parent="-45/Right Tower"]
+[node name="Pillar3" type="Node2D" parent="Background/-45/Right Tower"]
 position = Vector2(15, 149)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar3"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Right Tower/Pillar3"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar3"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Right Tower/Pillar3"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar3"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Right Tower/Pillar3"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar3"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Right Tower/Pillar3"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar3"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Right Tower/Pillar3"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar3"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Right Tower/Pillar3"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar4" type="Node2D" parent="-45/Right Tower"]
+[node name="Pillar4" type="Node2D" parent="Background/-45/Right Tower"]
 position = Vector2(-3, 170)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar4"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Right Tower/Pillar4"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar4"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Right Tower/Pillar4"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar4"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Right Tower/Pillar4"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar4"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Right Tower/Pillar4"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar4"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Right Tower/Pillar4"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar4"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Right Tower/Pillar4"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Pillar5" type="Node2D" parent="-45/Right Tower"]
+[node name="Pillar5" type="Node2D" parent="Background/-45/Right Tower"]
 position = Vector2(74, 144)
 rotation = -3.14159
 scale = Vector2(1, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="-45/Right Tower/Pillar5"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/-45/Right Tower/Pillar5"]
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D2" type="Sprite2D" parent="-45/Right Tower/Pillar5"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/-45/Right Tower/Pillar5"]
 position = Vector2(0, 225)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D3" type="Sprite2D" parent="-45/Right Tower/Pillar5"]
+[node name="Sprite2D3" type="Sprite2D" parent="Background/-45/Right Tower/Pillar5"]
 position = Vector2(0, 452)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D4" type="Sprite2D" parent="-45/Right Tower/Pillar5"]
+[node name="Sprite2D4" type="Sprite2D" parent="Background/-45/Right Tower/Pillar5"]
 position = Vector2(0, 670)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D5" type="Sprite2D" parent="-45/Right Tower/Pillar5"]
+[node name="Sprite2D5" type="Sprite2D" parent="Background/-45/Right Tower/Pillar5"]
 position = Vector2(0, 895)
 texture = ExtResource("18_i25ef")
 
-[node name="Sprite2D6" type="Sprite2D" parent="-45/Right Tower/Pillar5"]
+[node name="Sprite2D6" type="Sprite2D" parent="Background/-45/Right Tower/Pillar5"]
 position = Vector2(0, 1122)
 texture = ExtResource("18_i25ef")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="CameraSettingsTrigger" type="Node2D" parent="."]
+script = ExtResource("69_nr2gp")
+zoom_tween_duration = 1.0
+zoom = Vector2(1.5, 1.5)
+
+[node name="TopLeft" type="Marker2D" parent="CameraSettingsTrigger"]
+position = Vector2(-867, -383)
+
+[node name="BottomRight" type="Marker2D" parent="CameraSettingsTrigger"]
+position = Vector2(857, 352)
+
+[node name="Area2d" type="Area2D" parent="CameraSettingsTrigger"]
+collision_layer = 8
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="CameraSettingsTrigger/Area2d"]
+shape = SubResource("RectangleShape2D_aqax7")
+debug_color = Color(0, 0.6, 0.701961, 0.0313726)
+
+[node name="StageChangeTrigger" type="Node2D" parent="."]
+position = Vector2(-933, -487)
+script = ExtResource("71_7t53a")
+destination_entry_point = 1
+
+[node name="Area2d" type="Area2D" parent="StageChangeTrigger"]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="StageChangeTrigger/Area2d"]
+position = Vector2(8, 4)
+shape = SubResource("RectangleShape2D_fm4if")
+
+[node name="Layout" type="Node2D" parent="."]
+
+[node name="Props" type="Node2D" parent="Layout"]
 z_index = -25
 position = Vector2(0, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Layout/Props"]
 libraries = {
 "": SubResource("AnimationLibrary_7g8do")
 }
 
-[node name="TreasureBackground" type="TileMap" parent="Background"]
+[node name="TreasureBackground" type="TileMap" parent="Layout/Props"]
 z_index = -25
 tile_set = SubResource("TileSet_842kc")
 format = 2
@@ -2618,17 +2656,17 @@ layer_6/y_sort_origin = 0
 layer_6/z_index = -3
 layer_6/tile_data = PackedInt32Array(786408, 655361, 1, 851944, 655361, 1, 917480, 655361, 1, 983016, 655361, 1, 1048552, 655361, 1, 1114088, 655361, 1, 1179624, 655361, 1, 786409, 655361, 1, 851945, 655361, 1, 917481, 655361, 1, 983017, 655361, 1, 1048553, 655361, 1, 1114089, 655361, 1, 1179625, 655361, 1, 524265, 655361, 1, 589801, 655361, 1, 655337, 655361, 1, 720873, 655361, 1, 1245161, 655361, 1, 1310697, 655361, 1, 524266, 655361, 1, 589802, 655361, 1, 655338, 655361, 1, 720874, 655361, 1, 786410, 655361, 1, 851946, 655361, 1, 917482, 655361, 1, 983018, 655361, 1, 1048554, 655361, 1, 1114090, 655361, 1, 1179626, 655361, 1, 1245162, 655361, 1, 1310698, 655361, 1, 917479, 655361, 1, 983015, 655361, 1, 1048551, 655361, 1, 1114087, 655361, 1, 262123, 589825, 1, 327659, 655361, 1, 393195, 655361, 1, 458731, 655361, 1, 524267, 655361, 1, 589803, 655361, 1, 655339, 655361, 1, 720875, 655361, 1, 786411, 655361, 1, 851947, 655361, 1, 917483, 655361, 1, 262124, 655361, 1, 327660, 655361, 1, 393196, 655361, 1, 458732, 655361, 1, 524268, 655361, 1, 589804, 655361, 1, 655340, 655361, 1, 720876, 655361, 1, 786412, 655361, 1, 851948, 655361, 1, 917484, 655361, 1, 983019, 655361, 1, 1048555, 655361, 1, 983020, 655361, 1, 1048556, 655361, 1, 1114092, 655361, 1, 1179628, 655361, 1, 1245164, 655361, 1, 1310700, 655361, 1, 1376236, 655361, 1, 720877, 655361, 1, 786413, 655361, 1, 851949, 655361, 1, 917485, 655361, 1, 983021, 655361, 1, 1048557, 655361, 1, 1114093, 655361, 1, 1179629, 655361, 1, 720878, 655361, 1, 786414, 655361, 1, 851950, 655361, 1, 917486, 655361, 1, 983022, 655361, 1, 1048558, 655361, 1, 1114094, 655361, 1, 1179630, 655361, 1, 720879, 655361, 1, 786415, 655361, 1, 851951, 655361, 1, 917487, 655361, 1, 983023, 655361, 1, 1048559, 655361, 1, 1114095, 655361, 1, 1179631, 655361, 1, 655342, 655361, 1, 655343, 655361, 1, 655341, 655361, 1, 917489, 655361, 1, 983025, 655361, 1, 1048561, 655361, 1, 1114097, 655361, 1, 917490, 655361, 1, 983026, 655361, 1, 1048562, 655361, 1, 1114098, 655361, 1, 917491, 655361, 1, 983027, 655361, 1, 1048563, 655361, 1, 1114099, 655361, 1, 851952, 655361, 1, 917488, 655361, 1, 983024, 655361, 1, 1048560, 655361, 1, 1114096, 655361, 1, 851953, 655361, 1, 851954, 655361, 1, 851955, 655361, 1, 983028, 655361, 1, 1048564, 655361, 1, 1114100, 655361, 1, 1114101, 655361, 1, 1179637, 655361, 1, 1114102, 655361, 1, 1179638, 655361, 1, 1048565, 655361, 1, 786416, 655361, 1, 786417, 655361, 1, 720880, 655361, 1, 720881, 655361, 1, 983030, 655361, 1, 917493, 655361, 1, 983029, 655361, 1, 917492, 655361, 1, 1048566, 655361, 1, 851957, 655361, 1, 786420, 655361, 1, 720884, 655361, 1, 786419, 655361, 1, 851956, 655361, 1, 720883, 655361, 1, 720882, 655361, 1, 655346, 655361, 1, 589810, 655361, 1, 524273, 655361, 1, 589809, 655361, 1, 524272, 655361, 1, 589808, 655361, 1, 655345, 655361, 1, 655344, 655361, 1, 786418, 655361, 1, 524271, 655361, 1, 458735, 655361, 1, 524270, 655361, 1, 458734, 655361, 1, 589807, 655361, 1, 589806, 655361, 1, 524269, 655361, 1, 458733, 655361, 1, 393198, 589825, 1, 327662, 655361, 1, 393197, 589825, 1, 327661, 655361, 1, 458730, 655361, 1, 393194, 655361, 1, 655336, 655361, 1, 720872, 655361, 1, 786407, 655361, 1, 589800, 655361, 1, 655335, 655361, 1, 524264, 589825, 1, 458729, 655361, 1, 393193, 589825, 1, 458737, 655361, 1)
 
-[node name="Torches" type="Node2D" parent="Background"]
+[node name="Torches" type="Node2D" parent="Layout/Props"]
 position = Vector2(176, 0)
 
-[node name="Torch 1" parent="Background/Torches" instance=ExtResource("21_ulftt")]
+[node name="Torch 1" parent="Layout/Props/Torches" instance=ExtResource("21_ulftt")]
 
-[node name="Torch 2" type="Sprite2D" parent="Background/Torches"]
+[node name="Torch 2" type="Sprite2D" parent="Layout/Props/Torches"]
 position = Vector2(157, 176)
 rotation = -3.14159
 texture = ExtResource("19_n5c5m")
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Torches/Torch 2"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Torches/Torch 2"]
 position = Vector2(-1.99985, 58)
 color = Color(1, 0.443137, 0.133333, 1)
 range_layer_min = -10
@@ -2636,30 +2674,30 @@ range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 texture_scale = 1.5
 
-[node name="Glow Sprite" type="Sprite2D" parent="Background/Torches/Torch 2/PointLight2D"]
+[node name="Glow Sprite" type="Sprite2D" parent="Layout/Props/Torches/Torch 2/PointLight2D"]
 modulate = Color(1, 1, 1, 0.345098)
 material = SubResource("CanvasItemMaterial_0pldv")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_aqx6j")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Background/Torches/Torch 2"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Layout/Props/Torches/Torch 2"]
 position = Vector2(0, 48)
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_4133m")
 texture = ExtResource("25_yydpt")
 
-[node name="Ambience2" type="AudioStreamPlayer2D" parent="Background/Torches/Torch 2"]
+[node name="Ambience2" type="AudioStreamPlayer2D" parent="Layout/Props/Torches/Torch 2"]
 position = Vector2(0.00012207, 45)
 stream = ExtResource("23_vgitb")
 autoplay = true
 max_distance = 1000.0
 bus = &"Ambience"
 
-[node name="Lamp Left" type="Sprite2D" parent="Background"]
+[node name="Lamp Left" type="Sprite2D" parent="Layout/Props"]
 position = Vector2(-622, 96)
 texture = ExtResource("23_3edsx")
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Lamp Left"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Lamp Left"]
 position = Vector2(24, -27)
 color = Color(0.929412, 0.933333, 0.729412, 1)
 range_layer_min = -10
@@ -2667,30 +2705,30 @@ range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 texture_scale = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Lamp Left/PointLight2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Layout/Props/Lamp Left/PointLight2D"]
 modulate = Color(1, 1, 1, 0.0627451)
 texture = ExtResource("24_aqx6j")
 
-[node name="SilverReflection" type="Sprite2D" parent="Background/Lamp Left"]
+[node name="SilverReflection" type="Sprite2D" parent="Layout/Props/Lamp Left"]
 modulate = Color(1, 1, 1, 0.0627451)
 material = SubResource("CanvasItemMaterial_v6ae7")
 position = Vector2(123, 28)
 scale = Vector2(3, 3)
 texture = ExtResource("24_aqx6j")
 
-[node name="Lamp Right" type="Sprite2D" parent="Background"]
+[node name="Lamp Right" type="Sprite2D" parent="Layout/Props"]
 position = Vector2(584, 96)
 texture = ExtResource("23_3edsx")
 flip_h = true
 
-[node name="GoldReflection" type="Sprite2D" parent="Background/Lamp Right"]
+[node name="GoldReflection" type="Sprite2D" parent="Layout/Props/Lamp Right"]
 modulate = Color(0.847059, 0.780392, 0.207843, 0.0980392)
 material = SubResource("CanvasItemMaterial_v6ae7")
 position = Vector2(-32, 41)
 scale = Vector2(3, 3)
 texture = ExtResource("24_aqx6j")
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Lamp Right"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Lamp Right"]
 position = Vector2(-24, -24)
 color = Color(0.929412, 0.933333, 0.729412, 1)
 range_layer_min = -10
@@ -2698,18 +2736,18 @@ range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 texture_scale = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Lamp Right/PointLight2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Layout/Props/Lamp Right/PointLight2D"]
 modulate = Color(1, 1, 1, 0.0627451)
 texture = ExtResource("24_aqx6j")
 
-[node name="Crystals" type="Node2D" parent="Background"]
+[node name="Crystals" type="Node2D" parent="Layout/Props"]
 
-[node name="Crystal" type="Sprite2D" parent="Background/Crystals"]
+[node name="Crystal" type="Sprite2D" parent="Layout/Props/Crystals"]
 position = Vector2(-213.333, -321.778)
 texture = ExtResource("25_hvrau")
 flip_v = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Crystals/Crystal"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Crystals/Crystal"]
 show_behind_parent = true
 position = Vector2(-2.66701, -23.222)
 color = Color(1, 0, 0, 1)
@@ -2717,19 +2755,19 @@ range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 
-[node name="Glow Sprite2" type="Sprite2D" parent="Background/Crystals/Crystal/PointLight2D"]
+[node name="Glow Sprite2" type="Sprite2D" parent="Layout/Props/Crystals/Crystal/PointLight2D"]
 modulate = Color(1, 1, 1, 0.270588)
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_0pldv")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_aqx6j")
 
-[node name="Crystal2" type="Sprite2D" parent="Background/Crystals"]
+[node name="Crystal2" type="Sprite2D" parent="Layout/Props/Crystals"]
 position = Vector2(-35.5556, -321.778)
 texture = ExtResource("26_uunoj")
 flip_v = true
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Crystals/Crystal2"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Crystals/Crystal2"]
 show_behind_parent = true
 position = Vector2(11.5556, -14.222)
 color = Color(1, 0, 0, 1)
@@ -2737,19 +2775,19 @@ range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 
-[node name="Glow Sprite" type="Sprite2D" parent="Background/Crystals/Crystal2/PointLight2D"]
+[node name="Glow Sprite" type="Sprite2D" parent="Layout/Props/Crystals/Crystal2/PointLight2D"]
 modulate = Color(1, 1, 1, 0.270588)
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_0pldv")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_aqx6j")
 
-[node name="Crystal3" type="Sprite2D" parent="Background/Crystals"]
+[node name="Crystal3" type="Sprite2D" parent="Layout/Props/Crystals"]
 position = Vector2(-746.667, -137)
 rotation = 1.5708
 texture = ExtResource("27_5vct5")
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Crystals/Crystal3"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Crystals/Crystal3"]
 show_behind_parent = true
 position = Vector2(-6.55597, 9.33307)
 color = Color(1, 0, 0, 1)
@@ -2757,7 +2795,7 @@ range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 
-[node name="Glow Sprite3" type="Sprite2D" parent="Background/Crystals/Crystal3/PointLight2D"]
+[node name="Glow Sprite3" type="Sprite2D" parent="Layout/Props/Crystals/Crystal3/PointLight2D"]
 modulate = Color(1, 1, 1, 0.270588)
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_0pldv")
@@ -2765,12 +2803,12 @@ rotation = -1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_aqx6j")
 
-[node name="Crystal4" type="Sprite2D" parent="Background/Crystals"]
+[node name="Crystal4" type="Sprite2D" parent="Layout/Props/Crystals"]
 position = Vector2(715, -221)
 rotation = -1.5708
 texture = ExtResource("26_uunoj")
 
-[node name="PointLight2D" type="PointLight2D" parent="Background/Crystals/Crystal4"]
+[node name="PointLight2D" type="PointLight2D" parent="Layout/Props/Crystals/Crystal4"]
 show_behind_parent = true
 position = Vector2(1.66695, 16)
 color = Color(1, 0, 0, 1)
@@ -2778,7 +2816,7 @@ range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("24_aqx6j")
 
-[node name="Glow Sprite4" type="Sprite2D" parent="Background/Crystals/Crystal4/PointLight2D"]
+[node name="Glow Sprite4" type="Sprite2D" parent="Layout/Props/Crystals/Crystal4/PointLight2D"]
 modulate = Color(1, 1, 1, 0.270588)
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_0pldv")
@@ -2786,7 +2824,7 @@ rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_aqx6j")
 
-[node name="Whitebox" type="TileMap" parent="."]
+[node name="Whitebox" type="TileMap" parent="Layout"]
 rotation = -0.00068746
 tile_set = ExtResource("59_qjw7m")
 cell_quadrant_size = 32
@@ -2802,158 +2840,132 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = -10
 layer_1/tile_data = PackedInt32Array()
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
+
+[node name="TileMap" type="TileMap" parent="Layout"]
 light_mask = 3
 tile_set = ExtResource("30_cjjv8")
 format = 2
 layer_0/tile_data = PackedInt32Array(524289, 131073, 8, 524288, 524289, 4, 589823, 65537, 0, 655359, 131073, 2, 720895, 65537, 2, 655360, 196609, 1, 655361, 131073, 1, 589825, 131073, 2, 589824, 196609, 3, 524290, 524289, 4, 524291, 262145, 6, 524292, 196609, 8, 524293, 262145, 8, 524294, 196609, 8, 524295, 262145, 0, 589831, 131073, 3, 589830, 131073, 4, 655366, 262145, 3, 655365, 196609, 4, 655364, 131073, 4, 655363, 262145, 2, 589826, 65537, 3, 589827, 196609, 2, 589828, 262145, 3, 589829, 65537, 2, 655362, 65537, 3, 655367, 131073, 3, 655368, 196609, 1, 655369, 131073, 1, 589833, 65537, 4, 589832, 131073, 1, 524296, 262145, 8, 589822, 262145, 0, 655358, 196609, 1, 655357, 131073, 3, 720893, 262145, 1, 720894, 131073, 2, 589821, 1, 8, 524297, 65537, 8, 524298, 131073, 8, 524299, 65537, 0, 524300, 327681, 8, 524301, 327681, 6, 524302, 196609, 6, 524303, 1, 8, 524304, 262145, 6, 524305, 131073, 0, 524306, 262145, 8, 524307, 262145, 6, 524308, 393217, 6, 524309, 393217, 6, -655339, 589825, 1, -589849, 65537, 1, -589848, 983041, 7, -589847, 262145, 11, -589846, 393217, 7, -589845, 524289, 1, -589844, 65537, 5, -589843, 196609, 7, -589842, 262145, 11, -589841, 327681, 11, -589840, 131073, 11, -589839, 196609, 7, -589838, 589825, 1, -589837, 262145, 11, -589836, 262145, 7, -589835, 262145, 5, -589834, 196609, 7, -589833, 524289, 1, -589832, 1, 11, -589831, 589825, 1, -589830, 196609, 7, -589829, 262145, 11, -589828, 262145, 5, -589827, 327681, 7, -589826, 65537, 11, -589825, 196609, 11, -655360, 589825, 1, -655359, 131073, 5, -655358, 1, 11, -655357, 524289, 1, -655356, 1, 11, -655355, 131073, 11, -655354, 524289, 1, -655353, 65537, 11, -655352, 131073, 5, -655351, 65537, 11, -655350, 262145, 11, -655349, 65537, 11, -655348, 262145, 5, -655347, 65537, 11, -655346, 262145, 7, -655345, 327681, 11, -655344, 65537, 5, -655343, 262145, 11, -655342, 524289, 1, -655341, 196609, 11, -655340, 131073, 11, 589799, 131073, 3, 589820, 196609, 6, 589819, 1, 8, 589818, 1, 8, 589817, 196609, 0, 589816, 262145, 0, 589815, 196609, 8, 589814, 65537, 0, 589813, 196609, 0, 589812, 589825, 4, 589811, 262145, 6, 589810, 65537, 0, 589809, 327681, 6, 589808, 65537, 0, 589807, 196609, 0, 589806, 65537, 0, 589805, 1, 8, 589804, 196609, 6, 589803, 196609, 8, 589802, 196609, 0, 589801, 65537, 8, 589800, 720897, 6, 851941, 327681, 11, -851945, 196609, 8, 786455, 589825, 1, 720919, 262145, 4, 655383, 131073, 4, 589847, 196609, 1, 524311, 655361, 8, -655337, 1048577, 5, -720873, 262145, 1, -786409, 196609, 3, 786454, 131073, 11, 720918, 196609, 4, 655382, 65537, 2, 589846, 131073, 3, 524310, 131073, 0, -655338, 262145, 7, -720874, 262145, 1, -786410, 196609, 1, -851946, 65537, 8, 786453, 589825, 1, 720917, 262145, 4, 655381, 131073, 2, 589845, 131073, 3, -720875, 262145, 3, -786411, 196609, 1, -851947, 1, 8, 786452, 196609, 7, 720916, 131073, 4, 655380, 196609, 3, 589844, 262145, 4, -720876, 262145, 4, -786412, 65537, 1, -851948, 1, 8, 786451, 65537, 5, 720915, 262145, 3, 655379, 262145, 2, 589843, 196609, 2, -720877, 196609, 1, -786413, 196609, 2, -851949, 262145, 8, 786450, 196609, 5, 720914, 262145, 2, 655378, 65537, 3, 589842, 65537, 2, -720878, 131073, 1, -786414, 131073, 2, -851950, 262145, 0, 786449, 1, 11, 720913, 262145, 2, 655377, 196609, 1, 589841, 65537, 3, -720879, 65537, 1, -786415, 131073, 2, -851951, 262145, 6, 786448, 65537, 11, 720912, 131073, 2, 655376, 131073, 3, 589840, 262145, 4, -720880, 131073, 3, -786416, 196609, 3, -851952, 262145, 6, 786447, 589825, 1, 720911, 131073, 2, 655375, 196609, 1, 589839, 196609, 1, -720881, 262145, 1, -786417, 196609, 2, -851953, 65537, 0, 786446, 196609, 7, 720910, 196609, 1, 655374, 196609, 4, 589838, 262145, 4, -720882, 65537, 1, -786418, 262145, 2, -851954, 196609, 0, 786445, 589825, 1, 720909, 262145, 3, 655373, 196609, 1, 589837, 131073, 1, -720883, 262145, 3, -786419, 262145, 4, -851955, 1, 8, 786444, 262145, 11, 720908, 65537, 3, 655372, 65537, 3, 589836, 262145, 1, -720884, 262145, 3, -786420, 65537, 2, -851956, 131073, 8, 786443, 196609, 5, 720907, 65537, 2, 655371, 196609, 2, 589835, 131073, 1, -720885, 196609, 1, -786421, 131073, 2, -851957, 65537, 8, 786442, 196609, 11, 720906, 262145, 4, 655370, 196609, 4, 589834, 65537, 3, -720886, 65537, 1, -786422, 262145, 4, -851958, 262145, 0, 786441, 1, 11, 720905, 196609, 2, -720887, 262145, 4, -786423, 65537, 1, -851959, 327681, 8, 786440, 131073, 11, 720904, 196609, 3, -720888, 196609, 3, -786424, 65537, 4, -851960, 65537, 8, 786439, 262145, 7, 720903, 131073, 1, -720889, 131073, 2, -786425, 65537, 1, -851961, 65537, 8, 786438, 262145, 5, 720902, 262145, 3, -720890, 65537, 4, -786426, 65537, 4, -851962, 327681, 8, 786437, 65537, 11, 720901, 65537, 2, -720891, 262145, 1, -786427, 65537, 3, -851963, 393217, 6, 786436, 262145, 7, 720900, 196609, 3, -720892, 131073, 4, -786428, 65537, 1, -851964, 327681, 8, 786435, 589825, 1, 720899, 65537, 1, -720893, 196609, 4, -786429, 196609, 1, -851965, 589825, 4, 786434, 196609, 5, 720898, 196609, 2, -720894, 262145, 3, -786430, 131073, 2, -851966, 327681, 8, 786433, 196609, 7, 720897, 196609, 3, -720895, 131073, 4, -786431, 196609, 3, -851967, 196609, 0, 786432, 131073, 5, 720896, 65537, 4, -720896, 262145, 1, -786432, 262145, 4, -851968, 327681, 6, 851967, 131073, 5, 786431, 262145, 2, -655361, 262145, 4, -720897, 196609, 2, -786433, 196609, 8, 851966, 262145, 11, 786430, 196609, 3, -655362, 262145, 3, -720898, 196609, 4, -786434, 327681, 8, 851965, 524289, 1, 786429, 65537, 2, -655363, 131073, 4, -720899, 196609, 3, -786435, 1, 8, 851964, 131073, 11, 786428, 131073, 1, 720892, 262145, 3, 655356, 196609, 4, -655364, 65537, 3, -720900, 262145, 4, -786436, 1, 8, 851963, 65537, 5, 786427, 196609, 1, 720891, 131073, 2, 655355, 196609, 4, -655365, 65537, 1, -720901, 196609, 4, -786437, 262145, 8, 851962, 393217, 7, 786426, 196609, 4, 720890, 131073, 3, 655354, 131073, 4, -655366, 65537, 2, -720902, 65537, 3, -786438, 196609, 0, 851961, 524289, 1, 786425, 262145, 2, 720889, 196609, 4, 655353, 196609, 4, -655367, 262145, 2, -720903, 131073, 4, -786439, 196609, 8, 851960, 131073, 5, 786424, 196609, 4, 720888, 262145, 2, 655352, 196609, 3, -655368, 196609, 4, -720904, 262145, 1, -786440, 327681, 6, 851959, 131073, 11, 786423, 131073, 1, 720887, 196609, 2, 655351, 262145, 3, -655369, 131073, 2, -720905, 131073, 2, -786441, 65537, 0, 851958, 131073, 5, 786422, 262145, 3, 720886, 196609, 1, 655350, 196609, 4, -655370, 131073, 1, -720906, 196609, 2, -786442, 65537, 8, 851957, 1, 11, 786421, 65537, 4, 720885, 196609, 2, 655349, 65537, 1, -655371, 262145, 3, -720907, 131073, 4, -786443, 327681, 6, 851956, 262145, 5, 786420, 131073, 4, 720884, 131073, 1, 655348, 196609, 3, -655372, 65537, 1, -720908, 196609, 3, -786444, 196609, 6, 851955, 65537, 5, 786419, 65537, 4, 720883, 196609, 2, 655347, 262145, 1, -655373, 196609, 3, -720909, 131073, 3, -786445, 1, 8, 851954, 262145, 7, 786418, 196609, 2, 720882, 262145, 3, 655346, 131073, 4, -655374, 131073, 2, -720910, 196609, 2, -786446, 524289, 4, 851953, 131073, 11, 786417, 131073, 1, 720881, 196609, 3, 655345, 262145, 4, -655375, 65537, 2, -720911, 131073, 3, -786447, 131073, 0, 851952, 196609, 5, 786416, 262145, 1, 720880, 131073, 1, 655344, 196609, 1, -655376, 262145, 1, -720912, 196609, 2, -786448, 589825, 4, 851951, 262145, 7, 786415, 65537, 4, 720879, 131073, 4, 655343, 262145, 2, -655377, 262145, 3, -720913, 131073, 3, -786449, 262145, 8, 851950, 524289, 1, 786414, 196609, 4, 720878, 262145, 2, 655342, 196609, 4, -655378, 65537, 2, -720914, 65537, 3, -786450, 589825, 4, 851949, 262145, 11, 786413, 131073, 4, 720877, 131073, 4, 655341, 65537, 2, -655379, 131073, 1, -720915, 196609, 2, -786451, 65537, 0, 851948, 65537, 5, 786412, 196609, 4, 720876, 65537, 3, 655340, 65537, 1, -655380, 262145, 1, -720916, 262145, 4, -786452, 196609, 6, 851947, 589825, 1, 786411, 196609, 4, 720875, 65537, 3, 655339, 65537, 3, -655381, 65537, 1, -720917, 196609, 2, -786453, 65537, 8, 851946, 131073, 11, 786410, 262145, 3, 720874, 65537, 1, 655338, 196609, 1, -655382, 196609, 2, -720918, 65537, 2, -786454, 65537, 8, 851945, 65537, 11, 786409, 131073, 3, 720873, 65537, 3, 655337, 131073, 1, -655383, 196609, 1, -720919, 262145, 2, -786455, 524289, 4, 851944, 262145, 7, 786408, 65537, 1, 720872, 196609, 2, 655336, 131073, 2, -655384, 262145, 2, -720920, 196609, 2, -786456, 262145, 8, 851943, 131073, 11, 786407, 131073, 2, 720871, 196609, 4, 655335, 262145, 4, -655385, 196609, 1, -720921, 65537, 2, -786457, 262145, 6, 851942, 131073, 11, 786406, 131073, 4, 720870, 262145, 1, 655334, 65537, 3, 589798, 65537, 3, -589850, 65537, 1, -655386, 65537, 1, -720922, 65537, 3, -786458, 131073, 8, 786405, 196609, 1, 720869, 262145, 4, 655333, 131073, 3, 589797, 65537, 4, -589851, 262145, 3, -655387, 262145, 4, -720923, 196609, 1, -786459, 327681, 6, 786460, 720897, 11, 720924, 327681, 1, 655388, 720897, 9, 589852, 327681, 4, 524316, 589825, 9, 458780, 589825, 8, 393244, 720897, 10, 327708, 589825, 10, 262172, 458753, 11, 196636, 458753, 8, 131100, 327681, 1, 65564, 327681, 4, 28, 720897, 9, -65508, 458753, 3, -131044, 458753, 9, -196580, 327681, 3, -262116, 327681, 1, -327652, 458753, 3, -393188, 458753, 2, -458724, 327681, 1, -524260, 458753, 11, -589796, 458753, 9, -655332, 589825, 11, -720868, 327681, 1, -786404, 589825, 11, -851940, 65537, 6, 786459, 262145, 7, 720923, 262145, 1, 655387, 196609, 2, 589851, 262145, 3, 524315, 131073, 3, 458779, 196609, 1, 393243, 65537, 4, 327707, 262145, 3, 262171, 196609, 3, 196635, 196609, 1, 131099, 196609, 2, 65563, 131073, 2, 27, 131073, 1, -65509, 196609, 3, -131045, 262145, 2, -196581, 65537, 2, -262117, 131073, 3, -327653, 196609, 1, -393189, 262145, 4, -458725, 65537, 2, -524261, 262145, 2, -589797, 65537, 2, -655333, 131073, 4, -720869, 262145, 2, -786405, 131073, 2, -851941, 393217, 6, 786458, 1, 11, 720922, 262145, 1, 655386, 65537, 1, 589850, 65537, 1, 524314, 262145, 2, 458778, 196609, 2, 393242, 65537, 3, 327706, 196609, 4, 262170, 131073, 2, 196634, 65537, 4, 131098, 131073, 1, 65562, 262145, 1, 26, 262145, 1, -65510, 196609, 1, -131046, 65537, 4, -196582, 196609, 4, -262118, 65537, 2, -327654, 196609, 1, -393190, 65537, 2, -458726, 131073, 4, -524262, 262145, 2, -589798, 65537, 3, -655334, 65537, 4, -720870, 262145, 2, -786406, 65537, 2, -851942, 65537, 0, 786457, 524289, 1, 720921, 196609, 1, 655385, 131073, 4, 589849, 196609, 4, 524313, 196609, 1, 458777, 65537, 3, 393241, 262145, 3, 327705, 131073, 4, 262169, 262145, 4, 196633, 65537, 1, 131097, 196609, 4, 65561, 196609, 2, 25, 262145, 4, -65511, 65537, 3, -131047, 262145, 2, -196583, 196609, 3, -262119, 262145, 4, -327655, 196609, 4, -393191, 65537, 2, -458727, 262145, 4, -524263, 262145, 1, -589799, 262145, 4, -655335, 65537, 1, -720871, 65537, 1, -786407, 65537, 2, -851943, 196609, 0, 786456, 65537, 5, 720920, 65537, 3, 655384, 262145, 2, 589848, 262145, 3, 524312, 262145, 3, 458776, 262145, 3, 393240, 65537, 2, 327704, 65537, 4, 262168, 196609, 3, 196632, 196609, 1, 131096, 262145, 2, 65560, 65537, 3, 24, 196609, 4, -65512, 196609, 4, -131048, 262145, 1, -196584, 262145, 4, -262120, 65537, 2, -327656, 131073, 2, -393192, 196609, 4, -458728, 65537, 4, -524264, 262145, 4, -589800, 131073, 4, -655336, 131073, 3, -720872, 196609, 3, -786408, 65537, 3, -851944, 131073, 0, 524262, 262145, 1, 458726, 131073, 2, 393190, 196609, 4, 327654, 196609, 3, 262118, 262145, 3, 196582, 65537, 4, 131046, 262145, 4, 65510, 65537, 3, -26, 196609, 3, -65562, 262145, 3, -131098, 131073, 1, -196634, 131073, 3, -262170, 65537, 4, -327706, 131073, 4, -393242, 131073, 2, -458778, 262145, 3, -524314, 262145, 2, 524261, 262145, 4, 458725, 196609, 1, 393189, 196609, 1, 327653, 196609, 2, 262117, 131073, 4, 196581, 262145, 2, 131045, 65537, 3, 65509, 196609, 3, -27, 65537, 2, -65563, 262145, 2, -131099, 196609, 2, -196635, 65537, 3, -262171, 65537, 3, -327707, 65537, 2, -393243, 262145, 1, -458779, 196609, 3, -524315, 262145, 1, 851940, 65537, 11, 786404, 131073, 1, 720868, 196609, 1, 655332, 196609, 4, 589796, 196609, 2, 524260, 131073, 1, 458724, 65537, 1, 393188, 262145, 1, 327652, 262145, 1, 262116, 131073, 3, 196580, 196609, 3, 131044, 262145, 1, 65508, 65537, 2, -28, 262145, 1, -65564, 262145, 3, -131100, 65537, 2, -196636, 65537, 3, -262172, 196609, 4, -327708, 262145, 2, -393244, 131073, 2, -458780, 131073, 1, -524316, 131073, 4, -589852, 65537, 3, -655388, 131073, 3, -720924, 262145, 2, -786460, 524289, 4, 851939, 1, 7, 786403, 655361, 10, 720867, 1, 3, 655331, 917505, 7, 589795, 917505, 7, 524259, 917505, 6, 458723, 524289, 10, 393187, 786433, 6, 327651, 1, 2, 262115, 655361, 10, 196579, 917505, 7, 131043, 1, 4, 65507, 655361, 7, -29, 917505, 7, -65565, 393217, 11, -131101, 655361, 6, -196637, 524289, 10, -262173, 917505, 7, -327709, 917505, 6, -393245, 1, 3, -458781, 393217, 11, -524317, 1, 4, -589853, 524289, 10, -655389, 1, 1, -720925, 655361, 2, -786461, 393217, 10, 524263, 196609, 4, 458727, 196609, 4, 393191, 196609, 2, 327655, 65537, 1, 262119, 65537, 3, 196583, 262145, 1, 131047, 131073, 1, 65511, 196609, 1, -25, 65537, 3, -65561, 196609, 4, -131097, 196609, 2, -196633, 262145, 1, -262169, 262145, 4, -327705, 131073, 1, -393241, 65537, 2, -458777, 262145, 2, -524313, 131073, 2, 458775, 655361, 3, 393239, 655361, 7, 327703, 393217, 11, 262167, 655361, 2, 196631, 917505, 7, 131095, 1, 2, 65559, 1, 4, 23, 1, 2, -65513, 655361, 7, -131049, 655361, 10, -196585, 1, 4, -262121, 655361, 6, -327657, 393217, 11, -393193, 1, 3, -458729, 524289, 11, -524265, 524289, 11, -589801, 786433, 7, 524264, 589825, 8, 458728, 589825, 9, 393192, 589825, 11, 327656, 720897, 10, 262120, 327681, 4, 196584, 458753, 11, 131048, 458753, 8, 65512, 458753, 2, -24, 458753, 9, -65560, 327681, 4, -131096, 458753, 8, -196632, 458753, 11, -262168, 327681, 2, -327704, 720897, 9, -393240, 327681, 1, -458776, 458753, 9, -524312, 589825, 10)
 
-[node name="CameraSettingsTrigger" type="Node2D" parent="."]
-script = ExtResource("69_nr2gp")
-zoom_tween_duration = 1.0
-zoom = Vector2(1.5, 1.5)
+[node name="Falling Rocks" type="Node2D" parent="Layout"]
 
-[node name="TopLeft" type="Marker2D" parent="CameraSettingsTrigger"]
-position = Vector2(-867, -383)
-
-[node name="BottomRight" type="Marker2D" parent="CameraSettingsTrigger"]
-position = Vector2(857, 352)
-
-[node name="Area2d" type="Area2D" parent="CameraSettingsTrigger"]
-collision_layer = 8
-collision_mask = 8
-monitorable = false
-
-[node name="CollisionShape2d" type="CollisionShape2D" parent="CameraSettingsTrigger/Area2d"]
-shape = SubResource("RectangleShape2D_aqax7")
-debug_color = Color(0, 0.6, 0.701961, 0.0313726)
-
-[node name="StageChangeTrigger" type="Node2D" parent="."]
-position = Vector2(-933, -487)
-script = ExtResource("71_7t53a")
-destination_entry_point = 1
-
-[node name="Area2d" type="Area2D" parent="StageChangeTrigger"]
-collision_layer = 0
-collision_mask = 8
-monitorable = false
-
-[node name="CollisionShape2d" type="CollisionShape2D" parent="StageChangeTrigger/Area2d"]
-position = Vector2(8, 4)
-shape = SubResource("RectangleShape2D_fm4if")
-
-[node name="Egrisi Dragon" parent="." instance=ExtResource("56_g1esd")]
-position = Vector2(479, 215)
-collision_layer = 2
-
-[node name="Falling Rocks" type="Node2D" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Falling Rocks"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Layout/Falling Rocks"]
 autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_5a8yx")
 }
 
-[node name="Left Column Tall" parent="Falling Rocks" instance=ExtResource("37_ejanw")]
+[node name="Left Column Tall" parent="Layout/Falling Rocks" instance=ExtResource("37_ejanw")]
 
-[node name="Left Column Medium" parent="Falling Rocks" instance=ExtResource("38_h24ju")]
+[node name="Left Column Medium" parent="Layout/Falling Rocks" instance=ExtResource("38_h24ju")]
 
-[node name="Left Column Small 1" parent="Falling Rocks" instance=ExtResource("39_lts7l")]
+[node name="Left Column Small 1" parent="Layout/Falling Rocks" instance=ExtResource("39_lts7l")]
 position = Vector2(-256, -420)
 
-[node name="Left Column Small 2" parent="Falling Rocks" instance=ExtResource("39_lts7l")]
+[node name="Left Column Small 2" parent="Layout/Falling Rocks" instance=ExtResource("39_lts7l")]
 position = Vector2(-512, -420)
 
-[node name="Right Column Tall" parent="Falling Rocks" instance=ExtResource("37_ejanw")]
+[node name="Right Column Tall" parent="Layout/Falling Rocks" instance=ExtResource("37_ejanw")]
 position = Vector2(128, -420)
 scale = Vector2(-1, 1)
 
-[node name="Right Column Medium" parent="Falling Rocks" instance=ExtResource("38_h24ju")]
+[node name="Right Column Medium" parent="Layout/Falling Rocks" instance=ExtResource("38_h24ju")]
 position = Vector2(384, -420)
 
-[node name="Right Column Small 1" parent="Falling Rocks" instance=ExtResource("39_lts7l")]
+[node name="Right Column Small 1" parent="Layout/Falling Rocks" instance=ExtResource("39_lts7l")]
 position = Vector2(256, -420)
 
-[node name="Right Column Small 2" parent="Falling Rocks" instance=ExtResource("39_lts7l")]
+[node name="Right Column Small 2" parent="Layout/Falling Rocks" instance=ExtResource("39_lts7l")]
 position = Vector2(512, -420)
 
-[node name="ScreenShake" type="Node2D" parent="Falling Rocks"]
+[node name="ScreenShake" type="Node2D" parent="Layout/Falling Rocks"]
 script = ExtResource("34_mmx8v")
 trauma = 0.5
+
+[node name="Egrisi Dragon" parent="." instance=ExtResource("56_g1esd")]
+position = Vector2(479, 215)
+collision_layer = 2
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 clip_children = 1
 color = Color(0, 0, 0, 1)
 
-[node name="50" type="CanvasLayer" parent="."]
+[node name="Foreground" type="Node2D" parent="."]
+
+[node name="50" type="CanvasLayer" parent="Foreground"]
 layer = 2
 offset = Vector2(0, 60)
 transform = Transform2D(1, 0, 0, 1, 0, 60)
 follow_viewport_enabled = true
 follow_viewport_scale = 2.0
 
-[node name="Node2D" type="Node2D" parent="50"]
+[node name="Node2D" type="Node2D" parent="Foreground/50"]
 modulate = Color(3, 1, 1, 1)
 
-[node name="Sprite2D6" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D6" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(-395, 198)
 texture = ExtResource("14_fi8d7")
 flip_h = true
 flip_v = true
 
-[node name="Sprite2D7" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D7" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(-246.5, 178)
 texture = ExtResource("16_t1vrc")
 flip_v = true
 
-[node name="Sprite2D8" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D8" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(-376.5, -281)
 texture = ExtResource("18_l0yx7")
 flip_h = true
 flip_v = true
 
-[node name="Sprite2D9" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D9" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(-639.5, -50)
 texture = ExtResource("34_n8fn2")
 flip_h = true
 
-[node name="Sprite2D10" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D10" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(277.5, 198)
 texture = ExtResource("16_t1vrc")
 flip_v = true
 
-[node name="Sprite2D11" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D11" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(-140.5, 219)
 texture = ExtResource("17_ob6jo")
 
-[node name="Sprite2D12" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D12" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(35, 215.5)
 texture = ExtResource("17_ob6jo")
 
-[node name="Sprite2D14" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D14" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(367, -201)
 texture = ExtResource("17_ob6jo")
 flip_v = true
 
-[node name="Sprite2D13" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D13" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(169, 212)
 texture = ExtResource("14_fi8d7")
 flip_h = true
 flip_v = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="50/Node2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="Foreground/50/Node2D"]
 position = Vector2(621, -27)
 texture = ExtResource("33_de7ds")
+
+[node name="Enemies" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="CameraSettingsTrigger/Area2d" to="CameraSettingsTrigger" method="trigger"]
 [connection signal="area_entered" from="StageChangeTrigger/Area2d" to="StageChangeTrigger" method="trigger"]
 
-[editable path="Background/Torches/Torch 1"]
-[editable path="Falling Rocks/Left Column Tall"]
-[editable path="Falling Rocks/Left Column Medium"]
-[editable path="Falling Rocks/Left Column Small 1"]
-[editable path="Falling Rocks/Left Column Small 2"]
-[editable path="Falling Rocks/Right Column Tall"]
-[editable path="Falling Rocks/Right Column Medium"]
-[editable path="Falling Rocks/Right Column Small 1"]
-[editable path="Falling Rocks/Right Column Small 2"]
+[editable path="Layout/Props/Torches/Torch 1"]
+[editable path="Layout/Falling Rocks/Left Column Tall"]
+[editable path="Layout/Falling Rocks/Left Column Medium"]
+[editable path="Layout/Falling Rocks/Left Column Small 1"]
+[editable path="Layout/Falling Rocks/Left Column Small 2"]
+[editable path="Layout/Falling Rocks/Right Column Tall"]
+[editable path="Layout/Falling Rocks/Right Column Medium"]
+[editable path="Layout/Falling Rocks/Right Column Small 1"]
+[editable path="Layout/Falling Rocks/Right Column Small 2"]

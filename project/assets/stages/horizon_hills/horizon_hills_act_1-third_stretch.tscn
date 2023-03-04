@@ -1891,6 +1891,10 @@ libraries = {
 "": ExtResource("38_0csvx")
 }
 
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
+
 [node name="Whitebox" type="TileMap" parent="Layout"]
 visible = false
 tile_set = ExtResource("37_occer")

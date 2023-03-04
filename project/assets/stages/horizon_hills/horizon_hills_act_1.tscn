@@ -31,7 +31,7 @@
 [ext_resource type="Script" path="res://core/triggers/music_trigger.gd" id="30_1ml72"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl" id="30_in1ap"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="30_uct3q"]
-[ext_resource type="PackedScene" uid="uid://cumr4mb87qykw" path="res://assets/characters/slime_blue/slime_blue.tscn" id="31_i5s8k"]
+[ext_resource type="PackedScene" uid="uid://bir8uc6rhrdnq" path="res://assets/characters/slime_blue/slime_blue.tscn" id="31_i5s8k"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="31_tk3lf"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/enemy_tutorial_cutscene.dtl" id="32_brnhn"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/enemy_tutorial_cutscene_3.dtl" id="32_cmu08"]
@@ -1642,6 +1642,10 @@ autoplay = "animation"
 libraries = {
 "": ExtResource("42_6q5oq")
 }
+
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
 visible = false

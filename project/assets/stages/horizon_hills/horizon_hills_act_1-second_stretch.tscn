@@ -36,10 +36,10 @@
 [ext_resource type="Script" path="res://core/triggers/tutorial_trigger.gd" id="36_we068"]
 [ext_resource type="Script" path="res://core/triggers/increase_background_jumps_trigger.gd" id="38_ifo1r"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_4l3wq"]
-[ext_resource type="PackedScene" uid="uid://ccf65y4tg73ss" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="41_rt6hm"]
+[ext_resource type="PackedScene" uid="uid://csn4qxvuyb07i" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="41_rt6hm"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="42_t2rg6"]
 [ext_resource type="AnimationLibrary" uid="uid://dj88tv48ew0tp" path="res://assets/stages/background_jump_area_visuals_animation_library.tres" id="43_1wlhx"]
-[ext_resource type="PackedScene" uid="uid://cumr4mb87qykw" path="res://assets/characters/slime_blue/slime_blue.tscn" id="44_vx24s"]
+[ext_resource type="PackedScene" uid="uid://bir8uc6rhrdnq" path="res://assets/characters/slime_blue/slime_blue.tscn" id="44_vx24s"]
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -1546,6 +1546,10 @@ autoplay = "animation"
 libraries = {
 "": ExtResource("43_1wlhx")
 }
+
+[node name="WallDecals" type="Node2D" parent="Layout"]
+unique_name_in_owner = true
+z_index = -25
 
 [node name="Whitebox" type="TileMap" parent="Layout"]
 visible = false

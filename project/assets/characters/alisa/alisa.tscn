@@ -100,8 +100,8 @@ func _ready():
 	_character.get_attack(\"Dash\").get_node(\"DashExplosionSpawner\").spawned.connect(func(object):
 		var dash_explosion = object
 		var hitbox = dash_explosion.get_node(\"ParticleSpawner/Hitbox\")
-		hitbox.set_actor(_character)
-		hitbox.hit.connect(func(_hit_actor):
+		hitbox.set_character(_character)
+		hitbox.hit.connect(func(_hit_character):
 			_character.change_stat_by(CharacterStats.Types.MP, 5)
 			)
 		)
