@@ -23,20 +23,34 @@ const HOSTILE_TEAMS := {
 static func team_friendly_with(source_team: Teams, other_team: Teams) -> bool:
 	return FRIENDLY_TEAMS[source_team].has(other_team)
 
+
 static func team_hostile_to(source_team: Teams, other_team: Teams) -> bool:
 	return HOSTILE_TEAMS[source_team].has(other_team)
+
 
 static func get_hostile_teams(team: Teams) -> Array:
 	return HOSTILE_TEAMS[team]
 
+
 static func get_main_camera() -> GameplayCamera2D:
 	return GameManager.gameplay_camera
+
 
 static func get_player() -> Character:
 	return GameManager.player
 
+
 static func get_popup_canvas() -> CanvasLayer:
 	return GameManager.sidescroller_main.popup_canvas
+
+
+static func get_all_subchildren(node: Node) -> Array[Node]:
+	var array: Array[Node] = []
+	array.push_back(node)
+	for child in node.get_children():
+		array.append_array(get_all_subchildren(child))
+	return array
+
 
 func show_cutscene_bars(duration:= 1.0) -> void:
 	ScreenEffects.show_cutscene_bars(duration)

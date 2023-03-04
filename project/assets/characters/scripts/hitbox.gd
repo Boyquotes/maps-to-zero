@@ -25,19 +25,14 @@ func _ready():
 	set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)
 	monitoring = false
 	monitorable = true
-	
-	await owner.ready
-	if owner is Character:
-		_character = owner
-		team = _character.team
-	elif owner is Projectile:
-		_character = owner.actor
-		team = _character.team
 
 
-func set_actor(actor: Character):
-	self._character = actor
-	team = _character.team
+func set_character(new_character: Character) -> void:
+	_character = new_character
+
+
+func set_team(new_team: GameUtilities.Teams) -> void:
+	team = new_team
 
 
 func confirm_hit(hit_character: Character) -> void:

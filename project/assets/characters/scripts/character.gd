@@ -156,6 +156,10 @@ func _ready():
 	_hurtbox.monitoring = true
 	_hurtbox.monitorable = false
 	
+	for child in GameUtilities.get_all_subchildren(self):
+		if child is Hitbox:
+			child.set_character(self)
+			child.set_team(team)
 	
 	is_ready = true
 	emit_signal("ready")

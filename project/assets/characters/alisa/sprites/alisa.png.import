@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://be7311krlwv7b"
-path="res://.godot/imported/Alisa.png-3e631245d0d48cca1cc73258256fd1ba.ctex"
+path="res://.godot/imported/alisa.png-2bea6b0c883742e0e552932f6b58a70c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/alisa/sprites/Alisa.png"
-dest_files=["res://.godot/imported/Alisa.png-3e631245d0d48cca1cc73258256fd1ba.ctex"]
+source_file="res://assets/characters/alisa/sprites/alisa.png"
+dest_files=["res://.godot/imported/alisa.png-2bea6b0c883742e0e552932f6b58a70c.ctex"]
 
 [params]
 

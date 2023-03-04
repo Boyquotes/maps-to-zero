@@ -5,12 +5,12 @@ extends CharacterBody2D
 @export var lifetime := 3.0
 
 var _direction := Vector2.RIGHT
-#var _character: Character
+var _character: Character
 
 @onready var _timer : Timer = $Timer
 @onready var _hitbox : Hitbox = $Hitbox
 @onready var _sprite : Sprite2D = $Sprite2D
-#@onready var _animation_player : AnimationPlayer = $AnimationPlayer
+@onready var _animation_player : AnimationPlayer = $AnimationPlayer
 
 
 func _ready() -> void:
@@ -20,6 +20,8 @@ func _ready() -> void:
 	_timer.timeout.connect(queue_free)
 	_timer.start(lifetime)
 	
+	_hitbox.set_character(_character)
+	_hitbox.set_team(_character.team)
 	_hitbox.hit.connect(_on_hit)
 
 

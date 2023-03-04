@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
-[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/Alisa.png" id="3_k3unl"]
+[ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/alisa.png" id="3_k3unl"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/characters/alisa/sprites/Horns.png" id="5_p6dq2"]
 [ext_resource type="Texture2D" uid="uid://ujycnl6px0tg" path="res://assets/characters/alisa/sprites/attack_swings/attack.png" id="6_v2qci"]
 [ext_resource type="Texture2D" uid="uid://cxraq73g0qx5o" path="res://assets/characters/alisa/sprites/attack_swings/air_attack_3.png" id="7_e7b7x"]
@@ -9111,11 +9111,8 @@ script = ExtResource("33_x7obb")
 base_value = 10.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("37_bxxe0")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
 position = Vector2(47, 0)
@@ -9140,11 +9137,8 @@ script = ExtResource("33_x7obb")
 base_value = 7.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("37_bxxe0")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack2/Hitbox" index="0"]
 position = Vector2(48, 0)
@@ -9170,11 +9164,8 @@ script = ExtResource("33_x7obb")
 base_value = 5.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("37_bxxe0")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack3/Hitbox" index="0"]
 position = Vector2(36.5, 0)
@@ -9199,11 +9190,8 @@ script = ExtResource("33_x7obb")
 base_value = 10.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("37_bxxe0")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack1/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_alunf")
@@ -9226,11 +9214,8 @@ script = ExtResource("33_x7obb")
 base_value = 12.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("37_bxxe0")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack2/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_foam6")
@@ -9253,11 +9238,8 @@ script = ExtResource("33_x7obb")
 base_value = 20.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("37_bxxe0")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 100
 screen_shake_trauma = 0.1
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack3/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_btlv5")
@@ -9292,11 +9274,8 @@ script = ExtResource("33_x7obb")
 base_value = 7.0
 hit_particles = ExtResource("36_w5o1y")
 hit_sfx = ExtResource("39_rs0tk")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 150
 screen_shake_trauma = 0.5
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Dash/Hitbox" index="0"]
 shape = SubResource("RectangleShape2D_r5vaj")
@@ -9368,7 +9347,6 @@ on_hit_resource_gain_type = 2
 on_hit_resource_gain_amount = 1.0
 frame_freeze_duration_milliseconds = 100
 screen_shake_trauma = 0.2
-team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox" index="0"]
 position = Vector2(72, -32)
@@ -9384,7 +9362,6 @@ on_hit_resource_gain_type = 2
 on_hit_resource_gain_amount = 1.0
 frame_freeze_duration_milliseconds = 200
 screen_shake_trauma = 1.3
-team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox2" index="0"]
 position = Vector2(72, -31)
@@ -9400,7 +9377,6 @@ on_hit_resource_gain_type = 2
 on_hit_resource_gain_amount = 1.0
 frame_freeze_duration_milliseconds = 100
 screen_shake_trauma = 0.2
-team = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox3" index="0"]
 position = Vector2(72, -32)
@@ -9434,11 +9410,8 @@ script = ExtResource("33_x7obb")
 base_value = 5.0
 hit_particles = ExtResource("44_6g7sh")
 hit_sfx = ExtResource("47_sx4sk")
-on_hit_resource_gain_type = null
-on_hit_resource_gain_amount = null
 frame_freeze_duration_milliseconds = 15
 screen_shake_trauma = 0.2
-team = null
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/StompHitbox" index="0"]
 shape = SubResource("CircleShape2D_a7hpf")
