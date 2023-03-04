@@ -1,5 +1,5 @@
 class_name GdUnitMemoryPool 
-extends RefCounted
+extends GdUnitSingleton
 
 const META_PARAM := "MEMORY_POOL"
 
@@ -8,6 +8,7 @@ enum POOL {
 	TESTSUITE,
 	TESTCASE,
 	EXECUTE,
+	UNIT_TEST_ONLY
 }
 
 
@@ -15,14 +16,43 @@ var _monitors := {
 	POOL.TESTSUITE : GdUnitMemMonitor.new("TESTSUITE"),
 	POOL.TESTCASE : GdUnitMemMonitor.new("TESTCASE"),
 	POOL.EXECUTE : GdUnitMemMonitor.new("EXECUTE"),
+	POOL.UNIT_TEST_ONLY : GdUnitMemMonitor.new("UNIT_TEST_ONLY"),
 }
 
 
-const _store := {
-	POOL.TESTSUITE : [],
-	POOL.TESTCASE : [],
-	POOL.EXECUTE : [],
-}
+class MemoryStore extends RefCounted:
+	var _store :Array[Variant] = []
+	
+	
+	func _notification(what):
+		if what == NOTIFICATION_PREDELETE:
+			while not _store.is_empty():
+				var value := _store.pop_front()
+				GdUnitTools.free_instance(value)
+	
+	
+	static func pool(pool :POOL) -> MemoryStore:
+		var pool_name :String = POOL.keys()[pool]
+		return GdUnitSingleton.instance(pool_name, func(): return MemoryStore.new())
+	
+	
+	static func append(pool :POOL, value :Variant) -> void:
+		pool(pool)._store.append(value)
+	
+	
+	static func contains(pool :POOL, value :Variant) -> bool:
+		return pool(pool)._store.has(value)
+	
+	
+	static func push_front(pool :POOL, value :Variant) -> void:
+		pool(pool)._store.push_front(value)
+	
+	
+	static func release_objects(pool :POOL) -> void:
+		var store := pool(pool)._store
+		while not store.is_empty():
+			var value := store.pop_front()
+			GdUnitTools.free_instance(value)
 
 
 var _current :POOL
@@ -69,33 +99,28 @@ func orphan_nodes() -> int:
 
 # register an instance to be freed when a test suite is finished
 static func register_auto_free(obj, pool :POOL) -> Variant:
-	# only register real object values
-	if not obj is Object:
+	if not is_instance_valid(obj):
 		return obj
 	if obj is MainLoop:
 		push_error("avoid to add mainloop to auto_free queue  %s" % obj)
 		return
 	# only register pure objects
 	if obj is GdUnitSceneRunner:
-		_store[pool].push_front(obj)
+		MemoryStore.push_front(pool, obj)
 	else:
-		_store[pool].append(obj)
+		MemoryStore.append(pool, obj)
 	return obj
 
 
 # runs over all registered objects and frees it
 static func run_auto_free(pool :POOL) -> void:
-	var obj_pool :Array = _store[pool]
-	#prints("run_auto_free checked Pool:", pool, obj_pool.size())
-	while not obj_pool.is_empty():
-		var obj :Object = obj_pool.pop_front()
-		GdUnitTools.free_instance(obj)
+	MemoryStore.release_objects(pool)
 
 
 # tests if given object is registered for auto freeing
 static func is_auto_free_registered(obj, pool :POOL = -1) -> bool:
 	# only register real object values
-	if not obj is Object:
+	if not is_instance_valid(obj):
 		return false
 	# check all pools?
 	if pool == -1:
@@ -103,4 +128,4 @@ static func is_auto_free_registered(obj, pool :POOL = -1) -> bool:
 			or is_auto_free_registered(obj, POOL.TESTCASE)\
 			or is_auto_free_registered(obj, POOL.EXECUTE)
 	# check checked a specific pool
-	return _store[pool].has(obj)
+	return MemoryStore.contains(pool, obj)

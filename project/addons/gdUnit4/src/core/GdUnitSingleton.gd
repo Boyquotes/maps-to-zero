@@ -5,27 +5,44 @@
 # around plugin handling 
 ################################################################################
 class_name GdUnitSingleton
-extends GdUnitStaticDictionary
+extends RefCounted
 
-static func get_singleton(name: String) -> Object:
-	var singleton = get_value(name)
-	if singleton == null:
-		push_error("No singleton instance with '" + name + "' found.")
+
+const MEATA_KEY := "GdUnitSingletons"
+
+
+static func instance(name :String, clazz :Callable) -> Variant:
+	if Engine.has_meta(name):
+		return Engine.get_meta(name)
+	var singleton := clazz.call()
+	Engine.set_meta(name, singleton)
+	GdUnitTools.prints_verbose("Register singleton '%s:%s'" % [name, singleton])
+	var singletons := Engine.get_meta(MEATA_KEY, PackedStringArray())
+	singletons.append(name)
+	Engine.set_meta(MEATA_KEY, singletons)
 	return singleton
 
-static func add_singleton(name: String, path: String) -> Object:
-	var singleton :Object = load(path).new()
-	if singleton.has_method("set_name"):
-		singleton.set_name(name)
-	add_value(name, singleton)
-	#print_debug("Added singleton ", name, " ",singleton)
-	return singleton
 
-static func get_or_create_singleton(name: String, path: String) -> Object:
-	if has_key(name):
-		return get_value(name)
-	return add_singleton(name, path)
+static func unregister(singleton :String) -> void:
+	var singletons :PackedStringArray = Engine.get_meta(MEATA_KEY, PackedStringArray())
+	if singletons.has(singleton):
+		GdUnitTools.prints_verbose("	Unregister singleton '%s'" % singleton);
+		var index := singletons.find(singleton)
+		singletons.remove_at(index)
+		var instance := Engine.get_meta(singleton)
+		GdUnitTools.prints_verbose("	Free singeleton instance '%s:%s'" % [singleton, instance])
+		GdUnitTools.free_instance(instance)
+		Engine.remove_meta(singleton)
+		GdUnitTools.prints_verbose("	Succesfully freed '%s'" % singleton)
+	Engine.set_meta(MEATA_KEY, singletons)
 
-static func remove_singleton(name: String) -> void:
-	if !erase(name):
-		push_error("Remove singleton '" + name + "' failed. No global instance found.")
+
+static func dispose() -> void:
+	# use a copy because unregister is modify the singletons array
+	var singletons := PackedStringArray(Engine.get_meta(MEATA_KEY, PackedStringArray()))
+	GdUnitTools.prints_verbose("----------------------------------------------------------------")
+	GdUnitTools.prints_verbose("Cleanup singletons %s" % singletons)
+	for singleton in singletons:
+		unregister(singleton)
+	Engine.remove_meta(MEATA_KEY)
+	GdUnitTools.prints_verbose("----------------------------------------------------------------")

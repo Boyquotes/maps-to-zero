@@ -119,8 +119,8 @@ var current_background_jumps: int
 @onready var gravity := 2 * jump_max_height / pow(jump_max_height_time, 2) # Gravity at start of jump
 @onready var _stats := %CharacterStats as CharacterStats
 @onready var _inner := %Inner as Node2D
-@onready var _animation_player := _inner.get_node("Visuals/AnimationPlayer") as AnimationPlayer
-@onready var _animation_effects := _animation_player.get_node("AnimationEffects") as AnimationPlayer
+@onready var _animation_player := _inner.get_node("Visuals/AnimationPlayer") as AnimationPlayer if _inner else null
+@onready var _animation_effects := _animation_player.get_node("AnimationEffects") as AnimationPlayer if _animation_player else null
 @onready var _background_jump_area := %BackgroundJumpArea as Area2D
 @onready var _target_manager := %TargetManager as TargetManager
 @onready var _input_buffer := %InputBuffer as InputBuffer
@@ -135,21 +135,25 @@ func _ready():
 		emit_signal("ready")
 		return
 	
-	input_state_machine.init(self)
-	state_machine.init(self)
-	_hud.init(self)
+	if input_state_machine:
+		input_state_machine.init(self)
+	if state_machine:
+		state_machine.init(self)
+	if _hud:
+		_hud.init(self)
 	
+	if _stats:
+		_stats.stat_changed.connect(_on_stat_changed)
+		_stats.set_max_stat(CharacterStats.Types.HP, max_hp)
+		_stats.set_stat(CharacterStats.Types.HP, max_hp)
+		_stats.set_max_stat(CharacterStats.Types.MP, max_mp)
+		_stats.set_stat(CharacterStats.Types.MP, max_mp)
+		_stats.set_max_stat(CharacterStats.Types.SP, max_sp)
+		_stats.set_stat(CharacterStats.Types.SP, max_sp)
 	
-	_stats.stat_changed.connect(_on_stat_changed)
-	_stats.set_max_stat(CharacterStats.Types.HP, max_hp)
-	_stats.set_stat(CharacterStats.Types.HP, max_hp)
-	_stats.set_max_stat(CharacterStats.Types.MP, max_mp)
-	_stats.set_stat(CharacterStats.Types.MP, max_mp)
-	_stats.set_max_stat(CharacterStats.Types.SP, max_sp)
-	_stats.set_stat(CharacterStats.Types.SP, max_sp)
-	
-	_hurtbox.area_entered.connect(_on_hurtbox_entered)
-	_reset_hurtbox_collision()
+	if _hurtbox:
+		_hurtbox.area_entered.connect(_on_hurtbox_entered)
+		_reset_hurtbox_collision()
 	
 	for child in GameUtilities.get_all_subchildren(self):
 		if child is Hitbox:

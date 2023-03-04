@@ -25,10 +25,10 @@ var _runner_config := GdUnitRunnerConfig.new()
 
 
 func _ready():
-	GdUnitSignals.instance().gdunit_client_connected.connect(Callable(self, "_on_client_connected"))
-	GdUnitSignals.instance().gdunit_client_disconnected.connect(Callable(self, "_on_client_disconnected"))
-	GdUnitSignals.instance().gdunit_event.connect(Callable(self, "_on_event"))
-	var plugin :EditorPlugin = Engine.get_meta("GdUnitEditorPlugin") as EditorPlugin
+	GdUnitSignals.instance().gdunit_client_connected.connect(_on_client_connected)
+	GdUnitSignals.instance().gdunit_client_disconnected.connect(_on_client_disconnected)
+	GdUnitSignals.instance().gdunit_event.connect(_on_event)
+	var plugin :EditorPlugin = Engine.get_meta("GdUnitEditorPlugin")
 	_editor_interface = plugin.get_editor_interface()
 	if Engine.is_editor_hint():
 		_getEditorThemes(_editor_interface)
@@ -55,7 +55,7 @@ func _process(_delta):
 	_check_test_run_stopped_manually()
 
 
-# is checking if the user has press the editor stop scene 
+# is checking if the user has press the editor stop scene
 func _check_test_run_stopped_manually():
 	if _is_test_running_but_stop_pressed():
 		if GdUnitSettings.is_verbose_assert_warnings():
@@ -96,7 +96,7 @@ func add_file_system_dock_context_menu() -> void:
 		return !_runButton.disabled
 	var run_test := func run_test(resource_paths :PackedStringArray, debug :bool):
 		run_test_suites(resource_paths, debug)
-	var menu := [
+	var menu :Array[GdUnitContextMenuItem] = [
 		GdUnitContextMenuItem.new(GdUnitContextMenuItem.MENU_ID.TEST_RUN, "Run Tests", is_test_suite.bind(true), is_enabled, run_test.bind(false)),
 		GdUnitContextMenuItem.new(GdUnitContextMenuItem.MENU_ID.TEST_DEBUG, "Debug Tests", is_test_suite.bind(true), is_enabled, run_test.bind(true)),
 	]
@@ -118,7 +118,7 @@ func add_script_editor_context_menu():
 			var func_name := result.get_string(2).strip_edges()
 			prints("Run test:", func_name, "debug", debug)
 			if func_name.begins_with("test_"):
-				run_test_case(script.resource_path, func_name, debug)
+				run_test_case(script.resource_path, func_name, -1, debug)
 				return
 		# otherwise run the full test suite
 		var selected_test_suites := [script.resource_path]
@@ -132,8 +132,8 @@ func add_script_editor_context_menu():
 			return
 		var info := result.value() as Dictionary
 		ScriptEditorControls.edit_script(info.get("path"), info.get("line"))
-	
-	var menu := [
+
+	var menu :Array[GdUnitContextMenuItem] = [
 		GdUnitContextMenuItem.new(GdUnitContextMenuItem.MENU_ID.TEST_RUN, "Run Tests", is_test_suite.bind(true), is_enabled, run_test.bind(false)),
 		GdUnitContextMenuItem.new(GdUnitContextMenuItem.MENU_ID.TEST_DEBUG, "Debug Tests", is_test_suite.bind(true), is_enabled, run_test.bind(true)),
 		GdUnitContextMenuItem.new(GdUnitContextMenuItem.MENU_ID.CREATE_TEST, "Create Test", is_test_suite.bind(false), is_enabled, create_test)
@@ -153,11 +153,11 @@ func run_test_suites(test_suite_paths :PackedStringArray, debug :bool, rerun :bo
 	_gdUnit_run(debug)
 
 
-func run_test_case(test_suite_resource_path :String, test_case :String, debug :bool, rerun := false) -> void:
+func run_test_case(test_suite_resource_path :String, test_case :String, test_param_index :int, debug :bool, rerun := false) -> void:
 	# create new runner config for fresh run otherwise use saved one
 	if not rerun:
 		var result := _runner_config.clear()\
-			.add_test_case(test_suite_resource_path, test_case)\
+			.add_test_case(test_suite_resource_path, test_case, test_param_index)\
 			.save()
 		if result.is_error():
 			push_error(result.error_message())
@@ -169,7 +169,7 @@ func _gdUnit_run(debug :bool) -> void:
 	# don't start is already running
 	if _is_running:
 		return
-	
+
 	grab_focus()
 	show()
 	# save current selected excution config
@@ -189,7 +189,11 @@ func _gdUnit_run(debug :bool) -> void:
 		_is_running = true
 		return
 	var arguments := Array()
+	if OS.is_stdout_verbose():
+		arguments.append("--verbose")
 	arguments.append("--no-window")
+	arguments.append("--path")
+	arguments.append(ProjectSettings.globalize_path("res://"))
 	arguments.append("res://addons/gdUnit4/src/core/GdUnitRunner.tscn")
 	_current_runner_process_id = OS.create_process(OS.get_executable_path(), arguments, false);
 	_is_running = true
@@ -234,8 +238,8 @@ func _on_MainPanel_run_testsuite(test_suite_paths :Array, debug :bool):
 	run_test_suites(test_suite_paths, debug)
 
 
-func _on_MainPanel_run_testcase(resource_path :String, test_case :String, debug :bool):
-	run_test_case(resource_path, test_case, debug)
+func _on_MainPanel_run_testcase(resource_path :String, test_case :String, test_param_index :int, debug :bool):
+	run_test_case(resource_path, test_case, test_param_index, debug)
 
 
 ##########################################################################

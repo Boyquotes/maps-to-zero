@@ -18,7 +18,7 @@ var TOKEN_FUNCTION_RETURN_TYPE := Token.new("->")
 var TOKEN_FUNCTION_END := Token.new("):")
 var TOKEN_ARGUMENT_ASIGNMENT := Token.new("=")
 var TOKEN_ARGUMENT_TYPE_ASIGNMENT := Token.new(":=")
-var TOKEN_ARGUMENT_FUZZER := FuzzerToken.new(prepare_regex("((?!(fuzzer_(seed|iterations)))fuzzer?\\w+)(=|:=|:Fuzzer=)"))
+var TOKEN_ARGUMENT_FUZZER := FuzzerToken.new(GdUnitTools.to_regex("((?!(fuzzer_(seed|iterations)))fuzzer?\\w+)( ?+= ?+| ?+:= ?+| ?+:Fuzzer ?+= ?+|)"))
 var TOKEN_ARGUMENT_TYPE := Token.new(":")
 var TOKEN_ARGUMENT_SEPARATOR := Token.new(",")
 var TOKEN_BRACKET_OPEN := Token.new("(")
@@ -26,7 +26,6 @@ var TOKEN_BRACKET_CLOSE := Token.new(")")
 var TOKEN_ARRAY_OPEN := Token.new("[")
 var TOKEN_ARRAY_CLOSE := Token.new("]")
 var TOKEN_NEW_LINE := Token.new("\n")
-
 var OPERATOR_ADD := Operator.new("+")
 var OPERATOR_SUB := Operator.new("-")
 var OPERATOR_MUL := Operator.new("*")
@@ -54,7 +53,6 @@ var TOKENS := [
 	TOKEN_ARGUMENT_SEPARATOR,
 	TOKEN_FUNCTION_RETURN_TYPE,
 	TOKEN_NEW_LINE,
-
 	OPERATOR_ADD,
 	OPERATOR_SUB,
 	OPERATOR_MUL,
@@ -67,16 +65,8 @@ var _base_clazz :String
 var _scanned_inner_classes := PackedStringArray()
 
 
-static func prepare_regex(pattern :String) -> RegEx:
-	var regex := RegEx.new()
-	var err := regex.compile(pattern)
-	if err != OK:
-		push_error("Can't compiling regx '%s'.\n ERROR: %s" % [pattern, GdUnitTools.error_as_string(err)])
-	return regex
-
-
 static func clean_up_row(row :String) -> String:
-	return to_unix_format(row.replace(" ", "").replace("	", ""))
+	return to_unix_format(row.replace(" ", "").replace("\t", ""))
 
 
 static func to_unix_format(input :String) -> String:
@@ -88,8 +78,8 @@ class Token extends RefCounted:
 	var _consumed: int
 	var _is_operator: bool
 	var _regex :RegEx
-
-	func _init(token: String, is_operator := false, regex :RegEx = null):
+	
+	func _init(token: String, is_operator := false, regex :RegEx = null) -> void:
 		_token = token
 		_is_operator = is_operator
 		_consumed = token.length()
@@ -123,7 +113,7 @@ class Token extends RefCounted:
 class Operator extends Token:
 	func _init(value: String):
 		super(value, true)
-		
+	
 	func _to_string():
 		return "OperatorToken{%s}" % [_token]
 
@@ -278,7 +268,7 @@ class TokenInnerClass extends Token:
 
 
 func _init():
-	_regex_clazz_name = prepare_regex("(class)([a-zA-Z0-9]+)(extends[a-zA-Z]+:)|(class)([a-zA-Z0-9]+)(:)")
+	_regex_clazz_name = GdUnitTools.to_regex("(class)([a-zA-Z0-9]+)(extends[a-zA-Z]+:)|(class)([a-zA-Z0-9]+)(:)")
 
 
 func get_token(input :String, current_index) -> Token:
@@ -370,35 +360,22 @@ func parse_func_return_type(row: String) -> int:
 		return TYPE_NIL
 	return token.type()
 
-
-func parse_return_token(row: String) -> Token:
-	var input := clean_up_row(row)
-	var current_index := 0
-	var token :Token = null
-	var bracket := 0
-	while current_index < len(input):
-		token = next_token(input, current_index) as Token
-		current_index += token._consumed
-		if token == TOKEN_BRACKET_OPEN:
-			bracket += 1
-		if token == TOKEN_BRACKET_CLOSE:
-			bracket -= 1
-		# function end reached ?
-		if bracket == 0 and token == TOKEN_BRACKET_CLOSE:
-			token = next_token(input, current_index) as Token
-			current_index += token._consumed
-			if token == TOKEN_FUNCTION_RETURN_TYPE:
-				return next_token(input, current_index) as Token
-			else:
-				return TOKEN_NOT_MATCH
-	return TOKEN_NOT_MATCH
+func parse_return_token(input: String) -> Token:
+	var index := input.rfind(TOKEN_FUNCTION_RETURN_TYPE._token)
+	if index == -1:
+		return TOKEN_NOT_MATCH
+	index += TOKEN_FUNCTION_RETURN_TYPE._consumed
+	var token := next_token(input, index)
+	if token == TOKEN_SPACE:
+		index += TOKEN_SPACE._consumed
+		token = next_token(input, index)
+	return token
 
 
 # Parses the argument into a argument signature
 # e.g. func foo(arg1 :int, arg2 = 20) -> [arg1, arg2]
-func parse_arguments(row: String) -> Array[GdFunctionArgument]:
-	var args := Array()
-	var input := clean_up_row(row)
+func parse_arguments(input: String) -> Array[GdFunctionArgument]:
+	var args :Array[GdFunctionArgument] = []
 	var current_index := 0
 	var token :Token = null
 	var bracket := 0
@@ -406,6 +383,8 @@ func parse_arguments(row: String) -> Array[GdFunctionArgument]:
 	while current_index < len(input):
 		token = next_token(input, current_index)
 		current_index += token._consumed
+		if token == TOKEN_SPACE:
+			continue
 		if token == TOKEN_BRACKET_OPEN:
 			in_function = true
 			bracket += 1
@@ -435,10 +414,15 @@ func parse_arguments(row: String) -> Array[GdFunctionArgument]:
 			while current_index < len(input):
 				token = next_token(input, current_index)
 				current_index += token._consumed
-				
-				if token == TOKEN_ARGUMENT_TYPE:
+				#match token:
+				if token == TOKEN_SPACE:
+						continue
+				elif token == TOKEN_ARGUMENT_TYPE:
 						token = next_token(input, current_index)
-						arg_type = GdObjects.string_as_typeof(token._token) 
+						if token == TOKEN_SPACE:
+							current_index += token._consumed
+							token = next_token(input, current_index)
+						arg_type = GdObjects.string_as_typeof(token._token)
 				elif token == TOKEN_ARGUMENT_TYPE_ASIGNMENT:
 						arg_value = _parse_end_function(input.substr(current_index), true)
 						current_index += arg_value.length()
@@ -464,7 +448,9 @@ func parse_arguments(row: String) -> Array[GdFunctionArgument]:
 				elif token == TOKEN_ARGUMENT_SEPARATOR:
 						if bracket <= 1:
 							break
+			arg_value = arg_value.lstrip(" ")
 			if arg_type == TYPE_NIL and arg_value != GdFunctionArgument.UNDEFINED:
+				var value_type := TYPE_STRING
 				if arg_value.begins_with("Color."):
 					arg_type = TYPE_COLOR
 				elif arg_value.begins_with("Vector2."):
@@ -573,10 +559,9 @@ func extract_source_code(script_path :PackedStringArray) -> PackedStringArray:
 func extract_func_signature(rows :PackedStringArray, index :int) -> String:
 	var signature = ""
 	for rowIndex in range(index, rows.size()):
-		var row :String = rows[rowIndex]
-		signature += row.trim_prefix("\t").trim_suffix("\t")
+		signature += rows[rowIndex].strip_edges().replace("\t", "")
 		if is_func_end(signature):
-			return clean_up_row(signature).replace("\n", "")
+			return signature
 	push_error("Can't fully extract function signature of '%s'" % rows[index])
 	return ""
 
@@ -589,7 +574,7 @@ func load_source_code(script :GDScript, script_path :PackedStringArray) -> Packe
 			var class_path := GdObjects.extract_class_path(value)
 			if class_path.size() > 1:
 				_scanned_inner_classes.append(class_path[1])
-
+	
 	var source_code := to_unix_format(script.source_code)
 	var source_rows := source_code.split("\n")
 	# extract all inner class names
@@ -616,11 +601,15 @@ func get_class_name(script :GDScript) -> String:
 
 func parse_func_name(row :String) -> String:
 	var input = clean_up_row(row)
-	var token := next_token(input, 0)
+	var current_index = 0
+	var token := next_token(input, current_index)
+	current_index += token._consumed
 	if token != TOKEN_FUNCTION_STATIC_DECLARATION and token != TOKEN_FUNCTION_DECLARATION:
 		return ""
-	var next := next_token(input, token._consumed)
-	return next._token
+	while not token is Variable:
+		token = next_token(input, current_index)
+		current_index += token._consumed
+	return token._token
 
 
 func parse_functions(rows :PackedStringArray, clazz_name :String, clazz_path :PackedStringArray, included_functions :PackedStringArray = PackedStringArray()) -> Array:
@@ -719,21 +708,7 @@ func is_inner_class(clazz_path :PackedStringArray) -> bool:
 
 
 func is_func_end(row :String) -> bool:
-	var input := clean_up_row(row)
-	var current_index = 0
-	var token :Token = null
-	while current_index < len(input):
-		# function ends without return type definition
-		if TOKEN_FUNCTION_END.match(input, current_index):
-			return true
-		# function ends with return type definition
-		if TOKEN_FUNCTION_RETURN_TYPE.match(input, current_index):
-			return true
-		token = next_token(input, current_index) as Token
-		if token == TOKEN_NOT_MATCH:
-			return false
-		current_index += token._consumed
-	return false
+	return row.strip_edges(false, true).ends_with(":")
 
 
 func _patch_inner_class_names(value :String, clazz_name :String) -> String:

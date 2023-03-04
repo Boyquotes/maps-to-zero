@@ -14,10 +14,10 @@
 #-------------------------------------------------------------------------------
 # For detailed instructions show http://gdUnit/plapla
 ################################################################################
+@icon("res://addons/gdUnit4/src/ui/assets/TestSuite.svg")
 class_name GdUnitTestSuite
 extends Node
 
-@icon("res://addons/gdUnit4/src/ui/assets/TestSuite.svg")
 
 const NO_ARG = GdUnitConstants.NO_ARG
 
@@ -46,16 +46,7 @@ func skip(skipped :bool) -> void:
 	set_meta("gd_skipped", skipped)
 
 func is_failure(_expected_failure :String = NO_ARG) -> bool:
-	return get_meta(GdUnitAssertImpl.GD_TEST_FAILURE) if has_meta(GdUnitAssertImpl.GD_TEST_FAILURE) else false
-
-# Utility to check if a test has failed in a particular line and if there is an error message
-func assert_failed_at(line_number :int, expected_failure :String) -> bool:
-	var is_failed = is_failure()
-	var last_failure = GdAssertReports.current_failure()
-	var last_failure_line = GdAssertReports.get_last_error_line_number()
-	assert_str(last_failure).is_equal(expected_failure)
-	assert_int(last_failure_line).is_equal(line_number)
-	return is_failed
+	return Engine.get_meta("GD_TEST_FAILURE") if Engine.has_meta("GD_TEST_FAILURE") else false
 
 func is_skipped() -> bool:
 	return get_meta("gd_skipped") if has_meta("gd_skipped") else false
@@ -114,13 +105,20 @@ func resource_as_var(resource_path :String):
 func clear_push_errors() -> void:
 	GdUnitTools.clear_push_errors()
 
+
 # Waits for given signal is emited by the <source> until a specified timeout to fail
 # source: the object from which the signal is emitted
 # signal_name: signal name
 # args: the expected signal arguments as an array
 # timeout: the timeout in ms, default is set to 2000ms
 func await_signal_on(source :Object, signal_name :String, args :Array = [], timeout :int = 2000) -> Variant:
-	return await GdUnitAwaiter.await_signal_on(weakref(self), source, signal_name, args, timeout)
+	# fail fast if the given source instance invalid
+	if not is_instance_valid(source):
+		GdUnitAssertImpl.new(signal_name)\
+			.report_error(GdAssertMessages.error_await_signal_on_invalid_instance(source, signal_name, args), GdUnitAssertImpl._get_line_number())
+		return await GdUnitAwaiter.await_idle_frame()
+	return await GdUnitAwaiter.await_signal_on(source, signal_name, args, timeout)
+
 
 # Waits until the next idle frame
 func await_idle_frame():
@@ -132,7 +130,7 @@ func await_idle_frame():
 #    await await_millis(myNode, 100).completed
 # use this waiter and not `await get_tree().create_timer().timeout to prevent errors when a test case is timed out
 func await_millis(timeout :int):
-	await GdUnitAwaiter.await_millis(self, timeout)
+	await GdUnitAwaiter.await_millis(timeout)
 
 # Creates a new scene runner to allow simulate interactions checked a scene.
 # The runner will manage the scene instance and release after the runner is released
@@ -144,7 +142,7 @@ func await_millis(timeout :int):
 #    # or simply creates a runner by using the scene resource path
 #    var runner := scene_runner("res://foo/my_scne.tscn")
 func scene_runner(scene, verbose := false) -> GdUnitSceneRunner:
-	return auto_free(GdUnitSceneRunnerImpl.new(weakref(self), scene, verbose))
+	return auto_free(GdUnitSceneRunnerImpl.new(scene, verbose))
 
 # === Mocking  & Spy ===========================================================
 
@@ -174,11 +172,11 @@ func verify(obj, times := 1, expect_result :int = GdUnitAssert.EXPECT_SUCCESS):
 
 # Verifies no interactions is happen checked this mock or spy
 func verify_no_interactions(obj, expect_result :int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitAssert:
-	return GdUnitObjectInteractions.verify_no_interactions(self, obj, expect_result)
+	return GdUnitObjectInteractions.verify_no_interactions(obj, expect_result)
 
 # Verifies the given mock or spy has any unverified interaction.
 func verify_no_more_interactions(obj, expect_result :int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitAssert:
-	return GdUnitObjectInteractions.verify_no_more_interactions(self, obj, expect_result)
+	return GdUnitObjectInteractions.verify_no_more_interactions(obj, expect_result)
 
 # Resets the saved function call counters checked a mock or spy
 func reset(obj) -> void:
@@ -333,56 +331,66 @@ func assert_that(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> G
 		TYPE_OBJECT, TYPE_NIL:
 			return assert_object(current, expect_result)
 		_:
-			return GdUnitAssertImpl.new(self, current, expect_result)
+			return GdUnitAssertImpl.new(current, expect_result)
 
 func assert_bool(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitBoolAssert:
-	return GdUnitBoolAssertImpl.new(self, current, expect_result)
+	return GdUnitBoolAssertImpl.new(current, expect_result)
 
 func assert_str(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitStringAssert:
-	return GdUnitStringAssertImpl.new(self, current, expect_result)
+	return GdUnitStringAssertImpl.new(current, expect_result)
 
 func assert_int(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitIntAssert:
-	return GdUnitIntAssertImpl.new(self, current, expect_result)
+	return GdUnitIntAssertImpl.new(current, expect_result)
 
 func assert_float(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitFloatAssert:
-	return GdUnitFloatAssertImpl.new(self, current, expect_result)
+	return GdUnitFloatAssertImpl.new(current, expect_result)
 
 func assert_vector2(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitVector2Assert:
-	return GdUnitVector2AssertImpl.new(self, current, expect_result)
+	return GdUnitVector2AssertImpl.new(current, expect_result)
 
 func assert_vector3(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitVector3Assert:
-	return GdUnitVector3AssertImpl.new(self, current, expect_result)
+	return GdUnitVector3AssertImpl.new(current, expect_result)
 
 func assert_array(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitArrayAssert:
-	return GdUnitArrayAssertImpl.new(self, current, expect_result)
+	return GdUnitArrayAssertImpl.new(current, expect_result)
 
 func assert_dict(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitDictionaryAssert:
-	return GdUnitDictionaryAssertImpl.new(self, current, expect_result)
+	return GdUnitDictionaryAssertImpl.new(current, expect_result)
 
 func assert_file(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitFileAssert:
-	return GdUnitFileAssertImpl.new(self, current, expect_result)
+	return GdUnitFileAssertImpl.new(current, expect_result)
 
 func assert_object(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitObjectAssert:
-	return GdUnitObjectAssertImpl.new(self, current, expect_result)
+	return GdUnitObjectAssertImpl.new(current, expect_result)
 
 func assert_result(current, expect_result: int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitResultAssert:
-	return GdUnitResultAssertImpl.new(self, current, expect_result)
+	return GdUnitResultAssertImpl.new(current, expect_result)
 
 func assert_func(instance :Object, func_name :String, args := Array(), expect_result :int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitFuncAssert:
-	return GdUnitFuncAssertImpl.new(weakref(self), instance, func_name, args, expect_result)
+	return GdUnitFuncAssertImpl.new(instance, func_name, args, expect_result)
 
 func assert_signal(instance :Object, expect_result :int = GdUnitAssert.EXPECT_SUCCESS) -> GdUnitSignalAssert:
-	return GdUnitSignalAssertImpl.new(weakref(self), instance, expect_result)
+	return GdUnitSignalAssertImpl.new(instance, expect_result)
 
 # TODO see https://github.com/MikeSchulze/gdUnit4/issues/4
 func assert_fail(assertion :GdUnitAssert) -> GdUnitAssert:
 	return assertion
 
+# Utility to check if a test has failed in a particular line and if there is an error message
+func assert_failed_at(line_number :int, expected_failure :String) -> bool:
+	var is_failed = is_failure()
+	var last_failure = GdAssertReports.current_failure()
+	var last_failure_line = GdAssertReports.get_last_error_line_number()
+	assert_str(last_failure).is_equal(expected_failure)
+	assert_int(last_failure_line).is_equal(line_number)
+	return is_failed
+
+
 func assert_not_yet_implemented():
-	GdUnitAssertImpl.new(self, null).test_fail()
+	GdUnitAssertImpl.new(null).test_fail()
 
 func fail(message :String):
-	GdUnitAssertImpl.new(self, null).report_error(message)
+	GdUnitAssertImpl.new(null).report_error(message)
 
 # --- internal stuff do not override!!!
 func ResourcePath() -> String:

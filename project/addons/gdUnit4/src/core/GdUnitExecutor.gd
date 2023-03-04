@@ -1,9 +1,6 @@
-class_name GdUnitExecutor
 extends Node
 
 signal ExecutionCompleted()
-# this signal is only used in GdUnitExecutorTest!
-signal gdunit_event_test(event)
 
 const INIT = 0
 const STAGE_TEST_SUITE_BEFORE = GdUnitReportCollector.STAGE_TEST_SUITE_BEFORE
@@ -18,33 +15,43 @@ var _testcase_timer :LocalTime
 var _memory_pool :GdUnitMemoryPool = GdUnitMemoryPool.new()
 var _report_errors_enabled :bool
 var _report_collector : = GdUnitReportCollector.new()
+var _arument_matcher = GdUnitArgumentMatchers.new()
 
 var _total_test_execution_orphans :int
 var _total_test_warnings :int
 var _total_test_failed :int
 var _total_test_errors :int
 var _fail_fast := false
+var _debug := false
 
-var _x = GdUnitArgumentMatchers.new()
-var _debug_mode :bool
 
-func _init(debug_mode := false):
-	_debug_mode = debug_mode
+func _init(debug := false):
+	set_name("GdUnitExecutor%s" % ("Debug" if debug else ""))
+	_debug = debug
+
 
 func _ready():
 	_report_errors_enabled = GdUnitSettings.is_report_push_errors()
 
+
 func fail_fast(enabled :bool) -> void:
 	_fail_fast = enabled
+
 
 func set_stage(stage :int) -> void:
 	_report_collector.set_stage(stage)
 
+
+func set_consume_reports(enabled :bool) -> void:
+	_report_collector.set_consume_reports(enabled)
+
+
 func fire_event(event :GdUnitEvent) -> void:
-	if _debug_mode:
-		emit_signal("gdunit_event_test", event)
+	if _debug:
+		GdUnitSignals.instance().gdunit_event_debug.emit(event)
 	else:
 		GdUnitSignals.instance().gdunit_event.emit(event)
+
 
 func fire_test_skipped(test_suite :GdUnitTestSuite, test_case :_TestCase):
 	fire_event(GdUnitEvent.new()\
@@ -60,7 +67,7 @@ func fire_test_skipped(test_suite :GdUnitTestSuite, test_case :_TestCase):
 		GdUnitEvent.SKIPPED: true,
 		GdUnitEvent.SKIPPED_COUNT: 1,
 	}
-	var report := GdUnitReport.new().create(GdUnitReport.WARN, test_case.line_number(), "Test skipped %s" % test_case.error())
+	var report := GdUnitReport.new().create(GdUnitReport.SKIPPED, test_case.line_number(), GdAssertMessages.test_skipped(test_case.skip_info()))
 	fire_event(GdUnitEvent.new()\
 		.test_after(test_suite.get_script().resource_path, test_suite.get_name(), test_case.get_name(), statistics, [report]))
 
@@ -126,9 +133,7 @@ func test_before(test_suite :GdUnitTestSuite, test_case :_TestCase, test_case_na
 		fire_event(GdUnitEvent.new()\
 			.test_before(test_suite.get_script().resource_path, test_suite.get_name(), test_case_name))
 	
-	test_suite.set_meta(GdUnitAssertImpl.GD_TEST_FAILURE, false)
 	await test_suite.before_test()
-	
 	_memory_pool.monitor_stop()
 
 func test_after(test_suite :GdUnitTestSuite, test_case :_TestCase, test_case_name :String, fire_event := true):
@@ -143,9 +148,10 @@ func test_after(test_suite :GdUnitTestSuite, test_case :_TestCase, test_case_nam
 		_report_collector.push_front(STAGE_TEST_CASE_EXECUTE, GdUnitReport.new() \
 			.create(GdUnitReport.WARN, test_case.line_number(), GdAssertMessages.orphan_detected_on_test(execution_orphan_nodes)))
 	
+	var is_error := false
 	if test_case.is_interupted() and not test_case.is_expect_interupted():
-		_report_collector.add_report(STAGE_TEST_CASE_EXECUTE, GdUnitReport.new() \
-				.create(GdUnitReport.INTERUPTED, test_case.line_number(), "Test timed out after %s" % LocalTime.elapsed(test_case.timeout())))
+		_report_collector.add_report(STAGE_TEST_CASE_EXECUTE, test_case.report())
+		is_error = true
 	
 	set_stage(STAGE_TEST_CASE_AFTER)
 	_memory_pool.set_pool(test_suite, GdUnitMemoryPool.POOL.TESTCASE)
@@ -161,7 +167,6 @@ func test_after(test_suite :GdUnitTestSuite, test_case :_TestCase, test_case_nam
 			.create(GdUnitReport.WARN, test_case.line_number(), GdAssertMessages.orphan_detected_on_test_setup(test_setup_orphan_nodes)))
 	
 	var reports := _report_collector.get_reports(STAGE_TEST_CASE_BEFORE|STAGE_TEST_CASE_EXECUTE|STAGE_TEST_CASE_AFTER)
-	var is_error :bool = test_case.is_interupted() and not test_case.is_expect_interupted()
 	var error_count := _report_collector.count_errors(STAGE_TEST_CASE_BEFORE|STAGE_TEST_CASE_EXECUTE|STAGE_TEST_CASE_AFTER) if is_error else 0
 	var failure_count := _report_collector.count_failures(STAGE_TEST_CASE_BEFORE|STAGE_TEST_CASE_EXECUTE|STAGE_TEST_CASE_AFTER)
 	var is_warning := _report_collector.has_warnings(STAGE_TEST_CASE_BEFORE|STAGE_TEST_CASE_EXECUTE|STAGE_TEST_CASE_AFTER)
@@ -217,8 +222,6 @@ func execute_test_case_iterative(test_suite :GdUnitTestSuite, test_case :_TestCa
 		
 		if test_case.is_interupted():
 			is_failure = true
-			_report_collector.add_report(STAGE_TEST_CASE_EXECUTE, GdUnitReport.new() \
-					.create(GdUnitReport.INTERUPTED, test_case.line_number(), GdAssertMessages.fuzzer_interuped(iteration, "timedout")))
 		
 		# call after_test for each iteration
 		await test_after(test_suite, test_case, test_case.get_name(), iteration==test_case.iterations()-1 or is_failure)
@@ -236,8 +239,12 @@ func execute_test_case_parameterized(test_suite :GdUnitTestSuite, test_case :_Te
 	var current_failed_count = _total_test_failed
 	var current_warning_count =_total_test_warnings
 	var test_case_parameters := test_case.test_parameters()
+	var test_parameter_index := test_case.test_parameter_index()
 	var test_case_names := test_case.test_case_names()
 	for test_case_index in test_case.test_parameters().size():
+		# is test_parameter_index is set, we run this parameterized test only
+		if test_parameter_index != -1 and test_parameter_index != test_case_index:
+			continue
 		await test_before(test_suite, test_case, test_case_names[test_case_index])
 		set_stage(STAGE_TEST_CASE_EXECUTE)
 		_memory_pool.set_pool(test_suite, GdUnitMemoryPool.POOL.EXECUTE, true)
@@ -274,8 +281,6 @@ func Execute(test_suite :GdUnitTestSuite) -> void:
 		return
 	
 	var ts := test_suite
-	_report_collector.register_report_provider(ts)
-	
 	await suite_before(ts, ts.get_child_count())
 	
 	if not ts.is_skipped():
@@ -344,7 +349,7 @@ func dispose_timers(test_suite :GdUnitTestSuite):
 static func create_fuzzers(test_suite :GdUnitTestSuite, test_case :_TestCase) -> Array[Fuzzer]:
 	if not test_case.has_fuzzer():
 		return Array()
-	var fuzzers :Array[Fuzzer]= Array()
+	var fuzzers :Array[Fuzzer] = []
 	for fuzzer_arg in test_case.fuzzer_arguments():
 		var fuzzer := FuzzerTool.create_fuzzer(test_suite.get_script(), fuzzer_arg)
 		fuzzer._iteration_index = 0
