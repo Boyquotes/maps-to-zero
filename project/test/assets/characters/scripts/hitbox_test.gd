@@ -19,7 +19,8 @@ func before_test():
 	# Set up hitbox character
 	_hitbox_character = auto_free(Character.new()) as Character
 	var stats := auto_free(CharacterStats.new()) as CharacterStats
-	_hitbox_character.add_child(stats)
+	stats.set_max_stat(CharacterStats.Types.MP, 100)
+	stats.set_stat(CharacterStats.Types.MP, 50)
 	_hitbox_character._stats = stats
 	
 	_hitbox.set_character(_hitbox_character)
@@ -50,23 +51,23 @@ func test_set_team() -> void:
 
 
 func test_confirm_hit() -> void:
-	_hitbox.on_hit_resource_gain_type = CharacterStats.Types.HP
+	_hitbox.on_hit_resource_gain_type = CharacterStats.Types.MP
 	_hitbox.on_hit_resource_gain_amount = 1
-	var original_hp = _hitbox._character.get_stat(CharacterStats.Types.HP)
+	var original_mp = _hitbox._character.get_stat(CharacterStats.Types.MP)
 	
 	# Setup character to hit
 	var character_to_hit := auto_free(Character.new()) as Character
-	add_child(character_to_hit)
 	
 	# Test case
-	var success := false
+	var called_back := false
 	_hitbox.hit.connect(func(hit_character: Character):
-		success = true
+		called_back = true
 		assert_object(hit_character).is_same(character_to_hit)
 	)
 	_hitbox.confirm_hit(character_to_hit)
-	assert_bool(success, true)
-	assert_int(_hitbox._character.get_stat(CharacterStats.Types.HP), original_hp + _hitbox.on_hit_resource_gain_amount)
+	assert_bool(called_back, true)
+	assert_float(_hitbox._character.get_stat(CharacterStats.Types.MP), \
+			original_mp + _hitbox.on_hit_resource_gain_amount)
 
 
 func test__reset_hitbox_collision() -> void:
