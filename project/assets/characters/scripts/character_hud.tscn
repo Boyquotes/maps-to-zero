@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cckn3gvlx808k"]
+[gd_scene load_steps=2 format=3 uid="uid://cckn3gvlx808k"]
 
 [ext_resource type="Script" path="res://assets/characters/scripts/character_hud.gd" id="1_pfwjm"]
-[ext_resource type="Texture2D" uid="uid://dpfr0rbjsey4h" path="res://assets/hud/progress_bar/border.png" id="2_uqq0e"]
 
 [node name="CharacterHUD" type="Control"]
 layout_mode = 3
@@ -31,20 +30,3 @@ offset_bottom = 23.0
 grow_horizontal = 2
 mouse_filter = 2
 value = 20.0
-
-[node name="NinePatchRect" type="NinePatchRect" parent="HP/ProgressBar"]
-visible = false
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -5.0
-offset_top = -5.0
-offset_right = 5.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_uqq0e")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8

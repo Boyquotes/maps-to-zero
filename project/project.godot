@@ -22,7 +22,7 @@ Events="*res://core/autoloads/event_bus.gd"
 FrameFreeze="*res://core/autoloads/frame_freeze.gd"
 Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 CameraTransition="*res://core/classes/camera/camera_transition.tscn"
-ScreenEffects="*res://core/autoloads/screen_effects.tscn"
+ScreenEffects="*res://core/autoloads/screen_effects/screen_effects.tscn"
 GameManager="*res://core/autoloads/game_manager.gd"
 
 [dialogic]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpfr0rbjsey4h"
-path="res://.godot/imported/border.png-69ae992c5a6c9e2a3d11d8fe2e71361b.ctex"
+uid="uid://bloum3j02ksy4"
+path="res://.godot/imported/speed_line.png-0a079f780e52a3d290105fd50f331e9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/hud/progress_bar/border.png"
-dest_files=["res://.godot/imported/border.png-69ae992c5a6c9e2a3d11d8fe2e71361b.ctex"]
+source_file="res://core/autoloads/screen_effects/speed_line.png"
+dest_files=["res://.godot/imported/speed_line.png-0a079f780e52a3d290105fd50f331e9c.ctex"]
 
 [params]
 

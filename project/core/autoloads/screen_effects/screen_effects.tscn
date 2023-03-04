@@ -1,8 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://vm3dpyi8i87w"]
+[gd_scene load_steps=31 format=3 uid="uid://dmyukkvbcokpr"]
 
-[ext_resource type="Script" path="res://core/autoloads/screen_effects/cutscene_bars.gd" id="1_ibg84"]
-[ext_resource type="Script" path="res://core/autoloads/screen_effects.gd" id="1_xbhkq"]
-[ext_resource type="Texture2D" uid="uid://bloum3j02ksy4" path="res://assets/hud/speed_line.png" id="2_lfy5i"]
+[ext_resource type="Script" path="res://core/autoloads/screen_effects/screen_effects.gd" id="1_2jix6"]
+[ext_resource type="Script" path="res://core/autoloads/screen_effects/cutscene_bars.gd" id="2_p04ma"]
 
 [sub_resource type="Animation" id="Animation_dt7j2"]
 length = 0.001
@@ -728,7 +727,7 @@ _data = {
 
 [node name="ScreenEffects" type="CanvasLayer"]
 layer = 99
-script = ExtResource("1_xbhkq")
+script = ExtResource("1_2jix6")
 
 [node name="CutsceneBars" type="Control" parent="."]
 visible = false
@@ -739,7 +738,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_ibg84")
+script = ExtResource("2_p04ma")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CutsceneBars"]
 autoplay = "RESET"
@@ -786,9 +785,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -48.0
-offset_top = 392.0
+offset_top = -328.0
 offset_right = 86512.0
-offset_bottom = 452.0
+offset_bottom = -268.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0174533
@@ -826,7 +825,6 @@ position = Vector2(640, 360)
 emitting = false
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_r6ff5")
-texture = ExtResource("2_lfy5i")
 lifetime = 0.05
 explosiveness = 1.0
 

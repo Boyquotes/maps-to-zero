@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://assets/hud/action_hud/sidescroller_hud.gd" id="1_1pnwk"]
 [ext_resource type="Texture2D" uid="uid://dnwx17g4wsqkt" path="res://assets/hud/character_icons/Alisa Icon Smol.png" id="1_5fvm3"]
-[ext_resource type="Texture2D" uid="uid://b1sa36rld5x2" path="res://assets/hud/HP_Bar/hp.png" id="1_a66kq"]
+[ext_resource type="Texture2D" uid="uid://b1sa36rld5x2" path="res://assets/hud/hp_bar/hp.png" id="1_a66kq"]
 [ext_resource type="Texture2D" uid="uid://cw6jvh00a433y" path="res://assets/hud/action_hud/skill_icon_frame_2.png" id="2_4r000"]
-[ext_resource type="Texture2D" uid="uid://d0sku8ddtj3wb" path="res://assets/hud/HP_Bar/hp_bg.png" id="2_swpb2"]
-[ext_resource type="Texture2D" uid="uid://d0loroy86cdr3" path="res://assets/hud/HP_Bar/blue.png" id="3_spae1"]
-[ext_resource type="Texture2D" uid="uid://dc4c3cp56vdbr" path="res://assets/hud/HP_Bar/green.png" id="4_2abeb"]
-[ext_resource type="Texture2D" uid="uid://brd1nae16owjr" path="res://assets/hud/HP_Bar/bg.png" id="4_khe4e"]
+[ext_resource type="Texture2D" uid="uid://d0sku8ddtj3wb" path="res://assets/hud/hp_bar/hp_bg.png" id="2_swpb2"]
+[ext_resource type="Texture2D" uid="uid://d0loroy86cdr3" path="res://assets/hud/hp_bar/blue.png" id="3_spae1"]
+[ext_resource type="Texture2D" uid="uid://dc4c3cp56vdbr" path="res://assets/hud/hp_bar/green.png" id="4_2abeb"]
+[ext_resource type="Texture2D" uid="uid://brd1nae16owjr" path="res://assets/hud/hp_bar/bg.png" id="4_khe4e"]
 [ext_resource type="Texture2D" uid="uid://pwlaxiv48ovm" path="res://assets/hud/action_hud/player_icon_frame_2.png" id="7_3tmi2"]
 
 [sub_resource type="Animation" id="Animation_k6cti"]
