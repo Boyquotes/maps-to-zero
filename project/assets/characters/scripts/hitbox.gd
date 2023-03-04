@@ -19,12 +19,7 @@ var _character: Character
 
 
 func _ready():
-	set_collision_layer_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
-	set_collision_mask_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
-	set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
-	set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)
-	monitoring = false
-	monitorable = true
+	_reset_hitbox_collision()
 
 
 func set_character(new_character: Character) -> void:
@@ -39,3 +34,15 @@ func confirm_hit(hit_character: Character) -> void:
 	if _character:
 		_character.change_stat_by(on_hit_resource_gain_type, on_hit_resource_gain_amount)
 	hit.emit(hit_character)
+
+
+func _reset_hitbox_collision() -> void:
+	monitoring = false
+	monitorable = true
+	
+	# Set all collision layers and masks off
+	collision_layer = 0
+	collision_mask = 0
+	# Then only enable the hitbox/hurtbox physics layer
+	set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
+	set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)

@@ -149,12 +149,7 @@ func _ready():
 	_stats.set_stat(CharacterStats.Types.SP, max_sp)
 	
 	_hurtbox.area_entered.connect(_on_hurtbox_entered)
-	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
-	_hurtbox.set_collision_mask_value(GameUtilities.PhysicsLayers.FLOORS_WALLS, false)
-	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)
-	_hurtbox.set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
-	_hurtbox.monitoring = true
-	_hurtbox.monitorable = false
+	_reset_hurtbox_collision()
 	
 	for child in GameUtilities.get_all_subchildren(self):
 		if child is Hitbox:
@@ -337,3 +332,15 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 		GameManager.screen_shake(hitbox.screen_shake_trauma)
 	
 	hitbox.confirm_hit(self)
+
+
+func _reset_hurtbox_collision() -> void:
+	_hurtbox.monitoring = true
+	_hurtbox.monitorable = false
+	
+	# Set all collision layers and masks off
+	_hurtbox.collision_layer = 0
+	_hurtbox.collision_mask = 0
+	# Then only enable the hitbox/hurtbox physics mask
+	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)
+	_hurtbox.set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
