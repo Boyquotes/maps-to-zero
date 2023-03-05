@@ -1,5 +1,6 @@
-[gd_scene load_steps=64 format=3 uid="uid://c5b28kgexp0al"]
+[gd_scene load_steps=65 format=3 uid="uid://c5b28kgexp0al"]
 
+[ext_resource type="PackedScene" uid="uid://bjno2y0rewxkq" path="res://assets/generic_props/sky_island/sky_island.tscn" id="2_2583d"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_adxxg"]
 [ext_resource type="Texture2D" uid="uid://cbatu1oq0kr8a" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/back.png" id="5_5bd5k"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="6_o7q8c"]
@@ -1114,6 +1115,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.458824, 0.984314, 1)
+
+[node name="SkyIsland" parent="Background/Skybox" instance=ExtResource("2_2583d")]
 
 [node name="-60" type="CanvasLayer" parent="Background"]
 layer = -60

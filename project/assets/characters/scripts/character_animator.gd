@@ -29,10 +29,12 @@ var _character: Character:
 			elif owner is Character:
 				_character = owner
 			return _character as Character
-		if actor_name == "":
+		if actor_name == "" and owner is Character:
 			_character = owner
 		elif actor_name == "PLAYER":
 			_character = GameManager.player
+		elif get_child_count() == 1 and get_child(0) is Character:
+			_character = get_child(0)
 		else:
 			if GameManager.actors.has(actor_name):
 				_character = GameManager.actors[actor_name]
@@ -137,6 +139,13 @@ func update_look_direction() -> void:
 			_character.look_direction = Vector2.LEFT
 		_:
 			_character.look_direction = Vector2.RIGHT
+
+
+func play_animation(_animation:="") -> void:
+	if _animation == "":
+		_character.play_animation(animation)
+	else:
+		_character.play_animation(_animation)
 
 
 func move_right() -> void:

@@ -1,8 +1,9 @@
-[gd_scene load_steps=61 format=3 uid="uid://cyxerfv5bf2eo"]
+[gd_scene load_steps=62 format=3 uid="uid://cyxerfv5bf2eo"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_0qeoe"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="1_200cg"]
 [ext_resource type="Texture2D" uid="uid://cbatu1oq0kr8a" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/back.png" id="2_547ma"]
+[ext_resource type="PackedScene" uid="uid://bjno2y0rewxkq" path="res://assets/generic_props/sky_island/sky_island.tscn" id="3_jdu8e"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="3_xdceg"]
 [ext_resource type="Texture2D" uid="uid://c813v8uyyjp64" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/plx-2.png" id="4_xoy8b"]
 [ext_resource type="Texture2D" uid="uid://cbnnaglydt8qn" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_01.png" id="5_hcn8w"]
@@ -953,6 +954,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.458824, 0.984314, 1)
+
+[node name="SkyIsland" parent="Background/Skybox" instance=ExtResource("3_jdu8e")]
 
 [node name="-60" type="CanvasLayer" parent="Background"]
 layer = -60

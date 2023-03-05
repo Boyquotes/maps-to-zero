@@ -43,7 +43,6 @@ func _ready():
 func _emit():
 	var _position :Vector2 = target.global_transform.origin + offset
 	var point = Point.new(_position, lifetime, grow_smaller_over_time)
-	print_debug(_position)
 	if trail_points.size() < 1:
 		trail_points.push_back(point)
 		return

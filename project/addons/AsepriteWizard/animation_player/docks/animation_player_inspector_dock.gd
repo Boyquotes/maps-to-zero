@@ -49,8 +49,8 @@ func _ready():
 	if target_node is Sprite2D || target_node is Sprite3D:
 		animation_creator = SpriteAnimationCreator.new()
 	if target_node is TextureRect:
-		animation_creator = TextureRectAnimationCreator.new()
-	
+		animation_creator = TextureRectAnimationCreator.new()		
+
 	animation_creator.init(config, file_system)
 
 

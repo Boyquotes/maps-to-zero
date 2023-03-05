@@ -1,0 +1,391 @@
+[gd_scene load_steps=28 format=3 uid="uid://dclenp1hn5wih"]
+
+[ext_resource type="Texture2D" uid="uid://c3w2pp4upjuvf" path="res://assets/particles/sprites/white_round_4x4.png" id="1_ooiy8"]
+[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="2_udt61"]
+[ext_resource type="Texture2D" uid="uid://crk5staq6da0o" path="res://assets/generic_props/save_point/star.png" id="3_1htmq"]
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="3_57toi"]
+[ext_resource type="Texture2D" uid="uid://dq65vf74klwe5" path="res://assets/generic_props/save_point/star_glow.png" id="3_wumx4"]
+[ext_resource type="AudioStream" uid="uid://hh7s1d5u55jy" path="res://assets/generic_props/save_point/save_point_loop.wav" id="4_s328o"]
+[ext_resource type="Script" path="res://core/triggers/tickers/regenerate_stat.gd" id="5_5nvqf"]
+[ext_resource type="AudioStream" uid="uid://fg8gbnv7l7c0" path="res://assets/generic_props/save_point/save_point_entered.wav" id="6_47p62"]
+[ext_resource type="Script" path="res://core/triggers/trigger.gd" id="7_rwiod"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0r8m0"]
+blend_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5hfqs"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 480.0
+initial_velocity_max = 480.0
+orbit_velocity_min = 0.95
+orbit_velocity_max = 1.05
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e1lbh"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -480.0
+initial_velocity_max = -480.0
+orbit_velocity_min = -1.05
+orbit_velocity_max = -0.95
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j0vgx"]
+load_path = "res://.godot/imported/white_round_4x4.png-44083893ebb47f57eb7f3460a08a5139.ctex"
+
+[sub_resource type="Gradient" id="Gradient_bdfgi"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rmfjf"]
+gradient = SubResource("Gradient_bdfgi")
+
+[sub_resource type="Curve" id="Curve_bnlej"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.219072, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_huvtv"]
+curve = SubResource("Curve_bnlej")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ddcb8"]
+emission_shape = 3
+emission_box_extents = Vector3(64, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 128.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_huvtv")
+color_ramp = SubResource("GradientTexture1D_rmfjf")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kx05e"]
+light_mode = 1
+
+[sub_resource type="Animation" id="Animation_xev05"]
+resource_name = "flicker"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(-2, 0.5),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.98, 0.98)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(-2, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.956863)]
+}
+
+[sub_resource type="Animation" id="Animation_wokeu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_670c8"]
+_data = {
+"RESET": SubResource("Animation_wokeu"),
+"flicker": SubResource("Animation_xev05")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rufbi"]
+radius = 80.399
+
+[sub_resource type="Animation" id="Animation_u5bfb"]
+resource_name = "show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 0), Color(0, 1, 0, 0), Color(0, 1, 0, 0.0941176)]
+}
+
+[sub_resource type="Animation" id="Animation_mo7u4"]
+resource_name = "hide"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 0.0941176), Color(0, 1, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cbddg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y88ut"]
+_data = {
+"RESET": SubResource("Animation_cbddg"),
+"hide": SubResource("Animation_mo7u4"),
+"show": SubResource("Animation_u5bfb")
+}
+
+[node name="SavePoint" type="Node2D"]
+z_index = 25
+material = SubResource("CanvasItemMaterial_0r8m0")
+
+[node name="Circle" type="GPUParticles2D" parent="."]
+modulate = Color(0, 0.466667, 0, 1)
+use_parent_material = true
+process_material = SubResource("ParticleProcessMaterial_5hfqs")
+texture = ExtResource("1_ooiy8")
+fixed_fps = 244
+visibility_rect = Rect2(-500, -500, 1000, 1000)
+trail_enabled = true
+trail_section_subdivisions = 8
+
+[node name="Circle2" type="GPUParticles2D" parent="."]
+modulate = Color(0, 0.466667, 0, 1)
+use_parent_material = true
+process_material = SubResource("ParticleProcessMaterial_e1lbh")
+texture = SubResource("CompressedTexture2D_j0vgx")
+fixed_fps = 244
+visibility_rect = Rect2(-500, -500, 1000, 1000)
+trail_enabled = true
+trail_section_subdivisions = 8
+
+[node name="LightPillar" type="GPUParticles2D" parent="."]
+modulate = Color(0, 0.466667, 0, 1)
+use_parent_material = true
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_ddcb8")
+texture = ExtResource("2_udt61")
+lifetime = 2.0
+visibility_rect = Rect2(-500, -500, 1000, 1000)
+trail_enabled = true
+
+[node name="Cross" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(0, -80)
+
+[node name="PointLight2D" type="PointLight2D" parent="Cross"]
+color = Color(0, 1, 0.0980392, 1)
+texture = ExtResource("3_wumx4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Cross/PointLight2D"]
+modulate = Color(1, 0.0352941, 0.8, 0.0392157)
+material = SubResource("CanvasItemMaterial_kx05e")
+texture = ExtResource("3_57toi")
+
+[node name="Outline" type="Sprite2D" parent="Cross"]
+modulate = Color(0, 0.988235, 0, 1)
+material = SubResource("CanvasItemMaterial_kx05e")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_wumx4")
+
+[node name="Sprite" type="Sprite2D" parent="Cross"]
+material = SubResource("CanvasItemMaterial_kx05e")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1htmq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cross"]
+autoplay = "flicker"
+libraries = {
+"": SubResource("AnimationLibrary_670c8")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -72)
+color = Color(0, 1, 0, 1)
+texture = ExtResource("3_57toi")
+
+[node name="Sprite2D" type="Sprite2D" parent="PointLight2D"]
+modulate = Color(0, 1, 0, 0.0392157)
+texture = ExtResource("3_57toi")
+
+[node name="Ambience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_s328o")
+volume_db = -6.0
+autoplay = true
+max_distance = 1000.0
+bus = &"Ambience"
+
+[node name="RegenerateHP" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_5nvqf")
+amount = 1.0
+tick_rate = 0.01
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RegenerateHP"]
+position = Vector2(0, -80)
+shape = SubResource("CircleShape2D_rufbi")
+
+[node name="RegenerateMP" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_5nvqf")
+type = 2
+amount = 1.0
+tick_rate = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RegenerateMP"]
+position = Vector2(0, -80)
+shape = SubResource("CircleShape2D_rufbi")
+
+[node name="RegenerateSP" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("5_5nvqf")
+type = 1
+amount = 1.0
+tick_rate = 0.01
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RegenerateSP"]
+position = Vector2(0, -80)
+shape = SubResource("CircleShape2D_rufbi")
+
+[node name="EnteredSfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_47p62")
+
+[node name="EnterTrigger" type="Node2D" parent="."]
+script = ExtResource("7_rwiod")
+
+[node name="Area2D" type="Area2D" parent="EnterTrigger"]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EnterTrigger/Area2D"]
+position = Vector2(0, -80)
+shape = SubResource("CircleShape2D_rufbi")
+
+[node name="ExitTrigger" type="Node2D" parent="."]
+script = ExtResource("7_rwiod")
+
+[node name="Area2D" type="Area2D" parent="ExitTrigger"]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExitTrigger/Area2D"]
+position = Vector2(0, -80)
+shape = SubResource("CircleShape2D_rufbi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 1, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_y88ut")
+}
+
+[connection signal="triggered" from="EnterTrigger" to="EnteredSfx" method="play"]
+[connection signal="triggered" from="EnterTrigger" to="CanvasLayer/AnimationPlayer" method="play" binds= ["show"]]
+[connection signal="area_entered" from="EnterTrigger/Area2D" to="EnterTrigger" method="trigger"]
+[connection signal="triggered" from="ExitTrigger" to="CanvasLayer/AnimationPlayer" method="play" binds= ["hide"]]
+[connection signal="area_exited" from="ExitTrigger/Area2D" to="ExitTrigger" method="trigger"]

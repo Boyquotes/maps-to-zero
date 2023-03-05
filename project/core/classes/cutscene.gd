@@ -10,6 +10,7 @@ signal finished
 @export var show_cutscene_hud_duration: float = 1.0
 @export var hide_cutscene_hud_on_finish := true
 @export var hide_cutscene_hud_duration: float = 1.0
+@export var skippable := true
 
 var _skipping: bool = false
 var _is_ready: bool = false
@@ -58,7 +59,7 @@ func start(_dummy_var=null) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("skip_cutscene") and not _skipping:
+	if event.is_action_pressed("skip_cutscene") and skippable and not _skipping:
 		skip()
 
 

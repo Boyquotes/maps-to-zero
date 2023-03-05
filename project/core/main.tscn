@@ -20,8 +20,7 @@ _data = {
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w7s42")
 player_actor = ExtResource("2_8nx3r")
-initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-save_point.tscn"
-initial_stage_enter_point = 1
+initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-boss_save_point.tscn"
 
 [node name="CameraTargetPosition" type="Node2D" parent="."]
 unique_name_in_owner = true

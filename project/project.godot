@@ -31,10 +31,10 @@ editor/character_preview_mode=0
 editor/current_editor=&"Timeline Editor"
 editor/current_resources={
 "Character Editor": "res://assets/dialog/characters/alisa.dch",
-"Timeline Editor": "res://assets/dialog/timelines/rest_area_tutorial.dtl"
+"Timeline Editor": "res://assets/dialog/timelines/horizon_hills_act_1_boss_rest_area.dtl"
 }
 editor/current_timeline_path="res://assets/dialog/timelines/rest_area_tutorial.dtl"
-editor/last_resources=["res://assets/dialog/timelines/rest_area_tutorial.dtl", "res://assets/dialog/timelines/parkour_tutorial_timeline.dtl", "res://assets/dialog/timelines/skills_stage_timeline.dtl", "res://assets/dialog/timelines/first_dash_successful.dtl", "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl", "res://assets/dialog/timelines/skills_tutorial_3.dtl", "res://assets/dialog/timelines/skills_tutorial_1.dtl", "res://assets/dialog/timelines/skills_tutorial_2.dtl", "res://assets/dialog/characters/alisa.dch", "res://assets/dialog/characters/time_goddess.dch"]
+editor/last_resources=["res://assets/dialog/timelines/horizon_hills_act_1_boss_rest_area.dtl", "res://assets/dialog/timelines/first_dash_successful.dtl", "res://assets/dialog/timelines/enemy_tutorial_cutscene_2.dtl", "res://assets/dialog/timelines/rest_area_tutorial.dtl", "res://assets/dialog/timelines/parkour_tutorial_timeline.dtl", "res://assets/dialog/timelines/skills_stage_timeline.dtl", "res://assets/dialog/timelines/move_tutorial_cutscene_timeline.dtl", "res://assets/dialog/timelines/skills_tutorial_3.dtl", "res://assets/dialog/timelines/skills_tutorial_1.dtl", "res://assets/dialog/timelines/skills_tutorial_2.dtl", "res://assets/dialog/characters/alisa.dch", "res://assets/dialog/characters/time_goddess.dch"]
 layout/mode=0
 variables={}
 glossary/default_case_sensitive=true
@@ -51,7 +51,7 @@ save/autosave_delay=60.0
 text/speed=0.01
 text/skippable=true
 text/autocontinue_delay=1.0
-editor/timeline_editor_mode=1
+editor/timeline_editor_mode=0
 portrait_mode=0
 text/autocolor_names=false
 translation/enabled=false
@@ -72,7 +72,7 @@ movie_writer/movie_file="B:/Videos/Recordings/Godot Recording.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/smoothing/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/Trail/plugin.cfg", "res://addons/smoothing/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/AsepriteWizard/plugin.cfg")
 
 [gdunit4]
 

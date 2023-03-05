@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cq1gauyvnaiy"]
+[gd_scene load_steps=43 format=3 uid="uid://cq1gauyvnaiy"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_ot6r2"]
 [ext_resource type="AudioStream" uid="uid://dlnpcu5kao83d" path="res://assets/sfx/ambience/jungle_thunderstorm.ogg" id="2_6lsr7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="3_qbcmn"]
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_entry_point.gd" id="4_ma73a"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="6_l4oen"]
+[ext_resource type="PackedScene" uid="uid://bjno2y0rewxkq" path="res://assets/generic_props/sky_island/sky_island.tscn" id="6_mlh3y"]
 [ext_resource type="Texture2D" uid="uid://c813v8uyyjp64" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/plx-2.png" id="7_k7bm1"]
 [ext_resource type="Texture2D" uid="uid://cbnnaglydt8qn" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_01.png" id="8_7ppkx"]
 [ext_resource type="Texture2D" uid="uid://b7wpnw5gnjn38" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_02.png" id="9_luxbk"]
@@ -234,6 +235,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.486275, 0.537255, 0.686275, 1)
+
+[node name="SkyIsland" parent="Background/Skybox" instance=ExtResource("6_mlh3y")]
 
 [node name="-59" type="CanvasLayer" parent="Background"]
 layer = -59
