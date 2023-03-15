@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://drsq4tihw4ps0"]
+[gd_scene load_steps=60 format=3 uid="uid://drsq4tihw4ps0"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_x4off"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_nm2y5"]
@@ -24,13 +24,22 @@
 [ext_resource type="PackedScene" uid="uid://duwrhyca3ogoy" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="21_apcab"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="22_kytgm"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="23_s2y5k"]
-[ext_resource type="PackedScene" uid="uid://pnhttpvyusar" path="res://assets/misc/guiding_light.tscn" id="24_2imdm"]
+[ext_resource type="PackedScene" uid="uid://bt2undvgnfxph" path="res://assets/misc/guiding_light.tscn" id="24_2imdm"]
 [ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="25_47ooa"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/rest_area_tutorial.dtl" id="26_hodps"]
 [ext_resource type="Script" path="res://core/triggers/tutorial_trigger.gd" id="28_0b6vb"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="29_4ad52"]
 [ext_resource type="PackedScene" uid="uid://dclenp1hn5wih" path="res://assets/generic_props/save_point/save_point.tscn" id="30_cie6i"]
+[ext_resource type="PackedScene" uid="uid://b820aic0deq0s" path="res://core/interactions/interaction_area_2d.tscn" id="31_3i3ao"]
+[ext_resource type="PackedScene" uid="uid://brfkhloxd60ef" path="res://core/interactions/interactable.tscn" id="31_364cy"]
+[ext_resource type="Texture2D" uid="uid://dpso6xxxkd1lj" path="res://assets/items/placeholder_icon.png" id="32_dpfaf"]
+[ext_resource type="Texture2D" uid="uid://ygxoousvnt4o" path="res://assets/hud/keys/jumbo/dark/Z.png" id="32_mh0xb"]
+[ext_resource type="Script" path="res://core/triggers/item_chest_trigger.gd" id="32_okla0"]
+[ext_resource type="Script" path="res://assets/inventory/inventory_data.gd" id="33_yuvgd"]
+[ext_resource type="Resource" uid="uid://b83vd8r8w70q3" path="res://assets/items/item_data/blue_book.tres" id="34_1fl2d"]
+[ext_resource type="Script" path="res://assets/inventory/slot_data.gd" id="35_vh16q"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="39_nshan"]
+[ext_resource type="PackedScene" uid="uid://cnscxbels5emh" path="res://assets/items/pick_up/pick_up_item.tscn" id="39_nwvvw"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_xxk7e"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="41_iao2w"]
 [ext_resource type="AnimationLibrary" uid="uid://dj88tv48ew0tp" path="res://assets/stages/background_jump_area_visuals_animation_library.tres" id="42_mqcwg"]
@@ -283,10 +292,10 @@ tracks/7/path = NodePath("PlayerAnimator:animation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": ["idle"]
+"values": ["stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand"]
 }
 tracks/8/type = "method"
 tracks/8/imported = false
@@ -328,6 +337,23 @@ size = Vector2(120, 170)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
 size = Vector2(1504, 768)
+
+[sub_resource type="Resource" id="Resource_wxsfb"]
+script = ExtResource("35_vh16q")
+item_data = ExtResource("34_1fl2d")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_grwog"]
+script = ExtResource("35_vh16q")
+item_data = ExtResource("34_1fl2d")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_mo873"]
+script = ExtResource("33_yuvgd")
+slot_datas = Array[ExtResource("35_vh16q")]([SubResource("Resource_wxsfb"), null, SubResource("Resource_grwog"), null])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fprwd"]
+radius = 38.56
 
 [node name="Horizon Hills Act 1 - Second Stretch" type="Node2D"]
 script = ExtResource("1_x4off")
@@ -759,7 +785,7 @@ libraries = {
 script = ExtResource("23_s2y5k")
 actor_name = "PLAYER"
 look_direction = 1
-animation = "idle"
+animation = "stand"
 
 [node name="GuidingLight" type="Marker2D" parent="Cutscenes/SavePointTutorialCutscene"]
 visible = false
@@ -823,6 +849,28 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 position = Vector2(3960, 0)
 shape = SubResource("RectangleShape2D_aqax7")
 debug_color = Color(0, 0.6, 0.701961, 0.0313726)
+
+[node name="Interactable" parent="Triggers" instance=ExtResource("31_364cy")]
+position = Vector2(-32, 232)
+
+[node name="ItemChestTrigger" type="Node2D" parent="Triggers/Interactable/Triggers" index="0"]
+script = ExtResource("32_okla0")
+inventory_data = SubResource("Resource_mo873")
+
+[node name="InteractionArea2D" parent="Triggers/Interactable" instance=ExtResource("31_3i3ao")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Triggers/Interactable/InteractionArea2D/InteractionEnabledVisuals" index="0"]
+position = Vector2(0, -56)
+texture = ExtResource("32_mh0xb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Triggers/Interactable/InteractionArea2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("32_dpfaf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Interactable/InteractionArea2D"]
+shape = SubResource("CircleShape2D_fprwd")
+
+[node name="PickUpItem" parent="Triggers" instance=ExtResource("39_nwvvw")]
 
 [node name="Layout" type="Node2D" parent="."]
 
@@ -944,6 +992,9 @@ flip_v = true
 [connection signal="area_entered" from="Cutscenes/SavePointTutorialCutscene/Area2D" to="Cutscenes/SavePointTutorialCutscene" method="start"]
 [connection signal="closed" from="Cutscenes/SavePointTutorialCutscene/TutorialTrigger" to="Cutscenes/SavePointTutorialCutscene/TutorialTrigger2" method="trigger"]
 [connection signal="area_entered" from="Triggers/CameraSettingsTrigger/Area2d" to="Triggers/CameraSettingsTrigger" method="trigger"]
+[connection signal="triggered" from="Triggers/Interactable/InteractionArea2D" to="Triggers/Interactable" method="trigger"]
 
 [editable path="ExitPoints/StageExitPoint"]
 [editable path="ExitPoints/StageExitPoint2"]
+[editable path="Triggers/Interactable"]
+[editable path="Triggers/Interactable/InteractionArea2D"]

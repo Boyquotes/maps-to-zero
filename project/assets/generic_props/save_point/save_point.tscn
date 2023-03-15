@@ -67,6 +67,33 @@ color_ramp = SubResource("GradientTexture1D_rmfjf")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kx05e"]
 light_mode = 1
 
+[sub_resource type="Animation" id="Animation_wokeu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_xev05"]
 resource_name = "flicker"
 length = 0.4
@@ -96,33 +123,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.956863)]
 }
 
-[sub_resource type="Animation" id="Animation_wokeu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_670c8"]
 _data = {
 "RESET": SubResource("Animation_wokeu"),
@@ -132,9 +132,8 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_rufbi"]
 radius = 80.399
 
-[sub_resource type="Animation" id="Animation_u5bfb"]
-resource_name = "show"
-length = 0.3
+[sub_resource type="Animation" id="Animation_cbddg"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -142,10 +141,10 @@ tracks/0/path = NodePath("ColorRect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -154,10 +153,10 @@ tracks/1/path = NodePath("ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 1, 0, 0), Color(0, 1, 0, 0), Color(0, 1, 0, 0.0941176)]
+"values": [Color(0, 1, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_mo7u4"]
@@ -188,8 +187,9 @@ tracks/1/keys = {
 "values": [Color(0, 1, 0, 0.0941176), Color(0, 1, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_cbddg"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_u5bfb"]
+resource_name = "show"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -197,10 +197,10 @@ tracks/0/path = NodePath("ColorRect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -209,10 +209,10 @@ tracks/1/path = NodePath("ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 1, 0, 0)]
+"values": [Color(0, 1, 0, 0), Color(0, 1, 0, 0), Color(0, 1, 0, 0.0941176)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y88ut"]

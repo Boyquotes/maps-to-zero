@@ -16,7 +16,7 @@
 "portraits": {
 "Normal": {
 "ignore_char_scale": false,
-"image": "res://assets/dialog/characters/Alisa shitty portrait.png",
+"image": "res://assets/dialog/characters/alisa/alisa_portrait.png",
 "mirror": false,
 "offset": Vector2(0, 0),
 "scale": 1,

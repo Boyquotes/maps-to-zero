@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnscxbels5emh"]
+
+[ext_resource type="Script" path="res://assets/items/pick_up/pick_up_item.gd" id="1_ml6tj"]
+[ext_resource type="Texture2D" uid="uid://cv3rgowjjdqmo" path="res://assets/items/item_atlas.tres" id="1_v4g37"]
+[ext_resource type="Resource" uid="uid://cikualg0clstf" path="res://assets/items/item_data/apple.tres" id="2_qogjs"]
+[ext_resource type="Script" path="res://assets/inventory/slot_data.gd" id="3_qr7vr"]
+
+[sub_resource type="Resource" id="Resource_ego2q"]
+script = ExtResource("3_qr7vr")
+item_data = ExtResource("2_qogjs")
+quantity = 20
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_534q1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hsuvk"]
+radius = 16.0
+
+[node name="PickUpItem" type="RigidBody2D"]
+collision_layer = 0
+lock_rotation = true
+script = ExtResource("1_ml6tj")
+slot_data = SubResource("Resource_ego2q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v4g37")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_534q1")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hsuvk")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

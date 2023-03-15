@@ -95,6 +95,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, 8)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%SoftCollision/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ki2ou"]
 loop_mode = 1
@@ -1282,6 +1294,5 @@ script = ExtResource("11_ta8im")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
 position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_2lt0v")
-disabled = true
 
 [connection signal="transitioned" from="StateMachine" to="." method="_on_state_machine_transitioned"]

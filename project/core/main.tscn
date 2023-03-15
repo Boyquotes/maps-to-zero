@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://c3i2qg7f3e6hq"]
 
 [ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_w7s42"]
-[ext_resource type="PackedScene" uid="uid://duso0ahb6lxjg" path="res://assets/characters/alisa/alisa.tscn" id="2_8nx3r"]
+[ext_resource type="PackedScene" uid="uid://duso0ahb6lxjg" path="res://assets/characters/alisa/alisa.tscn" id="2_faxvj"]
 [ext_resource type="Script" path="res://core/classes/camera/camera_target_position.gd" id="3_5rup2"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_jpdgf"]
 [ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_h6djx"]
 [ext_resource type="Script" path="res://assets/hud/fps_counter.gd" id="6_xk1lb"]
 [ext_resource type="PackedScene" path="res://assets/hud/components/yes_no_menu/yes_no_menu.tscn" id="7_8s6i4"]
-[ext_resource type="PackedScene" path="res://assets/hud/action_hud/sidescroller_hud.tscn" id="8_bocmk"]
+[ext_resource type="PackedScene" uid="uid://cq4u36n2dswf" path="res://assets/hud/action_hud/sidescroller_hud.tscn" id="8_bocmk"]
 
 [sub_resource type="Animation" id="Animation_jgklv"]
 resource_name = "player_defeated"
@@ -17,10 +17,10 @@ _data = {
 "player_defeated": SubResource("Animation_jgklv")
 }
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 script = ExtResource("1_w7s42")
-player_actor = ExtResource("2_8nx3r")
-initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-boss_save_point.tscn"
+player_actor = ExtResource("2_faxvj")
+initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-save_point.tscn"
 
 [node name="CameraTargetPosition" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -65,6 +65,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="FPS Counter" type="Label" parent="DebugInfo/Control"]
 layout_mode = 1
@@ -97,7 +98,17 @@ text = "Work In Progress - Nothing you see is final!"
 unique_name_in_owner = true
 layer = 101
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_ons8l")
+}
+
+[node name="SidescrollerHUD" parent="." instance=ExtResource("8_bocmk")]
+unique_name_in_owner = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
 
 [node name="PlayerDefeatedScreen" type="Control" parent="CanvasLayer"]
 visible = false
@@ -107,6 +118,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/PlayerDefeatedScreen"]
 layout_mode = 0
@@ -114,6 +126,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="YesNoMenu" parent="CanvasLayer/PlayerDefeatedScreen" instance=ExtResource("7_8s6i4")]
@@ -130,12 +143,5 @@ theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Ouch! Game Over!
 Retry?[/center]"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_ons8l")
-}
-
-[node name="SidescrollerHUD" parent="." instance=ExtResource("8_bocmk")]
 
 [editable path="CanvasLayer/PlayerDefeatedScreen/YesNoMenu"]

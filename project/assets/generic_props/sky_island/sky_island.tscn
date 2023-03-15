@@ -560,6 +560,21 @@ _data = {
 "float": SubResource("Animation_b3u57")
 }
 
+[sub_resource type="Animation" id="Animation_ahrqm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ltoay"]
 resource_name = "float"
 length = 10.0
@@ -577,7 +592,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, -8)]
 }
 
-[sub_resource type="Animation" id="Animation_ahrqm"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_red2c"]
+_data = {
+"RESET": SubResource("Animation_ahrqm"),
+"float": SubResource("Animation_ltoay")
+}
+
+[sub_resource type="Animation" id="Animation_y2a3u"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -590,12 +611,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_red2c"]
-_data = {
-"RESET": SubResource("Animation_ahrqm"),
-"float": SubResource("Animation_ltoay")
 }
 
 [sub_resource type="Animation" id="Animation_4743c"]
@@ -615,7 +630,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 4)]
 }
 
-[sub_resource type="Animation" id="Animation_y2a3u"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0pkrm"]
+_data = {
+"RESET": SubResource("Animation_y2a3u"),
+"float": SubResource("Animation_4743c")
+}
+
+[sub_resource type="Animation" id="Animation_cb8e5"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -628,12 +649,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0pkrm"]
-_data = {
-"RESET": SubResource("Animation_y2a3u"),
-"float": SubResource("Animation_4743c")
 }
 
 [sub_resource type="Animation" id="Animation_7vf8l"]
@@ -653,7 +668,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 4)]
 }
 
-[sub_resource type="Animation" id="Animation_cb8e5"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bojw3"]
+_data = {
+"RESET": SubResource("Animation_cb8e5"),
+"float": SubResource("Animation_7vf8l")
+}
+
+[sub_resource type="Animation" id="Animation_a0q4s"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -666,12 +687,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bojw3"]
-_data = {
-"RESET": SubResource("Animation_cb8e5"),
-"float": SubResource("Animation_7vf8l")
 }
 
 [sub_resource type="Animation" id="Animation_o7rmd"]
@@ -691,7 +706,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 8)]
 }
 
-[sub_resource type="Animation" id="Animation_a0q4s"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bloea"]
+_data = {
+"RESET": SubResource("Animation_a0q4s"),
+"float": SubResource("Animation_o7rmd")
+}
+
+[sub_resource type="Animation" id="Animation_ylknx"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -704,12 +725,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bloea"]
-_data = {
-"RESET": SubResource("Animation_a0q4s"),
-"float": SubResource("Animation_o7rmd")
 }
 
 [sub_resource type="Animation" id="Animation_11ja6"]
@@ -729,7 +744,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, -8)]
 }
 
-[sub_resource type="Animation" id="Animation_ylknx"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_smxpi"]
+_data = {
+"RESET": SubResource("Animation_ylknx"),
+"float": SubResource("Animation_11ja6")
+}
+
+[sub_resource type="Animation" id="Animation_jxa0l"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -742,12 +763,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_smxpi"]
-_data = {
-"RESET": SubResource("Animation_ylknx"),
-"float": SubResource("Animation_11ja6")
 }
 
 [sub_resource type="Animation" id="Animation_81jmf"]
@@ -767,7 +782,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 32)]
 }
 
-[sub_resource type="Animation" id="Animation_jxa0l"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pnqs3"]
+_data = {
+"RESET": SubResource("Animation_jxa0l"),
+"float": SubResource("Animation_81jmf")
+}
+
+[sub_resource type="Animation" id="Animation_fqot6"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -780,12 +801,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pnqs3"]
-_data = {
-"RESET": SubResource("Animation_jxa0l"),
-"float": SubResource("Animation_81jmf")
 }
 
 [sub_resource type="Animation" id="Animation_pt33k"]
@@ -805,7 +820,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 16)]
 }
 
-[sub_resource type="Animation" id="Animation_fqot6"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qvag2"]
+_data = {
+"RESET": SubResource("Animation_fqot6"),
+"float": SubResource("Animation_pt33k")
+}
+
+[sub_resource type="Animation" id="Animation_skm3u"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -818,12 +839,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qvag2"]
-_data = {
-"RESET": SubResource("Animation_fqot6"),
-"float": SubResource("Animation_pt33k")
 }
 
 [sub_resource type="Animation" id="Animation_tggbo"]
@@ -843,7 +858,13 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 8)]
 }
 
-[sub_resource type="Animation" id="Animation_skm3u"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wyvrj"]
+_data = {
+"RESET": SubResource("Animation_skm3u"),
+"float": SubResource("Animation_tggbo")
+}
+
+[sub_resource type="Animation" id="Animation_dsyky"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -856,12 +877,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wyvrj"]
-_data = {
-"RESET": SubResource("Animation_skm3u"),
-"float": SubResource("Animation_tggbo")
 }
 
 [sub_resource type="Animation" id="Animation_05aus"]
@@ -879,21 +894,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -4)]
-}
-
-[sub_resource type="Animation" id="Animation_dsyky"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_unpdm"]
@@ -969,7 +969,6 @@ metadata/_aseprite_wizard_config_ = {
 texture_filter = 1
 position = Vector2(-832, 557.06)
 rotation = 0.349066
-scale = Vector2(1, 1)
 texture = ExtResource("8_scjok")
 metadata/_aseprite_wizard_config_ = {
 "layer": "chain",
@@ -986,7 +985,6 @@ metadata/_aseprite_wizard_config_ = {
 texture_filter = 1
 position = Vector2(-1360, 727.232)
 rotation = 0.698132
-scale = Vector2(1, 1)
 texture = ExtResource("8_scjok")
 metadata/_aseprite_wizard_config_ = {
 "layer": "chain",
@@ -1022,7 +1020,6 @@ metadata/_aseprite_wizard_config_ = {
 texture_filter = 1
 position = Vector2(-832, 557.06)
 rotation = 0.349066
-scale = Vector2(1, 1)
 texture = ExtResource("8_scjok")
 metadata/_aseprite_wizard_config_ = {
 "layer": "chain",
@@ -1039,7 +1036,6 @@ metadata/_aseprite_wizard_config_ = {
 texture_filter = 1
 position = Vector2(-1360, 727.232)
 rotation = 0.698132
-scale = Vector2(1, 1)
 texture = ExtResource("8_scjok")
 metadata/_aseprite_wizard_config_ = {
 "layer": "chain",

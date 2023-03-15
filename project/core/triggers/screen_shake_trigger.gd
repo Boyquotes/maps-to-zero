@@ -1,3 +1,4 @@
+class_name ScreenShakeTrigger
 extends Trigger
 
 @export var trauma := 0.0

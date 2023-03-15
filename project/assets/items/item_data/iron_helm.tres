@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataEquipment" load_steps=4 format=3 uid="uid://76i0urynfqvu"]
+
+[ext_resource type="Script" path="res://assets/items/item_data_equipment.gd" id="1_542jv"]
+[ext_resource type="Texture2D" uid="uid://3nksi4op5jel" path="res://assets/items/#1 - Transparent Icons.png" id="2_513nv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bujgi"]
+atlas = ExtResource("2_513nv")
+region = Rect2(32, 224, 32, 32)
+
+[resource]
+script = ExtResource("1_542jv")
+defense = 1
+name = "Iron Helm"
+description = "It's like a hat, but made out of iron."
+stackable = false
+texture = SubResource("AtlasTexture_bujgi")

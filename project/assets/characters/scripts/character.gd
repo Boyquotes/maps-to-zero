@@ -4,7 +4,11 @@ class_name Character
 
 signal stat_changed(type, new_value, old_value, max_value)
 signal defeated
+signal toggle_menu_requested
 
+
+@export var inventory_data: InventoryData
+@export var equipment_inventory_data: InventoryDataEquipment
 @export var max_hp := 100.0
 @export var max_mp := 300.0
 @export var max_sp := 0.0
@@ -184,6 +188,16 @@ func _on_tree_exited():
 	GameManager.actors.erase(str(name))
 
 
+## This function will immediately consume input without buffering inputs.
+## This is only for inputs that the character should ALWAYS be able to handle,
+## regardless of state, such as handling character UI elements
+func _unhandled_input(event) -> void:
+	if event.is_action_pressed("menu"):
+		toggle_menu_requested.emit()
+
+
+## This function handles input from the input buffer.
+## Use this to handle primary gameplay actions such as moving and attacking.
 func unhandled_input(event: InputEvent) -> void:
 	_input_buffer.add_input(event)
 	state_machine.unhandled_input(event)
@@ -212,6 +226,10 @@ func take_damage(value: float, type: CharacterStats.Types=CharacterStats.Types.H
 func defeat() -> void:
 	defeated.emit()
 	state_machine.transition_to("Defeat")
+
+
+func heal(by: float) -> void:
+	_stats.change_stat_by(CharacterStats.Types.HP, by)
 
 
 func request_state_transition(target_state_name : String, msg: Dictionary = {}):
@@ -275,6 +293,14 @@ func change_stat_by(type: CharacterStats.Types, value, clamp_value := true) -> v
 
 func get_state(state_name: StringName) -> State:
 	return state_machine.get_state(state_name)
+
+
+func get_item_drop_position() -> Vector2:
+	return global_position + look_direction * 32
+
+
+func use_item_slot_data(item_slot_data: SlotData) -> void:
+	item_slot_data.item_data.use(self)
 
 
 func _on_state_machine_transitioned(_to_state, _from_state):

@@ -1,41 +1,76 @@
 class_name SidescrollerMain
-extends Node2D
+extends Node
+
+
+signal respawn_cutscene_finished
+
+
+const PICK_UP = preload("res://assets/items/pick_up/pick_up_item.tscn")
+
 
 @export var player_actor: PackedScene
 @export var initial_stage_file_path: String
 @export var initial_stage_enter_point: int
 
-@onready var actors_parent := %ActorsParent
-@onready var camera_target_position: Node2D = %CameraTargetPosition
-@onready var gameplay_camera: GameplayCamera2D = %GameplayCamera
-@onready var transition_camera: Camera2D = %TransitionCamera
-@onready var popup_canvas: CanvasLayer = %PopupCanvas
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sidescroller_hud : Control = $SidescrollerHUD
 
 var currently_loaded_stage: Stage
 var player: Character
 var respawn_cutscene_playing: bool = false
-signal respawn_cutscene_finished
+
+
+@onready var actors_parent := %ActorsParent as Node2D
+@onready var camera_target_position := %CameraTargetPosition as Node2D
+@onready var gameplay_camera := %GameplayCamera as GameplayCamera2D
+@onready var transition_camera := %TransitionCamera as Camera2D
+@onready var popup_canvas := %PopupCanvas as CanvasLayer
+@onready var animation_player := %AnimationPlayer as AnimationPlayer
+@onready var sidescroller_hud := %SidescrollerHUD as SidescrollerHUD
+
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
+	sidescroller_hud._inventory_interface.dropped_slot_data.connect(_on_inventory_interface_dropped_slot_data)
+	sidescroller_hud._inventory_interface.force_close.connect(toggle_inventory_interface)
+	
 	GameManager.gameplay_camera = gameplay_camera
 	GameManager.transition_camera = transition_camera
 	GameManager.popup_canvas = popup_canvas
 	GameManager.sidescroller_main = self
 	
-	player = player_actor.instantiate() as Character
+	player = initialize_player()
+	attach_camera_to_player()
+	
+	GameManager.request_stage_change(initial_stage_file_path, initial_stage_enter_point)
+
+
+func initialize_player() -> Character:
+	var player = player_actor.instantiate() as Character
+	
+	player.stat_changed.connect(Events._on_player_resource_changed)
+	player.toggle_menu_requested.connect(toggle_menu)
+	
 	player.max_background_jumps = SaveData.player_data.base_max_background_jumps
 	player.max_mid_air_jumps = SaveData.player_data.base_max_mid_air_jumps
 	
-	player.stat_changed.connect(Events._on_player_resource_changed)
+	player.inventory_data = load("res://core/save_data/player_inventory.tres")
+	player.equipment_inventory_data = load("res://core/save_data/player_equipment_inventory.tres")
+	sidescroller_hud.set_player_inventory_data(player.inventory_data)
+	sidescroller_hud.set_equipment_inventory_data(player.equipment_inventory_data)
+	sidescroller_hud.set_hot_bar_inventory_data(player.inventory_data)
+	
 	GameManager.player = player
+	
 	actors_parent.add_child(player)
+	
+	return player
+
+
+func attach_camera_to_player() -> void:
 	camera_target_position.get_parent().remove_child(camera_target_position)
 	player.add_child(camera_target_position)
 	gameplay_camera.position = Vector2.ZERO
-	
-	GameManager.request_stage_change(initial_stage_file_path, initial_stage_enter_point)
+
 
 func change_stage(stage_scene: PackedScene, player_entry_point: int, player_respawning: bool=false) -> void:
 	if currently_loaded_stage and is_instance_valid(currently_loaded_stage):
@@ -50,6 +85,8 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 	if not player.defeated.is_connected(player_defeated):
 		player.defeated.connect(player_defeated) # Connection before adding stage, in case stage does something with player defeated
 	add_child(currently_loaded_stage)
+	
+	_initialize_item_chests()
 	
 	if currently_loaded_stage.normal_entry:
 		var entry_point: StageEntryPoint = currently_loaded_stage.entry_points[player_entry_point]
@@ -75,6 +112,15 @@ func player_defeated() -> void:
 		$CanvasLayer/PlayerDefeatedScreen.visible = false
 	player_defeated_yes_no_menu.initialize(player_defeated_yes_no_menu.message_label.text, yes_action, no_action)
 	player_defeated_yes_no_menu.yes_button.grab_focus()
+
+
+func toggle_menu() -> void:
+	sidescroller_hud.toggle_menu()
+
+
+func toggle_inventory_interface(external_inventory_owner) -> void:
+	print_debug("Toggle inventory")
+	sidescroller_hud.toggle_inventory_interface(external_inventory_owner)
 
 
 func _input(event):
@@ -128,3 +174,15 @@ func player_respawn_cutscene() -> void:
 #	respawn_cutscene_playing = false
 #	respawn_cutscene_finished.emit()
 	pass
+
+
+func _initialize_item_chests() -> void:
+	for node in get_tree().get_nodes_in_group("item_chest_triggers"):
+		node.toggle_inventory.connect(toggle_inventory_interface)
+
+
+func _on_inventory_interface_dropped_slot_data(slot_data: SlotData) -> void:
+	var pick_up = PICK_UP.instantiate()
+	pick_up.slot_data = slot_data
+	pick_up.global_position = player.get_item_drop_position()
+	player.get_parent().add_child(pick_up)

@@ -1,40 +1,13 @@
 [gd_scene load_steps=25 format=3 uid="uid://bt2undvgnfxph"]
 
-[ext_resource type="Texture2D" uid="uid://cichi7ivj2hm3" path="res://assets/misc/guiding_light/star_glow.png" id="1_kleey"]
-[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_lfo3p"]
-[ext_resource type="Texture2D" uid="uid://dq65vf74klwe5" path="res://assets/generic_props/save_point/star_glow.png" id="3_psfxf"]
-[ext_resource type="Texture2D" uid="uid://cnugeffw1rp8q" path="res://assets/misc/guiding_light/star.png" id="4_4henv"]
+[ext_resource type="Texture2D" uid="uid://dq65vf74klwe5" path="res://assets/generic_props/save_point/star_glow.png" id="1_8vf4x"]
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_bqkp8"]
+[ext_resource type="Texture2D" uid="uid://cichi7ivj2hm3" path="res://assets/misc/guiding_light/star_glow.png" id="3_iq2ew"]
+[ext_resource type="Texture2D" uid="uid://cnugeffw1rp8q" path="res://assets/misc/guiding_light/star.png" id="4_jhpq1"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eg4q8"]
 blend_mode = 1
 light_mode = 1
-
-[sub_resource type="Animation" id="Animation_h8jtu"]
-resource_name = "appear"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2),
-"update": 0,
-"values": [Vector2(0, 640), Vector2(-160, 560), Vector2(200, 480), Vector2(-240, 400), Vector2(240, 360), Vector2(-240, 320), Vector2(200, 240), Vector2(-160, 160), Vector2(120, 120), Vector2(-80, 32), Vector2(0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_fmugr"]
 resource_name = "RESET"
@@ -64,6 +37,33 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_h8jtu"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(0, 640), Vector2(-160, 560), Vector2(200, 480), Vector2(-240, 400), Vector2(240, 360), Vector2(-240, 320), Vector2(200, 240), Vector2(-160, 160), Vector2(120, 120), Vector2(-80, 32), Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_nglvu"]
 resource_name = "fly_out"
 tracks/0/type = "value"
@@ -86,6 +86,21 @@ _data = {
 "fly_out": SubResource("Animation_nglvu")
 }
 
+[sub_resource type="Animation" id="Animation_kflvt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inner/BobUpAndDown:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_pbm7n"]
 resource_name = "bob_up_and_down"
 length = 5.0
@@ -101,21 +116,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -64)]
-}
-
-[sub_resource type="Animation" id="Animation_kflvt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Inner/BobUpAndDown:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2jdp0"]
@@ -193,6 +193,33 @@ _data = {
 blend_mode = 1
 light_mode = 1
 
+[sub_resource type="Animation" id="Animation_0foox"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_u37qa"]
 resource_name = "flicker"
 length = 0.4
@@ -220,33 +247,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(-2, 0.5),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.956863)]
-}
-
-[sub_resource type="Animation" id="Animation_0foox"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_377fc"]
@@ -282,7 +282,7 @@ material = SubResource("CanvasItemMaterial_jdkqw")
 use_parent_material = true
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_kyg61")
-texture = ExtResource("3_psfxf")
+texture = ExtResource("1_8vf4x")
 visibility_rect = Rect2(-10000, -10000, 20000, 20000)
 
 [node name="PointLight2D" type="PointLight2D" parent="Inner/BobUpAndDown"]
@@ -290,7 +290,7 @@ use_parent_material = true
 color = Color(1, 0.192157, 0.619608, 1)
 range_layer_min = -10
 range_layer_max = 10
-texture = ExtResource("2_lfo3p")
+texture = ExtResource("2_bqkp8")
 texture_scale = 0.5
 
 [node name="GlowSprite" type="Sprite2D" parent="Inner/BobUpAndDown"]
@@ -298,7 +298,7 @@ modulate = Color(1, 0.192157, 0.619608, 0.14902)
 material = SubResource("CanvasItemMaterial_tvf5q")
 use_parent_material = true
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_lfo3p")
+texture = ExtResource("2_bqkp8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/BobUpAndDown/GlowSprite"]
 root_node = NodePath("../../../..")
@@ -311,20 +311,20 @@ libraries = {
 
 [node name="PointLight2D" type="PointLight2D" parent="Inner/BobUpAndDown/Cross"]
 color = Color(1, 0.207843, 0.862745, 1)
-texture = ExtResource("3_psfxf")
+texture = ExtResource("1_8vf4x")
 
 [node name="Outline" type="Sprite2D" parent="Inner/BobUpAndDown/Cross"]
 modulate = Color(1, 0.207843, 0.862745, 1)
 material = SubResource("CanvasItemMaterial_ld1f3")
 use_parent_material = true
 scale = Vector2(0.75, 0.75)
-texture = ExtResource("1_kleey")
+texture = ExtResource("3_iq2ew")
 
 [node name="Sprite2D" type="Sprite2D" parent="Inner/BobUpAndDown/Cross"]
 material = SubResource("CanvasItemMaterial_ld1f3")
 use_parent_material = true
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_4henv")
+texture = ExtResource("4_jhpq1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/BobUpAndDown/Cross"]
 autoplay = "flicker"

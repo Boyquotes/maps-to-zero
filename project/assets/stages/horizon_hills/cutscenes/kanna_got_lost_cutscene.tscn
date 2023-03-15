@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="1_fl1lg"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_fqrya"]
 [ext_resource type="Script" path="res://core/triggers/trigger.gd" id="5_byv5k"]
-[ext_resource type="PackedScene" path="res://core/interactions/InteractionArea2D.tscn" id="7_fn8yw"]
+[ext_resource type="PackedScene" path="res://core/interactions/interaction_area_2d.tscn" id="7_fn8yw"]
 [ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particles/sprites/exclamation_mark.png" id="8_03dpt"]
-[ext_resource type="PackedScene" uid="uid://cvknvk2qx4kcc" path="res://assets/characters/kanna/kanna.tscn" id="9_gt63a"]
+[ext_resource type="PackedScene" uid="uid://cf08b6jac357e" path="res://assets/characters/kanna/kanna.tscn" id="9_gt63a"]
 
 [sub_resource type="Animation" id="Animation_o8qul"]
 resource_name = "1"

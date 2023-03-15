@@ -6,12 +6,7 @@ const SAVE_GAME_FOLDER := "user://saves/"
 
 # Save file data
 var version := 1
-var player_data := {
-	stats = {},
-	max_stats = {},
-	base_max_background_jumps = 3,
-	base_max_mid_air_jumps = 0,
-}
+var player_data : PlayerData = PlayerData.new()
 var stage_data := {
 	current_stage_file_path = "",
 	player_saved_position = Vector2.ZERO,

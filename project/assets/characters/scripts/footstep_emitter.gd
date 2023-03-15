@@ -20,7 +20,7 @@ var sfx_library : Dictionary = {
 @export var pitch_scale_min := 0.9
 @export var pitch_scale_max := 1.1
 
-@onready var sfx_player : AudioStreamPlayer2DExtended = $AudioStreamPlayer2DExtended
+@onready var sfx_player := $AudioStreamPlayer2DExtended as AudioStreamPlayer2DExtended
 
 func emit_footstep() -> void:
 	var footstep_type = FootstepTypes.DEFAULT

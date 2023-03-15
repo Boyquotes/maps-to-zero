@@ -10,6 +10,7 @@ signal file_activated(file_path)
 
 func _ready():
 	%ResourcesList.item_selected.connect(_on_resources_list_item_selected)
+	%ResourcesList.item_clicked.connect(_on_resources_list_item_clicked)
 	editors_manager.resource_opened.connect(_on_editors_resource_opened)
 	editors_manager.editor_changed.connect(_on_editors_editor_changed)
 	%Search.right_icon = get_theme_icon("Search", "EditorIcons")
@@ -44,7 +45,7 @@ func _on_editors_editor_changed(previous:DialogicEditor, current:DialogicEditor)
 	update_resource_list()
 
 
-func update_resource_list() -> void:
+func update_resource_list(resources_list:PackedStringArray = []) -> void:
 	var filter :String = %Search.text
 	var current_file := ""
 	if editors_manager.current_editor and editors_manager.current_editor.current_resource:
@@ -52,12 +53,13 @@ func update_resource_list() -> void:
 	
 	var character_directory: Dictionary = editors_manager.resource_helper.character_directory
 	var timeline_directory: Dictionary = editors_manager.resource_helper.timeline_directory
-	var latest_resources: Array = DialogicUtil.get_project_setting('dialogic/editor/last_resources', [])
+	if resources_list.is_empty():
+		resources_list = ProjectSettings.get_setting('dialogic/editor/last_resources', [])
 	
 	%ResourcesList.clear()
 	var idx := 0
 	for character in character_directory.values():
-		if character['full_path'] in latest_resources:
+		if character['full_path'] in resources_list:
 			if filter.is_empty() or filter.to_lower() in character['unique_short_path'].to_lower():
 				%ResourcesList.add_item(
 						character['unique_short_path'], 
@@ -69,7 +71,7 @@ func update_resource_list() -> void:
 					%ResourcesList.set_item_custom_fg_color(idx, get_theme_color("accent_color", "Editor"))
 				idx += 1
 	for timeline_name in timeline_directory:
-		if timeline_directory[timeline_name] in latest_resources:
+		if timeline_directory[timeline_name] in resources_list:
 			if filter.is_empty() or filter.to_lower() in timeline_name.to_lower():
 				%ResourcesList.add_item(timeline_name, get_theme_icon("TripleBar", "EditorIcons"))
 				%ResourcesList.set_item_metadata(idx, timeline_directory[timeline_name])
@@ -85,6 +87,16 @@ func _on_resources_list_item_selected(index:int) -> void:
 		return
 	editors_manager.edit_resource(load(%ResourcesList.get_item_metadata(index)))
 
+
+func _on_resources_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int):
+	# If clicked with the middle mouse button, remove the item from the list
+	if mouse_button_index == 3:
+		var new_list = []
+		for entry in ProjectSettings.get_setting('dialogic/editor/last_resources', []):
+			if entry != %ResourcesList.get_item_metadata(index):
+				new_list.append(entry)
+		ProjectSettings.set_setting('dialogic/editor/last_resources', new_list)
+		%ResourcesList.remove_item(index)
 
 func _on_search_text_changed(new_text:String) -> void:
 	update_resource_list()

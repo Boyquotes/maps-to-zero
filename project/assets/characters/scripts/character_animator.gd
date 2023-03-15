@@ -13,9 +13,24 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 @export var animation := "":
 	set(value):
 		animation = value
-		if not _movement_mode == MovementModes.DISABLED:
+		if not _movement_mode == MovementModes.DISABLED or Engine.is_editor_hint():
 			if _character:
 				_character.play_animation(animation)
+@export var attack_input_listening : bool:
+	set(value):
+		attack_input_listening = value
+		if not _movement_mode == MovementModes.DISABLED:
+			_character.attack_input_listening = attack_input_listening
+@export var can_cancel_out_of_attack : bool:
+	set(value):
+		can_cancel_out_of_attack = value
+		if not _movement_mode == MovementModes.DISABLED:
+			_character.attack_can_cancel = can_cancel_out_of_attack
+@export var can_go_to_next_attack : bool:
+	set(value):
+		can_go_to_next_attack = value
+		if not _movement_mode == MovementModes.DISABLED:
+			_character.attack_can_go_to_next = can_go_to_next_attack
 
 
 var _last_frame_position : Vector2
