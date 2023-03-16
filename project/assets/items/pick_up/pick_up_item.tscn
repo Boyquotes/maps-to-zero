@@ -1,9 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnscxbels5emh"]
+[gd_scene load_steps=19 format=3 uid="uid://cnscxbels5emh"]
 
 [ext_resource type="Script" path="res://assets/items/pick_up/pick_up_item.gd" id="1_ml6tj"]
 [ext_resource type="Texture2D" uid="uid://cv3rgowjjdqmo" path="res://assets/items/item_atlas.tres" id="1_v4g37"]
 [ext_resource type="Resource" uid="uid://cikualg0clstf" path="res://assets/items/item_data/apple.tres" id="2_qogjs"]
 [ext_resource type="Script" path="res://assets/inventory/slot_data.gd" id="3_qr7vr"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="5_2coxb"]
+[ext_resource type="AudioStream" uid="uid://xcqu02ja12ep" path="res://assets/items/pick_up/default_pick_up_sfx.ogg" id="5_sb6pr"]
+[ext_resource type="PackedScene" uid="uid://dijgy2jmgkkr1" path="res://assets/items/pick_up/default_pick_up_item_particles.tscn" id="6_nxgo8"]
+[ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="8_7ycxn"]
+[ext_resource type="PackedScene" uid="uid://c01trt0xcc1fp" path="res://assets/characters/alisa/particles/alisa_dash_explosion_particles.tscn" id="9_h7oc3"]
+[ext_resource type="AudioStream" uid="uid://bpsup87wn8a3o" path="res://assets/characters/alisa/sfx/glass_shatter.wav" id="10_h5xij"]
 
 [sub_resource type="Resource" id="Resource_ego2q"]
 script = ExtResource("3_qr7vr")
@@ -13,6 +19,76 @@ quantity = 20
 [sub_resource type="CircleShape2D" id="CircleShape2D_534q1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hsuvk"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_x0krv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kuf77"]
+resource_name = "animation"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_y0jam"]
+resource_name = "pick_up"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22py2"]
+_data = {
+"RESET": SubResource("Animation_x0krv"),
+"animation": SubResource("Animation_kuf77"),
+"pick_up": SubResource("Animation_y0jam")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jj13r"]
 radius = 16.0
 
 [node name="PickUpItem" type="RigidBody2D"]
@@ -33,5 +109,35 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_hsuvk")
+
+[node name="PickUpSfx" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_sb6pr")
+bus = &"Sfx"
+
+[node name="ParticleSpawner" type="Marker2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_2coxb")
+particles_scene = ExtResource("6_nxgo8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "animation"
+libraries = {
+"": SubResource("AnimationLibrary_22py2")
+}
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8_7ycxn")
+base_value = 10.0
+hit_particles = ExtResource("9_h7oc3")
+hit_sfx = ExtResource("10_h5xij")
+on_hit_resource_gain_type = 1
+on_hit_resource_gain_amount = 5.0
+frame_freeze_duration_milliseconds = 200
+screen_shake_trauma = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_jj13r")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/input_key_transition.gd" id="11_d4qx0"]
 [ext_resource type="Script" path="res://core/states/character_states/attack.gd" id="11_ta8im"]
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="12_om4q0"]
-[ext_resource type="PackedScene" path="res://assets/particles_one_shot/attack_incoming.tscn" id="12_q4oum"]
+[ext_resource type="PackedScene" uid="uid://b3fuo5sbgykhn" path="res://assets/particles_one_shot/attack_incoming.tscn" id="12_q4oum"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="13_q36hh"]
 [ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="15_453yb"]
 [ext_resource type="AudioStream" uid="uid://bnohujmie3ade" path="res://assets/sfx/footsteps_default_1.wav" id="15_bpqll"]

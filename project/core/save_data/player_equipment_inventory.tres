@@ -4,3 +4,4 @@
 
 [resource]
 script = ExtResource("1_k8mcy")
+slot_datas = Array[Resource("res://assets/inventory/slot_data.gd")]([null, null, null, null, null, null])

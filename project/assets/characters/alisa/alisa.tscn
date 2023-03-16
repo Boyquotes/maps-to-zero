@@ -1,6 +1,6 @@
-[gd_scene load_steps=155 format=3 uid="uid://duso0ahb6lxjg"]
+[gd_scene load_steps=157 format=3 uid="uid://duso0ahb6lxjg"]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_j3c5v"]
+[ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
 [ext_resource type="Texture2D" uid="uid://be7311krlwv7b" path="res://assets/characters/alisa/sprites/alisa.png" id="3_k3unl"]
 [ext_resource type="Texture2D" uid="uid://pe81q7uvkijr" path="res://assets/characters/alisa/sprites/Horns.png" id="5_p6dq2"]
@@ -59,6 +59,8 @@
 [ext_resource type="Script" path="res://core/interactions/interaction_area_activator_2d.gd" id="57_h5aei"]
 [ext_resource type="Script" path="res://core/states/transition_requirements/stat_requirement.gd" id="57_ui81h"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/jump_with_speed_transition.gd" id="58_g5qbg"]
+[ext_resource type="Script" path="res://core/states/transition_requirements/is_not_grounded.gd" id="58_k6wkn"]
+[ext_resource type="Script" path="res://core/states/transition_requirements/is_grounded.gd" id="58_o2od5"]
 
 [sub_resource type="GDScript" id="GDScript_23cjj"]
 resource_name = "AlisaSignalManager"
@@ -7283,7 +7285,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../JumpSfx")
+tracks/4/path = NodePath("../JumpLandParticlesSpawner/JumpSfx")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -7376,7 +7378,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../LandSfx")
+tracks/4/path = NodePath("../JumpLandParticlesSpawner/LandSfx")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -7568,6 +7570,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_kkdf6"]
 resource_name = "attack"
@@ -7599,19 +7625,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../..:attack_input_listening")
+tracks/2/path = NodePath("ActorTransformer2D:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": ["attack"]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../..:attack_can_cancel")
+tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -7623,7 +7649,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../..:attack_can_go_to_next")
+tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -7631,18 +7657,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:animation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["attack"]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i5ert"]
@@ -7680,6 +7694,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ba286"]
 resource_name = "attack"
@@ -7711,35 +7749,33 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../..:attack_input_listening")
+tracks/2/path = NodePath("ActorTransformer2D:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": ["attack_2"]
 }
-tracks/3/type = "value"
+tracks/3/type = "animation"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../..:attack_can_cancel")
+tracks/3/path = NodePath("../../Visuals/AnimationPlayer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"clips": PackedStringArray("attack_2"),
+"times": PackedFloat32Array(0)
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../..:attack_can_go_to_next")
+tracks/4/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.6),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -7747,24 +7783,14 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:animation")
+tracks/5/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": ["attack_2"]
-}
-tracks/6/type = "animation"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../../Visuals/AnimationPlayer")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"clips": PackedStringArray("attack_2"),
-"times": PackedFloat32Array(0)
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_apmkq"]
@@ -7794,6 +7820,30 @@ tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -7831,19 +7881,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../..:attack_input_listening")
+tracks/2/path = NodePath("ActorTransformer2D:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": ["attack_3"]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../..:attack_can_cancel")
+tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -7855,7 +7905,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../..:attack_can_go_to_next")
+tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -7863,18 +7913,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:animation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["attack_3"]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2p3vp"]
@@ -7912,6 +7950,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_3kbyf"]
 resource_name = "attack"
@@ -7943,19 +8005,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../..:attack_input_listening")
+tracks/2/path = NodePath("ActorTransformer2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(0.5, 0.5, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(8, -16), Vector2(32, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../..:attack_can_cancel")
+tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -7967,7 +8029,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../..:attack_can_go_to_next")
+tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -7975,18 +8037,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(0.5, 0.5, 2),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(8, -16), Vector2(32, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nh3be"]
@@ -8025,6 +8075,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_lqabx"]
 resource_name = "attack"
@@ -8057,19 +8131,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../..:attack_input_listening")
+tracks/2/path = NodePath("ActorTransformer2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(16, -16), Vector2(16, -16), Vector2(32, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../..:attack_can_cancel")
+tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -8081,7 +8155,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../..:attack_can_go_to_next")
+tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -8089,18 +8163,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
-"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(16, -16), Vector2(16, -16), Vector2(32, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2x750"]
@@ -8138,6 +8200,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_574d0"]
 resource_name = "attack"
@@ -8145,74 +8231,62 @@ length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../..:attack_input_listening")
+tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../..:attack_can_cancel")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../..:attack_can_go_to_next")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox/CollisionShape2d:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:animation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorTransformer2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["air_attack_3"]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(0.5, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(16, -24), Vector2(32, 512)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mlyav"]
@@ -8365,6 +8439,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_tsibi"]
 resource_name = "attack"
@@ -8456,49 +8542,13 @@ tracks/6/keys = {
 "update": 1,
 "values": [false, true, false]
 }
-tracks/7/type = "value"
+tracks/7/type = "method"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../../..:attack_input_listening")
+tracks/7/path = NodePath("DashExplosionSpawner")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../../..:attack_can_cancel")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.16),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("../../..:attack_can_go_to_next")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.35),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/10/type = "method"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("DashExplosionSpawner")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0.45),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8506,13 +8556,13 @@ tracks/10/keys = {
 "method": &"spawn"
 }]
 }
-tracks/11/type = "method"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("DashLineParticleSpawner")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("DashLineParticleSpawner")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8520,85 +8570,85 @@ tracks/11/keys = {
 "method": &"spawn"
 }]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:active")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:active")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0.05, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:wait_time")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:wait_time")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.01]
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:sprite_lifetime")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:sprite_lifetime")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.4]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:fade_out")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:fade_out")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("../../Visuals/CharacterSprite:scale")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../../Visuals/CharacterSprite:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.15),
 "transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(2, 0.5), Vector2(1, 1)]
 }
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("CanvasLayer/BlueShift:color")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CanvasLayer/BlueShift:color")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(0.05, 0.09, 0.25, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 1, 0), Color(0, 0, 1, 0.0352941), Color(0, 0, 1, 0.0352941), Color(0, 0, 1, 0)]
 }
-tracks/18/type = "method"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("CameraSettingsTrigger")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
+tracks/15/type = "method"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("CameraSettingsTrigger")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
 "times": PackedFloat32Array(0.05, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -8609,13 +8659,13 @@ tracks/18/keys = {
 "method": &"reset_zoom"
 }]
 }
-tracks/19/type = "method"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath("ShowSpeedLinesTrigger")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = {
+tracks/16/type = "method"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("ShowSpeedLinesTrigger")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8623,13 +8673,13 @@ tracks/19/keys = {
 "method": &"trigger"
 }]
 }
-tracks/20/type = "method"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("HideSpeedLinesTrigger")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
+tracks/17/type = "method"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("HideSpeedLinesTrigger")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
 "times": PackedFloat32Array(0.25),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8637,17 +8687,41 @@ tracks/20/keys = {
 "method": &"trigger"
 }]
 }
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("../../../StateMachine/Dash/JumpWithSpeedStateTransition:active")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("../../../StateMachine/Dash/JumpWithSpeedStateTransition:active")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n8p1y"]
@@ -8742,6 +8816,30 @@ tracks/5/keys = {
 "method": &"reset_zoom"
 }]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_308g8"]
 resource_name = "attack"
@@ -8821,49 +8919,13 @@ tracks/5/keys = {
 "update": 1,
 "values": [true, false, true]
 }
-tracks/6/type = "value"
+tracks/6/type = "method"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../../..:attack_input_listening")
+tracks/6/path = NodePath("GameUtilities")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("../../..:attack_can_cancel")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../../..:attack_can_go_to_next")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("GameUtilities")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -8874,19 +8936,43 @@ tracks/9/keys = {
 "method": &"hide_skill_frame"
 }]
 }
-tracks/10/type = "method"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("CameraSettingsTrigger")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CameraSettingsTrigger")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"change_zoom"
 }]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o2p4a"]
@@ -8919,7 +9005,6 @@ collision_mask = 49
 max_sp = 3.0
 speed = 9.0
 team = 1
-attack_input_listening = true
 attack_can_cancel = true
 attack_can_go_to_next = true
 
@@ -8985,7 +9070,7 @@ texture = ExtResource("3_k3unl")
 offset = Vector2(0, -32)
 hframes = 16
 vframes = 15
-frame = 85
+frame = 226
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "alisa",
@@ -9007,7 +9092,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 17
+frame = 114
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9040,48 +9125,47 @@ visible = false
 z_index = -10
 material = SubResource("CanvasItemMaterial_eh3sa")
 position = Vector2(62, -16)
-texture = ExtResource("8_8v5bp")
+texture = ExtResource("9_6dwun")
 hframes = 17
 frame = 8
 
-[node name="JumpSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="6"]
-position = Vector2(0, 16)
-stream = ExtResource("17_v2uqh")
-bus = &"Sfx"
-
-[node name="LandSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="7"]
-position = Vector2(0, 16)
-stream = ExtResource("18_5dypp")
-bus = &"Sfx"
-
-[node name="StompSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="8"]
+[node name="StompSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="6"]
 position = Vector2(0, 16)
 stream = ExtResource("19_pd886")
 bus = &"Sfx"
 
-[node name="SwingSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="9"]
+[node name="SwingSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="7"]
 position = Vector2(0, 16)
 stream = ExtResource("19_pd886")
 max_polyphony = 8
 bus = &"Sfx"
 
-[node name="SpinAttackSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="10"]
+[node name="SpinAttackSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals" index="8"]
 position = Vector2(0, 16)
 stream = ExtResource("20_ml0lw")
 max_polyphony = 8
 bus = &"Sfx"
 
-[node name="JumpLandParticlesSpawner" type="Marker2D" parent="Inner/Visuals" index="11"]
+[node name="JumpLandParticlesSpawner" type="Marker2D" parent="Inner/Visuals" index="9"]
 position = Vector2(0, 18)
 script = ExtResource("18_5ur3l")
 particles_scene = ExtResource("22_vrsug")
 
-[node name="FootstepBackgroundWallRunSpawner" type="Marker2D" parent="Inner/Visuals" index="12"]
+[node name="JumpSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals/JumpLandParticlesSpawner" index="0"]
+stream = ExtResource("17_v2uqh")
+bus = &"Sfx"
+
+[node name="LandSfx" type="AudioStreamPlayer2D" parent="Inner/Visuals/JumpLandParticlesSpawner" index="1"]
+position = Vector2(0, -2)
+stream = ExtResource("18_5dypp")
+bus = &"Sfx"
+
+[node name="FootstepBackgroundWallRunSpawner" type="Marker2D" parent="Inner/Visuals" index="10"]
 position = Vector2(0, 8)
 script = ExtResource("20_rgrjr")
 particles = ExtResource("23_utdp3")
 
-[node name="FootstepEmitter" type="Marker2D" parent="Inner/Visuals" index="13"]
+[node name="FootstepEmitter" type="Marker2D" parent="Inner/Visuals" index="11"]
 position = Vector2(0, 16)
 script = ExtResource("25_7keqx")
 
@@ -9108,6 +9192,8 @@ libraries = {
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "attack"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
 collision_layer = 0
@@ -9135,6 +9221,8 @@ libraries = {
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack2" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "attack_2"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack2" index="2"]
 collision_mask = 4
@@ -9161,6 +9249,8 @@ libraries = {
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack3" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "attack_3"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack3" index="2"]
 position = Vector2(-1, 0)
@@ -9188,6 +9278,8 @@ libraries = {
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack1" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "air_attack_1"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack1" index="2"]
 collision_mask = 4
@@ -9212,6 +9304,8 @@ libraries = {
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack2" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "air_attack_2"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack2" index="2"]
 collision_mask = 4
@@ -9236,6 +9330,8 @@ libraries = {
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack3" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "air_attack_3"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack3" index="2"]
 collision_mask = 4
@@ -9270,7 +9366,9 @@ libraries = {
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Dash" index="2"]
 script = ExtResource("33_ahjeu")
-animation = "idle"
+animation = "slide"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Dash" index="3"]
 position = Vector2(256, 0)
@@ -9391,6 +9489,8 @@ disabled = true
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="4"]
 script = ExtResource("33_ahjeu")
 animation = "rune_crash"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="RuneSpawner" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="5"]
 script = ExtResource("38_1w5r1")
@@ -9442,30 +9542,10 @@ script = ExtResource("52_5eego")
 action = "action_1"
 go_to_state = "Attack"
 
-[node name="InputKeyTransition2" type="Node" parent="StateMachine/Idle" index="1"]
-script = ExtResource("52_5eego")
-action = "action_3"
-go_to_state = "Dash"
-
-[node name="InputKeyTransition3" type="Node" parent="StateMachine/Idle" index="2"]
-script = ExtResource("52_5eego")
-action = "action_4"
-go_to_state = "Rune Crash"
-
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
 script = ExtResource("52_5eego")
 action = "action_1"
 go_to_state = "Attack"
-
-[node name="InputKeyTransition2" type="Node" parent="StateMachine/Run" index="1"]
-script = ExtResource("52_5eego")
-action = "action_3"
-go_to_state = "Dash"
-
-[node name="InputKeyTransition3" type="Node" parent="StateMachine/Run" index="2"]
-script = ExtResource("52_5eego")
-action = "action_4"
-go_to_state = "Rune Crash"
 
 [node name="Air" parent="StateMachine" index="3"]
 background_fall_animation = "background_jump_fall"
@@ -9496,6 +9576,9 @@ script = ExtResource("55_maxgv")
 action = "action_1"
 go_to_state = "Attack2"
 
+[node name="IsGroundedRequirement" type="Node" parent="StateMachine/Attack" index="1"]
+script = ExtResource("58_o2od5")
+
 [node name="Attack2" type="Node" parent="StateMachine" index="6"]
 script = ExtResource("54_nopje")
 
@@ -9504,8 +9587,14 @@ script = ExtResource("55_maxgv")
 action = "action_1"
 go_to_state = "Attack3"
 
+[node name="IsGroundedRequirement" type="Node" parent="StateMachine/Attack2" index="1"]
+script = ExtResource("58_o2od5")
+
 [node name="Attack3" type="Node" parent="StateMachine" index="7"]
 script = ExtResource("54_nopje")
+
+[node name="IsGroundedRequirement" type="Node" parent="StateMachine/Attack3" index="0"]
+script = ExtResource("58_o2od5")
 
 [node name="AirAttack1" type="Node" parent="StateMachine" index="8"]
 script = ExtResource("54_nopje")
@@ -9515,6 +9604,9 @@ script = ExtResource("55_maxgv")
 action = "action_1"
 go_to_state = "AirAttack2"
 
+[node name="IsNotGroundedRequirement" type="Node" parent="StateMachine/AirAttack1" index="1"]
+script = ExtResource("58_k6wkn")
+
 [node name="AirAttack2" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("54_nopje")
 
@@ -9523,8 +9615,14 @@ script = ExtResource("55_maxgv")
 action = "action_1"
 go_to_state = "AirAttack3"
 
+[node name="IsNotGroundedRequirement" type="Node" parent="StateMachine/AirAttack2" index="1"]
+script = ExtResource("58_k6wkn")
+
 [node name="AirAttack3" type="Node" parent="StateMachine" index="10"]
 script = ExtResource("54_nopje")
+
+[node name="IsNotGroundedRequirement" type="Node" parent="StateMachine/AirAttack3" index="0"]
+script = ExtResource("58_k6wkn")
 
 [node name="Rune Crash" type="Node" parent="StateMachine" index="11"]
 script = ExtResource("54_nopje")
@@ -9534,6 +9632,9 @@ script = ExtResource("57_ui81h")
 stat_type = 1
 amount = 100.0
 
+[node name="IsGroundedRequirement" type="Node" parent="StateMachine/Rune Crash" index="1"]
+script = ExtResource("58_o2od5")
+
 [node name="Dash" type="Node" parent="StateMachine" index="12"]
 script = ExtResource("54_nopje")
 
@@ -9542,24 +9643,17 @@ script = ExtResource("52_5eego")
 action = "action_1"
 go_to_state = "Attack"
 
-[node name="InputKeyTransition2" type="Node" parent="StateMachine/Dash" index="1"]
-script = ExtResource("52_5eego")
-action = "action_3"
-go_to_state = "Dash"
-
-[node name="InputKeyTransition3" type="Node" parent="StateMachine/Dash" index="2"]
-script = ExtResource("52_5eego")
-action = "action_4"
-go_to_state = "Rune Crash"
-
-[node name="StatRequirement" type="Node" parent="StateMachine/Dash" index="3"]
+[node name="StatRequirement" type="Node" parent="StateMachine/Dash" index="1"]
 script = ExtResource("57_ui81h")
 stat_type = 2
 amount = 1.0
 
-[node name="JumpWithSpeedStateTransition" type="Node" parent="StateMachine/Dash" index="4"]
+[node name="JumpWithSpeedStateTransition" type="Node" parent="StateMachine/Dash" index="2"]
 script = ExtResource("58_g5qbg")
 base_speed = 20.0
+
+[node name="IsGroundedRequirement" type="Node" parent="StateMachine/Dash" index="3"]
+script = ExtResource("58_o2od5")
 
 [node name="CharacterHUDSmoothingNode" parent="." index="7"]
 visible = false

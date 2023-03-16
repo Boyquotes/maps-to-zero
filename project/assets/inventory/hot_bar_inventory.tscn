@@ -10,6 +10,6 @@ script = ExtResource("1_akcrh")
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2

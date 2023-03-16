@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://drkn65mo0wkn8" path="res://assets/inventory/slot.tscn" id="3_wu2t0"]
 
 [node name="InventoryInterface" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,14 +20,24 @@ offset_left = 416.0
 offset_top = 20.0
 offset_right = 456.0
 offset_bottom = 60.0
+columns = 6
 
 [node name="EquipmentInventory" parent="." instance=ExtResource("2_lx6mc")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 840.0
-offset_top = 20.0
-offset_right = 880.0
-offset_bottom = 60.0
+offset_left = 984.0
+offset_top = 136.0
+offset_right = 1024.0
+offset_bottom = 176.0
+columns = 1
+
+[node name="HotBarSetter" parent="." instance=ExtResource("2_lx6mc")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 112.0
+offset_top = 80.0
+offset_right = 152.0
+offset_bottom = 120.0
 
 [node name="ExternalInventory" parent="." instance=ExtResource("2_lx6mc")]
 unique_name_in_owner = true

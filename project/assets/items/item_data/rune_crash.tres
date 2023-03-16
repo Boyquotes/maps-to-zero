@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemDataSkill" load_steps=3 format=3 uid="uid://dnkq7uomgahgy"]
+
+[ext_resource type="Script" path="res://assets/items/item_data_skill.gd" id="1_b2wly"]
+[ext_resource type="Texture2D" uid="uid://bpp8tj58hxtku" path="res://assets/characters/alisa/sprites/glyph.png" id="2_r7rh6"]
+
+[resource]
+script = ExtResource("1_b2wly")
+skill_name = "Rune Crash"
+name = "Rune Crash"
+description = "Summon a rune with a gunblade, then slash it, causing an explosion."
+stackable = false
+texture = ExtResource("2_r7rh6")

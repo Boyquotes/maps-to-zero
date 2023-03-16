@@ -9,6 +9,7 @@ signal toggle_menu_requested
 
 @export var inventory_data: InventoryData
 @export var equipment_inventory_data: InventoryDataEquipment
+@export var hot_bar_inventory_data: InventoryDataHotBar
 @export var max_hp := 100.0
 @export var max_mp := 300.0
 @export var max_sp := 0.0
@@ -38,11 +39,6 @@ signal toggle_menu_requested
 		if team:
 			remove_from_group("team_" + str(team))
 		add_to_group("team_" + str(team))
-@export var attack_input_listening : bool:
-	set(value):
-		attack_input_listening = value
-		if attack_request_buffer.has("action") and _input_buffer.has_action(attack_request_buffer.action):
-			go_to_next_attack = true
 @export var attack_can_cancel : bool:
 	set(value):
 		attack_can_cancel = value
@@ -50,16 +46,16 @@ signal toggle_menu_requested
 @export var attack_can_go_to_next : bool:
 	set(value):
 		attack_can_go_to_next = value
-		if go_to_next_attack and not attack_request_buffer == {}:
-			var next_attack_state: State = state_machine.get_state(attack_request_buffer.state)
+		if not attack_request_buffer == "":
+			var next_attack_state: State = state_machine.get_state(attack_request_buffer)
 			for req in next_attack_state.transition_requirements:
 				if not req.get_is_ready():
 					return
-			state_machine.transition_to(attack_request_buffer.state)
-			go_to_next_attack = false
 			attack_can_cancel = false
+			state_machine.transition_to(attack_request_buffer)
+			attack_request_buffer = ""
 
-var attack_request_buffer: Dictionary
+var attack_request_buffer: String
 var target:
 	get:
 		return _target_manager.get_target()
@@ -103,17 +99,6 @@ var save_data: Dictionary:
 		data.look_direction = look_direction
 		data._stats = _stats
 		return data
-var go_to_next_attack : bool:
-	set(value):
-		go_to_next_attack = value
-		if value and attack_can_go_to_next and not attack_request_buffer == {}:
-			var next_attack_state: State = state_machine.get_state(attack_request_buffer.state)
-			for req in next_attack_state.transition_requirements:
-				if not req.get_is_ready():
-					return
-			state_machine.transition_to(attack_request_buffer.state)
-			go_to_next_attack = false
-			attack_can_cancel = false
 var current_mid_air_jumps: int
 var current_background_jumps: int
 
@@ -131,6 +116,8 @@ var current_background_jumps: int
 @onready var _soft_collision := %SoftCollision as SoftCollision
 @onready var _hurtbox := %Hurtbox as Area2D
 @onready var _hud := %CharacterHUD as CharacterHUD
+@onready var _throw_item_particles_spawner := %ThrowItemParticlesSpawner as ParticleSpawner
+@onready var _throw_item_sfx := %ThrowItemSfx as AudioStreamPlayer2DExtended
 
 
 func _ready():
@@ -240,14 +227,20 @@ func request_state_transition(target_state_name : String, msg: Dictionary = {}):
 	state_machine.transition_to(target_state_name, msg)
 
 
-func request_attack_transition(target_state_dictionary : Dictionary, _msg: Dictionary = {}):
-	attack_request_buffer = target_state_dictionary
-	var target_state := state_machine.get_state(target_state_dictionary.state)
+func request_attack_transition(target_state_name: String, msg: Dictionary = {}) -> void:
+	_set_attack_request_buffer(target_state_name)
+	var target_state := state_machine.get_state(target_state_name)
 	for req in target_state.transition_requirements:
 		if not req.get_is_ready():
 			return
-	if attack_input_listening:
-		go_to_next_attack = true
+	if state_machine.state is AttackState and not attack_can_go_to_next:
+		return
+	attack_request_buffer = ""
+	state_machine.transition_to(target_state_name, msg)
+
+
+func request_skill_use(skill_name: String) -> void:
+	request_attack_transition(skill_name)
 
 
 func enable_input() -> void:
@@ -295,16 +288,25 @@ func get_state(state_name: StringName) -> State:
 	return state_machine.get_state(state_name)
 
 
-func get_item_drop_position() -> Vector2:
-	return global_position + look_direction * 32
-
-
 func use_item_slot_data(item_slot_data: SlotData) -> void:
 	item_slot_data.item_data.use(self)
 
 
+func throw_pick_up_item(pick_up_item: PickUpItem) -> void:
+	pick_up_item.global_position = _get_item_drop_position()
+	get_parent().add_child(pick_up_item)
+	var throw_direction := Vector2(sign(look_direction.x), 0)
+	pick_up_item.apply_impulse(throw_direction * randf_range(300, 500))
+	
+	_throw_item_particles_spawner.spawn()
+	_throw_item_sfx.play()
+	
+	pick_up_item.hitbox.set_character(self)
+	pick_up_item.hitbox.set_team(team)
+
+
 func _on_state_machine_transitioned(_to_state, _from_state):
-	attack_request_buffer = { }
+	attack_request_buffer = ""
 
 
 func _on_stat_changed(type: CharacterStats.Types, new_value, old_value, max_value):
@@ -374,3 +376,23 @@ func _reset_hurtbox_collision() -> void:
 	# Then only enable the hitbox/hurtbox physics mask
 	_hurtbox.set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, false)
 	_hurtbox.set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
+
+
+func _get_item_drop_position() -> Vector2:
+	return global_position + look_direction * 32
+
+
+var _attack_request_timer: Timer
+func _set_attack_request_buffer(target_state: String) -> void:
+	attack_request_buffer = target_state
+	if _attack_request_timer:
+		_attack_request_timer.start()
+	else:
+		_attack_request_timer = Timer.new()
+		_attack_request_timer.wait_time = 0.2
+		_attack_request_timer.one_shot = true
+		_attack_request_timer.autostart = false
+		_attack_request_timer.timeout.connect(func():
+			attack_request_buffer = "")
+		add_child(_attack_request_timer)
+		_attack_request_timer.start()

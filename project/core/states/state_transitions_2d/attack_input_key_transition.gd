@@ -8,7 +8,4 @@ extends StateTransition2D
 
 func handle_input(_event: InputEvent) -> void:
 	if _event.is_action_pressed(action):
-		_character.request_attack_transition({
-				"state" = go_to_state,
-				"action" = action
-			})
+		_character.request_attack_transition(go_to_state)

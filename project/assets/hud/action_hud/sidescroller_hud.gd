@@ -9,9 +9,11 @@ signal hide_finished
 @onready var _sp_bar := %SPBar as TextureProgressBar
 @onready var _inventory_interface := %InventoryInterface as InventoryInterface
 @onready var _hot_bar_inventory := %HotBarInventory as HotBarInventory
+@onready var _animation_player := %AnimationPlayer as AnimationPlayer
 
 
 var hud_displaying : bool = true
+
 
 func _ready():
 	Events.player_resource_changed.connect(_on_player_resource_changed)
@@ -24,26 +26,26 @@ func show_hud(duration:= 1.0):
 		return
 	hud_displaying = true
 	if is_equal_approx(duration, 0.0):
-		$AnimationPlayer.speed_scale = 1.0
-		$AnimationPlayer.play("RESET")
-		$Display/Control.visible = true
+		_animation_player.speed_scale = 1.0
+		_animation_player.play("RESET")
+		$Display/PlayerHUD.visible = true
 		show_finished.emit()
 	else:
-		$AnimationPlayer.speed_scale = 1.0 / duration
-		$AnimationPlayer.play("show")
-		await $AnimationPlayer.animation_finished
+		_animation_player.speed_scale = 1.0 / duration
+		_animation_player.play("show")
+		await _animation_player.animation_finished
 		show_finished.emit()
 
 
 func hide_hud(duration:= 1.0):
 	hud_displaying = false
 	if is_equal_approx(duration, 0.0):
-		$Display/Control.visible = false
+		$Display/PlayerHUD.visible = false
 		hide_finished.emit()
 	else:
-		$AnimationPlayer.speed_scale = 1.0 / duration
-		$AnimationPlayer.play("hide")
-		await $AnimationPlayer.animation_finished
+		_animation_player.speed_scale = 1.0 / duration
+		_animation_player.play("hide")
+		await _animation_player.animation_finished
 		hide_finished.emit()
 
 
@@ -78,6 +80,7 @@ func set_equipment_inventory_data(inventory_data: InventoryData) -> void:
 
 func set_hot_bar_inventory_data(inventory_data: InventoryData) -> void:
 	_hot_bar_inventory.set_inventory_data(inventory_data)
+	_inventory_interface.set_hot_bar_data(inventory_data)
 
 
 func _on_player_resource_changed(type, new_value, _old_value, max_value) -> void:

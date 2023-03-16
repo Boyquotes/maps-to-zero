@@ -1,11 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cq4u36n2dswf"]
+[gd_scene load_steps=15 format=3 uid="uid://cq4u36n2dswf"]
 
 [ext_resource type="Script" path="res://assets/hud/action_hud/sidescroller_hud.gd" id="1_1pnwk"]
-[ext_resource type="Texture2D" uid="uid://dnwx17g4wsqkt" path="res://assets/hud/character_icons/Alisa Icon Smol.png" id="1_5fvm3"]
 [ext_resource type="Texture2D" uid="uid://b1sa36rld5x2" path="res://assets/hud/hp_bar/hp.png" id="1_a66kq"]
-[ext_resource type="Texture2D" uid="uid://cw6jvh00a433y" path="res://assets/hud/action_hud/skill_icon_frame_2.png" id="2_4r000"]
 [ext_resource type="Texture2D" uid="uid://d0sku8ddtj3wb" path="res://assets/hud/hp_bar/hp_bg.png" id="2_swpb2"]
-[ext_resource type="Texture2D" uid="uid://dpso6xxxkd1lj" path="res://assets/items/placeholder_icon.png" id="2_yghhd"]
 [ext_resource type="Texture2D" uid="uid://d0loroy86cdr3" path="res://assets/hud/hp_bar/blue.png" id="3_spae1"]
 [ext_resource type="Texture2D" uid="uid://dc4c3cp56vdbr" path="res://assets/hud/hp_bar/green.png" id="4_2abeb"]
 [ext_resource type="Texture2D" uid="uid://brd1nae16owjr" path="res://assets/hud/hp_bar/bg.png" id="4_khe4e"]
@@ -151,6 +148,7 @@ mouse_filter = 2
 script = ExtResource("1_1pnwk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_xwd3s")
 }
@@ -164,196 +162,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-
-[node name="SkillRows" type="VBoxContainer" parent="Display/PlayerHUD"]
-layout_mode = 0
-offset_left = 117.0
-offset_top = 54.0
-offset_right = 269.0
-offset_bottom = 86.0
-
-[node name="SkillRow" type="HBoxContainer" parent="Display/PlayerHUD/SkillRows"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 8
-
-[node name="SkillIcon" type="Control" parent="Display/PlayerHUD/SkillRows/SkillRow"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Background" type="ColorRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.411765, 0, 0.411765, 1)
-
-[node name="Icon" type="TextureRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_yghhd")
-expand_mode = 1
-
-[node name="Frame" type="NinePatchRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon"]
-self_modulate = Color(1, 0.258169, 0.458306, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 38.0
-offset_bottom = 39.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_4r000")
-patch_margin_left = 33
-patch_margin_top = 33
-patch_margin_right = 33
-patch_margin_bottom = 33
-
-[node name="SkillIcon2" type="Control" parent="Display/PlayerHUD/SkillRows/SkillRow"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Background" type="ColorRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon2"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.411765, 0, 0.411765, 1)
-
-[node name="Icon" type="TextureRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon2"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_yghhd")
-expand_mode = 1
-
-[node name="Frame" type="NinePatchRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon2"]
-self_modulate = Color(1, 0.258169, 0.458306, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 38.0
-offset_bottom = 39.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_4r000")
-patch_margin_left = 33
-patch_margin_top = 33
-patch_margin_right = 33
-patch_margin_bottom = 33
-
-[node name="SkillIcon3" type="Control" parent="Display/PlayerHUD/SkillRows/SkillRow"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Background" type="ColorRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon3"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.411765, 0, 0.411765, 1)
-
-[node name="Icon" type="TextureRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon3"]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_5fvm3")
-expand_mode = 1
-
-[node name="Frame" type="NinePatchRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon3"]
-self_modulate = Color(1, 0.258169, 0.458306, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 38.0
-offset_bottom = 39.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_4r000")
-patch_margin_left = 33
-patch_margin_top = 33
-patch_margin_right = 33
-patch_margin_bottom = 33
-
-[node name="SkillIcon4" type="Control" parent="Display/PlayerHUD/SkillRows/SkillRow"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-
-[node name="Background" type="ColorRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon4"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.411765, 0, 0.411765, 1)
-
-[node name="Icon" type="TextureRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon4"]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_5fvm3")
-expand_mode = 1
-
-[node name="Frame" type="NinePatchRect" parent="Display/PlayerHUD/SkillRows/SkillRow/SkillIcon4"]
-self_modulate = Color(1, 0.258169, 0.458306, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 38.0
-offset_bottom = 39.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_4r000")
-patch_margin_left = 33
-patch_margin_top = 33
-patch_margin_right = 33
-patch_margin_bottom = 33
 
 [node name="ColorRect" type="ColorRect" parent="Display/PlayerHUD"]
 layout_mode = 0
@@ -476,9 +284,9 @@ unique_name_in_owner = true
 
 [node name="HotBarInventory" parent="Display" instance=ExtResource("13_5wpii")]
 unique_name_in_owner = true
-offset_left = 24.0
-offset_top = 112.0
-offset_right = 64.0
-offset_bottom = 152.0
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 168.0
+offset_bottom = 104.0
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

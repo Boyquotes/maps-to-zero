@@ -55,9 +55,10 @@ func initialize_player() -> Character:
 	
 	player.inventory_data = load("res://core/save_data/player_inventory.tres")
 	player.equipment_inventory_data = load("res://core/save_data/player_equipment_inventory.tres")
+	player.hot_bar_inventory_data = load("res://core/save_data/player_hot_bar_inventory.tres")
 	sidescroller_hud.set_player_inventory_data(player.inventory_data)
 	sidescroller_hud.set_equipment_inventory_data(player.equipment_inventory_data)
-	sidescroller_hud.set_hot_bar_inventory_data(player.inventory_data)
+	sidescroller_hud.set_hot_bar_inventory_data(player.hot_bar_inventory_data)
 	
 	GameManager.player = player
 	
@@ -182,7 +183,6 @@ func _initialize_item_chests() -> void:
 
 
 func _on_inventory_interface_dropped_slot_data(slot_data: SlotData) -> void:
-	var pick_up = PICK_UP.instantiate()
+	var pick_up := PICK_UP.instantiate() as PickUpItem
 	pick_up.slot_data = slot_data
-	pick_up.global_position = player.get_item_drop_position()
-	player.get_parent().add_child(pick_up)
+	player.throw_pick_up_item(pick_up)

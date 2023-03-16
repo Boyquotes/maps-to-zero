@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=22 format=3 uid="uid://dsbj0ecnkoa4m"]
 
 [ext_resource type="Script" path="res://assets/characters/scripts/character.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://dxnwad4fyiqqc" path="res://core/states/core/state_machine.tscn" id="2_550gp"]
@@ -6,7 +6,11 @@
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_xo8fg"]
 [ext_resource type="PackedScene" uid="uid://dscf8c60pu3d4" path="res://core/states/core/state.tscn" id="3_ljg6w"]
 [ext_resource type="Script" path="res://core/states/character_states/idle.gd" id="4_c2pic"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="4_os5i5"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="5_1m0ex"]
+[ext_resource type="PackedScene" uid="uid://cpw6fmni27ysh" path="res://assets/items/pick_up/default_throw_item_particles.tscn" id="5_3h8j8"]
+[ext_resource type="Script" path="res://core/classes/audio_stream_player_2d_extended.gd" id="5_4hnw2"]
+[ext_resource type="AudioStream" uid="uid://bd62e81wjpwwd" path="res://assets/items/pick_up/throw_item.wav" id="5_evkny"]
 [ext_resource type="Script" path="res://core/states/character_states/run.gd" id="5_q4uhh"]
 [ext_resource type="Script" path="res://core/states/character_states/air.gd" id="6_d0dbr"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_direction.gd" id="6_yk730"]
@@ -53,6 +57,20 @@ monitorable = false
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Hurtbox"]
 
+[node name="ThrowItemParticlesSpawner" type="Marker2D" parent="Inner"]
+unique_name_in_owner = true
+script = ExtResource("4_os5i5")
+particles_scene = ExtResource("5_3h8j8")
+
+[node name="ThrowItemSfx" type="AudioStreamPlayer2D" parent="Inner/ThrowItemParticlesSpawner"]
+unique_name_in_owner = true
+stream = ExtResource("5_evkny")
+bus = &"Sfx"
+script = ExtResource("5_4hnw2")
+streams = Array[AudioStream]([ExtResource("5_evkny")])
+pitch_scale_min = 0.9
+pitch_scale_max = 1.1
+
 [node name="InputStateMachine" parent="." instance=ExtResource("2_550gp")]
 unique_name_in_owner = true
 reset_state_name = "NoInput"
@@ -91,8 +109,6 @@ background_jump_animation = null
 background_fall_animation = null
 falling_gravity_multiplier = null
 jump_buffer_time = null
-mid_air_jumps_max = null
-background_jumps_max = null
 jump_speed_boost = null
 
 [node name="Defeat" type="Node" parent="StateMachine"]

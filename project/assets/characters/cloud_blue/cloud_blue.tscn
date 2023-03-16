@@ -1,6 +1,6 @@
 [gd_scene load_steps=51 format=3 uid="uid://csn4qxvuyb07i"]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_2gcfk"]
+[ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_2gcfk"]
 [ext_resource type="Texture2D" uid="uid://dejocmh8l5m2a" path="res://assets/characters/cloud_blue/cloud_blue.png" id="3_dlrp6"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_pf34q"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="4_tc4mi"]
@@ -1129,7 +1129,6 @@ radius = 32.3883
 collision_layer = 2
 speed = 2.0
 team = 2
-attack_input_listening = true
 attack_can_cancel = true
 attack_can_go_to_next = true
 
@@ -1161,7 +1160,7 @@ texture = ExtResource("3_dlrp6")
 offset = Vector2(0, -32)
 hframes = 6
 vframes = 5
-frame = 9
+frame = 11
 region_rect = Rect2(0, 256, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -1235,7 +1234,7 @@ libraries = {
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("16_yxfga")
-base_value = 10.0
+base_value = 2.0
 hit_particles = ExtResource("17_s41pk")
 hit_sfx = ExtResource("18_1xamr")
 frame_freeze_duration_milliseconds = 50

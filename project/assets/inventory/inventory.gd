@@ -5,7 +5,14 @@ class_name Inventory
 const Slot = preload("res://assets/inventory/slot.tscn")
 
 
+@export var columns := 4 as int
+
+
 @onready var item_grid := %ItemGrid as GridContainer
+
+
+func _ready():
+	item_grid.columns = columns
 
 
 func set_inventory_data(inventory_data: InventoryData) -> void:

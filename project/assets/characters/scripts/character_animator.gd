@@ -19,8 +19,8 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 @export var attack_input_listening : bool:
 	set(value):
 		attack_input_listening = value
-		if not _movement_mode == MovementModes.DISABLED:
-			_character.attack_input_listening = attack_input_listening
+#		if not _movement_mode == MovementModes.DISABLED:
+#			_character.attack_input_listening = attack_input_listening
 @export var can_cancel_out_of_attack : bool:
 	set(value):
 		can_cancel_out_of_attack = value

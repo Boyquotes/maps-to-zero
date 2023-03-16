@@ -66,7 +66,7 @@ func use_slot_data(index: int) -> void:
 
 
 func pick_up_slot_data(slot_data: SlotData) -> bool:
-	# First find first mergable slot
+	# First find first mergeable slot
 	for index in slot_datas.size():
 		if slot_datas[index] and slot_datas[index].can_fully_merge_with(slot_data):
 			slot_datas[index].fully_merge_with(slot_data)
