@@ -6,15 +6,21 @@ class_name PickUpItem
 
 
 @onready var hitbox := %Hitbox as Hitbox
+
 @onready var _sprite := $Sprite2D as Sprite2D
 @onready var _area_collision_shape := $Area2D/CollisionShape2D as CollisionShape2D
 @onready var _particle_spawner := %ParticleSpawner as ParticleSpawner
 @onready var _audio_player := %PickUpSfx as AudioStreamPlayer2D
+@onready var _hit_bounce_particle_spawner := %HitBounceParticleSpawner as ParticleSpawner
+@onready var _hit_bounce_sfx := %HitBounceSfx as AudioStreamPlayer2D
 @onready var _animation_player := $AnimationPlayer as AnimationPlayer
 
 
 func _ready() -> void:
 	_sprite.texture = slot_data.item_data.texture
+	
+	if hitbox:
+		_initialize_hitbox()
 
 
 func _on_area_2d_area_entered(area: Area2D):
@@ -35,3 +41,29 @@ func pick_up() -> void:
 	_audio_player.play()
 	await _audio_player.finished
 	queue_free()
+
+
+func _initialize_hitbox() -> void:
+	hitbox.monitoring = true
+	hitbox.set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
+	hitbox.set_collision_mask_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, true)
+	hitbox.area_entered.connect(_on_hit)
+	hitbox.hit.connect(_on_hitbox_hit)
+
+
+func _reset_velocity() -> void:
+	apply_impulse(-linear_velocity)
+
+
+func _on_hit(area: Area2D) -> void:
+	if area.name == "Hurtbox":
+		return
+	apply_central_impulse(area.global_position.direction_to(global_position) * 1300)
+	_hit_bounce_particle_spawner.spawn()
+	_hit_bounce_sfx.play()
+
+
+func _on_hitbox_hit(character: Character) -> void:
+	_reset_velocity()
+	var direction = Vector2(sign(character.global_position.direction_to(hitbox._character.global_position).x), -0.5).normalized()
+	apply_central_impulse(direction * 600)

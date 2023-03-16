@@ -21,6 +21,7 @@ _data = {
 script = ExtResource("1_w7s42")
 player_actor = ExtResource("2_faxvj")
 initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-third_stretch.tscn"
+initial_stage_enter_point = null
 
 [node name="CameraTargetPosition" type="Node2D" parent="."]
 unique_name_in_owner = true

@@ -292,17 +292,19 @@ func use_item_slot_data(item_slot_data: SlotData) -> void:
 	item_slot_data.item_data.use(self)
 
 
-func throw_pick_up_item(pick_up_item: PickUpItem) -> void:
+func throw_pick_up_item(pick_up_item: PickUpItem, force:=500.0, 
+		target_direction:=Vector2.ZERO) -> void:
 	pick_up_item.global_position = _get_item_drop_position()
 	get_parent().add_child(pick_up_item)
-	var throw_direction := Vector2(sign(look_direction.x), 0)
-	pick_up_item.apply_impulse(throw_direction * randf_range(300, 500))
+	var throw_direction := Vector2(sign(look_direction.x), 0) * target_direction
+	pick_up_item.apply_impulse(throw_direction * force)
 	
 	_throw_item_particles_spawner.spawn()
 	_throw_item_sfx.play()
 	
-	pick_up_item.hitbox.set_character(self)
-	pick_up_item.hitbox.set_team(team)
+	if pick_up_item.hitbox:
+		pick_up_item.hitbox.set_character(self)
+		pick_up_item.hitbox.set_team(team)
 
 
 func _on_state_machine_transitioned(_to_state, _from_state):

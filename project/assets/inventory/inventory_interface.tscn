@@ -41,12 +41,11 @@ offset_bottom = 120.0
 
 [node name="ExternalInventory" parent="." instance=ExtResource("2_lx6mc")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
-offset_left = 416.0
-offset_top = 312.0
-offset_right = 456.0
-offset_bottom = 352.0
+offset_left = 32.0
+offset_top = 264.0
+offset_right = 72.0
+offset_bottom = 304.0
 
 [node name="GrabbedSlot" parent="." instance=ExtResource("3_wu2t0")]
 unique_name_in_owner = true

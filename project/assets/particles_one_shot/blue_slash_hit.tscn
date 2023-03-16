@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=8 format=3 uid="uid://bupkcs6uyh44k"]
 
 [ext_resource type="Texture2D" uid="uid://bbkud553oj1ks" path="res://assets/particles/sprites/blue_slash_hit.png" id="1_qyed3"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_8j2if"]

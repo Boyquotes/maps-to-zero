@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="InventoryDataHotBar" load_steps=7 format=3 uid="uid://gk87c31n7pm1"]
+[gd_resource type="Resource" script_class="InventoryDataHotBar" load_steps=9 format=3 uid="uid://gk87c31n7pm1"]
 
 [ext_resource type="Script" path="res://assets/inventory/inventory_data_hot_bar.gd" id="1_3krl3"]
 [ext_resource type="Resource" uid="uid://debr471io3oc8" path="res://assets/items/item_data/fast_pass.tres" id="2_rmg2t"]
 [ext_resource type="Script" path="res://assets/inventory/slot_data.gd" id="3_jj8lo"]
 [ext_resource type="Resource" uid="uid://dnkq7uomgahgy" path="res://assets/items/item_data/rune_crash.tres" id="4_v10wl"]
+[ext_resource type="Resource" uid="uid://ctwimpa5mxf6w" path="res://assets/items/item_data/red_ball.tres" id="5_bln23"]
 
 [sub_resource type="Resource" id="Resource_ov6mj"]
 script = ExtResource("3_jj8lo")
@@ -15,6 +16,11 @@ script = ExtResource("3_jj8lo")
 item_data = ExtResource("4_v10wl")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_1nrv2"]
+script = ExtResource("3_jj8lo")
+item_data = ExtResource("5_bln23")
+quantity = 20
+
 [resource]
 script = ExtResource("1_3krl3")
-slot_datas = Array[ExtResource("3_jj8lo")]([SubResource("Resource_ov6mj"), SubResource("Resource_xl1a3"), null, null, null, null, null, null])
+slot_datas = Array[ExtResource("3_jj8lo")]([SubResource("Resource_ov6mj"), SubResource("Resource_xl1a3"), SubResource("Resource_1nrv2"), null, null, null, null, null])

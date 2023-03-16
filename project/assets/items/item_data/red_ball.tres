@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDataThrowable" load_steps=5 format=3 uid="uid://ctwimpa5mxf6w"]
+
+[ext_resource type="Script" path="res://assets/items/item_data_throwable.gd" id="1_x2dlj"]
+[ext_resource type="Texture2D" uid="uid://3nksi4op5jel" path="res://assets/items/#1 - Transparent Icons.png" id="2_feifp"]
+[ext_resource type="PackedScene" uid="uid://dett7u1kso52w" path="res://assets/items/pick_up/thrown_item.tscn" id="3_ltxp3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_715ra"]
+atlas = ExtResource("2_feifp")
+region = Rect2(0, 576, 32, 32)
+
+[resource]
+script = ExtResource("1_x2dlj")
+thrown_item_scene = ExtResource("3_ltxp3")
+force = 1000.0
+throw_direction = Vector2(1, 0)
+name = "Red Ball"
+description = "Dodge this!"
+stackable = true
+texture = SubResource("AtlasTexture_715ra")

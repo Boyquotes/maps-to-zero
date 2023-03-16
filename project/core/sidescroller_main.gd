@@ -185,4 +185,6 @@ func _initialize_item_chests() -> void:
 func _on_inventory_interface_dropped_slot_data(slot_data: SlotData) -> void:
 	var pick_up := PICK_UP.instantiate() as PickUpItem
 	pick_up.slot_data = slot_data
-	player.throw_pick_up_item(pick_up)
+	var force := randf_range(300, 500)
+	var direction := Vector2.RIGHT
+	player.throw_pick_up_item(pick_up, force, direction)
