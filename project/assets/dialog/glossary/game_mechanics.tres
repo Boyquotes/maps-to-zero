@@ -6,7 +6,7 @@
 script = ExtResource("1_5a765")
 entries = {
 "Skill": {
-"alternatives": ["Skills", "skill", "skills"],
+"alternatives": ["Skills", "skill", "skills", ""],
 "case_sensitive": true,
 "color": Color(0.886719, 0.498779, 0.507872, 1),
 "text": "Skills are learned actions that users practiced and use. They range in utilities: some help the user do chores in their day to day life, others help them fight better (although that's not to say fighting isn't part of day to day life.)

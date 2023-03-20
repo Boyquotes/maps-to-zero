@@ -5,6 +5,7 @@ class_name ItemData
 @export_multiline var description: String = ""
 @export var stackable: bool = false
 @export var texture: Texture
+@export var cooldown := 0.0
 
 
 func use(target) -> void:

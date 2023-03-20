@@ -1,7 +1,8 @@
-[gd_scene load_steps=41 format=3 uid="uid://crmn65k01sc6t"]
+[gd_scene load_steps=42 format=3 uid="uid://crmn65k01sc6t"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_owwcp"]
 [ext_resource type="AudioStream" uid="uid://dlnpcu5kao83d" path="res://assets/sfx/ambience/jungle_thunderstorm.ogg" id="2_wl2t7"]
+[ext_resource type="AudioStream" uid="uid://q4rrpr4nynqh" path="res://assets/music/horizon_hills_act_2.ogg" id="2_xbygk"]
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_entry_point.gd" id="3_5ivps"]
 [ext_resource type="PackedScene" uid="uid://bjno2y0rewxkq" path="res://assets/generic_props/sky_island/sky_island.tscn" id="5_6po44"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="5_41w17"]
@@ -184,7 +185,7 @@ hue_variation_min = -0.03
 
 [node name="Horizon Hills Act 3" type="Node2D"]
 script = ExtResource("1_owwcp")
-song = 6
+song = ExtResource("2_xbygk")
 metadata/_edit_vertical_guides_ = []
 
 [node name="Thunder Jungle Ambience" type="AudioStreamPlayer" parent="."]

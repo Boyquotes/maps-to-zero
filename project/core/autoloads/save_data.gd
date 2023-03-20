@@ -13,6 +13,7 @@ var stage_data := {
 	camera_zoom = Vector2.ONE,
 }
 var cutscenes := {} # True if watched at least once, false otherwise
+var skills := InventoryDataSkills.new()
 
 
 func save_exists(save_file_number: int) -> bool:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://0mx07rnd61lq"]
+[gd_scene load_steps=32 format=3 uid="uid://0mx07rnd61lq"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_hr1qc"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_3i5s6"]
+[ext_resource type="AudioStream" uid="uid://holav3wvtac2" path="res://assets/music/horizon_hills_act_1.ogg" id="2_hv7tr"]
 [ext_resource type="Texture2D" uid="uid://cbatu1oq0kr8a" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/back.png" id="3_c2w5i"]
 [ext_resource type="PackedScene" uid="uid://bjno2y0rewxkq" path="res://assets/generic_props/sky_island/sky_island.tscn" id="3_lv26t"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="4_5mahp"]
@@ -92,7 +93,7 @@ _data = {
 
 [node name="Horizon Hills Act 1 - Tall Cave" type="Node2D"]
 script = ExtResource("1_hr1qc")
-song = 3
+song = ExtResource("2_hv7tr")
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

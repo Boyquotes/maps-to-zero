@@ -5,6 +5,8 @@ signal cover_finished
 signal uncover_finished
 signal cutscene_bars_show_finished
 signal cutscene_bars_hide_finished
+signal border_frame_show_finished
+signal border_frame_hide_finished
 
 enum CoverAnimations { FADE_TO_BLACK, FADE_TO_WHITE }
 enum UncoverAnimations { FADE_OUT_BLACK, FADE_OUT_WHITE }
@@ -56,18 +58,24 @@ func show_border_frame(duration:= 1.0) -> void:
 	var animation_player := _skill_frames.get_node("AnimationPlayer") as AnimationPlayer
 	if is_equal_approx(duration, 0.0):
 		animation_player.play("show")
+		border_frame_show_finished.emit()
 	else:
 		animation_player.speed_scale = 1.0 / duration
 		animation_player.play("show")
+		await animation_player.animation_finished
+		border_frame_show_finished.emit()
 
 
 func hide_border_frame(duration:= 1.0) -> void:
 	var animation_player := _skill_frames.get_node("AnimationPlayer") as AnimationPlayer
 	if is_equal_approx(duration, 0.0):
 		_skill_frames.visible = false
+		border_frame_hide_finished.emit()
 	else:
 		animation_player.speed_scale = 1.0 / duration
 		animation_player.play("hide")
+		await animation_player.animation_finished
+		border_frame_hide_finished.emit()
 
 
 func cover_screen(animation: CoverAnimations, duration:= 1.0) -> void:

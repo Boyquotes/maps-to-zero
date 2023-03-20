@@ -13,6 +13,10 @@ signal hit(hit_character)
 @export var frame_freeze_duration_milliseconds: int = 0
 @export var screen_shake_trauma: float = 0.0
 @export var team : GameUtilities.Teams
+@export var enabled : bool = false: 
+	set(value):
+		enabled = value
+		set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, enabled)
 
 
 var _character: Character
@@ -20,6 +24,7 @@ var _character: Character
 
 func _ready():
 	_reset_hitbox_collision()
+	set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, enabled)
 
 
 func set_character(new_character: Character) -> void:

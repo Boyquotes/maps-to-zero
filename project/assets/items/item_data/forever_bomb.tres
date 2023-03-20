@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemDataThrowable" load_steps=5 format=3 uid="uid://dj04ix5gyqws6"]
+
+[ext_resource type="Script" path="res://assets/items/item_data_throwable.gd" id="1_eauwf"]
+[ext_resource type="Texture2D" uid="uid://3nksi4op5jel" path="res://assets/items/#1 - Transparent Icons.png" id="2_8oq58"]
+[ext_resource type="PackedScene" uid="uid://dl8nls8jc0u33" path="res://assets/items/pick_up/forever_bomb.tscn" id="3_xhrxm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwgk3"]
+atlas = ExtResource("2_8oq58")
+region = Rect2(160, 576, 32, 32)
+
+[resource]
+script = ExtResource("1_eauwf")
+thrown_item_scene = ExtResource("3_xhrxm")
+force = 1000.0
+throw_direction = Vector2(1, 0)
+name = "Forever Bomb"
+description = "It's multiplying..."
+stackable = true
+texture = SubResource("AtlasTexture_iwgk3")
+cooldown = 0.0

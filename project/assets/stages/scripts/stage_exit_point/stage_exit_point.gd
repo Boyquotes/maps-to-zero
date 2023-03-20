@@ -34,4 +34,4 @@ func trigger(_dummy_var=null):
 	area_2d.set_collision_mask_value(4, false)
 	if fade_out_song:
 		var current_animation := animation_player.get_animation(animation_player.current_animation) as Animation
-		MusicManager.play(Music.Songs.SILENCE, current_animation.length)
+		MusicManager.play(null, current_animation.length)

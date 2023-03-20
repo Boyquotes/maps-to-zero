@@ -6,3 +6,4 @@ extends CharacterState
 
 func enter(_msg := {}) -> void:
 	_character.play_animation(animation)
+	_character.velocity = Vector2.ZERO

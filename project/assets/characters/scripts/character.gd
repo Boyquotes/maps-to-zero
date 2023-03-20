@@ -46,7 +46,7 @@ signal toggle_menu_requested
 @export var attack_can_go_to_next : bool:
 	set(value):
 		attack_can_go_to_next = value
-		if not attack_request_buffer == "":
+		if value and not attack_request_buffer == "":
 			var next_attack_state: State = state_machine.get_state(attack_request_buffer)
 			for req in next_attack_state.transition_requirements:
 				if not req.get_is_ready():
@@ -292,7 +292,7 @@ func use_item_slot_data(item_slot_data: SlotData) -> void:
 	item_slot_data.item_data.use(self)
 
 
-func throw_pick_up_item(pick_up_item: PickUpItem, force:=500.0, 
+func throw_pick_up_item(pick_up_item: PickUpItem, force:=500.0, \
 		target_direction:=Vector2.ZERO) -> void:
 	pick_up_item.global_position = _get_item_drop_position()
 	get_parent().add_child(pick_up_item)

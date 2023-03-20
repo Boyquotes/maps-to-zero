@@ -1,0 +1,232 @@
+[gd_scene load_steps=24 format=3 uid="uid://dxc2ioqbn2du2"]
+
+[ext_resource type="Script" path="res://assets/items/pick_up/pick_up_item.gd" id="1_iuqe5"]
+[ext_resource type="Resource" uid="uid://ctwimpa5mxf6w" path="res://assets/items/item_data/red_ball.tres" id="2_akmuc"]
+[ext_resource type="Script" path="res://assets/inventory/slot_data.gd" id="3_35vqi"]
+[ext_resource type="Texture2D" uid="uid://cv3rgowjjdqmo" path="res://assets/items/item_atlas.tres" id="4_rs710"]
+[ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="5_33mkx"]
+[ext_resource type="PackedScene" uid="uid://dijgy2jmgkkr1" path="res://assets/items/pick_up/default_pick_up_item_particles.tscn" id="6_hq3bm"]
+[ext_resource type="AudioStream" uid="uid://xcqu02ja12ep" path="res://assets/items/pick_up/default_pick_up_sfx.ogg" id="7_5rv5t"]
+[ext_resource type="PackedScene" uid="uid://ofmpsuyn6uvk" path="res://assets/items/pick_up/item_hit_bounce_particles.tscn" id="8_y4ogy"]
+[ext_resource type="AudioStream" uid="uid://dknp7b45fhr3n" path="res://assets/items/pick_up/hit_bounce_sfx.wav" id="9_oopw8"]
+[ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="10_171lx"]
+[ext_resource type="PackedScene" uid="uid://c01trt0xcc1fp" path="res://assets/characters/alisa/particles/alisa_dash_explosion_particles.tscn" id="11_tkjl5"]
+[ext_resource type="AudioStream" uid="uid://bpsup87wn8a3o" path="res://assets/characters/alisa/sfx/glass_shatter.wav" id="12_8wnm3"]
+[ext_resource type="Script" path="res://core/classes/spawner_2d.gd" id="13_dj311"]
+[ext_resource type="PackedScene" uid="uid://brsu0uq5483ua" path="res://assets/items/pick_up/forever_bomb_4.tscn" id="14_aqj3w"]
+[ext_resource type="AudioStream" uid="uid://c5i5tswb2fo5n" path="res://assets/characters/kanna/kanna_explosion.wav" id="15_i8oxj"]
+
+[sub_resource type="Resource" id="Resource_ego2q"]
+script = ExtResource("3_35vqi")
+item_data = ExtResource("2_akmuc")
+quantity = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_534q1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hsuvk"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_x0krv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kuf77"]
+resource_name = "animation"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spawner2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Spawner2D2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ParticleSpawner2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ParticleSpawner2/AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_y0jam"]
+resource_name = "pick_up"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22py2"]
+_data = {
+"RESET": SubResource("Animation_x0krv"),
+"animation": SubResource("Animation_kuf77"),
+"pick_up": SubResource("Animation_y0jam")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jj13r"]
+radius = 16.0
+
+[node name="ForeverBomb" type="RigidBody2D"]
+collision_layer = 0
+lock_rotation = true
+script = ExtResource("1_iuqe5")
+slot_data = SubResource("Resource_ego2q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_rs710")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_534q1")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hsuvk")
+
+[node name="ParticleSpawner" type="Marker2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_33mkx")
+particles_scene = ExtResource("6_hq3bm")
+
+[node name="PickUpSfx" type="AudioStreamPlayer2D" parent="ParticleSpawner"]
+unique_name_in_owner = true
+stream = ExtResource("7_5rv5t")
+bus = &"Sfx"
+
+[node name="HitBounceParticleSpawner" type="Marker2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_33mkx")
+particles_scene = ExtResource("8_y4ogy")
+
+[node name="HitBounceSfx" type="AudioStreamPlayer2D" parent="HitBounceParticleSpawner"]
+unique_name_in_owner = true
+stream = ExtResource("9_oopw8")
+bus = &"Sfx"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "animation"
+libraries = {
+"": SubResource("AnimationLibrary_22py2")
+}
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("10_171lx")
+base_value = 10.0
+hit_particles = ExtResource("11_tkjl5")
+hit_sfx = ExtResource("12_8wnm3")
+on_hit_resource_gain_type = 1
+on_hit_resource_gain_amount = 5.0
+frame_freeze_duration_milliseconds = 200
+screen_shake_trauma = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_jj13r")
+
+[node name="Spawner2D" type="Marker2D" parent="."]
+position = Vector2(32, 0)
+script = ExtResource("13_dj311")
+scene = ExtResource("14_aqj3w")
+
+[node name="Spawner2D2" type="Marker2D" parent="."]
+position = Vector2(-32, 0)
+script = ExtResource("13_dj311")
+scene = ExtResource("14_aqj3w")
+
+[node name="ParticleSpawner2" type="Marker2D" parent="."]
+script = ExtResource("5_33mkx")
+particles_scene = ExtResource("11_tkjl5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ParticleSpawner2"]
+stream = ExtResource("15_i8oxj")
+bus = &"Sfx"
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

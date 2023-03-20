@@ -14,6 +14,7 @@ const MAX_CHEST_DISTANCE = 64.0
 @onready var _external_inventory := %ExternalInventory as Inventory
 @onready var _hot_bar_setter := %HotBarSetter as Inventory
 @onready var _grabbed_slot := %GrabbedSlot as Slot
+@onready var _skills := %Skills as Inventory
 
 var _grabbed_slot_data: SlotData
 var _grabbed_original_inventory_data: InventoryData
@@ -67,6 +68,11 @@ func set_external_inventory(external_inventory_owner) -> void:
 	
 	_external_inventory.show()
 	set_physics_process(true)
+
+
+func set_skills_data(inventory_data: InventoryData) -> void:
+	inventory_data.inventory_interact.connect(_on_inventory_interact)
+	_skills.set_inventory_data(inventory_data)
 
 
 func clear_external_inventory() -> void:

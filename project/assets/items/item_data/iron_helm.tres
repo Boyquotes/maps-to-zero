@@ -14,3 +14,4 @@ name = "Iron Helm"
 description = "It's like a hat, but made out of iron."
 stackable = false
 texture = SubResource("AtlasTexture_bujgi")
+cooldown = 0.0

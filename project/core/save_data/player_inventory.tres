@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=14 format=3 uid="uid://d3nn4q18yv2gq"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=17 format=3 uid="uid://d3nn4q18yv2gq"]
 
 [ext_resource type="Script" path="res://assets/inventory/inventory_data.gd" id="1_mchjb"]
 [ext_resource type="Resource" uid="uid://cikualg0clstf" path="res://assets/items/item_data/apple.tres" id="2_xaxnc"]
@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://bjd5r8y0w54kg" path="res://assets/items/item_data/health_potion.tres" id="5_kt76o"]
 [ext_resource type="Resource" uid="uid://b3werma168e1l" path="res://assets/items/item_data/mana_potion.tres" id="6_54bfj"]
 [ext_resource type="Resource" uid="uid://76i0urynfqvu" path="res://assets/items/item_data/iron_helm.tres" id="7_f4o0l"]
+[ext_resource type="Resource" uid="uid://dnkq7uomgahgy" path="res://assets/items/item_data/rune_crash.tres" id="8_4fsw7"]
+[ext_resource type="Resource" uid="uid://debr471io3oc8" path="res://assets/items/item_data/fast_pass.tres" id="9_pkrq3"]
 
 [sub_resource type="Resource" id="Resource_4xqun"]
 script = ExtResource("3_mm5vg")
@@ -33,11 +35,16 @@ script = ExtResource("3_mm5vg")
 item_data = ExtResource("7_f4o0l")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_njf71"]
+script = ExtResource("3_mm5vg")
+item_data = ExtResource("8_4fsw7")
+quantity = 1
+
 [sub_resource type="Resource" id="Resource_4ro2y"]
 script = ExtResource("3_mm5vg")
-item_data = ExtResource("2_xaxnc")
+item_data = ExtResource("9_pkrq3")
 quantity = 1
 
 [resource]
 script = ExtResource("1_mchjb")
-slot_datas = Array[ExtResource("3_mm5vg")]([SubResource("Resource_4xqun"), SubResource("Resource_5a6sw"), SubResource("Resource_1obbn"), SubResource("Resource_2523i"), SubResource("Resource_01hqs"), null, SubResource("Resource_4ro2y"), null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("3_mm5vg")]([SubResource("Resource_4xqun"), SubResource("Resource_5a6sw"), SubResource("Resource_1obbn"), SubResource("Resource_2523i"), SubResource("Resource_01hqs"), SubResource("Resource_njf71"), SubResource("Resource_4ro2y"), null, null, null, null, null, null, null, null, null, null, null])

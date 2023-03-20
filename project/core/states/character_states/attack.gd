@@ -21,7 +21,9 @@ func init(character: Character) -> void:
 	if _attack_node:
 		for child in _attack_node.get_children():
 			if child is Hitbox:
-				child.hit.connect(_on_attack_hit)
+				var hitbox := child as Hitbox
+				hitbox.hit.connect(_on_attack_hit)
+				hitbox.enabled = false
 		
 		_attack_node_animation_player = _attack_node.get_node("AnimationPlayer") as AnimationPlayer
 		if _attack_node_animation_player:

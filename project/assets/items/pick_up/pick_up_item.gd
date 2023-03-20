@@ -24,7 +24,11 @@ func _ready() -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D):
-	if area.owner is Character:
+	if slot_data.item_data is ItemDataSkill:
+		# Save to skill inventory
+		SaveData.skills.pick_up_slot_data(slot_data)
+		pick_up()
+	elif area.owner is Character:
 		var character := area.owner as Character
 		if character.inventory_data.pick_up_slot_data(slot_data):
 			pick_up()

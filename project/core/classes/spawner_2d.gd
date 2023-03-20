@@ -11,7 +11,7 @@ func spawn(parent):
 	
 	if not parent:
 		if spawned_object_is_top_level:
-			parent = GameManager.sidescroller_main 
+			parent = GameManager.sidescroller_main.currently_loaded_stage
 		else:
 			parent =  self
 	parent.add_child(new_object)

@@ -83,6 +83,10 @@ func set_hot_bar_inventory_data(inventory_data: InventoryData) -> void:
 	_inventory_interface.set_hot_bar_data(inventory_data)
 
 
+func set_skills_data(inventory_data: InventoryData) -> void:
+	_inventory_interface.set_skills_data(inventory_data)
+
+
 func _on_player_resource_changed(type, new_value, _old_value, max_value) -> void:
 	match type:
 		CharacterStats.Types.HP:

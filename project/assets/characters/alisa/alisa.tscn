@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://duso0ahb6lxjg"]
+[gd_scene load_steps=158 format=3 uid="uid://duso0ahb6lxjg"]
 
 [ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
@@ -42,13 +42,14 @@
 [ext_resource type="PackedScene" uid="uid://w6blq5t63ino" path="res://assets/characters/alisa/alisa_dash_explosion.tscn" id="41_5bwyw"]
 [ext_resource type="PackedScene" uid="uid://t7oexq6jcskh" path="res://assets/characters/alisa/particles/alisa_dash_line_particles.tscn" id="42_xjwjg"]
 [ext_resource type="Script" path="res://core/triggers/show_speed_lines_trigger.gd" id="43_pwui8"]
-[ext_resource type="Script" path="res://core/game_utilities.gd" id="43_umbqx"]
 [ext_resource type="PackedScene" uid="uid://tsqr6e168upm" path="res://assets/characters/alisa/particles/pink_hit_impact.tscn" id="44_6g7sh"]
 [ext_resource type="Script" path="res://core/triggers/hide_speed_lines_trigger.gd" id="44_vut77"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="45_mg4cx"]
 [ext_resource type="PackedScene" uid="uid://b8337f0s5pw3q" path="res://assets/characters/alisa/alisa_rune_crash.tscn" id="46_x7euw"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="47_sx4sk"]
+[ext_resource type="Script" path="res://core/triggers/show_skill_frame_trigger.gd" id="48_bmfyq"]
 [ext_resource type="AudioStream" uid="uid://dy5pt4o6nla5e" path="res://assets/sfx/stomp.wav" id="48_ndf8c"]
+[ext_resource type="Script" path="res://core/triggers/hide_skill_frame_trigger.gd" id="49_ha5iy"]
 [ext_resource type="PackedScene" uid="uid://dmdeb5rc6ewxf" path="res://assets/characters/alisa/particles/alisa_stomp_land.tscn" id="49_ihgco"]
 [ext_resource type="PackedScene" uid="uid://dscf8c60pu3d4" path="res://core/states/core/state.tscn" id="50_r72u5"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/player_input.gd" id="51_6hmlq"]
@@ -119,164 +120,152 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../StompHitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("AttackSwingsBack:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AttackSwingsBack:visible")
+tracks/1/path = NodePath("CharacterSprite/Horns:visible")
 tracks/1/interp = 1
-tracks/1/loop_wrap = true
+tracks/1/loop_wrap = false
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterSprite/Horns:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = false
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterSprite:scale")
+tracks/3/path = NodePath("TailConnection:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("TailConnection:position")
+tracks/4/path = NodePath("TailConnection:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("TailConnection:rotation")
+tracks/5/path = NodePath("TailConnection:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("TailConnection:scale")
+tracks/6/path = NodePath("TailConnection:z_index")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("TailConnection:z_index")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
 }
-tracks/8/type = "bezier"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("AttackSwings:frame")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AttackSwings:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/9/type = "bezier"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AttackSwings:hframes")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AttackSwings:hframes")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "handle_modes": PackedInt32Array(0),
 "points": PackedFloat32Array(5, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("AttackSwings:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AttackSwings:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(56, -19)]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AttackSwings:texture")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_tmpp0")]
+}
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("AttackSwings:texture")
+tracks/11/path = NodePath("AttackSwings:vframes")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_tmpp0")]
+"values": [1]
 }
-tracks/12/type = "value"
+tracks/12/type = "method"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("AttackSwings:vframes")
+tracks/12/path = NodePath("GrindParticles")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/13/type = "method"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("GrindParticles")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -284,10 +273,22 @@ tracks/13/keys = {
 "method": &"deactivate"
 }]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("AttackSwings:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("AttackSwings:visible")
+tracks/14/path = NodePath("../StompHitbox:enabled")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -6446,25 +6447,13 @@ tracks/13/keys = {
 [sub_resource type="Animation" id="Animation_t8nxn"]
 length = 0.5
 loop_mode = 1
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../StompHitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("../StompHitbox/StompLandSfx")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../StompHitbox/StompLandSfx")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -6472,10 +6461,22 @@ tracks/1/keys = {
 "method": &"play"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackSwings:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AttackSwings:visible")
+tracks/2/path = NodePath("AttackSwingsBack:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = false
 tracks/2/keys = {
@@ -6484,25 +6485,13 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AttackSwingsBack:visible")
+tracks/3/path = NodePath("../StompHitbox/ParticleSpawner")
 tracks/3/interp = 1
-tracks/3/loop_wrap = false
+tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../StompHitbox/ParticleSpawner")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -6510,106 +6499,118 @@ tracks/4/keys = {
 "method": &"spawn"
 }]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterSprite:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(2, 0.5), Vector2(1, 1)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("TailConnection:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TailConnection:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [1.5708, 0.0]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterSprite:texture")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_k3unl")]
+}
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CharacterSprite:texture")
+tracks/7/path = NodePath("CharacterSprite:hframes")
 tracks/7/interp = 1
 tracks/7/loop_wrap = false
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_k3unl")]
+"values": [16]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CharacterSprite:hframes")
+tracks/8/path = NodePath("CharacterSprite:vframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = false
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [16]
+"values": [15]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CharacterSprite:vframes")
+tracks/9/path = NodePath("CharacterSprite:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = false
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [true]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("CharacterSprite:visible")
+tracks/10/path = NodePath("CharacterSprite:frame")
 tracks/10/interp = 1
 tracks/10/loop_wrap = false
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [169]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("CharacterSprite:frame")
+tracks/11/path = NodePath("CharacterSprite/Horns:texture")
 tracks/11/interp = 1
 tracks/11/loop_wrap = false
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [169]
+"values": [ExtResource("5_p6dq2")]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CharacterSprite/Horns:texture")
+tracks/12/path = NodePath("CharacterSprite/Horns:hframes")
 tracks/12/interp = 1
 tracks/12/loop_wrap = false
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_p6dq2")]
+"values": [11]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("CharacterSprite/Horns:hframes")
+tracks/13/path = NodePath("CharacterSprite/Horns:vframes")
 tracks/13/interp = 1
 tracks/13/loop_wrap = false
 tracks/13/keys = {
@@ -6621,38 +6622,38 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("CharacterSprite/Horns:vframes")
+tracks/14/path = NodePath("CharacterSprite/Horns:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = false
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [11]
+"values": [true]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("CharacterSprite/Horns:visible")
+tracks/15/path = NodePath("CharacterSprite/Horns:frame")
 tracks/15/interp = 1
 tracks/15/loop_wrap = false
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [76]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("CharacterSprite/Horns:frame")
+tracks/16/path = NodePath("../StompHitbox:enabled")
 tracks/16/interp = 1
-tracks/16/loop_wrap = false
+tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [76]
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_eak7o"]
@@ -7549,7 +7550,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7561,7 +7562,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -7573,7 +7574,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -7585,14 +7586,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/path = NodePath("Hitbox:enabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_kkdf6"]
@@ -7601,7 +7602,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7613,35 +7614,35 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/3/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -7649,14 +7650,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/4/path = NodePath("Hitbox:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i5ert"]
@@ -7673,7 +7674,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7685,7 +7686,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -7697,7 +7698,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -7709,14 +7710,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/path = NodePath("Hitbox:enabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_ba286"]
@@ -7725,7 +7726,7 @@ length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7737,45 +7738,45 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["attack_2"]
 }
-tracks/3/type = "animation"
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Visuals/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("attack_2"),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../Visuals/AnimationPlayer")
+tracks/3/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"clips": PackedStringArray("attack_2"),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/4/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -7783,14 +7784,14 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/5/path = NodePath("Hitbox:enabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_apmkq"]
@@ -7804,7 +7805,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7816,7 +7817,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -7828,7 +7829,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -7840,14 +7841,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/path = NodePath("Hitbox:enabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_rvrn2"]
@@ -7857,7 +7858,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7869,35 +7870,35 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["attack_3"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/3/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -7905,14 +7906,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/4/path = NodePath("Hitbox:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false, true, false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2p3vp"]
@@ -7929,31 +7930,31 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -7965,14 +7966,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/path = NodePath("Hitbox:enabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_3kbyf"]
@@ -7981,7 +7982,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:animation")
+tracks/0/path = NodePath("CharacterAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -7993,35 +7994,35 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
 "transitions": PackedFloat32Array(0.5, 0.5, 2),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(8, -16), Vector2(32, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/3/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -8029,14 +8030,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/4/path = NodePath("Hitbox:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nh3be"]
@@ -8054,31 +8055,31 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -8090,14 +8091,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/path = NodePath("Hitbox:enabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_lqabx"]
@@ -8107,7 +8108,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:animation")
+tracks/0/path = NodePath("CharacterAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -8119,35 +8120,35 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.35, 0.4, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
 "transitions": PackedFloat32Array(0.5, 0.5, 0.5, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(16, -16), Vector2(16, -16), Vector2(32, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/3/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -8155,14 +8156,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/4/path = NodePath("Hitbox:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, false, true, false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2x750"]
@@ -8179,31 +8180,31 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -8215,14 +8216,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/3/path = NodePath("Hitbox:enabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_574d0"]
@@ -8231,47 +8232,47 @@ length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("CharacterAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["air_attack_3"]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterAnimator:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.6),
 "transitions": PackedFloat32Array(0.5, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(16, -24), Vector2(32, 512)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/3/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -8279,14 +8280,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/4/path = NodePath("Hitbox:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mlyav"]
@@ -8306,7 +8307,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -8318,19 +8319,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("../../../SoftCollision/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../../SoftCollision/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Trail:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -8342,7 +8343,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Trail:visible")
+tracks/3/path = NodePath("SlashLine:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -8354,7 +8355,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("SlashLine:visible")
+tracks/4/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:active")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -8366,46 +8367,34 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:active")
+tracks/5/path = NodePath("../../Visuals/CharacterSprite:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../../Visuals/CharacterSprite:scale")
+tracks/6/path = NodePath("CanvasLayer/BlueShift:color")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Color(0, 0, 1, 0)]
 }
-tracks/7/type = "value"
+tracks/7/type = "method"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CanvasLayer/BlueShift:color")
+tracks/7/path = NodePath("CameraSettingsTrigger")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 1, 0)]
-}
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CameraSettingsTrigger")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8413,13 +8402,13 @@ tracks/8/keys = {
 "method": &"reset_zoom"
 }]
 }
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("HideSpeedLinesTrigger")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("HideSpeedLinesTrigger")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8427,29 +8416,41 @@ tracks/9/keys = {
 "method": &"trigger"
 }]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../../StateMachine/Dash/JumpWithSpeedStateTransition:active")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("../../../StateMachine/Dash/JumpWithSpeedStateTransition:active")
+tracks/10/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/11/path = NodePath("Hitbox:enabled")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_tsibi"]
@@ -8459,7 +8460,7 @@ step = 0.005
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -8471,34 +8472,22 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("CharacterAnimator:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["idle", "slide"]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("DashSfx")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DashSfx")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8506,10 +8495,22 @@ tracks/3/keys = {
 "method": &"play"
 }]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../../SoftCollision/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../../../SoftCollision/CollisionShape2D:disabled")
+tracks/4/path = NodePath("Trail:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -8521,7 +8522,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Trail:visible")
+tracks/5/path = NodePath("SlashLine:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -8530,25 +8531,13 @@ tracks/5/keys = {
 "update": 1,
 "values": [false, true, false]
 }
-tracks/6/type = "value"
+tracks/6/type = "method"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("SlashLine:visible")
+tracks/6/path = NodePath("DashExplosionSpawner")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("DashExplosionSpawner")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0.45),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8556,13 +8545,13 @@ tracks/7/keys = {
 "method": &"spawn"
 }]
 }
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("DashLineParticleSpawner")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("DashLineParticleSpawner")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8570,85 +8559,85 @@ tracks/8/keys = {
 "method": &"spawn"
 }]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:active")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:active")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0.05, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:wait_time")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.01]
+}
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:wait_time")
+tracks/10/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:sprite_lifetime")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.01]
+"values": [0.4]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:sprite_lifetime")
+tracks/11/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:fade_out")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.4]
+"update": 1,
+"values": [true]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("../../Visuals/CharacterSprite/GhostSprites:fade_out")
+tracks/12/path = NodePath("../../Visuals/CharacterSprite:scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0.05),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("../../Visuals/CharacterSprite:scale")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.15),
 "transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(2, 0.5), Vector2(1, 1)]
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("CanvasLayer/BlueShift:color")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CanvasLayer/BlueShift:color")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(0.05, 0.09, 0.25, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(0, 0, 1, 0), Color(0, 0, 1, 0.0352941), Color(0, 0, 1, 0.0352941), Color(0, 0, 1, 0)]
 }
-tracks/15/type = "method"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("CameraSettingsTrigger")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CameraSettingsTrigger")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(0.05, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -8659,13 +8648,13 @@ tracks/15/keys = {
 "method": &"reset_zoom"
 }]
 }
-tracks/16/type = "method"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("ShowSpeedLinesTrigger")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/15/type = "method"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("ShowSpeedLinesTrigger")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
 "times": PackedFloat32Array(0.05),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8673,13 +8662,13 @@ tracks/16/keys = {
 "method": &"trigger"
 }]
 }
-tracks/17/type = "method"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("HideSpeedLinesTrigger")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/16/type = "method"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("HideSpeedLinesTrigger")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
 "times": PackedFloat32Array(0.25),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8687,22 +8676,34 @@ tracks/17/keys = {
 "method": &"trigger"
 }]
 }
-tracks/18/type = "value"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("../../../StateMachine/Dash/JumpWithSpeedStateTransition:active")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("../../../StateMachine/Dash/JumpWithSpeedStateTransition:active")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 0.14),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/19/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
@@ -8714,14 +8715,14 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
+tracks/20/path = NodePath("Hitbox:enabled")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n8p1y"]
@@ -8743,7 +8744,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:position")
+tracks/0/path = NodePath("CharacterAnimator:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -8752,22 +8753,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox2/CollisionShape2D:disabled")
+tracks/1/path = NodePath("CameraSettingsTrigger")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [{
+"args": [],
+"method": &"reset_zoom"
+}]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -8779,7 +8782,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox3/CollisionShape2D:disabled")
+tracks/3/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -8788,57 +8791,41 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "method"
+tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("GameUtilities")
+tracks/4/path = NodePath("Hitbox:enabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [1.0],
-"method": &"hide_skill_frame"
-}]
+"update": 1,
+"values": [false]
 }
-tracks/5/type = "method"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CameraSettingsTrigger")
+tracks/5/path = NodePath("Hitbox2:enabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reset_zoom"
-}]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
+tracks/6/path = NodePath("Hitbox3:enabled")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_308g8"]
@@ -8848,7 +8835,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ActorTransformer2D:animation")
+tracks/0/path = NodePath("CharacterAnimator:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -8860,7 +8847,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/path = NodePath("CharacterAnimator:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -8869,37 +8856,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(16, 0)]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox2/CollisionShape2D:disabled")
+tracks/2/path = NodePath("RuneSpawner")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("RuneSpawner")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8907,42 +8870,13 @@ tracks/4/keys = {
 "method": &"spawn"
 }]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hitbox3/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.3, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("GameUtilities")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [0.2],
-"method": &"show_skill_frame"
-}, {
-"args": [0.5],
-"method": &"hide_skill_frame"
-}]
-}
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("CameraSettingsTrigger")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraSettingsTrigger")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -8950,29 +8884,93 @@ tracks/7/keys = {
 "method": &"change_zoom"
 }]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("ActorTransformer2D:can_cancel_out_of_attack")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("ActorTransformer2D:can_go_to_next_attack")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterAnimator:can_go_to_next_attack")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hitbox:enabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hitbox2:enabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Hitbox3:enabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ShowSkillFrameTrigger")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HideSkillFrameTrigger")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o2p4a"]
@@ -8997,7 +8995,7 @@ radius = 60.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7nr68"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vmy5l"]
-size = Vector2(16, 30)
+size = Vector2(32, 40)
 
 [node name="Alisa" instance=ExtResource("1_j3c5v")]
 z_index = 20
@@ -9042,7 +9040,7 @@ material = SubResource("CanvasItemMaterial_rgjqa")
 texture = ExtResource("14_c704a")
 hframes = 6
 vframes = 6
-frame = 16
+frame = 3
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -9070,7 +9068,7 @@ texture = ExtResource("3_k3unl")
 offset = Vector2(0, -32)
 hframes = 16
 vframes = 15
-frame = 226
+frame = 150
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "alisa",
@@ -9092,7 +9090,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 114
+frame = 60
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9189,13 +9187,14 @@ libraries = {
 "": SubResource("AnimationLibrary_i5ert")
 }
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "attack"
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
+visible = false
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("33_x7obb")
@@ -9208,7 +9207,6 @@ screen_shake_trauma = 0.05
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
 position = Vector2(47, 0)
 shape = SubResource("RectangleShape2D_i1q2v")
-disabled = true
 
 [node name="Attack2" type="Node2D" parent="Inner/Attacks" index="1"]
 
@@ -9218,13 +9216,14 @@ libraries = {
 "": SubResource("AnimationLibrary_apmkq")
 }
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack2" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack2" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "attack_2"
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack2" index="2"]
+visible = false
 collision_mask = 4
 script = ExtResource("33_x7obb")
 base_value = 7.0
@@ -9236,7 +9235,6 @@ screen_shake_trauma = 0.05
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack2/Hitbox" index="0"]
 position = Vector2(48, 0)
 shape = SubResource("RectangleShape2D_i1q2v")
-disabled = true
 
 [node name="Attack3" type="Node2D" parent="Inner/Attacks" index="2"]
 
@@ -9246,13 +9244,14 @@ libraries = {
 "": SubResource("AnimationLibrary_2p3vp")
 }
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack3" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack3" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "attack_3"
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack3" index="2"]
+visible = false
 position = Vector2(-1, 0)
 collision_mask = 4
 script = ExtResource("33_x7obb")
@@ -9265,7 +9264,6 @@ screen_shake_trauma = 0.05
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack3/Hitbox" index="0"]
 position = Vector2(36.5, 0)
 shape = SubResource("RectangleShape2D_mlfa0")
-disabled = true
 
 [node name="AirAttack1" type="Node2D" parent="Inner/Attacks" index="3"]
 
@@ -9275,13 +9273,14 @@ libraries = {
 "": SubResource("AnimationLibrary_nh3be")
 }
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack1" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/AirAttack1" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "air_attack_1"
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack1" index="2"]
+visible = false
 collision_mask = 4
 script = ExtResource("33_x7obb")
 base_value = 10.0
@@ -9292,7 +9291,6 @@ screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack1/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_alunf")
-disabled = true
 
 [node name="AirAttack2" type="Node2D" parent="Inner/Attacks" index="4"]
 
@@ -9301,13 +9299,14 @@ libraries = {
 "": SubResource("AnimationLibrary_2x750")
 }
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack2" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/AirAttack2" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "air_attack_2"
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack2" index="2"]
+visible = false
 collision_mask = 4
 script = ExtResource("33_x7obb")
 base_value = 12.0
@@ -9318,7 +9317,6 @@ screen_shake_trauma = 0.05
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack2/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_foam6")
-disabled = true
 
 [node name="AirAttack3" type="Node2D" parent="Inner/Attacks" index="5"]
 
@@ -9327,13 +9325,14 @@ libraries = {
 "": SubResource("AnimationLibrary_mlyav")
 }
 
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/AirAttack3" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/AirAttack3" index="1"]
 script = ExtResource("33_ahjeu")
 animation = "air_attack_3"
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/AirAttack3" index="2"]
+visible = false
 collision_mask = 4
 script = ExtResource("33_x7obb")
 base_value = 20.0
@@ -9344,13 +9343,22 @@ screen_shake_trauma = 0.1
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack3/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_btlv5")
-disabled = true
 
 [node name="Dash" type="Node2D" parent="Inner/Attacks" index="6"]
 material = SubResource("CanvasItemMaterial_tiupy")
 position = Vector2(-256, 0)
 
-[node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Dash" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/Dash" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_n8p1y")
+}
+
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Dash" index="1"]
+script = ExtResource("33_ahjeu")
+animation = "slide"
+can_cancel_out_of_attack = true
+
+[node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Dash" index="2"]
 position = Vector2(256, 0)
 script = ExtResource("38_hnkwh")
 zoom_tween_duration = 2.0
@@ -9359,18 +9367,8 @@ change_base_zoom = false
 reset_zoom_tween_duration = 0.5
 line_color = Color(0.501961, 0.686275, 0.94902, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/Dash" index="1"]
-libraries = {
-"": SubResource("AnimationLibrary_n8p1y")
-}
-
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Dash" index="2"]
-script = ExtResource("33_ahjeu")
-animation = "slide"
-can_cancel_out_of_attack = true
-can_go_to_next_attack = true
-
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Dash" index="3"]
+visible = false
 position = Vector2(256, 0)
 collision_mask = 4
 script = ExtResource("33_x7obb")
@@ -9382,7 +9380,6 @@ screen_shake_trauma = 0.5
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Dash/Hitbox" index="0"]
 shape = SubResource("RectangleShape2D_r5vaj")
-disabled = true
 
 [node name="DashSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/Dash" index="4"]
 stream = ExtResource("20_ml0lw")
@@ -9441,7 +9438,14 @@ libraries = {
 "": SubResource("AnimationLibrary_o2p4a")
 }
 
-[node name="Hitbox" type="Area2D" parent="Inner/Attacks/Rune Crash" index="1"]
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="1"]
+script = ExtResource("33_ahjeu")
+animation = "rune_crash"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
+
+[node name="Hitbox" type="Area2D" parent="Inner/Attacks/Rune Crash" index="2"]
+visible = false
 script = ExtResource("33_x7obb")
 base_value = 20.0
 hit_particles = ExtResource("44_6g7sh")
@@ -9454,9 +9458,9 @@ screen_shake_trauma = 0.2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox" index="0"]
 position = Vector2(72, -32)
 shape = SubResource("CircleShape2D_awycw")
-disabled = true
 
-[node name="Hitbox2" type="Area2D" parent="Inner/Attacks/Rune Crash" index="2"]
+[node name="Hitbox2" type="Area2D" parent="Inner/Attacks/Rune Crash" index="3"]
+visible = false
 script = ExtResource("33_x7obb")
 base_value = 20.0
 hit_particles = ExtResource("36_w5o1y")
@@ -9469,9 +9473,9 @@ screen_shake_trauma = 0.8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox2" index="0"]
 position = Vector2(72, -31)
 shape = SubResource("CircleShape2D_5hy48")
-disabled = true
 
-[node name="Hitbox3" type="Area2D" parent="Inner/Attacks/Rune Crash" index="3"]
+[node name="Hitbox3" type="Area2D" parent="Inner/Attacks/Rune Crash" index="4"]
+visible = false
 script = ExtResource("33_x7obb")
 base_value = 20.0
 hit_particles = ExtResource("44_6g7sh")
@@ -9484,23 +9488,13 @@ screen_shake_trauma = 0.2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox3" index="0"]
 position = Vector2(72, -32)
 shape = SubResource("CircleShape2D_67h83")
-disabled = true
-
-[node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="4"]
-script = ExtResource("33_ahjeu")
-animation = "rune_crash"
-can_cancel_out_of_attack = true
-can_go_to_next_attack = true
 
 [node name="RuneSpawner" type="Marker2D" parent="Inner/Attacks/Rune Crash" index="5"]
 script = ExtResource("38_1w5r1")
 scene = ExtResource("46_x7euw")
 spawned_object_is_top_level = true
 
-[node name="GameUtilities" type="Node" parent="Inner/Attacks/Rune Crash" index="6"]
-script = ExtResource("43_umbqx")
-
-[node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Rune Crash" index="7"]
+[node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Rune Crash" index="6"]
 script = ExtResource("38_hnkwh")
 zoom_tween_duration = 1.0
 zoom = Vector2(1.7, 1.7)
@@ -9508,7 +9502,16 @@ change_base_zoom = false
 reset_zoom_tween_duration = 0.5
 line_color = Color(0.501961, 0.686275, 0.94902, 1)
 
+[node name="ShowSkillFrameTrigger" type="Node2D" parent="Inner/Attacks/Rune Crash" index="7"]
+script = ExtResource("48_bmfyq")
+duration = 0.2
+
+[node name="HideSkillFrameTrigger" type="Node2D" parent="Inner/Attacks/Rune Crash" index="8"]
+script = ExtResource("49_ha5iy")
+duration = 0.5
+
 [node name="StompHitbox" type="Area2D" parent="Inner" index="3"]
+visible = false
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("33_x7obb")
@@ -9520,7 +9523,6 @@ screen_shake_trauma = 0.2
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/StompHitbox" index="0"]
 shape = SubResource("CircleShape2D_a7hpf")
-disabled = true
 
 [node name="StompLandSfx" type="AudioStreamPlayer2D" parent="Inner/StompHitbox" index="1"]
 position = Vector2(0, 16)
@@ -9659,6 +9661,7 @@ script = ExtResource("58_o2od5")
 visible = false
 
 [node name="InteractionAreaActivator2D" type="Area2D" parent="." index="8"]
+visible = false
 collision_layer = 8
 collision_mask = 0
 monitoring = false
@@ -9668,12 +9671,13 @@ script = ExtResource("57_h5aei")
 shape = SubResource("CircleShape2D_7nr68")
 
 [node name="FloorRaycast" type="RayCast2D" parent="." index="11"]
+visible = false
 position = Vector2(0, 17)
 target_position = Vector2(0, 16)
 collide_with_areas = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
-position = Vector2(0, 1)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_vmy5l")
 
 [connection signal="timeout" from="CharacterStats/MPRegenTimer" to="CharacterStats" method="_on_mp_regen_timer_timeout"]

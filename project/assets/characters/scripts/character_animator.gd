@@ -179,6 +179,11 @@ func move_left() -> void:
 	set_physics_process(false)
 
 
+func look_towards_position() -> void:
+	_character.look_direction = Vector2(
+		sign(_character.global_position.direction_to(global_position).x), 0)
+
+
 func _move_character_to_global_position() -> void:
 	var move_to_position_state = _character.input_state_machine.get_state("MoveToPosition")
 	move_to_position_state.target_global_position = global_position

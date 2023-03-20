@@ -17,3 +17,4 @@ name = "Red Ball"
 description = "Dodge this!"
 stackable = true
 texture = SubResource("AtlasTexture_715ra")
+cooldown = 0.0

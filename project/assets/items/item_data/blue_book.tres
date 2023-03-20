@@ -13,3 +13,4 @@ name = "Blue Book"
 description = "We are going home to the blue book."
 stackable = false
 texture = SubResource("AtlasTexture_iynp0")
+cooldown = 0.0

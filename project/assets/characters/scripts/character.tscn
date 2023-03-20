@@ -32,6 +32,7 @@ unique_name_in_owner = true
 script = ExtResource("2_g6ihf")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+visible = false
 
 [node name="BackgroundJumpArea" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -51,6 +52,7 @@ flags = 51
 
 [node name="Hurtbox" type="Area2D" parent="Inner"]
 unique_name_in_owner = true
+visible = false
 collision_layer = 0
 collision_mask = 4
 monitorable = false
@@ -98,8 +100,8 @@ coyote_time = 0.1
 
 [node name="Run" parent="StateMachine" instance=ExtResource("3_ljg6w")]
 script = ExtResource("5_q4uhh")
-animation = null
-coyote_time = null
+animation = "run"
+coyote_time = 0.1
 
 [node name="Air" parent="StateMachine" instance=ExtResource("3_ljg6w")]
 script = ExtResource("6_d0dbr")
@@ -132,6 +134,7 @@ script = ExtResource("13_gxgy6")
 
 [node name="SoftCollision" type="Area2D" parent="."]
 unique_name_in_owner = true
+visible = false
 script = ExtResource("14_kjlhh")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

@@ -39,6 +39,9 @@ func _ready():
 			child.finished_and_play_animation.connect(func(anim_name):
 				_animation_player.play(anim_name)
 			)
+			child.animation_requested.connect(func(anim_name):
+				_animation_player.play(anim_name)
+			)
 
 
 func start(_dummy_var=null) -> void:

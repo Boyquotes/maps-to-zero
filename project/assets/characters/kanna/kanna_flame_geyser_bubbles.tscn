@@ -1,0 +1,139 @@
+[gd_scene load_steps=15 format=3 uid="uid://ba2gwdqdobxio"]
+
+[ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="6_ch4mq"]
+[ext_resource type="Script" path="res://core/classes/audio_stream_player_2d_extended.gd" id="6_naogb"]
+[ext_resource type="AudioStream" uid="uid://dh0br32mxqosn" path="res://assets/characters/kanna/kanna_flame_geyser_bubbles.wav" id="7_xbi2u"]
+[ext_resource type="AudioStream" uid="uid://c1hofpop70q4d" path="res://assets/characters/kanna/kanna_flame_geyser_bubbles_2.wav" id="8_nsxyh"]
+[ext_resource type="AudioStream" uid="uid://cgbal3ho1jo6q" path="res://assets/characters/kanna/kanna_flame_geyser_bubbles_3.wav" id="9_xs5pr"]
+
+[sub_resource type="Animation" id="Animation_y6cjm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_ky8da"]
+resource_name = "start"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2DExtended")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play_random"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PointLight2D:energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d1re1"]
+_data = {
+"RESET": SubResource("Animation_y6cjm"),
+"start": SubResource("Animation_ky8da")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4gusj"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_s8nsb"]
+offsets = PackedFloat32Array(0, 0.119266, 0.654434, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 0.811922, 5.86881e-09, 1.06017e-09, 1, 0.0660974, 2.91417e-08, 5.2643e-09, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7e1ro"]
+gradient = SubResource("Gradient_s8nsb")
+
+[sub_resource type="Curve" id="Curve_ubu3n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ard5g"]
+curve = SubResource("Curve_ubu3n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a5v2u"]
+emission_shape = 3
+emission_box_extents = Vector3(32, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 13.0
+gravity = Vector3(0, 10, 0)
+initial_velocity_max = 158.87
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_ard5g")
+color_ramp = SubResource("GradientTexture1D_7e1ro")
+
+[node name="KannaFlameGeyserBubbles" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+libraries = {
+"": SubResource("AnimationLibrary_d1re1")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_4gusj")
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_a5v2u")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.65098, 0, 1)
+texture = ExtResource("6_ch4mq")
+texture_scale = 0.3
+
+[node name="AudioStreamPlayer2DExtended" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sfx"
+script = ExtResource("6_naogb")
+streams = Array[AudioStream]([ExtResource("7_xbi2u"), ExtResource("8_nsxyh"), ExtResource("9_xs5pr")])
+pitch_scale_min = 0.9
+pitch_scale_max = 1.1

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DialogicGlossary" load_steps=2 format=3 uid="uid://dmwlhtcix015g"]
+
+[ext_resource type="Script" path="res://addons/dialogic/Events/Glossary/glossary_resource.gd" id="1_fn1cb"]
+
+[resource]
+script = ExtResource("1_fn1cb")
+entries = {
+"Alcatraz Academy": {
+"alternatives": ["The Rock", "The Pit", "Alcatraz", "Alcatraz High School"],
+"color": Color(0.792157, 0.168627, 0.105882, 1),
+"text": "The high school administering the underground district of Gold Harbor. Due to its nature as a primarily underground school, its students constantly cause trouble and demand better living conditions from the city administration. School rules and law are hard to enforce down here.",
+"title": "Alcatraz Academy"
+},
+"Mission High School": {
+"alternatives": ["Mission District", "Mission"],
+"color": Color(0.431373, 0.913725, 0.427451, 1),
+"enabled": true,
+"text": "The oldest and most prestigious school in Gold Harbor. Many heroes and nobles attend this school."
+},
+"Turing Island": {
+"color": Color(0.117647, 0.901961, 1, 1),
+"text": "A floating island hovering over Gold Harbor. Its most notable landmark is Turing University."
+},
+"Turing University": {
+"alternatives": ["Turing", "Turing High School"],
+"color": Color(0.203922, 0.8, 0.937255, 1),
+"text": "A relatively new school in Gold Harbor. It is the centerpiece and most prominent building of Turing Island, and holds administrative jurisdiction over the entire island. Its most notable accomplishments includes the development of Generation III Angels."
+}
+}
+enabled = true

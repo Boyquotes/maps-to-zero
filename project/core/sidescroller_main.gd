@@ -56,9 +56,11 @@ func initialize_player() -> Character:
 	player.inventory_data = load("res://core/save_data/player_inventory.tres")
 	player.equipment_inventory_data = load("res://core/save_data/player_equipment_inventory.tres")
 	player.hot_bar_inventory_data = load("res://core/save_data/player_hot_bar_inventory.tres")
+	SaveData.skills = load("res://core/save_data/skills_inventory.tres")
 	sidescroller_hud.set_player_inventory_data(player.inventory_data)
 	sidescroller_hud.set_equipment_inventory_data(player.equipment_inventory_data)
 	sidescroller_hud.set_hot_bar_inventory_data(player.hot_bar_inventory_data)
+	sidescroller_hud.set_skills_data(SaveData.skills)
 	
 	GameManager.player = player
 	
@@ -99,7 +101,7 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 
 
 func player_defeated() -> void:
-	MusicManager.play(Music.Songs.SILENCE, 2.0)
+	MusicManager.play(null, 2.0)
 	player.disable_input()
 	player.play_animation("defeat")
 	animation_player.play("player_defeated")

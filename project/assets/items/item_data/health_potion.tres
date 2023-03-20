@@ -15,3 +15,4 @@ name = "Health Potion"
 description = "Tastes strangely good for medicine. Not recommended to drink a lot daily, though."
 stackable = true
 texture = SubResource("AtlasTexture_tw6ew")
+cooldown = 0.0

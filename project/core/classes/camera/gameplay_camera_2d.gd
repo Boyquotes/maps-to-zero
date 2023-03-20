@@ -73,4 +73,5 @@ func set_current(value: bool, duration := 1.0):
 			}, 0.0)
 		CameraTransition.transition_camera2D(main_camera, self, duration)
 	else:
-		CameraTransition.transition_camera2D(self, main_camera, duration)
+		if is_current():
+			CameraTransition.transition_camera2D(self, main_camera, duration)

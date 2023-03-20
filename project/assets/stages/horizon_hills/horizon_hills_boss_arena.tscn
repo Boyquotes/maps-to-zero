@@ -1,7 +1,8 @@
-[gd_scene load_steps=65 format=3 uid="uid://b1evavocdwoh3"]
+[gd_scene load_steps=66 format=3 uid="uid://b1evavocdwoh3"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_lla00"]
 [ext_resource type="AudioStream" uid="uid://d3ritdwea4qby" path="res://assets/sfx/ambience/cave_echo.wav" id="2_75hde"]
+[ext_resource type="AudioStream" uid="uid://banasiovtqd14" path="res://assets/music/horizon_hills_boss.ogg" id="2_uoj4k"]
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_entry_point.gd" id="3_nldxw"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="9_0kevy"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/008_background.png" id="11_3m6c3"]
@@ -1257,7 +1258,7 @@ _data = {
 
 [node name="Horizon Hills BossArena" type="Node2D"]
 script = ExtResource("1_lla00")
-song = 6
+song = ExtResource("2_uoj4k")
 metadata/_edit_vertical_guides_ = []
 
 [node name="Ambience" type="AudioStreamPlayer" parent="."]

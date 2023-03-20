@@ -1,7 +1,7 @@
 class_name Stage
 extends Node2D
 
-@export var song : Music.Songs
+@export var song : AudioStream
 
 var normal_entry: bool = true
 var player_respawning: bool = false

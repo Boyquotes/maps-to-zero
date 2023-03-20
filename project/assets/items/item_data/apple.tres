@@ -13,3 +13,4 @@ name = "Apple"
 description = "A tasty apple! At least, you hope this particular one is tasty."
 stackable = true
 texture = SubResource("AtlasTexture_bwqr3")
+cooldown = 0.0

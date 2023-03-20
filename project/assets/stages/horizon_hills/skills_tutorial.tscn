@@ -1,5 +1,6 @@
-[gd_scene load_steps=39 format=3 uid="uid://bfpoaruaayyb5"]
+[gd_scene load_steps=40 format=3 uid="uid://bfpoaruaayyb5"]
 
+[ext_resource type="AudioStream" uid="uid://dwldgf44aop36" path="res://assets/music/save_point.ogg" id="1_tnd6t"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="4_5bsju"]
 [ext_resource type="PackedScene" uid="uid://dqgv4qhff4r3k" path="res://assets/characters/alisa_dummy/alisa_dummy.tscn" id="6_wo83y"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/skills_stage_timeline.dtl" id="8_n57y6"]
@@ -11,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="19_pimw6"]
 [ext_resource type="PackedScene" uid="uid://duwrhyca3ogoy" path="res://assets/stages/scripts/stage_exit_point/stage_exit_point.tscn" id="20_v6vhl"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="21_8wab7"]
-[ext_resource type="PackedScene" uid="uid://pnhttpvyusar" path="res://assets/misc/guiding_light.tscn" id="23_1vl1g"]
+[ext_resource type="PackedScene" uid="uid://bt2undvgnfxph" path="res://assets/misc/guiding_light.tscn" id="23_1vl1g"]
 [ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="24_bi7s4"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="26_crh3n"]
 [ext_resource type="Script" path="res://core/triggers/uncover_screen_trigger.gd" id="29_ev46e"]
@@ -671,7 +672,7 @@ size = Vector2(1504, 768)
 
 [node name="Skills Tutorial" type="Node2D"]
 script = SubResource("GDScript_pybke")
-song = 8
+song = ExtResource("1_tnd6t")
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
