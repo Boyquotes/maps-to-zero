@@ -28,7 +28,7 @@ func _ready() -> void:
 	_grabbed_slot.hide()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if _grabbed_slot.visible:
 		_move_grabbed_slot_to_mouse_position()
 	

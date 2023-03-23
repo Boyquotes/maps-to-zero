@@ -109,7 +109,7 @@ var current_background_jumps: int
 @onready var _stats := %CharacterStats as CharacterStats
 @onready var _inner := %Inner as Node2D
 @onready var _animation_player := _inner.get_node("Visuals/AnimationPlayer") as AnimationPlayer if _inner else null
-@onready var _animation_effects := _animation_player.get_node("AnimationEffects") as AnimationPlayer if _animation_player else null
+@onready var _animation_effects := _animation_player.get_node("AnimationEffects") as AnimationPlayer if _animation_player and _animation_player.has_node("AnimationEffects") else null
 @onready var _background_jump_area := %BackgroundJumpArea as Area2D
 @onready var _target_manager := %TargetManager as TargetManager
 @onready var _input_buffer := %InputBuffer as InputBuffer
@@ -348,6 +348,10 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 		return
 	
 	take_damage(hitbox.base_value, CharacterStats.Types.HP)
+	if _stats.get_stat(CharacterStats.Types.HP) > 0 and hitbox.flinch:
+		state_machine.transition_to("Flinch", {
+			"hitbox": hitbox
+		})
 	
 	ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
 	

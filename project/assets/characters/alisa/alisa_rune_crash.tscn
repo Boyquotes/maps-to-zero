@@ -1,13 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://b8337f0s5pw3q"]
+[gd_scene load_steps=26 format=3 uid="uid://b8337f0s5pw3q"]
 
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="1_x0ig2"]
-[ext_resource type="Texture2D" uid="uid://bpp8tj58hxtku" path="res://assets/characters/alisa/sprites/glyph.png" id="2_qrl8l"]
+[ext_resource type="Texture2D" uid="uid://dw4h552h7ujyw" path="res://assets/characters/alisa/sprites/rune_crash.png" id="2_oa3qi"]
 [ext_resource type="Texture2D" uid="uid://cu6n3d1elkdsx" path="res://assets/characters/alisa/sprites/star_glow.png" id="3_70030"]
+[ext_resource type="Texture2D" uid="uid://cwunmpwdtbyhi" path="res://assets/characters/alisa/sprites/rune_crash_glow.png" id="3_gkq4x"]
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="4_v681a"]
 [ext_resource type="Texture2D" uid="uid://dqyxro72cnx3s" path="res://assets/particles/sprites/white_square_4x4.png" id="5_jforo"]
-[ext_resource type="Texture2D" uid="uid://71ibxellpuwh" path="res://assets/characters/alisa/sprites/glyph_upper_half.png" id="5_m86x4"]
 [ext_resource type="Texture2D" uid="uid://c1ox3l4rhfx65" path="res://assets/other_sprites/blurred_white_circle_half.png" id="6_1g8gr"]
-[ext_resource type="Texture2D" uid="uid://d1hhh0aa7xxtg" path="res://assets/characters/alisa/sprites/glyph_lower_half.png" id="7_mk4ph"]
 [ext_resource type="AudioStream" uid="uid://bpsup87wn8a3o" path="res://assets/characters/alisa/sfx/glass_shatter.wav" id="8_gj25i"]
 [ext_resource type="AudioStream" uid="uid://caxuem4cpx38t" path="res://assets/sfx/sword_slash.wav" id="9_we7cf"]
 [ext_resource type="AudioStream" uid="uid://btwl78e5c0t7o" path="res://assets/sfx/sword_slash_impact.ogg" id="10_m7hlv"]
@@ -17,6 +16,7 @@ light_mode = 1
 
 [sub_resource type="Animation" id="Animation_43guc"]
 resource_name = "RESET"
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -104,7 +104,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../Slash Particles:emitting")
+tracks/7/path = NodePath("RuneLight:enabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -116,7 +116,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("RuneLight:enabled")
+tracks/8/path = NodePath("RuneLight/Glow:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -128,7 +128,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("RuneLight/Glow:visible")
+tracks/9/path = NodePath("Gather Particles:emitting")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -140,7 +140,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Gather Particles:emitting")
+tracks/10/path = NodePath("UpperHalf:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -152,7 +152,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("UpperHalf:visible")
+tracks/11/path = NodePath("LowerHalf:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -164,38 +164,50 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("LowerHalf:visible")
+tracks/12/path = NodePath("UpperHalf:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(-4, -138)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("UpperHalf:position")
+tracks/13/path = NodePath("LowerHalf:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-4, -138)]
+"values": [Vector2(142.7, 71.5)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("LowerHalf:position")
+tracks/14/path = NodePath("Gather Particles:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(142.7, 71.5)]
+"update": 1,
+"values": [true]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Slash Particles:emitting")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_86rur"]
@@ -278,7 +290,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0.2, 0.3),
 "transitions": PackedFloat32Array(0.63728, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0.2, 0.2)]
+"values": [Vector2(0, 0), Vector2(0.1, 0.1)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -302,7 +314,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0.2, 0.4, 0.7, 0.9, 1.3, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0.1, 0.1), Vector2(0.5, 0.5), Vector2(0.3, 0.3), Vector2(1, 1), Vector2(0.3, 0.3), Vector2(1, 1)]
+"values": [Vector2(0.05, 0.05), Vector2(0.25, 0.25), Vector2(0.15, 0.15), Vector2(0.5, 0.5), Vector2(0.15, 0.15), Vector2(0.5, 0.5)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -476,6 +488,18 @@ tracks/21/keys = {
 "update": 0,
 "values": [Vector2(142.7, 71.5), Vector2(142.7, 88)]
 }
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Gather Particles:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ojxoo"]
 _data = {
@@ -585,8 +609,8 @@ texture = ExtResource("1_x0ig2")
 
 [node name="ExplosionLight" type="PointLight2D" parent="."]
 position = Vector2(72, -32)
-enabled = false
 color = Color(0.929412, 0, 0, 1)
+energy = 0.0
 range_layer_min = -10
 range_layer_max = 10
 texture = ExtResource("1_x0ig2")
@@ -596,14 +620,20 @@ visible = false
 use_parent_material = true
 position = Vector2(70, -32)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_qrl8l")
+texture = ExtResource("2_oa3qi")
+
+[node name="RuneGlow" type="Sprite2D" parent="Rune"]
+modulate = Color(1, 0, 0.698039, 1)
+show_behind_parent = true
+use_parent_material = true
+texture = ExtResource("3_gkq4x")
 
 [node name="ExpandingRune" type="Sprite2D" parent="."]
 visible = false
 use_parent_material = true
 position = Vector2(70, -32)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_qrl8l")
+texture = ExtResource("2_oa3qi")
 
 [node name="SlashLine" type="Line2D" parent="."]
 visible = false
@@ -619,10 +649,11 @@ gradient = SubResource("Gradient_jhyr0")
 material = SubResource("CanvasItemMaterial_kpe6e")
 position = Vector2(73, -33)
 emitting = false
-amount = 64
+amount = 128
 process_material = SubResource("ParticleProcessMaterial_rsnnp")
 texture = ExtResource("3_70030")
 lifetime = 0.7
+one_shot = true
 explosiveness = 1.0
 
 [node name="Slash Particles" type="GPUParticles2D" parent="."]
@@ -677,12 +708,21 @@ show_behind_parent = true
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_1g8gr")
 
-[node name="Rune" type="Sprite2D" parent="UpperHalf/Scaler"]
+[node name="Mask" type="Sprite2D" parent="UpperHalf"]
+clip_children = 1
+texture = ExtResource("5_jforo")
+
+[node name="Rune" type="Sprite2D" parent="UpperHalf/Mask"]
 material = SubResource("CanvasItemMaterial_l7e2t")
-position = Vector2(0, 3)
+position = Vector2(-1.19209e-07, 2.06)
 rotation = 0.610865
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_m86x4")
+scale = Vector2(0.002, 0.002)
+texture = ExtResource("2_oa3qi")
+
+[node name="Glow" type="Sprite2D" parent="UpperHalf/Mask/Rune"]
+modulate = Color(1, 0, 0.698039, 1)
+material = SubResource("CanvasItemMaterial_ocn75")
+texture = ExtResource("3_gkq4x")
 
 [node name="LowerHalf" type="Sprite2D" parent="."]
 visible = false
@@ -712,12 +752,21 @@ show_behind_parent = true
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_1g8gr")
 
-[node name="Rune" type="Sprite2D" parent="LowerHalf/Node2D"]
+[node name="Mask" type="Sprite2D" parent="LowerHalf"]
+clip_children = 1
+texture = ExtResource("5_jforo")
+
+[node name="Rune" type="Sprite2D" parent="LowerHalf/Mask"]
 material = SubResource("CanvasItemMaterial_ocn75")
-position = Vector2(0, 2)
+position = Vector2(0, -1.96)
 rotation = 0.610865
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("7_mk4ph")
+scale = Vector2(0.002, 0.002)
+texture = ExtResource("2_oa3qi")
+
+[node name="Glow" type="Sprite2D" parent="LowerHalf/Mask/Rune"]
+modulate = Color(1, 0, 0.698039, 1)
+material = SubResource("CanvasItemMaterial_ocn75")
+texture = ExtResource("3_gkq4x")
 
 [node name="RuneSummonSfx" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(72, -32)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=66 format=3 uid="uid://b1evavocdwoh3"]
+[gd_scene load_steps=62 format=3 uid="uid://b1evavocdwoh3"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_lla00"]
 [ext_resource type="AudioStream" uid="uid://d3ritdwea4qby" path="res://assets/sfx/ambience/cave_echo.wav" id="2_75hde"]
 [ext_resource type="AudioStream" uid="uid://banasiovtqd14" path="res://assets/music/horizon_hills_boss.ogg" id="2_uoj4k"]
-[ext_resource type="Script" path="res://assets/stages/scripts/stage_entry_point.gd" id="3_nldxw"]
-[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="9_0kevy"]
+[ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="4_h5fol"]
 [ext_resource type="Texture2D" uid="uid://dmt6ivdp406ve" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/008_background.png" id="11_3m6c3"]
 [ext_resource type="Texture2D" uid="uid://c0ocka0pk1r77" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/crystals/bg_crystal_01.png" id="12_x2h4y"]
 [ext_resource type="Texture2D" uid="uid://dubg3mjbs7em6" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/crystals/bg_crystal_02.png" id="13_80f3q"]
@@ -20,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://dmxo6ttacy15" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/gold_tower.png" id="18_i25ef"]
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_06.png" id="18_l0yx7"]
 [ext_resource type="Texture2D" uid="uid://bns8ow8ja0vqc" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Pillar 3.png" id="19_n5c5m"]
-[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/horizon_hills_torch.tscn" id="21_ulftt"]
+[ext_resource type="PackedScene" uid="uid://dkx3i5sqnqfdt" path="res://assets/stages/horizon_hills/objects/horizon_hills_torch.tscn" id="21_ulftt"]
 [ext_resource type="Texture2D" uid="uid://dkploejrq8bxb" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Lamp.png" id="23_3edsx"]
 [ext_resource type="AudioStream" uid="uid://mxs8batq4fud" path="res://assets/sfx/ambience/camp_fire.ogg" id="23_vgitb"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="24_aqx6j"]
@@ -49,7 +48,7 @@ script/source = "extends Node
 @export var falling_rocks_animation_player_node_path : NodePath
 @export var background_animation_player_node_path : NodePath
 
-var dragon : Actor2D
+var dragon : Character
 var camera_settings_trigger : CameraSettingsTrigger
 var base_zoom : Vector2
 var dragon_original_position : Vector2
@@ -101,109 +100,6 @@ glow_hdr_threshold = 0.5
 adjustment_enabled = true
 adjustment_contrast = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_l16xj")
-
-[sub_resource type="Animation" id="Animation_771j0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerTransformer:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTransformer:look_direction")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_1jycl"]
-resource_name = "enter"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerTransformer:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-64, 0), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerTransformer:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": ["walk", "idle"]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerTransformer:look_direction")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerTransformer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"teleport"
-}]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerTransformer")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"enable"
-}, {
-"args": [],
-"method": &"disable"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mq47r"]
-_data = {
-"RESET": SubResource("Animation_771j0"),
-"enter": SubResource("Animation_1jycl")
-}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
 size = Vector2(1504, 768)
@@ -667,7 +563,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Layout/Props/Torches/Torch 1/GPUParticles2D:emitting")
+tracks/0/path = NodePath("../../Layout/Props/Torches/Torch 1/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -679,7 +575,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Layout/Props/Torches/Torch 1/PointLight2D:energy")
+tracks/1/path = NodePath("../../Layout/Props/Torches/Torch 1/PointLight2D:energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -691,7 +587,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../Layout/Props/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
+tracks/2/path = NodePath("../../Layout/Props/Torches/Torch 1/PointLight2D/Glow Sprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -703,7 +599,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../Layout/Props/Torches/Torch 2/GPUParticles2D:emitting")
+tracks/3/path = NodePath("../../Layout/Props/Torches/Torch 2/GPUParticles2D:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -715,7 +611,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/4/path = NodePath("../../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -727,7 +623,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D:energy")
+tracks/5/path = NodePath("../../Layout/Props/Torches/Torch 2/PointLight2D:energy")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -739,7 +635,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
+tracks/6/path = NodePath("../../Layout/Props/Torches/Torch 2/PointLight2D/Glow Sprite:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1280,21 +1176,9 @@ environment = SubResource("Environment_mjjl6")
 [node name="EntryPoints" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="StageEntryPoint" type="Node2D" parent="EntryPoints"]
-position = Vector2(-640, 256)
-script = ExtResource("3_nldxw")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EntryPoints/StageEntryPoint"]
-libraries = {
-"": SubResource("AnimationLibrary_mq47r")
-}
-
-[node name="PlayerTransformer" type="Marker2D" parent="EntryPoints/StageEntryPoint"]
-scale = Vector2(-1, 1)
-script = ExtResource("9_0kevy")
-actor_name = "PLAYER"
-look_direction = 1
-animation = "walk"
+[node name="StageEntryPoint" parent="EntryPoints" instance=ExtResource("4_h5fol")]
+position = Vector2(-639, 256)
+entry_camera_settings = NodePath("../../CameraSettingsTrigger")
 
 [node name="Background" type="Node2D" parent="."]
 

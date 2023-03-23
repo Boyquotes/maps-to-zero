@@ -17,6 +17,11 @@ signal hit(hit_character)
 	set(value):
 		enabled = value
 		set_collision_layer_value(GameUtilities.PhysicsLayers.HITBOXES_HURTBOXES, enabled)
+		for child in get_children():
+			if child is CollisionShape2D:
+				var collider = child as CollisionShape2D
+				collider.disabled = not value
+@export var flinch : PackedScene
 
 
 var _character: Character

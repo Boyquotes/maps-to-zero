@@ -15,16 +15,19 @@ entries = {
 "alternatives": ["Mission District", "Mission"],
 "color": Color(0.431373, 0.913725, 0.427451, 1),
 "enabled": true,
-"text": "The oldest and most prestigious school in Gold Harbor. Many heroes and nobles attend this school."
+"text": "The oldest and most prestigious school in Gold Harbor. Many heroes and nobles attend this school.",
+"title": "Mission High School"
 },
 "Turing Island": {
 "color": Color(0.117647, 0.901961, 1, 1),
-"text": "A floating island hovering over Gold Harbor. Its most notable landmark is Turing University."
+"text": "A floating island hovering over Gold Harbor. Its most notable landmark is Turing University.",
+"title": "Turing Island"
 },
 "Turing University": {
 "alternatives": ["Turing", "Turing High School"],
 "color": Color(0.203922, 0.8, 0.937255, 1),
-"text": "A relatively new school in Gold Harbor. It is the centerpiece and most prominent building of Turing Island, and holds administrative jurisdiction over the entire island. Its most notable accomplishments includes the development of Generation III Angels."
+"text": "A relatively new school in Gold Harbor. It is the centerpiece and most prominent building of Turing Island, and holds administrative jurisdiction over the entire island. Its most notable accomplishments includes the development of Generation III Angels.",
+"title": "Turing University"
 }
 }
 enabled = true

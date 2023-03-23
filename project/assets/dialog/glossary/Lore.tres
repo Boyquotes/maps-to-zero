@@ -8,22 +8,26 @@ entries = {
 "Angels": {
 "alternatives": ["Androids", "angels", "angel", "android", "androids", "Android", "Angel"],
 "color": Color(0.517647, 0.945098, 1, 1),
-"text": "Artificial lifeforms that exhibit intelligence and sentience comparable and even surpassing natural lifeforms."
+"text": "Artificial lifeforms that exhibit intelligence and sentience comparable and even surpassing natural lifeforms.",
+"title": "Angels"
 },
 "Generation I": {
 "alternatives": ["Gen 1", "Gen I", "Gen. 1", "Gen. I"],
 "color": Color(0.262745, 0.901961, 0.980392, 1),
-"text": "The first generation of Angels. Unlike Generation II and Generation III Angels, Generation I Angels are created naturally or with magic."
+"text": "The first generation of Angels. Unlike Generation II and Generation III Angels, Generation I Angels are created naturally or with magic.",
+"title": "Generation I"
 },
 "Generation II": {
 "alternatives": ["Gen 2", "Gen II", "Gen. 2", "Gen. II"],
 "color": Color(0.235294, 0.913725, 1, 1),
-"text": "The second generation of Angels. These angels are bought to life by artificial intelligence powered by advanced computer systems."
+"text": "The second generation of Angels. These angels are bought to life by artificial intelligence powered by advanced computer systems.",
+"title": "Generation II"
 },
 "Generation III": {
 "alternatives": ["Gen 3", "Gen III", "Gen. 3", "Gen. III"],
 "color": Color(0.372549, 0.929412, 1, 1),
-"text": "The third generation of Angels. Unlike Generation I Angels that are natural, and Generation II Angels, who are powered by artificial intelligence, Generation III Angels are powered by infusing a soul into a replica body."
+"text": "The third generation of Angels. Unlike Generation I Angels that are natural, and Generation II Angels, who are powered by artificial intelligence, Generation III Angels are powered by infusing a soul into a replica body.",
+"title": "Generation III"
 }
 }
 enabled = true

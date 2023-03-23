@@ -72,6 +72,7 @@ func play_end() -> void:
 
 func skip() -> void:
 	_skipping = true
+	Dialogic.end_timeline()
 	
 	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_TO_BLACK, 0.5)
 	await ScreenEffects.cover_finished

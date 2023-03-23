@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dsbj0ecnkoa4m"]
+[gd_scene load_steps=23 format=3 uid="uid://dsbj0ecnkoa4m"]
 
 [ext_resource type="Script" path="res://assets/characters/scripts/character.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://dxnwad4fyiqqc" path="res://core/states/core/state_machine.tscn" id="2_550gp"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://core/states/core/state.gd" id="11_hb3w8"]
 [ext_resource type="Script" path="res://core/input_buffer.gd" id="13_gxgy6"]
 [ext_resource type="Script" path="res://assets/characters/scripts/soft_collision.gd" id="14_kjlhh"]
+[ext_resource type="Script" path="res://core/states/character_states/flinch.gd" id="18_3dqgy"]
 
 [node name="Actor2d" type="CharacterBody2D"]
 collision_layer = 0
@@ -115,6 +116,9 @@ jump_speed_boost = null
 
 [node name="Defeat" type="Node" parent="StateMachine"]
 script = ExtResource("9_kan2l")
+
+[node name="Flinch" type="Node" parent="StateMachine"]
+script = ExtResource("18_3dqgy")
 
 [node name="CharacterHUDSmoothingNode" type="Node2D" parent="."]
 script = ExtResource("2_xo8fg")

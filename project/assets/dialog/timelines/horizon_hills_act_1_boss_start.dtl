@@ -4,28 +4,30 @@ time_goddess: I see someone!
 [signal arg="move_to_boss"]
 [wait time="3.0"]
 [sound path="res://assets/dialog/sfx/sweat_drop.wav" bus="Sfx"]
-isabel: Looks like it's going to rain.
+kanna: Looks like it's going to rain.
+Join alisa 1
+Update alisa 1
 [music path="res://assets/music/idle_thoughts.ogg" bus="Music"]
 kyuubi: I thought you checked the weather forecast!
 [sound path="res://assets/dialog/sfx/chatty.wav" bus="Sfx"]
-isabel: I did! It's not supposed to rain today!
+kanna: I did! It's not supposed to rain today!
 kyuubi: Think it's some bored mages?
 [sound path="res://assets/dialog/sfx/question_mark.wav" bus="Sfx"]
-isabel: Maybe somebody from Mission found out I was raiding one of their treasure vaults today?
+kanna: Maybe somebody from Mission found out I was raiding one of their treasure vaults today?
 [sound path="res://assets/dialog/sfx/sweat_drop.wav" bus="Sfx"]
-isabel: Raining me out is a good way to dampen my mood.
-isabel: But I could have sworn I was being top secret...
+kanna: Raining me out is a good way to dampen my mood.
+kanna: But I could have sworn I was being top secret...
 [sound path="res://assets/dialog/sfx/sweat_drop.wav" bus="Sfx"]
 kyuubi: You literally plastered club recruitment posters all over your school.
 kyuubi: And they had the date, time, and location of your club's first raid.
 [sound path="res://assets/dialog/sfx/fail_2.wav" bus="Sfx"]
-isabel: But nobody showed up to the meeting! I'm the only member of the club!
+kanna: But nobody showed up to the meeting! I'm the only member of the club!
 kyuubi: That's now how that works...
 [sound path="res://assets/dialog/sfx/surprise.wav" bus="Sfx"]
 [wait]
 kyuubi: Hey! You got followed!
 [sound path="res://assets/dialog/sfx/question_mark.wav" bus="Sfx"]
-isabel: Hmm?
+kanna: Hmm?
 [signal arg="move_back_to_player"]
 [wait time="3.0"]
 alisa: Hey, I think I know that girl.
@@ -36,20 +38,20 @@ alisa: Oh crap! She saw me!
 [signal arg="move_boss_to_start_position"]
 [wait time="2.0"]
 [sound path="res://assets/dialog/sfx/chatty.wav" bus="Sfx"]
-isabel: Hi!
+kanna: Hi!
 [sound path="res://assets/dialog/sfx/sweat_drop.wav" bus="Sfx"]
 alisa: Uh. Hello.
-isabel: You're not a prefect, are you?
+kanna: You're not a prefect, are you?
 [sound path="res://assets/dialog/sfx/question_mark.wav" bus="Sfx"]
 alisa: What?
-isabel: I said, are you a prefect?
+kanna: I said, are you a prefect?
 alisa: What's a prefect?
 [sound path="res://assets/dialog/sfx/error.wav" bus="Sfx"]
-isabel: Um, really sorry about this, but I can't leave any witnesses.
+kanna: Um, really sorry about this, but I can't leave any witnesses.
 [sound path="res://assets/dialog/sfx/exclamation_question_mark.wav" bus="Sfx"]
 alisa: What? Witnesses for what?
 [sound path="res://assets/dialog/sfx/exclamation_1.wav" bus="Sfx"]
-isabel: Please die!
+kanna: Please die!
 [sound path="res://assets/dialog/sfx/chatty.wav" bus="Sfx"]
 time_goddess: This girl looks like trouble.
 time_goddess: You're on your own here.
@@ -59,6 +61,8 @@ time_goddess: You're welcome.
 [music]
 [signal arg="zoom_out"]
 [sound path="res://assets/dialog/sfx/exclamation_1.wav" bus="Sfx"]
-isabel: May the gods bear witness!
+kanna: May the gods bear witness!
 alisa: Hey! I thought you said no witnesses!
+alisa: Ok fine! If that's how you want to do it!
 [end_timeline]
+

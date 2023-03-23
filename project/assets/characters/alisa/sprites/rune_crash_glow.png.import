@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://71ibxellpuwh"
-path="res://.godot/imported/glyph_upper_half.png-7567244b2e0f3f1cd64c84bce0a41e99.ctex"
+uid="uid://cwunmpwdtbyhi"
+path="res://.godot/imported/rune_crash_glow.png-0b0b2ae627cdbffd6072acbb88cc211f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/alisa/sprites/glyph_upper_half.png"
-dest_files=["res://.godot/imported/glyph_upper_half.png-7567244b2e0f3f1cd64c84bce0a41e99.ctex"]
+source_file="res://assets/characters/alisa/sprites/rune_crash_glow.png"
+dest_files=["res://.godot/imported/rune_crash_glow.png-0b0b2ae627cdbffd6072acbb88cc211f.ctex"]
 
 [params]
 

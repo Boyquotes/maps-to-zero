@@ -25,7 +25,7 @@ func set_slot_data(slot_data: SlotData) -> void:
 	_set_quantity_label(slot_data.quantity)
 
 
-func _on_slot_data_quantity_updated(new_quantity: int, old_quantity: int) -> void:
+func _on_slot_data_quantity_updated(new_quantity: int, _old_quantity: int) -> void:
 	_set_quantity_label(new_quantity)
 
 

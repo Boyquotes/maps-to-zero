@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://csn4qxvuyb07i"]
+[gd_scene load_steps=52 format=3 uid="uid://csn4qxvuyb07i"]
 
 [ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_2gcfk"]
 [ext_resource type="Texture2D" uid="uid://dejocmh8l5m2a" path="res://assets/characters/cloud_blue/cloud_blue.png" id="3_dlrp6"]
@@ -11,8 +11,9 @@
 [ext_resource type="PackedScene" path="res://assets/particles_one_shot/jump_default.tscn" id="13_gkk0y"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="14_1qerm"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="14_54nu5"]
+[ext_resource type="PackedScene" uid="uid://bpya6uxcu5p01" path="res://assets/characters/scripts/flinches/standard_flinch.tscn" id="14_ccfjj"]
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="16_yxfga"]
-[ext_resource type="PackedScene" path="res://assets/particles_one_shot/blue_slash_hit.tscn" id="17_s41pk"]
+[ext_resource type="PackedScene" uid="uid://bupkcs6uyh44k" path="res://assets/particles_one_shot/blue_slash_hit.tscn" id="17_s41pk"]
 [ext_resource type="AudioStream" uid="uid://dkttpvsrimtgr" path="res://assets/sfx/qubodup__slash.wav" id="18_1xamr"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/no_input.gd" id="20_7mvpo"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/close_to_target_transition.gd" id="21_c5gp3"]
@@ -998,14 +999,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("Hitbox:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_jnn5x"]
@@ -1023,25 +1024,13 @@ tracks/0/keys = {
 "update": 1,
 "values": ["attack_windup", "attack"]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("../../Visuals/AttackIncomingParticles/AttackIncomingSfx")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, false, true, false, true, false, true, false, true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../../Visuals/AttackIncomingParticles/AttackIncomingSfx")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1049,19 +1038,31 @@ tracks/2/keys = {
 "method": &"play"
 }]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../../Visuals/AttackIncomingParticles")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Visuals/AttackIncomingParticles")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"spawn"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, true, false, true, false, true, false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1ejfj"]
@@ -1127,6 +1128,7 @@ radius = 32.3883
 
 [node name="CloudBlue" instance=ExtResource("1_2gcfk")]
 collision_layer = 2
+max_hp = 80.0
 speed = 2.0
 team = 2
 attack_can_cancel = true
@@ -1160,7 +1162,7 @@ texture = ExtResource("3_dlrp6")
 offset = Vector2(0, -32)
 hframes = 6
 vframes = 5
-frame = 11
+frame = 14
 region_rect = Rect2(0, 256, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -1239,14 +1241,15 @@ hit_particles = ExtResource("17_s41pk")
 hit_sfx = ExtResource("18_1xamr")
 frame_freeze_duration_milliseconds = 50
 screen_shake_trauma = 0.1
+enabled = true
+flinch = ExtResource("14_ccfjj")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_5tpq0")
-disabled = true
 
 [node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack" index="2"]
 script = ExtResource("14_1qerm")
-animation = "attack_windup"
+animation = "attack"
 
 [node name="CollisionShape2d" parent="Inner/Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_r3pgc")

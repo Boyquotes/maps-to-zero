@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://dkx3i5sqnqfdt"]
 
 [ext_resource type="Texture2D" uid="uid://bns8ow8ja0vqc" path="res://assets/stages/horizon_hills/objects/dragon_treasure_cave/Pillar 3.png" id="1_s1cql"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="2_3dtp5"]

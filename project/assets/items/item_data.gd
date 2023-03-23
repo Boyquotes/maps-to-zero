@@ -8,5 +8,5 @@ class_name ItemData
 @export var cooldown := 0.0
 
 
-func use(target) -> void:
+func use(_target) -> void:
 	pass

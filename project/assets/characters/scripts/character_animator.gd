@@ -113,7 +113,6 @@ func disable(reset_state_machine:=true) -> void:
 	_character.input_state_machine.reset()
 	if reset_state_machine:
 		_character.state_machine.reset()
-	
 
 
 func show_character() -> void:
@@ -182,6 +181,13 @@ func move_left() -> void:
 func look_towards_position() -> void:
 	_character.look_direction = Vector2(
 		sign(_character.global_position.direction_to(global_position).x), 0)
+
+
+func set_look_direction(target_direction: Vector2) -> void:
+	if sign(target_direction.x) > 0:
+		look_direction = 0
+	elif sign(target_direction.x) < 0:
+		look_direction = 1
 
 
 func _move_character_to_global_position() -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpp8tj58hxtku"
-path="res://.godot/imported/glyph.png-2f5da5e17bba39d5947bacb40e8dad98.ctex"
+uid="uid://g4hah3tfvfgh"
+path="res://.godot/imported/Weapons Copy.png-90f62d935c71df236ed920c56316a663.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/alisa/sprites/glyph.png"
-dest_files=["res://.godot/imported/glyph.png-2f5da5e17bba39d5947bacb40e8dad98.ctex"]
+source_file="res://assets/characters/kanna/Weapons Copy.png"
+dest_files=["res://.godot/imported/Weapons Copy.png-90f62d935c71df236ed920c56316a663.ctex"]
 
 [params]
 

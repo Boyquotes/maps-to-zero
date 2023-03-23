@@ -38,14 +38,14 @@ func _ready():
 	GameManager.popup_canvas = popup_canvas
 	GameManager.sidescroller_main = self
 	
-	player = initialize_player()
+	initialize_player()
 	attach_camera_to_player()
 	
 	GameManager.request_stage_change(initial_stage_file_path, initial_stage_enter_point)
 
 
 func initialize_player() -> Character:
-	var player = player_actor.instantiate() as Character
+	player = player_actor.instantiate() as Character
 	
 	player.stat_changed.connect(Events._on_player_resource_changed)
 	player.toggle_menu_requested.connect(toggle_menu)

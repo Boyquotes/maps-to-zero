@@ -812,7 +812,7 @@ uncover_duration = 2.0
 [node name="MusicTrigger" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene/Start"]
 position = Vector2(424, -320)
 script = ExtResource("15_cqgns")
-song = 8
+song = ExtResource("1_tnd6t")
 
 [node name="Finished" type="Node2D" parent="Cutscenes/SkillsTutorialCutscene"]
 

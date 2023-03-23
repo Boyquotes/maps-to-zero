@@ -1,12 +1,12 @@
 [gd_scene load_steps=83 format=3 uid="uid://bcjr7f372y2of"]
 
-[ext_resource type="PackedScene" path="res://assets/characters/scripts/character.tscn" id="1_u48va"]
+[ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_u48va"]
 [ext_resource type="Texture2D" uid="uid://dex0gcr1rji35" path="res://assets/characters/dragon/egrisi_dragon.png" id="2_twwhm"]
 [ext_resource type="Script" path="res://core/classes/particle_spawner/particle_spawner.gd" id="4_gju0s"]
 [ext_resource type="AudioStream" uid="uid://dan1r41xxyl3d" path="res://assets/sfx/swing.wav" id="4_xr1et"]
 [ext_resource type="AudioStream" uid="uid://dy5pt4o6nla5e" path="res://assets/sfx/stomp.wav" id="5_4qape"]
 [ext_resource type="Shader" path="res://shaders/pixel_outline.gdshader" id="5_a287c"]
-[ext_resource type="PackedScene" path="res://assets/particles_one_shot/attack_incoming.tscn" id="5_t5n0j"]
+[ext_resource type="PackedScene" uid="uid://b3fuo5sbgykhn" path="res://assets/particles_one_shot/attack_incoming.tscn" id="5_t5n0j"]
 [ext_resource type="AudioStream" uid="uid://dt55o66x0xrv4" path="res://assets/sfx/sword_unsheath.wav" id="6_4kdoa"]
 [ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="6_oygrj"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="13_x30it"]
@@ -930,7 +930,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("Hitbox:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -942,14 +942,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox2/CollisionShape2d:disabled")
+tracks/1/path = NodePath("Hitbox2:enabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_njc6i"]
@@ -967,37 +967,13 @@ tracks/0/keys = {
 "update": 1,
 "values": ["attack"]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("ActorTransformer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.6, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox2/CollisionShape2d:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3.6, 3.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 4.6),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -1007,6 +983,30 @@ tracks/3/keys = {
 "args": [],
 "method": &"disable"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox2:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3.6, 3.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5vtit"]
@@ -1022,50 +1022,38 @@ radius = 80.0
 size = Vector2(209, 127)
 
 [sub_resource type="Animation" id="Animation_4d4kt"]
-length = 0.1
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("ActorTransformer2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/path = NodePath("ActorTransformer2D:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["claw_windup"]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1073,29 +1061,41 @@ tracks/3/keys = {
 "method": &"disable"
 }]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox:enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ym462"]
 resource_name = "attack"
 length = 3.0
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("ActorTransformer2D")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ActorTransformer2D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(1, 3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -1106,41 +1106,53 @@ tracks/1/keys = {
 "method": &"disable"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ActorTransformer2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(1, 3),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(2627, 0)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ActorTransformer2D:animation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ActorTransformer2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.8, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": ["fly_up", "claw_windup", "claw"]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox:enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ac5qv"]
@@ -1158,7 +1170,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/0/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1170,7 +1182,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox:enabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1195,25 +1207,13 @@ tracks/0/keys = {
 "update": 1,
 "values": ["claw_impact", "idle"]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2d:disabled")
+tracks/1/path = NodePath("ActorTransformer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ActorTransformer2D")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1221,17 +1221,29 @@ tracks/2/keys = {
 "method": &"look_other_way"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../WallImpactDetector/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lwqtk"]
@@ -1260,43 +1272,43 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("FlameBreath:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hitbox/CollisionShape2D2:disabled")
+tracks/2/path = NodePath("FlameBreath/CylinderLight/Glow:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("FlameBreath:visible")
+tracks/3/path = NodePath("FlameBreath/TopWhiteCircleLight/Glow:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0.152941)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("FlameBreath/CylinderLight/Glow:modulate")
+tracks/4/path = NodePath("FlameBreath/BottomCircleLight/Glow:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1308,7 +1320,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("FlameBreath/TopWhiteCircleLight/Glow:modulate")
+tracks/5/path = NodePath("FlameBreath/GroundCylinderLight/Glow:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1320,7 +1332,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("FlameBreath/BottomCircleLight/Glow:modulate")
+tracks/6/path = NodePath("FlameBreath/EndCylinderLight/Glow:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1332,7 +1344,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("FlameBreath/GroundCylinderLight/Glow:modulate")
+tracks/7/path = NodePath("FlameBreath/EndCylinderLight2/Glow:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1344,31 +1356,31 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("FlameBreath/EndCylinderLight/Glow:modulate")
+tracks/8/path = NodePath("FlameBreath/TopWhiteCircleLight:energy")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+"values": [0.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("FlameBreath/EndCylinderLight2/Glow:modulate")
+tracks/9/path = NodePath("FlameBreath/CylinderLight:energy")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0.113725, 0.152941, 0.152941)]
+"values": [0.0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("FlameBreath/TopWhiteCircleLight:energy")
+tracks/10/path = NodePath("FlameBreath/BottomCircleLight:energy")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1380,7 +1392,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("FlameBreath/CylinderLight:energy")
+tracks/11/path = NodePath("FlameBreath/GroundCylinderLight:energy")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -1392,7 +1404,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("FlameBreath/BottomCircleLight:energy")
+tracks/12/path = NodePath("FlameBreath/EndCylinderLight:energy")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -1404,7 +1416,7 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("FlameBreath/GroundCylinderLight:energy")
+tracks/13/path = NodePath("FlameBreath/EndCylinderLight2:energy")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -1416,34 +1428,22 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("FlameBreath/EndCylinderLight:energy")
+tracks/14/path = NodePath("Hitbox:enabled")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [false]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("FlameBreath/EndCylinderLight2:energy")
+tracks/15/path = NodePath("Hitbox2:enabled")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("Hitbox:monitoring")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1565,35 +1565,35 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/8/path = NodePath("FlameBreath/CylinderLight/Glow:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 2.5, 5.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
+"times": PackedFloat32Array(0, 2.3, 2.6, 5.2, 5.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Hitbox/CollisionShape2D2:disabled")
+tracks/9/path = NodePath("FlameBreath/TopWhiteCircleLight/Glow:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 3, 5.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
+"times": PackedFloat32Array(0, 2.1, 2.4, 5.4, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("FlameBreath/CylinderLight/Glow:modulate")
+tracks/10/path = NodePath("FlameBreath/BottomCircleLight/Glow:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 2.3, 2.6, 5.2, 5.8),
+"times": PackedFloat32Array(0, 2.4, 2.7, 5.6, 6.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
@@ -1601,11 +1601,11 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("FlameBreath/TopWhiteCircleLight/Glow:modulate")
+tracks/11/path = NodePath("FlameBreath/GroundCylinderLight/Glow:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0, 2.1, 2.4, 5.4, 5.9),
+"times": PackedFloat32Array(0, 3, 3.3, 5.6, 6.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
@@ -1613,11 +1613,11 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("FlameBreath/BottomCircleLight/Glow:modulate")
+tracks/12/path = NodePath("FlameBreath/EndCylinderLight/Glow:modulate")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 2.4, 2.7, 5.6, 6.2),
+"times": PackedFloat32Array(0, 3.2, 3.5, 5.8, 6.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
@@ -1625,11 +1625,11 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("FlameBreath/GroundCylinderLight/Glow:modulate")
+tracks/13/path = NodePath("FlameBreath/EndCylinderLight2/Glow:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0, 3, 3.3, 5.6, 6.1),
+"times": PackedFloat32Array(0, 3.2, 3.5, 5.8, 6.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
@@ -1637,35 +1637,35 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("FlameBreath/EndCylinderLight/Glow:modulate")
+tracks/14/path = NodePath("FlameBreath/TopWhiteCircleLight:energy")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0, 3.2, 3.5, 5.8, 6.3),
+"times": PackedFloat32Array(0, 2.1, 2.4, 5.4, 5.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("FlameBreath/EndCylinderLight2/Glow:modulate")
+tracks/15/path = NodePath("FlameBreath/CylinderLight:energy")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(0, 3.2, 3.5, 5.8, 6.3),
+"times": PackedFloat32Array(0, 2.3, 2.6, 5.6, 6.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0.152941), Color(1, 0.113725, 0.152941, 0)]
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("FlameBreath/TopWhiteCircleLight:energy")
+tracks/16/path = NodePath("FlameBreath/BottomCircleLight:energy")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0, 2.1, 2.4, 5.4, 5.9),
+"times": PackedFloat32Array(0, 2.4, 2.7, 5.7, 6.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0, 1.0, 0.0]
@@ -1673,11 +1673,11 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("FlameBreath/CylinderLight:energy")
+tracks/17/path = NodePath("FlameBreath/GroundCylinderLight:energy")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(0, 2.3, 2.6, 5.6, 6.1),
+"times": PackedFloat32Array(0, 3, 3.3, 5.9, 6.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0, 1.0, 0.0]
@@ -1685,11 +1685,11 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("FlameBreath/BottomCircleLight:energy")
+tracks/18/path = NodePath("FlameBreath/EndCylinderLight:energy")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(0, 2.4, 2.7, 5.7, 6.2),
+"times": PackedFloat32Array(0, 3.2, 3.5, 6.1, 6.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0, 1.0, 0.0]
@@ -1697,11 +1697,11 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("FlameBreath/GroundCylinderLight:energy")
+tracks/19/path = NodePath("FlameBreath/EndCylinderLight2:energy")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0, 3, 3.3, 5.9, 6.4),
+"times": PackedFloat32Array(0, 3.2, 3.5, 6.1, 6.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 1.0, 1.0, 0.0]
@@ -1709,38 +1709,26 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("FlameBreath/EndCylinderLight:energy")
+tracks/20/path = NodePath("Hitbox:enabled")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0, 3.2, 3.5, 6.1, 6.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+"times": PackedFloat32Array(0, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("FlameBreath/EndCylinderLight2:energy")
+tracks/21/path = NodePath("Hitbox2:enabled")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(0, 3.2, 3.5, 6.1, 6.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 1.0, 1.0, 0.0]
-}
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("Hitbox:monitoring")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = {
-"times": PackedFloat32Array(0, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ag0d"]
@@ -1983,7 +1971,6 @@ collision_mask = 97
 max_hp = 500.0
 speed = 6.0
 team = 2
-attack_input_listening = true
 attack_can_cancel = true
 attack_can_go_to_next = true
 
@@ -2067,11 +2054,11 @@ collision_mask = 4
 script = ExtResource("19_rm6im")
 base_value = 20.0
 hit_sfx = ExtResource("20_aoahs")
+enabled = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
 position = Vector2(98, 17)
 shape = SubResource("CircleShape2D_eqfos")
-disabled = true
 
 [node name="Hitbox2" type="Area2D" parent="Inner/Attacks/Attack" index="3"]
 collision_layer = 4
@@ -2083,7 +2070,6 @@ hit_sfx = ExtResource("20_aoahs")
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox2" index="0"]
 position = Vector2(123.5, -23.5)
 shape = SubResource("RectangleShape2D_pehw2")
-disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Attack" index="4"]
 script = ExtResource("13_x30it")
@@ -2105,11 +2091,11 @@ collision_mask = 4
 script = ExtResource("19_rm6im")
 base_value = 20.0
 hit_sfx = ExtResource("20_aoahs")
+enabled = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Claw/Hitbox" index="0"]
 position = Vector2(28, -12)
 shape = SubResource("RectangleShape2D_4tesy")
-disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/Claw" index="3"]
 script = ExtResource("13_x30it")
@@ -2131,15 +2117,15 @@ collision_mask = 4
 script = ExtResource("19_rm6im")
 base_value = 20.0
 hit_sfx = ExtResource("20_aoahs")
+enabled = true
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/WallImpact/Hitbox" index="0"]
 position = Vector2(64, -59.5)
 shape = SubResource("RectangleShape2D_1726l")
-disabled = true
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/WallImpact" index="3"]
 script = ExtResource("13_x30it")
-animation = "idle"
+animation = "claw_impact"
 
 [node name="FireBreath" type="Node2D" parent="Inner/Attacks" index="3"]
 
@@ -2149,7 +2135,6 @@ libraries = {
 }
 
 [node name="FireBreathSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/FireBreath" index="1"]
-volume_db = -60.0
 bus = &"Sfx"
 
 [node name="ActorTransformer2D" type="Marker2D" parent="Inner/Attacks/FireBreath" index="2"]
@@ -2169,19 +2154,26 @@ screen_shake_trauma = 0.03
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/FireBreath/Hitbox" index="0"]
 position = Vector2(0, 90)
 shape = SubResource("RectangleShape2D_hkros")
-disabled = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Inner/Attacks/FireBreath/Hitbox" index="1"]
+[node name="Hitbox2" type="Area2D" parent="Inner/Attacks/FireBreath" index="4"]
+monitoring = false
+monitorable = false
+script = ExtResource("19_rm6im")
+base_value = 4.0
+hit_particles = ExtResource("18_uqujj")
+hit_sfx = ExtResource("20_aoahs")
+frame_freeze_duration_milliseconds = 17
+screen_shake_trauma = 0.03
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/FireBreath/Hitbox2" index="0"]
 position = Vector2(0, 226)
 shape = SubResource("RectangleShape2D_6p775")
-disabled = true
 
-[node name="FlameBreath" type="GPUParticles2D" parent="Inner/Attacks/FireBreath" index="4"]
+[node name="FlameBreath" type="GPUParticles2D" parent="Inner/Attacks/FireBreath" index="5"]
 visible = false
 z_index = 25
 material = SubResource("CanvasItemMaterial_p5qtt")
 position = Vector2(0, -52)
-emitting = false
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_727lt")
 texture = ExtResource("20_ilq0q")
@@ -2230,7 +2222,6 @@ texture = ExtResource("22_ls6c7")
 [node name="FlameBreathGroundRight" type="GPUParticles2D" parent="Inner/Attacks/FireBreath/FlameBreath" index="3"]
 material = SubResource("CanvasItemMaterial_p5qtt")
 position = Vector2(0, 278)
-emitting = false
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_5wb6n")
 texture = ExtResource("20_ilq0q")
@@ -2241,7 +2232,6 @@ trail_enabled = true
 material = SubResource("CanvasItemMaterial_p5qtt")
 position = Vector2(0, 278)
 rotation = -3.14159
-emitting = false
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_5wb6n")
 texture = ExtResource("20_ilq0q")

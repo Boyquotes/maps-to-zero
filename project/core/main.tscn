@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://c3i2qg7f3e6hq"]
 
 [ext_resource type="Script" path="res://core/sidescroller_main.gd" id="1_w7s42"]
-[ext_resource type="PackedScene" uid="uid://duso0ahb6lxjg" path="res://assets/characters/alisa/alisa.tscn" id="2_d2hui"]
+[ext_resource type="PackedScene" uid="uid://duso0ahb6lxjg" path="res://assets/characters/alisa/alisa.tscn" id="2_a2ps1"]
 [ext_resource type="Script" path="res://core/classes/camera/camera_target_position.gd" id="3_5rup2"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_jpdgf"]
 [ext_resource type="Script" path="res://core/classes/camera/screen_shake_camera.gd" id="4_h6djx"]
@@ -19,7 +19,7 @@ _data = {
 
 [node name="Main" type="Node"]
 script = ExtResource("1_w7s42")
-player_actor = ExtResource("2_d2hui")
+player_actor = ExtResource("2_a2ps1")
 initial_stage_file_path = "res://assets/stages/horizon_hills/horizon_hills_act_1-boss.tscn"
 
 [node name="CameraTargetPosition" type="Node2D" parent="."]

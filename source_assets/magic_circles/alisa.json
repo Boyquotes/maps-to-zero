@@ -1,0 +1,195 @@
+[
+  {
+    "seed": 0.018360983580350876,
+    "rotation": 0,
+    "rotationSpeed": 1,
+    "offsetX": 512,
+    "offsetY": 512,
+    "width": 1024,
+    "height": 1024,
+    "id": 0,
+    "borderWidth": "7",
+    "margin": "32",
+    "borderSpace": "73",
+    "lineWidth": "7",
+    "tier": 1,
+    "symmetryCount": 6,
+    "drawTextRing": true,
+    "wrapTextInLines": true,
+    "ringText": "",
+    "lineText": "",
+    "pointList": [
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      }
+    ],
+    "color": "#ffffff"
+  },
+  {
+    "id": 1,
+    "parentID": 0,
+    "parentPointIndex": -1,
+    "tier": 1,
+    "symmetryCount": 12,
+    "radius": 407,
+    "rotation": 0,
+    "rotationSpeed": 1,
+    "originRelativeToParent": true,
+    "offsetY": 0,
+    "offsetX": 0,
+    "lineWidth": "7",
+    "minSectionDelta": 47.135639876443626,
+    "maxSectionDelta": 203.5,
+    "sectionSize": 160,
+    "carveSpace": false,
+    "outerRing": false,
+    "connectBorder": false,
+    "connectMidPoints": false,
+    "connectPoints": true,
+    "drawTextLines": false,
+    "textLinesOverlap": true,
+    "connectPointsSkip": 2,
+    "inscribePoints": true,
+    "doubleinscribedPoints": false,
+    "linesToCenter": false,
+    "symbolRing": false,
+    "drawTextRing": true,
+    "wrapTextInLines": true,
+    "symbolsAtPoints": true,
+    "symbolsSize": 200,
+    "ringText": "spiraculum scholarum base ac opus aliosque ac post mystica base technologiam Germani historicos doctrinae Potestatem technologiam elixir principalissimum arcana",
+    "lineText": "Graecorum compositae Flamel perpetuam Quaere S. idem sunt Flamel examinis Graecorum quod occulto antiquitatum quod Opus elixir Nicolai S.",
+    "symbolText": "🝊🝊🝊🝊🝊🝊🝊🝊🝊🝊🝊🝊",
+    "pointList": [
+      {
+        "x": 203.49999999999994,
+        "y": -352.47233934026656
+      },
+      {
+        "x": 352.4723393402665,
+        "y": -203.5
+      },
+      {
+        "x": 407,
+        "y": 0
+      },
+      {
+        "x": 352.47233934026656,
+        "y": 203.49999999999994
+      },
+      {
+        "x": 203.50000000000014,
+        "y": 352.47233934026644
+      },
+      {
+        "x": 2.4921562362648637e-14,
+        "y": 407
+      },
+      {
+        "x": -203.49999999999991,
+        "y": 352.47233934026656
+      },
+      {
+        "x": -352.47233934026644,
+        "y": 203.50000000000014
+      },
+      {
+        "x": -407,
+        "y": 4.9843124725297275e-14
+      },
+      {
+        "x": -352.47233934026667,
+        "y": -203.49999999999974
+      },
+      {
+        "x": -203.50000000000017,
+        "y": -352.47233934026644
+      },
+      {
+        "x": -7.476468708794591e-14,
+        "y": -407
+      }
+    ],
+    "color": "#ffffff"
+  },
+  {
+    "id": 2,
+    "parentID": 1,
+    "parentPointIndex": -1,
+    "tier": 1,
+    "symmetryCount": 5,
+    "radius": 290.4932344234967,
+    "rotation": 22,
+    "rotationSpeed": 1,
+    "originRelativeToParent": true,
+    "offsetY": 0,
+    "offsetX": 0,
+    "lineWidth": "7",
+    "minSectionDelta": 47.135639876443626,
+    "maxSectionDelta": 203.5,
+    "sectionSize": 146.79908069577047,
+    "carveSpace": true,
+    "outerRing": false,
+    "connectBorder": true,
+    "connectMidPoints": true,
+    "connectPoints": false,
+    "drawTextLines": true,
+    "textLinesOverlap": true,
+    "connectPointsSkip": 2,
+    "inscribePoints": false,
+    "doubleinscribedPoints": false,
+    "linesToCenter": false,
+    "symbolRing": false,
+    "drawTextRing": false,
+    "wrapTextInLines": true,
+    "symbolsAtPoints": false,
+    "symbolsSize": 151.8,
+    "ringText": "",
+    "lineText": "τίποτα στη ζωή δεν έχει σημασία",
+    "symbolText": "",
+    "pointList": [
+      {
+        "x": 276.27548353812216,
+        "y": -89.76734618780596
+      },
+      {
+        "x": 170.74763908487154,
+        "y": 235.0139633995543
+      },
+      {
+        "x": -170.7476390848715,
+        "y": 235.0139633995543
+      },
+      {
+        "x": -276.27548353812216,
+        "y": -89.76734618780591
+      },
+      {
+        "x": -5.3362741456604536e-14,
+        "y": -290.4932344234967
+      }
+    ],
+    "color": "#ffffff"
+  }
+]
