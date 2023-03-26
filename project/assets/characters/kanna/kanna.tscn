@@ -8852,9 +8852,11 @@ size = Vector2(34, 32)
 
 [node name="Kanna" instance=ExtResource("1_a8ind")]
 max_hp = 1500.0
+max_revenge = 16.0
 team = 2
 attack_can_cancel = true
 attack_can_go_to_next = true
+revenge_state = "SlamDown"
 
 [node name="SignalManager" type="Node" parent="." index="0"]
 script = SubResource("GDScript_g40xi")

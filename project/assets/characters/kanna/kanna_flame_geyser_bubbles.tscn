@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://ba2gwdqdobxio"]
+[gd_scene load_steps=16 format=3 uid="uid://ba2gwdqdobxio"]
 
+[ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="6_3x4rq"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="6_ch4mq"]
 [ext_resource type="Script" path="res://core/classes/audio_stream_player_2d_extended.gd" id="6_naogb"]
 [ext_resource type="AudioStream" uid="uid://dh0br32mxqosn" path="res://assets/characters/kanna/kanna_flame_geyser_bubbles.wav" id="7_xbi2u"]
@@ -137,3 +138,9 @@ script = ExtResource("6_naogb")
 streams = Array[AudioStream]([ExtResource("7_xbi2u"), ExtResource("8_nsxyh"), ExtResource("9_xs5pr")])
 pitch_scale_min = 0.9
 pitch_scale_max = 1.1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0.431373)
+position = Vector2(0, -320)
+scale = Vector2(0.1, 10)
+texture = ExtResource("6_3x4rq")

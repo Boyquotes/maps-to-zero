@@ -3,6 +3,21 @@
 [ext_resource type="Script" path="res://assets/characters/scripts/flinches/flinch.gd" id="1_dvouy"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="1_k3voy"]
 
+[sub_resource type="Animation" id="Animation_f7qdw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterAnimator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_udwe1"]
 resource_name = "animation"
 length = 0.5
@@ -17,21 +32,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-16, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_f7qdw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterAnimator:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1q4t5"]

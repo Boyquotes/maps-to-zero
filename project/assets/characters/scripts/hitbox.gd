@@ -22,6 +22,7 @@ signal hit(hit_character)
 				var collider = child as CollisionShape2D
 				collider.disabled = not value
 @export var flinch : PackedScene
+@export var revenge_value := 0.0
 
 
 var _character: Character

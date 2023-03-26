@@ -1129,6 +1129,7 @@ radius = 32.3883
 [node name="CloudBlue" instance=ExtResource("1_2gcfk")]
 collision_layer = 2
 max_hp = 80.0
+max_revenge = null
 speed = 2.0
 team = 2
 attack_can_cancel = true
@@ -1241,7 +1242,6 @@ hit_particles = ExtResource("17_s41pk")
 hit_sfx = ExtResource("18_1xamr")
 frame_freeze_duration_milliseconds = 50
 screen_shake_trauma = 0.1
-enabled = true
 flinch = ExtResource("14_ccfjj")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]

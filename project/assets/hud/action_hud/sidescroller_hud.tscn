@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dc4c3cp56vdbr" path="res://assets/hud/hp_bar/green.png" id="4_2abeb"]
 [ext_resource type="Texture2D" uid="uid://brd1nae16owjr" path="res://assets/hud/hp_bar/bg.png" id="4_khe4e"]
 [ext_resource type="Texture2D" uid="uid://pwlaxiv48ovm" path="res://assets/hud/action_hud/player_icon_frame_2.png" id="7_3tmi2"]
-[ext_resource type="Texture2D" uid="uid://boqd6ty3ir2cn" path="res://assets/dialog/characters/alisa/alisa_icon.png" id="9_j6a31"]
+[ext_resource type="Texture2D" uid="uid://clpitfr141db2" path="res://assets/dialog/characters/alisa/alisa_icon.jpg" id="7_bhegd"]
 [ext_resource type="PackedScene" uid="uid://b0vjb5bn3scc6" path="res://assets/inventory/inventory_interface.tscn" id="11_r37im"]
 [ext_resource type="PackedScene" uid="uid://tyolpjgbnmvl" path="res://assets/inventory/hot_bar_inventory.tscn" id="13_5wpii"]
 
@@ -241,13 +241,14 @@ texture = ExtResource("2_swpb2")
 expand_mode = 1
 
 [node name="PlayerIcon" type="TextureRect" parent="Display/PlayerHUD"]
+texture_filter = 2
 layout_mode = 0
 offset_left = -2.0
 offset_top = 6.0
 offset_right = 94.0
 offset_bottom = 102.0
 rotation = -0.0872665
-texture = ExtResource("9_j6a31")
+texture = ExtResource("7_bhegd")
 expand_mode = 1
 stretch_mode = 4
 

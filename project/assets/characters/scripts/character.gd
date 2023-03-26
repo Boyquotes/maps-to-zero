@@ -13,6 +13,7 @@ signal toggle_menu_requested
 @export var max_hp := 100.0
 @export var max_mp := 300.0
 @export var max_sp := 0.0
+@export var max_revenge := 0.0
 @export var speed := 10.0: # In terms of tiles/sec
 	get:
 		if Engine.is_editor_hint():
@@ -54,6 +55,7 @@ signal toggle_menu_requested
 			attack_can_cancel = false
 			state_machine.transition_to(attack_request_buffer)
 			attack_request_buffer = ""
+@export var revenge_state := "Revenge"
 
 var attack_request_buffer: String
 var target:
@@ -141,6 +143,8 @@ func _ready():
 		_stats.set_stat(CharacterStats.Types.MP, max_mp)
 		_stats.set_max_stat(CharacterStats.Types.SP, max_sp)
 		_stats.set_stat(CharacterStats.Types.SP, max_sp)
+		_stats.set_max_stat(CharacterStats.Types.REVENGE, max_revenge)
+		_stats.set_stat(CharacterStats.Types.REVENGE, 0)
 	
 	if _hurtbox:
 		_hurtbox.area_entered.connect(_on_hurtbox_entered)
@@ -208,6 +212,9 @@ func play_animation_effect(effect_name:="") -> void:
 
 func take_damage(value: float, type: CharacterStats.Types=CharacterStats.Types.HP):
 	_stats.change_stat_by(type, -value)
+	
+	if _stats.get_stat(CharacterStats.Types.HP) <= 0:
+		defeat()
 
 
 func defeat() -> void:
@@ -217,6 +224,14 @@ func defeat() -> void:
 
 func heal(by: float) -> void:
 	_stats.change_stat_by(CharacterStats.Types.HP, by)
+
+
+func add_revenge(value: float) -> void:
+	if is_zero_approx(_stats.get_max_stat(CharacterStats.Types.REVENGE)):
+		# If max revenge is zero, don't use revenge value system for this character
+		return
+	
+	_stats.change_stat_by(CharacterStats.Types.REVENGE, value)
 
 
 func request_state_transition(target_state_name : String, msg: Dictionary = {}):
@@ -313,12 +328,6 @@ func _on_state_machine_transitioned(_to_state, _from_state):
 
 func _on_stat_changed(type: CharacterStats.Types, new_value, old_value, max_value):
 	stat_changed.emit(type, new_value, old_value, max_value)
-	
-	match type:
-		CharacterStats.Types.HP:
-			if new_value <= 0:
-				defeat()
-
 
 
 func _check_and_do_attack_cancel_inputs() -> void:
@@ -348,10 +357,18 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 		return
 	
 	take_damage(hitbox.base_value, CharacterStats.Types.HP)
-	if _stats.get_stat(CharacterStats.Types.HP) > 0 and hitbox.flinch:
-		state_machine.transition_to("Flinch", {
-			"hitbox": hitbox
-		})
+	add_revenge(hitbox.revenge_value)
+	if _stats.get_stat(CharacterStats.Types.HP) > 0:
+		if not revenge_state == "" and not state_machine.get_state(revenge_state) == null \
+				and not is_zero_approx(_stats.get_max_stat(CharacterStats.Types.REVENGE)) \
+				and _stats.get_stat(CharacterStats.Types.REVENGE) \
+				>= _stats.get_max_stat(CharacterStats.Types.REVENGE):
+			state_machine.transition_to(revenge_state)
+			_stats.set_stat(CharacterStats.Types.REVENGE, 0)
+		elif hitbox.flinch:
+			state_machine.transition_to("Flinch", {
+				"hitbox": hitbox
+			})
 	
 	ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
 	

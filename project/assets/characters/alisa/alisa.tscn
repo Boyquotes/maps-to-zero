@@ -9138,6 +9138,7 @@ size = Vector2(32, 40)
 z_index = 20
 collision_mask = 49
 max_sp = 3.0
+max_revenge = null
 speed = 9.0
 team = 1
 attack_can_cancel = true
@@ -9341,6 +9342,7 @@ hit_sfx = ExtResource("37_bxxe0")
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
 flinch = ExtResource("37_oymof")
+revenge_value = 1.0
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
 position = Vector2(47, 0)
@@ -9370,6 +9372,7 @@ hit_sfx = ExtResource("37_bxxe0")
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
 flinch = ExtResource("37_oymof")
+revenge_value = 1.0
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack2/Hitbox" index="0"]
 position = Vector2(48, 0)
@@ -9400,6 +9403,7 @@ hit_sfx = ExtResource("37_bxxe0")
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
 flinch = ExtResource("37_oymof")
+revenge_value = 1.0
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/Attack3/Hitbox" index="0"]
 position = Vector2(36.5, 0)
@@ -9429,6 +9433,7 @@ hit_sfx = ExtResource("37_bxxe0")
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
 flinch = ExtResource("37_oymof")
+revenge_value = 1.0
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack1/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_alunf")
@@ -9456,6 +9461,7 @@ hit_sfx = ExtResource("37_bxxe0")
 frame_freeze_duration_milliseconds = 48
 screen_shake_trauma = 0.05
 flinch = ExtResource("37_oymof")
+revenge_value = 1.0
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack2/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_foam6")
@@ -9483,6 +9489,7 @@ hit_sfx = ExtResource("37_bxxe0")
 frame_freeze_duration_milliseconds = 100
 screen_shake_trauma = 0.1
 flinch = ExtResource("37_oymof")
+revenge_value = 1.0
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="Inner/Attacks/AirAttack3/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_btlv5")

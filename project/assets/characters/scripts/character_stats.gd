@@ -3,18 +3,20 @@ extends Node
 
 signal stat_changed(type, new_value, old_value, max_value)
 
-enum Types { HP, MP, SP }
+enum Types { HP, MP, SP, REVENGE }
 
 
 var _stats := {
 	Types.HP : 0.0,
 	Types.MP : 0.0,
-	Types.SP : 0.0
+	Types.SP : 0.0,
+	Types.REVENGE : 0.0,
 }
 var _max_stats := {
 	Types.HP : 0.0,
 	Types.MP : 0.0,
-	Types.SP : 0.0
+	Types.SP : 0.0,
+	Types.REVENGE : 0.0,
 }
 
 

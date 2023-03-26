@@ -27,6 +27,7 @@
 collision_layer = 0
 collision_mask = 99
 script = ExtResource("1_7iiwt")
+max_revenge = null
 
 [node name="CharacterStats" type="Node" parent="."]
 unique_name_in_owner = true
