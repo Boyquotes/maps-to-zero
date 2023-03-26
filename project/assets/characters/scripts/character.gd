@@ -162,9 +162,9 @@ func _ready():
 func _physics_process(delta: float):
 	if Engine.is_editor_hint():
 		return
-	move_and_slide()
 	if _soft_collision.is_colliding():
-		move_and_collide(_soft_collision.get_push_vector() * delta)
+		velocity.x = _soft_collision.get_push_vector().x
+	move_and_slide()
 
 
 func _on_tree_entered():

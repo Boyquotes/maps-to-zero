@@ -9151,6 +9151,7 @@ wait_time = 0.3
 autostart = true
 
 [node name="CollisionShape2d" parent="." index="2"]
+visible = true
 shape = SubResource("RectangleShape2D_mvr6v")
 
 [node name="CollisionShape2d" parent="BackgroundJumpArea" index="0"]
@@ -9205,7 +9206,7 @@ texture = ExtResource("3_k3unl")
 offset = Vector2(0, -32)
 hframes = 16
 vframes = 15
-frame = 233
+frame = 184
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "alisa",
@@ -9227,7 +9228,7 @@ texture = ExtResource("5_p6dq2")
 offset = Vector2(0, -32)
 hframes = 11
 vframes = 11
-frame = 34
+frame = 79
 region_rect = Rect2(896, 384, 128, 128)
 metadata/_aseprite_wizard_config_ = {
 "layer": "Horns",
@@ -9506,6 +9507,7 @@ libraries = {
 script = ExtResource("33_ahjeu")
 animation = "slide"
 can_cancel_out_of_attack = true
+can_go_to_next_attack = true
 
 [node name="CameraSettingsTrigger" type="Node2D" parent="Inner/Attacks/Dash" index="2"]
 position = Vector2(256, 0)

@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://core/states/character_states/flinch.gd" id="18_3dqgy"]
 
 [node name="Actor2d" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 99
 script = ExtResource("1_7iiwt")
 
