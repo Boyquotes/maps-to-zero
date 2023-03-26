@@ -359,16 +359,18 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 	take_damage(hitbox.base_value, CharacterStats.Types.HP)
 	add_revenge(hitbox.revenge_value)
 	if _stats.get_stat(CharacterStats.Types.HP) > 0:
-		if not revenge_state == "" and not state_machine.get_state(revenge_state) == null \
-				and not is_zero_approx(_stats.get_max_stat(CharacterStats.Types.REVENGE)) \
-				and _stats.get_stat(CharacterStats.Types.REVENGE) \
-				>= _stats.get_max_stat(CharacterStats.Types.REVENGE):
-			state_machine.transition_to(revenge_state)
-			_stats.set_stat(CharacterStats.Types.REVENGE, 0)
-		elif hitbox.flinch:
-			state_machine.transition_to("Flinch", {
-				"hitbox": hitbox
-			})
+		if state_machine.state is CharacterState and state_machine.state.can_flinch:
+			if not revenge_state == "" and not state_machine.get_state(revenge_state) == null \
+					and not is_zero_approx(_stats.get_max_stat(CharacterStats.Types.REVENGE)) \
+					and _stats.get_stat(CharacterStats.Types.REVENGE) \
+					>= _stats.get_max_stat(CharacterStats.Types.REVENGE):
+				state_machine.transition_to(revenge_state)
+				_stats.set_stat(CharacterStats.Types.REVENGE, 0)
+			elif hitbox.flinch and state_machine.state is CharacterState \
+					and state_machine.state.can_flinch:
+				state_machine.transition_to("Flinch", {
+					"hitbox": hitbox
+				})
 	
 	ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
 	

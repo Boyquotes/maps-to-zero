@@ -2,6 +2,10 @@
 extends Behavior2DScript
 
 
+func _ready() -> void:
+	set_process_input(false)
+
+
 func enter(_msg := {}) -> void:
 	set_process_input(true)
 

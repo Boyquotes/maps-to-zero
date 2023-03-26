@@ -4,7 +4,7 @@ class_name StateMachine
 extends Node
 
 # Emitted when transitioning to a new state.
-signal transitioned(to, from)
+signal transitioned(to: StringName, from: StringName)
 
 
 # Path to the initial active state. We export it to be able to pick the initial state in the inspector.

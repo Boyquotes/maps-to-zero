@@ -27,7 +27,6 @@
 collision_layer = 0
 collision_mask = 99
 script = ExtResource("1_7iiwt")
-max_revenge = null
 
 [node name="CharacterStats" type="Node" parent="."]
 unique_name_in_owner = true
@@ -99,11 +98,13 @@ script = ExtResource("11_hb3w8")
 script = ExtResource("4_c2pic")
 animation = "idle"
 coyote_time = 0.1
+can_flinch = true
 
 [node name="Run" parent="StateMachine" instance=ExtResource("3_ljg6w")]
 script = ExtResource("5_q4uhh")
 animation = "run"
 coyote_time = 0.1
+can_flinch = true
 
 [node name="Air" parent="StateMachine" instance=ExtResource("3_ljg6w")]
 script = ExtResource("6_d0dbr")
@@ -114,12 +115,14 @@ background_fall_animation = null
 falling_gravity_multiplier = null
 jump_buffer_time = null
 jump_speed_boost = null
+can_flinch = true
 
 [node name="Defeat" type="Node" parent="StateMachine"]
 script = ExtResource("9_kan2l")
 
 [node name="Flinch" type="Node" parent="StateMachine"]
 script = ExtResource("18_3dqgy")
+can_flinch = true
 
 [node name="CharacterHUDSmoothingNode" type="Node2D" parent="."]
 script = ExtResource("2_xo8fg")

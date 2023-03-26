@@ -3,6 +3,10 @@
 class_name CharacterState
 extends State
 
+
+@export var can_flinch := false
+
+
 # Typed reference to the player node.
 var _character : Character
 

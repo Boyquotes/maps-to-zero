@@ -9266,9 +9266,6 @@ script = ExtResource("27_2ack2")
 scene = ExtResource("31_nk4ul")
 spawned_object_is_top_level = true
 
-[node name="InputStateMachine" parent="." index="5"]
-reset_state_name = "PlayerInput"
-
 [node name="Move" type="Node" parent="InputStateMachine" index="1"]
 script = ExtResource("13_d0td8")
 

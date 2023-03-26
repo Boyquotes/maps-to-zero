@@ -9138,7 +9138,6 @@ size = Vector2(32, 40)
 z_index = 20
 collision_mask = 49
 max_sp = 3.0
-max_revenge = null
 speed = 9.0
 team = 1
 attack_can_cancel = true
@@ -9693,6 +9692,7 @@ reset_state_name = "PlayerInput"
 
 [node name="PlayerInput" parent="InputStateMachine" index="3" instance=ExtResource("50_r72u5")]
 script = ExtResource("51_6hmlq")
+can_flinch = false
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("52_5eego")
@@ -9724,6 +9724,7 @@ fall_animation = "stomp"
 recover_animation = "stomp_recover"
 stomp_speed = 150.0
 recover_duration = 0.2
+can_flinch = false
 
 [node name="Attack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("54_nopje")
