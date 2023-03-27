@@ -1,7 +1,7 @@
 class_name CharacterStats
 extends Node
 
-signal stat_changed(type, new_value, old_value, max_value)
+signal stat_changed(type: Types, new_value: float, old_value: float, max_value: float)
 
 enum Types { HP, MP, SP, REVENGE }
 

@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7he4hkhgxapc"]
+
+[ext_resource type="Texture2D" uid="uid://bnp8e5wde0mtn" path="res://assets/particles/sprites/white_round_8x8.png" id="1_ywssx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xlk2q"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_f3gqd"]
+offsets = PackedFloat32Array(0.00954654, 0.529833, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hlph1"]
+gradient = SubResource("Gradient_f3gqd")
+
+[sub_resource type="Curve" id="Curve_ofivt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.262443, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xqdrh"]
+curve = SubResource("Curve_ofivt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ot8oq"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 4.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_xqdrh")
+color_ramp = SubResource("GradientTexture1D_hlph1")
+
+[node name="KnockbackCircle" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_xlk2q")
+emitting = false
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_ot8oq")
+texture = ExtResource("1_ywssx")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0

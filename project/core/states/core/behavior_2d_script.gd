@@ -15,3 +15,10 @@ func get_input_direction() -> Vector2:
 
 func simulate_input(event: InputEvent) -> void:
 	_character.unhandled_input(event)
+
+
+func simulate_action_press(name: StringName) -> void:
+	var event = InputEventAction.new()
+	event.action = name
+	event.pressed = true
+	_character.unhandled_input(event)

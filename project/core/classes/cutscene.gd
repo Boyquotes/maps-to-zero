@@ -81,7 +81,8 @@ func skip() -> void:
 	finished.emit()
 	for child in get_children():
 		if child is CharacterAnimator:
-			child.disable()
+			var character_animator := child as CharacterAnimator
+			character_animator.disable_cutscene_mode()
 	
 	GameUtilities.get_main_camera().align()
 	GameUtilities.get_main_camera().reset_smoothing()
@@ -98,7 +99,8 @@ func _on_animation_finished(anim_name: String) -> void:
 				_animation_player.play("finished")
 			for child in get_children():
 				if child is CharacterAnimator:
-					child.disable()
+					var character_animator := child as CharacterAnimator
+					character_animator.disable()
 
 
 func _on_finished() -> void:

@@ -974,7 +974,7 @@ script = ExtResource("3_22og6")
 scale = Vector2(-1, 1)
 script = ExtResource("3_b0rjb")
 actor_name = "PLAYER"
-look_direction = 0
+look_direction = 1
 animation = "idle"
 
 [node name="ShowCutsceneBarsTrigger" type="Node2D" parent="."]

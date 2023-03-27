@@ -1127,12 +1127,9 @@ _data = {
 radius = 32.3883
 
 [node name="CloudBlue" instance=ExtResource("1_2gcfk")]
-collision_layer = 2
 max_hp = 80.0
-max_revenge = 0.0
 speed = 2.0
 team = 2
-attack_can_cancel = true
 attack_can_go_to_next = true
 
 [node name="CollisionShape2d" parent="." index="1"]

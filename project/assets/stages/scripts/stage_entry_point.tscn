@@ -231,7 +231,7 @@ tracks/4/keys = {
 "method": &"enable_cutscene_mode"
 }, {
 "args": [],
-"method": &"disable"
+"method": &"disable_cutscene_mode"
 }]
 }
 tracks/5/type = "method"
@@ -286,10 +286,10 @@ tracks/1/path = NodePath("PlayerTransformer:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["walk", "walk"]
+"values": ["walk"]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -331,7 +331,7 @@ tracks/4/keys = {
 "method": &"enable_cutscene_mode"
 }, {
 "args": [],
-"method": &"disable"
+"method": &"disable_cutscene_mode"
 }]
 }
 tracks/5/type = "method"
@@ -382,10 +382,11 @@ libraries = {
 }
 
 [node name="PlayerTransformer" type="Marker2D" parent="."]
+position = Vector2(64, 0)
 script = ExtResource("2_yiour")
 actor_name = "PLAYER"
-look_direction = 1
-animation = "idle"
+look_direction = 0
+animation = "walk"
 
 [node name="ShowGameHudTrigger" type="Node2D" parent="."]
 script = ExtResource("3_n7lcj")

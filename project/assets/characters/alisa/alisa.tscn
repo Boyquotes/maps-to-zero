@@ -9140,7 +9140,6 @@ collision_mask = 49
 max_sp = 3.0
 speed = 9.0
 team = 1
-attack_can_cancel = true
 attack_can_go_to_next = true
 
 [node name="SignalManager" type="Node" parent="." index="0"]
@@ -9726,10 +9725,11 @@ fall_animation = "stomp"
 recover_animation = "stomp_recover"
 stomp_speed = 150.0
 recover_duration = 0.2
-can_flinch = false
+can_flinch = true
 
 [node name="Attack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("54_nopje")
+can_flinch = true
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Attack" index="0"]
 script = ExtResource("55_maxgv")
@@ -9741,6 +9741,7 @@ script = ExtResource("58_o2od5")
 
 [node name="Attack2" type="Node" parent="StateMachine" index="6"]
 script = ExtResource("54_nopje")
+can_flinch = true
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Attack2" index="0"]
 script = ExtResource("55_maxgv")
@@ -9752,12 +9753,14 @@ script = ExtResource("58_o2od5")
 
 [node name="Attack3" type="Node" parent="StateMachine" index="7"]
 script = ExtResource("54_nopje")
+can_flinch = true
 
 [node name="IsGroundedRequirement" type="Node" parent="StateMachine/Attack3" index="0"]
 script = ExtResource("58_o2od5")
 
 [node name="AirAttack1" type="Node" parent="StateMachine" index="8"]
 script = ExtResource("54_nopje")
+can_flinch = true
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/AirAttack1" index="0"]
 script = ExtResource("55_maxgv")
@@ -9769,6 +9772,7 @@ script = ExtResource("58_k6wkn")
 
 [node name="AirAttack2" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("54_nopje")
+can_flinch = true
 
 [node name="AttackInputKeyTransition" type="Node" parent="StateMachine/AirAttack2" index="0"]
 script = ExtResource("55_maxgv")
@@ -9780,6 +9784,7 @@ script = ExtResource("58_k6wkn")
 
 [node name="AirAttack3" type="Node" parent="StateMachine" index="10"]
 script = ExtResource("54_nopje")
+can_flinch = true
 
 [node name="IsNotGroundedRequirement" type="Node" parent="StateMachine/AirAttack3" index="0"]
 script = ExtResource("58_k6wkn")
@@ -9814,9 +9819,6 @@ base_speed = 20.0
 
 [node name="IsGroundedRequirement" type="Node" parent="StateMachine/Dash" index="3"]
 script = ExtResource("58_o2od5")
-
-[node name="CharacterHUDSmoothingNode" parent="." index="7"]
-visible = false
 
 [node name="InteractionAreaActivator2D" type="Area2D" parent="." index="8"]
 visible = false

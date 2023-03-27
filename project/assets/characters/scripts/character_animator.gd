@@ -25,7 +25,7 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 	set(value):
 		can_cancel_out_of_attack = value
 		if not _movement_mode == MovementModes.DISABLED:
-			_character.attack_can_cancel = can_cancel_out_of_attack
+			_character.set_can_cancel_attack(can_cancel_out_of_attack)
 @export var can_go_to_next_attack : bool:
 	set(value):
 		can_go_to_next_attack = value
@@ -92,27 +92,33 @@ func teleport() -> void:
 	_character.global_position = global_position - center_offset
 
 
-func enable(disable_input_on_enable:=true) -> void:
+func enable() -> void:
 	_movement_mode = MovementModes.MATCH
 	set_physics_process(true)
 	_last_frame_position = position - center_offset
 	_character.play_animation(animation)
-	if disable_input_on_enable:
-		_character.input_state_machine.transition_to("NoInput")
 
 
 func enable_cutscene_mode() -> void:
+	_character.disable_input()
 	_character.state_machine.transition_to("Cutscene")
 	enable()
 
 
-func disable(reset_state_machine:=true) -> void:
+func disable_cutscene_mode() -> void:
+	_character.enable_input()
+	disable()
+
+
+func disable() -> void:
+	disable_without_resetting_state()
+	_character.state_machine.reset()
+
+
+func disable_without_resetting_state() -> void:
 	_movement_mode = MovementModes.DISABLED
 	set_physics_process(false)
 	_character.rotation = 0
-	_character.input_state_machine.reset()
-	if reset_state_machine:
-		_character.state_machine.reset()
 
 
 func show_character() -> void:

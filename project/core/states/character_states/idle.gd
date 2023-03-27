@@ -46,6 +46,10 @@ func update(_delta: float) -> void:
 		state_machine.transition_to("Run")
 
 
+func physics_update(_delta: float) -> void:
+	_character.velocity.x = 0
+
+
 func _on_coyote_timeout():
 	if not _character.is_on_floor():
 		state_machine.transition_to("Air")

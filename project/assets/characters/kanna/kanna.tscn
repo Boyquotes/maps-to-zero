@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://cf08b6jac357e"]
+[gd_scene load_steps=137 format=3 uid="uid://cf08b6jac357e"]
 
 [ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_a8ind"]
 [ext_resource type="PackedScene" uid="uid://c3ws0fknxoef1" path="res://assets/particles_one_shot/defeat_explosion_default.tscn" id="3_0b6dp"]
@@ -24,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://tl1rrrexc6nw" path="res://assets/characters/kanna/sprites/kanna_tail_extended.png" id="12_llvfx"]
 [ext_resource type="PackedScene" uid="uid://c5q4dwv5pxiac" path="res://assets/particles_one_shot/clap.tscn" id="13_0aral"]
 [ext_resource type="Script" path="res://core/states/behavior_2d_states/move_to_target_input.gd" id="13_d0td8"]
-[ext_resource type="Script" path="res://core/states/behavior_2d_states/animation_behavior.gd" id="14_0fr44"]
 [ext_resource type="Script" path="res://assets/characters/scripts/hitbox.gd" id="19_ds71i"]
 [ext_resource type="AudioStream" uid="uid://hto2hdko8guk" path="res://assets/characters/kanna/kanna_slice.wav" id="19_n5bqd"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="20_3fqi7"]
@@ -35,13 +34,17 @@
 [ext_resource type="AudioStream" uid="uid://drx0bnw8mo7hq" path="res://assets/characters/kanna/kanna_swing.wav" id="22_va1ab"]
 [ext_resource type="Texture2D" uid="uid://ck7d1xmyb5owb" path="res://assets/characters/kanna/sprites/kanna_attack_swing.png" id="24_45a2o"]
 [ext_resource type="Script" path="res://core/classes/spawner_2d.gd" id="27_2ack2"]
-[ext_resource type="Script" path="res://core/states/behavior_2d_states/player_input.gd" id="27_drcur"]
 [ext_resource type="Script" path="res://core/states/character_states/attack.gd" id="28_3eh8w"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/attack_input_key_transition.gd" id="28_qcbtw"]
 [ext_resource type="PackedScene" uid="uid://bnayp2kr5n0k4" path="res://assets/characters/kanna/kanna_flame_geyser.tscn" id="28_rcag3"]
 [ext_resource type="Script" path="res://core/triggers/screen_shake_trigger.gd" id="29_ciko7"]
 [ext_resource type="PackedScene" uid="uid://bpya6uxcu5p01" path="res://assets/characters/scripts/flinches/standard_flinch.tscn" id="30_31flc"]
 [ext_resource type="PackedScene" uid="uid://ba2gwdqdobxio" path="res://assets/characters/kanna/kanna_flame_geyser_bubbles.tscn" id="31_nk4ul"]
+[ext_resource type="PackedScene" uid="uid://ddmjnbtqhktkn" path="res://assets/particles_one_shot/attack_incoming_marker.tscn" id="31_vp7fb"]
+[ext_resource type="AudioStream" uid="uid://grmhll5wsru7" path="res://assets/sfx/attack_incoming.wav" id="32_sacia"]
+[ext_resource type="PackedScene" uid="uid://c7he4hkhgxapc" path="res://assets/particles_one_shot/knockback_circle.tscn" id="37_c4v4t"]
+[ext_resource type="PackedScene" uid="uid://diiv6sueavyan" path="res://assets/characters/scripts/flinches/knockback.tscn" id="37_rwdpn"]
+[ext_resource type="Script" path="res://assets/characters/scripts/effects/super_armor_creator.gd" id="39_fr5mw"]
 [ext_resource type="Script" path="res://core/states/state_transitions_2d/on_ground_transition.gd" id="39_juesn"]
 
 [sub_resource type="GDScript" id="GDScript_g40xi"]
@@ -49,40 +52,95 @@ resource_name = "KannaSignalManager"
 script/source = "extends Node
 
 var _character: Character
+var _phase: int = 1
+var _phase_transition_on_next_state: bool = false
 
 func _ready():
 	await owner.ready
 	_character = owner
+	_character.stat_changed.connect(_on_stat_change)
 	
 	_character.get_state(\"SlamDown\").hit_confirmed.connect(func():
 		_character.change_stat_by(CharacterStats.Types.MP, 5)
 	)
-	_character.get_attack(\"SlamDown\").get_node(\"FlameGeyserSpawner\").spawned.connect(func(object):
-		var flame_geyser = object
-		var hitbox := flame_geyser.get_node(\"Hitbox\") as Hitbox
-		hitbox.set_character(_character)
-		hitbox.set_team(_character.team)
-		hitbox.hit.connect(func(_hit_character):
-			_character.change_stat_by(CharacterStats.Types.MP, 5)
-			)
-		)
-	_character.get_attack(\"FlameGeysers\").get_node(\"FlameGeyserSpawner\").spawned.connect(func(object):
-		var flame_geyser = object
-		var hitbox := flame_geyser.get_node(\"Hitbox\") as Hitbox
-		hitbox.set_character(_character)
-		hitbox.set_team(_character.team)
-		hitbox.hit.connect(func(_hit_character):
-			_character.change_stat_by(CharacterStats.Types.MP, 5)
-			)
-		)
-	_character.get_attack(\"FlameGeysers\").get_node(\"FlameGeyserSpawner2\").spawned.connect(func(object):
-		var flame_geyser = object
-		var hitbox := flame_geyser.get_node(\"Hitbox\") as Hitbox
-		hitbox.set_character(_character)
-		hitbox.set_team(_character.team)
-		hitbox.hit.connect(func(_hit_character):
-			_character.change_stat_by(CharacterStats.Types.MP, 5)
-			)
+	_character.get_attack(\"SlamDown\").get_node(\"FlameGeyserSpawner\").spawned.connect(_on_flame_geyser_spawn)
+	_character.get_attack(\"FlameGeysers\").get_node(\"FlameGeyserSpawner\").spawned.connect(_on_flame_geyser_spawn)
+	_character.get_attack(\"FlameGeysers\").get_node(\"FlameGeyserSpawner2\").spawned.connect(_on_flame_geyser_spawn)
+	for child in _character.get_attack(\"FlameGeysers2\").get_node(\"Attack Set 1\").get_children():
+		if child.name.contains(\"FlameGeyserSpawner\"):
+			child.spawned.connect(_on_flame_geyser_spawn)
+	for child in _character.get_attack(\"FlameGeysers2\").get_node(\"Attack Set 2\").get_children():
+		if child.name.contains(\"FlameGeyserSpawner\"):
+			child.spawned.connect(_on_flame_geyser_spawn)
+	_character.get_attack(\"FlameGeysers2\").get_node(\"FlameGeyserSpawner\").spawned.connect(_on_flame_geyser_spawn)
+	_character.get_attack(\"AttackAndSlamDown\").get_node(\"FlameGeyserSpawner\").spawned.connect(_on_flame_geyser_spawn)
+	
+	_character.state_changed.connect(_on_state_changed)
+	_character.input_state_changed.connect(_on_input_state_changed)
+	
+	_phase = 1
+	_phase_transition_on_next_state = false
+
+
+func _on_stat_change(type: CharacterStats.Types, new_value: float, old_value: float, max_value: float) -> void:
+	if type == CharacterStats.Types.HP:
+		var percentLeft = new_value / max_value
+		match _phase:
+			1:
+				if percentLeft <= 0.75:
+					_phase_transition_on_next_state = true
+					_phase = 2
+			2:
+				if percentLeft <= 0.4:
+					_phase_transition_on_next_state = true
+					_phase = 3
+			_:
+				pass
+
+
+func _on_state_changed(to: State, from: State) -> void:
+	var input_state_machine := _character.get_input_state_machine() as StateMachine
+	if to.name == \"Idle\":
+		input_state_machine.reset_state_name = \"Wait\"
+		input_state_machine.reset()
+	elif to.name == \"Revenge\":
+		input_state_machine.reset_state_name = \"NoInput\"
+		input_state_machine.reset()
+	elif _phase_transition_on_next_state:
+		_phase_transition_on_next_state = false
+		input_state_machine.reset_state_name = \"NoInput\"
+		input_state_machine.reset()
+		match _phase:
+			1:
+				pass
+			2: 
+				_character.request_state_transition(\"FlyUp\")
+			3: 
+				_character.request_state_transition(\"FlyUp2\")
+			_:
+				pass
+
+
+func _on_input_state_changed(to: State, from: State) -> void:
+	if to.name == \"Attack\":
+		_character.face_target()
+		match _phase:
+			1:
+				_character.request_state_transition(\"Attack\")
+			2: 
+				_character.request_state_transition(\"SpinAttack\")
+			3: 
+				_character.request_state_transition(\"AttackAndSlamDown\")
+			_:
+				_character.request_state_transition(\"Attack\")
+
+
+func _on_flame_geyser_spawn(flame_geyser) -> void:
+	var hitbox := flame_geyser.get_node(\"Hitbox\") as Hitbox
+	hitbox.set_character(_character)
+	hitbox.set_team(_character.team)
+	hitbox.hit.connect(func(_hit_character):
+		_character.change_stat_by(CharacterStats.Types.MP, 5)
 		)
 "
 
@@ -7858,34 +7916,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/1/path = NodePath("Hitbox:enabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [null, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [null, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hitbox:enabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -7894,6 +7928,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_20lki"]
 resource_name = "attack_windup"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -7930,6 +7965,34 @@ tracks/2/keys = {
 "update": 1,
 "values": ["attack_windup"]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackIncomingParticleSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackIncomingParticleSpawner/AttackIncomingSfx")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ofy0g"]
 _data = {
@@ -7938,8 +8001,8 @@ _data = {
 "attack_windup": SubResource("Animation_20lki")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsxx4"]
-size = Vector2(125, 46)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0f3b"]
+size = Vector2(69, 46)
 
 [sub_resource type="Animation" id="Animation_s58mj"]
 length = 0.001
@@ -8255,7 +8318,7 @@ tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9),
+"times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [null, true]
@@ -8287,6 +8350,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_t8asv"]
 resource_name = "attack_windup"
+length = 1.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -8323,6 +8387,34 @@ tracks/2/keys = {
 "update": 1,
 "values": [null]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackIncomingParticleSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackIncomingParticleSpawner/AttackIncomingSfx")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ck2dj"]
 _data = {
@@ -8332,7 +8424,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0hk2"]
-size = Vector2(181.143, 25.0841)
+size = Vector2(73.6276, 25.0841)
 
 [sub_resource type="Animation" id="Animation_dwqe3"]
 length = 0.001
@@ -8801,62 +8893,576 @@ _data = {
 "attack": SubResource("Animation_csyib")
 }
 
-[sub_resource type="Animation" id="Animation_038jx"]
-resource_name = "RESET"
+[sub_resource type="Animation" id="Animation_npyfu"]
+resource_name = "attack"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../FlameGeysers/CharacterAnimator:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["fire_column"]
+}
+tracks/1/type = "animation"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack Set 1/AnimationPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": PackedStringArray("attack", "attack", "attack", "attack", "attack", "attack"),
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10)
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack Set 2/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("attack", "attack", "attack", "attack", "attack", "attack"),
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Attack Set 1:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.9, 3.9, 5.9, 7.9, 9.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-64, 0), Vector2(-128, 0), Vector2(0, 0), Vector2(-64, 0), Vector2(-128, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Attack Set 2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.9, 3.9, 5.9, 7.8, 9.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(192, 0), Vector2(128, 0), Vector2(64, 0), Vector2(192, 0), Vector2(128, 0), Vector2(64, 0)]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FlameGeyserSpawner")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_bjlni"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack Set 1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Attack Set 2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(768, 0)]
+}
 
-[sub_resource type="InputEventAction" id="InputEventAction_iemrm"]
-action = &"action_1"
-pressed = true
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gj387"]
+_data = {
+"RESET": SubResource("Animation_bjlni"),
+"attack": SubResource("Animation_npyfu")
+}
 
-[sub_resource type="Animation" id="Animation_jurmx"]
-resource_name = "enter"
-length = 2.5
+[sub_resource type="Animation" id="Animation_62w0k"]
+resource_name = "attack"
+length = 1.3
+step = 0.05
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("FlameGeyserSpawner/FlameGeyserBubblesSpawner")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [SubResource("InputEventAction_iemrm")],
-"method": &"simulate_input"
+"args": [null],
+"method": &"spawn"
 }]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("FlameGeyserSpawnerL1/FlameGeyserBubblesSpawner")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlameGeyserSpawnerL2/FlameGeyserBubblesSpawner")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FlameGeyserSpawnerL4/FlameGeyserBubblesSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FlameGeyserSpawnerL3/FlameGeyserBubblesSpawner")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FlameGeyserSpawnerL1")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FlameGeyserSpawnerL2")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FlameGeyserSpawnerL3")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FlameGeyserSpawnerL4")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FlameGeyserSpawner")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v08l6"]
+_data = {
+"attack": SubResource("Animation_62w0k")
+}
+
+[sub_resource type="Animation" id="Animation_us8cy"]
+resource_name = "attack_windup"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterAnimator:can_go_to_next_attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["attack_windup"]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackIncomingParticleSpawner")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackIncomingParticleSpawner/AttackIncomingSfx")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_rmnhk"]
+resource_name = "attack"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterAnimator:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1, 1.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["attack", "slam_down_to_idle", "slam_down_windup", "slam_down", "slam_down_recover", "slam_down_to_idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterAnimator:can_cancel_out_of_attack")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:can_go_to_next_attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.95),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [null, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox2:enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 1.05, 1.1, 1.15, 1.2, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FlameGeyserSpawner")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"spawn"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ScreenShakeTrigger")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [null],
+"method": &"trigger"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_loj4j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xgwcf"]
+_data = {
+"RESET": SubResource("Animation_loj4j"),
+"attack": SubResource("Animation_rmnhk"),
+"attack_windup": SubResource("Animation_us8cy")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsxx4"]
+size = Vector2(75, 46)
+
+[sub_resource type="Animation" id="Animation_m6e5o"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ParticleSpawner")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ParticleSpawner/AudioStreamPlayer2D")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterAnimator:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["charge"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SuperArmorCreator")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
 "args": [],
-"method": &"face_target"
+"method": &"add"
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1uyk0"]
-_data = {
-"RESET": SubResource("Animation_038jx"),
-"enter": SubResource("Animation_jurmx")
+[sub_resource type="Animation" id="Animation_7m6v4"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dx08e"]
+_data = {
+"RESET": SubResource("Animation_7m6v4"),
+"attack": SubResource("Animation_m6e5o")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iba3p"]
+radius = 128.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bup7v"]
 size = Vector2(34, 32)
 
 [node name="Kanna" instance=ExtResource("1_a8ind")]
-max_hp = 1500.0
+max_hp = 2000.0
 max_revenge = 16.0
 team = 2
-attack_can_cancel = true
 attack_can_go_to_next = true
-revenge_state = "SlamDown"
 
 [node name="SignalManager" type="Node" parent="." index="0"]
 script = SubResource("GDScript_g40xi")
@@ -9040,6 +9646,7 @@ libraries = {
 [node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Attack" index="1"]
 script = ExtResource("20_3fqi7")
 animation = "attack"
+can_cancel_out_of_attack = true
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/Attack" index="2"]
 visible = false
@@ -9054,9 +9661,17 @@ screen_shake_trauma = 0.1
 flinch = ExtResource("30_31flc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Attack/Hitbox" index="0"]
-position = Vector2(15.5, -9)
-shape = SubResource("RectangleShape2D_hsxx4")
+position = Vector2(43.5, -9)
+shape = SubResource("RectangleShape2D_x0f3b")
 debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="AttackIncomingParticleSpawner" type="Marker2D" parent="Inner/Attacks/Attack" index="3"]
+script = ExtResource("21_x7l36")
+particles_scene = ExtResource("31_vp7fb")
+
+[node name="AttackIncomingSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/Attack/AttackIncomingParticleSpawner" index="0"]
+stream = ExtResource("32_sacia")
+bus = &"Sfx"
 
 [node name="ChargeAttack" type="Node2D" parent="Inner/Attacks" index="1"]
 
@@ -9136,7 +9751,7 @@ libraries = {
 
 [node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/SpinAttack" index="1"]
 script = ExtResource("20_3fqi7")
-animation = "lift"
+animation = "spin_attack"
 attack_input_listening = true
 can_cancel_out_of_attack = true
 can_go_to_next_attack = true
@@ -9154,10 +9769,19 @@ screen_shake_trauma = 0.1
 flinch = ExtResource("30_31flc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/SpinAttack/Hitbox" index="0"]
-position = Vector2(-10.4599, -7.22723)
+position = Vector2(42.4811, 2.1077)
 rotation = 0.174533
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_r0hk2")
 debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="AttackIncomingParticleSpawner" type="Marker2D" parent="Inner/Attacks/SpinAttack" index="3"]
+script = ExtResource("21_x7l36")
+particles_scene = ExtResource("31_vp7fb")
+
+[node name="AttackIncomingSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/SpinAttack/AttackIncomingParticleSpawner" index="0"]
+stream = ExtResource("32_sacia")
+bus = &"Sfx"
 
 [node name="SlamDown" type="Node2D" parent="Inner/Attacks" index="4"]
 
@@ -9168,7 +9792,7 @@ libraries = {
 
 [node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/SlamDown" index="1"]
 script = ExtResource("20_3fqi7")
-animation = "slam_down_windup"
+animation = "slam_down_recover"
 
 [node name="Hitbox" type="Area2D" parent="Inner/Attacks/SlamDown" index="2"]
 visible = false
@@ -9266,82 +9890,294 @@ script = ExtResource("27_2ack2")
 scene = ExtResource("31_nk4ul")
 spawned_object_is_top_level = true
 
-[node name="Move" type="Node" parent="InputStateMachine" index="1"]
+[node name="FlameGeysers2" type="Node2D" parent="Inner/Attacks" index="8"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/FlameGeysers2" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_gj387")
+}
+
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/FlameGeysers2" index="1"]
+script = ExtResource("20_3fqi7")
+animation = "fire_column"
+
+[node name="FlameGeyserSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2" index="2"]
+position = Vector2(0, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/FlameGeyserSpawner" index="0"]
+position = Vector2(64, 0)
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="Attack Set 1" type="Node2D" parent="Inner/Attacks/FlameGeysers2" index="3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/FlameGeysers2/Attack Set 1" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_v08l6")
+}
+
+[node name="FlameGeyserSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1" index="1"]
+position = Vector2(0, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1/FlameGeyserSpawner" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL1" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1" index="2"]
+position = Vector2(-192, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1/FlameGeyserSpawnerL1" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL2" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1" index="3"]
+position = Vector2(-384, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1/FlameGeyserSpawnerL2" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL3" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1" index="4"]
+position = Vector2(-576, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1/FlameGeyserSpawnerL3" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL4" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1" index="5"]
+position = Vector2(-768, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 1/FlameGeyserSpawnerL4" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="Attack Set 2" type="Node2D" parent="Inner/Attacks/FlameGeysers2" index="4"]
+position = Vector2(768, 0)
+scale = Vector2(-1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/FlameGeysers2/Attack Set 2" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_v08l6")
+}
+
+[node name="FlameGeyserSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2" index="1"]
+position = Vector2(0, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2/FlameGeyserSpawner" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL1" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2" index="2"]
+position = Vector2(-192, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2/FlameGeyserSpawnerL1" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL2" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2" index="3"]
+position = Vector2(-384, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2/FlameGeyserSpawnerL2" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL3" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2" index="4"]
+position = Vector2(-576, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2/FlameGeyserSpawnerL3" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserSpawnerL4" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2" index="5"]
+position = Vector2(-768, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="FlameGeyserBubblesSpawner" type="Marker2D" parent="Inner/Attacks/FlameGeysers2/Attack Set 2/FlameGeyserSpawnerL4" index="0"]
+script = ExtResource("27_2ack2")
+scene = ExtResource("31_nk4ul")
+spawned_object_is_top_level = true
+
+[node name="AttackAndSlamDown" type="Node2D" parent="Inner/Attacks" index="9"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/AttackAndSlamDown" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_xgwcf")
+}
+
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/AttackAndSlamDown" index="1"]
+script = ExtResource("20_3fqi7")
+animation = "attack_windup"
+
+[node name="Hitbox" type="Area2D" parent="Inner/Attacks/AttackAndSlamDown" index="2"]
+script = ExtResource("19_ds71i")
+base_value = 10.0
+hit_particles = ExtResource("20_f5ye2")
+hit_sfx = ExtResource("21_obxq1")
+on_hit_resource_gain_type = 1
+on_hit_resource_gain_amount = 10.0
+frame_freeze_duration_milliseconds = 100
+screen_shake_trauma = 0.1
+flinch = ExtResource("30_31flc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/AttackAndSlamDown/Hitbox" index="0"]
+position = Vector2(40.5, -9)
+shape = SubResource("RectangleShape2D_hsxx4")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Hitbox2" type="Area2D" parent="Inner/Attacks/AttackAndSlamDown" index="3"]
+visible = false
+script = ExtResource("19_ds71i")
+base_value = 5.0
+hit_particles = ExtResource("20_f5ye2")
+hit_sfx = ExtResource("21_obxq1")
+on_hit_resource_gain_type = 1
+on_hit_resource_gain_amount = 10.0
+frame_freeze_duration_milliseconds = 100
+screen_shake_trauma = 0.1
+flinch = ExtResource("30_31flc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/AttackAndSlamDown/Hitbox2" index="0"]
+position = Vector2(2, -17)
+shape = SubResource("CircleShape2D_kv1wb")
+
+[node name="Path2D" type="Path2D" parent="Inner/Attacks/AttackAndSlamDown" index="4"]
+curve = SubResource("Curve2D_vegpq")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Inner/Attacks/AttackAndSlamDown/Path2D" index="0"]
+rotation = 0.244979
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Inner/Attacks/AttackAndSlamDown/Path2D/PathFollow2D" index="0"]
+remote_path = NodePath("../../../CharacterAnimator")
+update_rotation = false
+update_scale = false
+
+[node name="FlameGeyserSpawner" type="Marker2D" parent="Inner/Attacks/AttackAndSlamDown" index="5"]
+position = Vector2(64, 16)
+script = ExtResource("27_2ack2")
+scene = ExtResource("28_rcag3")
+spawned_object_is_top_level = true
+
+[node name="ScreenShakeTrigger" type="Node2D" parent="Inner/Attacks/AttackAndSlamDown" index="6"]
+script = ExtResource("29_ciko7")
+trauma = 1.0
+
+[node name="AttackIncomingParticleSpawner" type="Marker2D" parent="Inner/Attacks/AttackAndSlamDown" index="7"]
+script = ExtResource("21_x7l36")
+particles_scene = ExtResource("31_vp7fb")
+
+[node name="AttackIncomingSfx" type="AudioStreamPlayer2D" parent="Inner/Attacks/AttackAndSlamDown/AttackIncomingParticleSpawner" index="0"]
+stream = ExtResource("32_sacia")
+bus = &"Sfx"
+
+[node name="Revenge" type="Node2D" parent="Inner/Attacks" index="10"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Inner/Attacks/Revenge" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_dx08e")
+}
+
+[node name="CharacterAnimator" type="Marker2D" parent="Inner/Attacks/Revenge" index="1"]
+position = Vector2(192, 0)
+script = ExtResource("20_3fqi7")
+animation = "charge"
+can_cancel_out_of_attack = true
+can_go_to_next_attack = true
+
+[node name="Hitbox" type="Area2D" parent="Inner/Attacks/Revenge" index="2"]
+script = ExtResource("19_ds71i")
+frame_freeze_duration_milliseconds = 200
+screen_shake_trauma = 0.1
+flinch = ExtResource("37_rwdpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Revenge/Hitbox" index="0"]
+shape = SubResource("CircleShape2D_iba3p")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="ParticleSpawner" type="Marker2D" parent="Inner/Attacks/Revenge" index="3"]
+script = ExtResource("21_x7l36")
+particles_scene = ExtResource("37_c4v4t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Inner/Attacks/Revenge/ParticleSpawner" index="0"]
+stream = ExtResource("11_mxvq0")
+bus = &"Sfx"
+
+[node name="SuperArmorCreator" type="Node" parent="Inner/Attacks/Revenge" index="4"]
+script = ExtResource("39_fr5mw")
+life_time = 10.0
+
+[node name="InputStateMachine" parent="." index="5"]
+reset_state_name = "Wait"
+
+[node name="Wait" type="Node" parent="InputStateMachine" index="3"]
+script = ExtResource("8_6jswc")
+
+[node name="Wait" type="Node" parent="InputStateMachine/Wait" index="0"]
+script = ExtResource("11_e6xjo")
+next_state = "Move"
+
+[node name="CloseToTarget" type="Node" parent="InputStateMachine/Wait" index="1"]
+script = ExtResource("12_ib0ho")
+next_state = "Attack"
+distance_closer_than = 2.0
+
+[node name="Move" type="Node" parent="InputStateMachine" index="4"]
 script = ExtResource("13_d0td8")
 
 [node name="Wait" type="Node" parent="InputStateMachine/Move" index="0"]
 script = ExtResource("11_e6xjo")
-next_state = "IdleInput"
+next_state = "Wait"
 
 [node name="CloseToTarget" type="Node" parent="InputStateMachine/Move" index="1"]
 script = ExtResource("12_ib0ho")
 next_state = "Attack"
+distance_closer_than = 2.0
+tick_rate = 0.1
 
-[node name="Attack" type="Node" parent="InputStateMachine" index="2"]
-script = ExtResource("14_0fr44")
-finished_to_state = "IdleInput"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="InputStateMachine/Attack" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_1uyk0")
-}
-
-[node name="Actor2dTransformer" type="Marker2D" parent="InputStateMachine/Attack" index="1"]
-script = ExtResource("20_3fqi7")
-
-[node name="IdleInput" type="Node" parent="InputStateMachine" index="3"]
+[node name="Attack" type="Node" parent="InputStateMachine" index="5"]
 script = ExtResource("8_6jswc")
-
-[node name="Wait" type="Node" parent="InputStateMachine/IdleInput" index="0"]
-script = ExtResource("11_e6xjo")
-next_state = "Move"
-
-[node name="CloseToTarget" type="Node" parent="InputStateMachine/IdleInput" index="1"]
-script = ExtResource("12_ib0ho")
-next_state = "Attack"
-
-[node name="PlayerInput" type="Node" parent="InputStateMachine" index="6"]
-script = ExtResource("27_drcur")
-
-[node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
-script = ExtResource("28_qcbtw")
-action = "action_1"
-go_to_state = "Attack"
-
-[node name="AttackInputKeyTransition2" type="Node" parent="StateMachine/Idle" index="1"]
-script = ExtResource("28_qcbtw")
-action = "action_2"
-go_to_state = "SpinAttack"
-
-[node name="AttackInputKeyTransition3" type="Node" parent="StateMachine/Idle" index="2"]
-script = ExtResource("28_qcbtw")
-action = "item_hotbar_1"
-go_to_state = "SlamDown"
-
-[node name="AttackInputKeyTransition4" type="Node" parent="StateMachine/Idle" index="3"]
-script = ExtResource("28_qcbtw")
-action = "item_hotbar_2"
-go_to_state = "FlyUp"
-
-[node name="AttackInputKeyTransition5" type="Node" parent="StateMachine/Idle" index="4"]
-script = ExtResource("28_qcbtw")
-action = "item_hotbar_3"
-go_to_state = "FlyDown"
-
-[node name="AttackInputKeyTransition6" type="Node" parent="StateMachine/Idle" index="5"]
-script = ExtResource("28_qcbtw")
-action = "item_hotbar_4"
-go_to_state = "FlameGeysers"
-
-[node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
-script = ExtResource("28_qcbtw")
-action = "action_1"
-go_to_state = "ChargeAttack"
-
-[node name="AttackInputKeyTransition" type="Node" parent="StateMachine/Air" index="0"]
-script = ExtResource("28_qcbtw")
-action = "action_1"
-go_to_state = "FlyDown"
 
 [node name="Attack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("28_3eh8w")
@@ -9383,11 +10219,28 @@ next_state = "FlameGeysers"
 [node name="FlameGeysers" type="Node" parent="StateMachine" index="12"]
 script = ExtResource("28_3eh8w")
 
-[node name="SlamDownSpecial" type="Node" parent="StateMachine" index="13"]
+[node name="FlyUp2" type="Node" parent="StateMachine" index="13"]
+script = ExtResource("28_3eh8w")
+next_state = "FlyDown2"
+attack_name = "FlyUp"
+
+[node name="FlyDown2" type="Node" parent="StateMachine" index="14"]
+script = ExtResource("28_3eh8w")
+attack_name = "FlyDown"
+
+[node name="OnGroundTransition" type="Node" parent="StateMachine/FlyDown2" index="0"]
+script = ExtResource("39_juesn")
+next_state = "FlameGeysers2"
+
+[node name="FlameGeysers2" type="Node" parent="StateMachine" index="15"]
 script = ExtResource("28_3eh8w")
 
-[node name="SpinSlamDown" type="Node" parent="StateMachine" index="14"]
+[node name="AttackAndSlamDown" type="Node" parent="StateMachine" index="16"]
 script = ExtResource("28_3eh8w")
+
+[node name="Revenge" type="Node" parent="StateMachine" index="17"]
+script = ExtResource("28_3eh8w")
+next_state = "AttackAndSlamDown"
 
 [node name="SoftCollision" parent="." index="10"]
 force_multiplier_on_self = 0.0

@@ -33,7 +33,7 @@ func get_input_direction() -> Vector2:
 
 
 func face_target() -> void:
-	_character.look_direction = Vector2(sign(_character.get_direction_to_target().x), 0)
+	_character.face_target()
 
 
 func _on_animation_finished(animation_name) -> void:

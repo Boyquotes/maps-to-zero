@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dsbj0ecnkoa4m"]
+[gd_scene load_steps=28 format=3 uid="uid://dsbj0ecnkoa4m"]
 
 [ext_resource type="Script" path="res://assets/characters/scripts/character.gd" id="1_7iiwt"]
 [ext_resource type="PackedScene" uid="uid://dxnwad4fyiqqc" path="res://core/states/core/state_machine.tscn" id="2_550gp"]
@@ -22,9 +22,38 @@
 [ext_resource type="Script" path="res://core/input_buffer.gd" id="13_gxgy6"]
 [ext_resource type="Script" path="res://assets/characters/scripts/soft_collision.gd" id="14_kjlhh"]
 [ext_resource type="Script" path="res://core/states/character_states/flinch.gd" id="18_3dqgy"]
+[ext_resource type="Script" path="res://assets/characters/scripts/effects_animator.gd" id="23_pv753"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p4yi1"]
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_q1eyv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.104874, 1), 0.0, 0.0, 0, 0, Vector2(0.889217, 0.981818), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ebadj"]
+curve = SubResource("Curve_q1eyv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ctklh"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 64.0
+emission_ring_inner_radius = 32.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 50.0
+radial_accel_max = 67.76
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_ebadj")
+color = Color(1, 0.368627, 0, 1)
 
 [node name="Actor2d" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 99
 script = ExtResource("1_7iiwt")
 
@@ -144,6 +173,21 @@ script = ExtResource("13_gxgy6")
 unique_name_in_owner = true
 visible = false
 script = ExtResource("14_kjlhh")
+
+[node name="Effects" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="EffectsAnimator" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("23_pv753")
+
+[node name="SuperArmorVisuals" type="GPUParticles2D" parent="EffectsAnimator"]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_p4yi1")
+emitting = false
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_ctklh")
+lifetime = 0.2
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

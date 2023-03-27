@@ -5,6 +5,8 @@ class_name Character
 signal stat_changed(type, new_value, old_value, max_value)
 signal defeated
 signal toggle_menu_requested
+signal input_state_changed(to: State, from: State)
+signal state_changed(to: State, from: State)
 
 
 @export var inventory_data: InventoryData
@@ -40,10 +42,6 @@ signal toggle_menu_requested
 		if team:
 			remove_from_group("team_" + str(team))
 		add_to_group("team_" + str(team))
-@export var attack_can_cancel : bool:
-	set(value):
-		attack_can_cancel = value
-		_check_and_do_attack_cancel_inputs()
 @export var attack_can_go_to_next : bool:
 	set(value):
 		attack_can_go_to_next = value
@@ -52,7 +50,7 @@ signal toggle_menu_requested
 			for req in next_attack_state.transition_requirements:
 				if not req.get_is_ready():
 					return
-			attack_can_cancel = false
+			set_can_cancel_attack(false)
 			state_machine.transition_to(attack_request_buffer)
 			attack_request_buffer = ""
 @export var revenge_state := "Revenge"
@@ -103,6 +101,8 @@ var save_data: Dictionary:
 		return data
 var current_mid_air_jumps: int
 var current_background_jumps: int
+var _effects: Array[CharacterEffects]
+var _can_cancel_attack : bool
 
 
 @onready var input_state_machine := %InputStateMachine as StateMachine
@@ -120,6 +120,8 @@ var current_background_jumps: int
 @onready var _hud := %CharacterHUD as CharacterHUD
 @onready var _throw_item_particles_spawner := %ThrowItemParticlesSpawner as ParticleSpawner
 @onready var _throw_item_sfx := %ThrowItemSfx as AudioStreamPlayer2DExtended
+@onready var _effects_node := %Effects as Node
+@onready var _effects_animator := %EffectsAnimator as EffectsAnimator
 
 
 func _ready():
@@ -157,6 +159,15 @@ func _ready():
 	
 	is_ready = true
 	emit_signal("ready")
+	
+	input_state_machine.transitioned.connect(func(to: StringName, from: StringName):
+		var to_state := input_state_machine.get_state(to)
+		var from_state := input_state_machine.get_state(from)
+		input_state_changed.emit(to_state, from_state))
+	state_machine.transitioned.connect(func(to: StringName, from: StringName):
+		var to_state := state_machine.get_state(to)
+		var from_state := state_machine.get_state(from)
+		state_changed.emit(to_state, from_state))
 
 
 func _physics_process(delta: float):
@@ -295,6 +306,18 @@ func get_max_stat(type: CharacterStats.Types):
 	return _stats.get_max_stat(type)
 
 
+func get_state_machine() -> StateMachine:
+	return state_machine
+
+
+func get_input_state_machine() -> StateMachine:
+	return input_state_machine
+
+
+func get_current_state() -> State:
+	return state_machine.state
+
+
 func change_stat_by(type: CharacterStats.Types, value, clamp_value := true) -> void:
 	_stats.change_stat_by(type, value, clamp_value)
 
@@ -322,6 +345,46 @@ func throw_pick_up_item(pick_up_item: PickUpItem, force:=500.0, \
 		pick_up_item.hitbox.set_team(team)
 
 
+func add_effect(effect: CharacterEffects) -> void:
+	_effects_node.add_child(effect)
+	_effects.push_back(effect)
+	effect.enter()
+	
+	effect.timeout.connect(func():
+		_effects.remove_at(_effects.find(effect))
+		match effect.type:
+			CharacterEffects.Types.SUPER_ARMOR:
+				_effects_animator.hide_super_armor()
+			_:
+				pass
+	)
+	
+	match effect.type:
+		CharacterEffects.Types.SUPER_ARMOR:
+			_effects_animator.show_super_armor()
+		_:
+			pass
+
+
+func has_effect(type: CharacterEffects.Types) -> bool:
+	return not get_effect_of_type(type) == null
+
+
+func get_effect_of_type(type: CharacterEffects.Types) -> CharacterEffects:
+	var filtered_effects := _effects.filter(func(effect): 
+		return effect.type == type)
+	return null if filtered_effects.size() == 0 else filtered_effects[0]
+
+
+func face_target() -> void:
+	look_direction = Vector2(sign(get_direction_to_target().x), 0)
+
+
+func set_can_cancel_attack(value: bool) -> void:
+	_can_cancel_attack = value
+	_check_and_do_attack_cancel_inputs()
+
+
 func _on_state_machine_transitioned(_to_state, _from_state):
 	attack_request_buffer = ""
 
@@ -331,24 +394,26 @@ func _on_stat_changed(type: CharacterStats.Types, new_value, old_value, max_valu
 
 
 func _check_and_do_attack_cancel_inputs() -> void:
+	if get_current_state().name == "Cutscene":
+		return
 	if Engine.is_editor_hint():
 		return
-	if not attack_can_cancel or not _input_buffer:
+	if not _can_cancel_attack or not _input_buffer:
 		return
 	
 	if _input_buffer.has_action("jump"):
 		if is_on_floor():
 			state_machine.transition_to("Air", {do_jump = true})
-			attack_can_cancel = false
+			set_can_cancel_attack(false)
 		else:
 			if state_machine.state.name == "Dash" \
 					or state_machine.get_state("Air").can_background_jump() \
 					or state_machine.get_state("Air").can_mid_air_jump():
 				state_machine.transition_to("Air", {do_jump = true})
-				attack_can_cancel = false
+				set_can_cancel_attack(false)
 	elif _input_buffer.has_action("move_down"):
 		state_machine.transition_to("Stomp")
-		attack_can_cancel = false
+		set_can_cancel_attack(false)
 
 
 func _on_hurtbox_entered(area: Area2D) -> void:
@@ -357,20 +422,16 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 		return
 	
 	take_damage(hitbox.base_value, CharacterStats.Types.HP)
+	
 	add_revenge(hitbox.revenge_value)
-	if _stats.get_stat(CharacterStats.Types.HP) > 0:
-		if state_machine.state is CharacterState and state_machine.state.can_flinch:
-			if not revenge_state == "" and not state_machine.get_state(revenge_state) == null \
-					and not is_zero_approx(_stats.get_max_stat(CharacterStats.Types.REVENGE)) \
-					and _stats.get_stat(CharacterStats.Types.REVENGE) \
-					>= _stats.get_max_stat(CharacterStats.Types.REVENGE):
-				state_machine.transition_to(revenge_state)
-				_stats.set_stat(CharacterStats.Types.REVENGE, 0)
-			elif hitbox.flinch and state_machine.state is CharacterState \
-					and state_machine.state.can_flinch:
-				state_machine.transition_to("Flinch", {
-					"hitbox": hitbox
-				})
+	
+	if _should_revenge(hitbox):
+		state_machine.transition_to(revenge_state)
+		_stats.set_stat(CharacterStats.Types.REVENGE, 0)
+	elif _should_flinch(hitbox):
+		state_machine.transition_to("Flinch", {
+			"hitbox": hitbox
+		})
 	
 	ParticleSpawner.spawn_one_shot(hitbox.hit_particles, global_position, get_parent())
 	
@@ -389,6 +450,35 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 		GameManager.screen_shake(hitbox.screen_shake_trauma)
 	
 	hitbox.confirm_hit(self)
+
+
+func _should_flinch(hitbox: Hitbox) -> bool:
+	if _stats.get_stat(CharacterStats.Types.HP) <= 0:
+		return false
+	
+	if has_effect(CharacterEffects.Types.SUPER_ARMOR):
+		return false
+	
+	if state_machine.state is CharacterState and state_machine.state.can_flinch and hitbox.flinch:
+		return true
+	return false
+
+
+func _should_revenge(hitbox: Hitbox) -> bool:
+	if _stats.get_stat(CharacterStats.Types.HP) <= 0:
+		return false
+	
+	if has_effect(CharacterEffects.Types.SUPER_ARMOR):
+		return false
+	
+	if state_machine.state is CharacterState and state_machine.state.can_flinch and hitbox.flinch:
+		var revenge_state_present := not revenge_state == "" and not state_machine.get_state(revenge_state) == null
+		var max_revenge := _stats.get_max_stat(CharacterStats.Types.REVENGE)
+		var use_revenge := not is_zero_approx(max_revenge)
+		var revenge_filled := _stats.get_stat(CharacterStats.Types.REVENGE) >= max_revenge
+		if  revenge_state_present and use_revenge and revenge_filled:
+			return true
+	return false
 
 
 func _reset_hurtbox_collision() -> void:
