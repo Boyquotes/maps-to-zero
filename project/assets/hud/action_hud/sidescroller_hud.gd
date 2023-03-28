@@ -70,17 +70,12 @@ func toggle_inventory_interface(external_inventory_owner=null) -> void:
 		_inventory_interface.clear_external_inventory()
 
 
-func set_player_inventory_data(inventory_data: InventoryData) -> void:
-	_inventory_interface.set_inventory_data(inventory_data)
-
-
-func set_equipment_inventory_data(inventory_data: InventoryData) -> void:
-	_inventory_interface.set_equipment_inventory_data(inventory_data)
-
-
-func set_hot_bar_inventory_data(inventory_data: InventoryData) -> void:
-	_hot_bar_inventory.set_inventory_data(inventory_data)
-	_inventory_interface.set_hot_bar_data(inventory_data)
+func set_character(character: Character) -> void:
+	_inventory_interface.set_inventory_data(character.inventory_data)
+	_inventory_interface.set_equipment_inventory_data(character.equipment_inventory_data)
+	_hot_bar_inventory.set_character(character)
+	_hot_bar_inventory.set_inventory_data(character.hot_bar_inventory_data)
+	_inventory_interface.set_hot_bar_data(character.hot_bar_inventory_data)
 
 
 func set_skills_data(inventory_data: InventoryData) -> void:
@@ -96,5 +91,10 @@ func _on_player_resource_changed(type, new_value, _old_value, max_value) -> void
 			_mp_bar.max_value = max_value
 			_mp_bar.value = new_value
 		CharacterStats.Types.SP:
-			_sp_bar.max_value = max_value
-			_sp_bar.value = new_value
+			for i in range(3):
+				if i + 1 <= new_value:
+					get_node("%SP" + str(i + 1) + "/Glow").show()
+					get_node("%SP" + str(i + 1) + "/Sprite").modulate = Color.WHITE
+				else:
+					get_node("%SP" + str(i + 1) + "/Glow").hide()
+					get_node("%SP" + str(i + 1) + "/Sprite").modulate = Color(0.27058824896812, 0.27058824896812, 0.27058824896812)

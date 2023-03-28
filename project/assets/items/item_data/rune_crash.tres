@@ -10,4 +10,4 @@ name = "Rune Crash"
 description = "Summon a rune with a gunblade, then slash it, causing an explosion."
 stackable = false
 texture = ExtResource("2_r7rh6")
-cooldown = 0.0
+cooldown = 5.0

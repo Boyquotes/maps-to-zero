@@ -7,6 +7,7 @@ signal defeated
 signal toggle_menu_requested
 signal input_state_changed(to: State, from: State)
 signal state_changed(to: State, from: State)
+signal item_used(item_data: ItemData)
 
 
 @export var inventory_data: InventoryData
@@ -103,6 +104,7 @@ var current_mid_air_jumps: int
 var current_background_jumps: int
 var _effects: Array[CharacterEffects]
 var _can_cancel_attack : bool
+var _item_cooldowns: Dictionary = {} # Of type <ItemData, float>
 
 
 @onready var input_state_machine := %InputStateMachine as StateMachine
@@ -253,20 +255,17 @@ func request_state_transition(target_state_name : String, msg: Dictionary = {}):
 	state_machine.transition_to(target_state_name, msg)
 
 
-func request_attack_transition(target_state_name: String, msg: Dictionary = {}) -> void:
+func request_attack_transition(target_state_name: String, msg: Dictionary = {}) -> bool:
 	_set_attack_request_buffer(target_state_name)
-	var target_state := state_machine.get_state(target_state_name)
-	for req in target_state.transition_requirements:
-		if not req.get_is_ready():
-			return
-	if state_machine.state is AttackState and not attack_can_go_to_next:
-		return
+	if not _check_if_can_attack(target_state_name):
+		return false
 	attack_request_buffer = ""
 	state_machine.transition_to(target_state_name, msg)
+	return true
 
 
-func request_skill_use(skill_name: String) -> void:
-	request_attack_transition(skill_name)
+func request_skill_use(skill_name: String) -> bool:
+	return request_attack_transition(skill_name)
 
 
 func enable_input() -> void:
@@ -327,7 +326,34 @@ func get_state(state_name: StringName) -> State:
 
 
 func use_item_slot_data(item_slot_data: SlotData) -> void:
-	item_slot_data.item_data.use(self)
+	var item_data := item_slot_data.item_data
+	
+	var can_use_item = can_use_item(item_slot_data.item_data)
+	if not can_use_item:
+		return
+	
+	if _item_cooldowns.has(item_data) and _item_cooldowns[item_data].time_left > 0.5:
+		return
+	
+	item_data.use(self)
+	
+	if is_zero_approx(item_data.cooldown):
+		return
+	
+	var timer: Timer
+	if _item_cooldowns.has(item_data):
+		timer = _item_cooldowns[item_data] as Timer
+		timer.stop()
+	else:
+		timer = Timer.new()
+	timer.one_shot = true
+	timer.autostart = false
+	timer.wait_time = item_data.cooldown
+	add_child(timer)
+	timer.start()
+	_item_cooldowns[item_data] = timer
+	
+	item_used.emit(item_data)
 
 
 func throw_pick_up_item(pick_up_item: PickUpItem, force:=500.0, \
@@ -385,6 +411,27 @@ func set_can_cancel_attack(value: bool) -> void:
 	_check_and_do_attack_cancel_inputs()
 
 
+func set_revenge_state(revenge_state_name: String) -> void:
+	revenge_state = revenge_state_name
+
+
+func can_use_item(item_data: ItemData) -> bool:
+	if item_data is ItemDataSkill:
+		var cooling_down = _item_cooldowns.has(item_data) and _item_cooldowns[item_data].time_left > 0
+		return not cooling_down and _check_if_can_attack(item_data.skill_name)
+	return true
+
+
+func _check_if_can_attack(target_attack_name: StringName) -> bool:
+	var target_state := state_machine.get_state(target_attack_name)
+	for req in target_state.transition_requirements:
+		if not req.get_is_ready():
+			return false
+	if state_machine.state is AttackState and not attack_can_go_to_next:
+		return false
+	return true
+
+
 func _on_state_machine_transitioned(_to_state, _from_state):
 	attack_request_buffer = ""
 
@@ -423,12 +470,11 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 	
 	take_damage(hitbox.base_value, CharacterStats.Types.HP)
 	
-	add_revenge(hitbox.revenge_value)
-	
 	if _should_revenge(hitbox):
 		state_machine.transition_to(revenge_state)
 		_stats.set_stat(CharacterStats.Types.REVENGE, 0)
 	elif _should_flinch(hitbox):
+		add_revenge(hitbox.revenge_value)
 		state_machine.transition_to("Flinch", {
 			"hitbox": hitbox
 		})

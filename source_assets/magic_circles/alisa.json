@@ -78,7 +78,7 @@
     "wrapTextInLines": true,
     "symbolsAtPoints": true,
     "symbolsSize": 200,
-    "ringText": "spiraculum scholarum base ac opus aliosque ac post mystica base technologiam Germani historicos doctrinae Potestatem technologiam elixir principalissimum arcana",
+    "ringText": "iT DOES NOT MATTER WHAT LIFE THROWS AT YOU, AS LONG AS YOU CAN KICK ITS ASS'",
     "lineText": "Graecorum compositae Flamel perpetuam Quaere S. idem sunt Flamel examinis Graecorum quod occulto antiquitatum quod Opus elixir Nicolai S.",
     "symbolText": "🝊🝊🝊🝊🝊🝊🝊🝊🝊🝊🝊🝊",
     "pointList": [
@@ -139,7 +139,7 @@
     "parentPointIndex": -1,
     "tier": 1,
     "symmetryCount": 5,
-    "radius": 290.4932344234967,
+    "radius": 284.49,
     "rotation": 22,
     "rotationSpeed": 1,
     "originRelativeToParent": true,
@@ -166,7 +166,7 @@
     "symbolsAtPoints": false,
     "symbolsSize": 151.8,
     "ringText": "",
-    "lineText": "τίποτα στη ζωή δεν έχει σημασία",
+    "lineText": "",
     "symbolText": "",
     "pointList": [
       {

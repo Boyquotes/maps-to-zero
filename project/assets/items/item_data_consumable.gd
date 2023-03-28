@@ -11,3 +11,4 @@ func use(target) -> void:
 	var character := target as Character
 	if character and not value == 0:
 		character.change_stat_by(type, value)
+	super.use(target)

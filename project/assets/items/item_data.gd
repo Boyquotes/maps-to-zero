@@ -1,6 +1,10 @@
 extends Resource
 class_name ItemData
 
+
+signal used(item_data: ItemData)
+
+
 @export var name: String = ""
 @export_multiline var description: String = ""
 @export var stackable: bool = false
@@ -9,4 +13,4 @@ class_name ItemData
 
 
 func use(_target) -> void:
-	pass
+	used.emit(self)

@@ -1,7 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://btspy4tm60j28"]
 
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="1_3gd5e"]
-[ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_xo033"]
 [ext_resource type="PackedScene" uid="uid://bjno2y0rewxkq" path="res://assets/generic_props/sky_island/sky_island.tscn" id="2_gbm6l"]
 [ext_resource type="Texture2D" uid="uid://w1ysukcuvim4" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/middle.png" id="3_4h3no"]
 [ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="4_p633e"]
@@ -14,6 +13,25 @@
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="17_5s0iu"]
 [ext_resource type="AnimationLibrary" uid="uid://dj88tv48ew0tp" path="res://assets/stages/background_jump_area_visuals_animation_library.tres" id="18_e3bj5"]
 [ext_resource type="Texture2D" uid="uid://dtcec20lgk3gw" path="res://assets/particles/sprites/white_square_red_glow.png" id="18_i0kwi"]
+
+[sub_resource type="GDScript" id="GDScript_2vply"]
+resource_name = "HorizonHillsAct1Boss"
+script/source = "extends Stage
+
+
+@onready var _boss := %Kanna as Character
+@onready var _boss_arena_middle_point_upper := %BossArenaMiddlePointUpper as Marker2D
+
+
+func _ready():
+	super._ready()
+	_boss.state_changed.connect(_on_boss_state_changed)
+
+
+func _on_boss_state_changed(to: State, from: State) -> void:
+	if to.name == \"FlyDown\" or to.name == \"FlyDown2\":
+		_boss.global_position = _boss_arena_middle_point_upper.global_position
+"
 
 [sub_resource type="Gradient" id="Gradient_8r1s5"]
 offsets = PackedFloat32Array(0, 0.145794, 1)
@@ -264,7 +282,7 @@ _data = {
 }
 
 [node name="Horizon Hills Act 1 - Boss" type="Node2D"]
-script = ExtResource("1_xo033")
+script = SubResource("GDScript_2vply")
 metadata/_edit_vertical_guides_ = []
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -2328,13 +2346,14 @@ layer_0/tile_data = PackedInt32Array(917582, 458752, 7, 852046, 589824, 9, 78651
 [node name="Enemies" type="Node2D" parent="Layout"]
 
 [node name="Kanna" parent="Layout/Enemies" instance=ExtResource("16_erj6n")]
+unique_name_in_owner = true
 position = Vector2(1744, 224)
 
 [node name="BossWalls" type="Node2D" parent="Layout"]
 position = Vector2(960, 224)
 
 [node name="Left Wall" type="Node2D" parent="Layout/BossWalls"]
-position = Vector2(-424, 0)
+position = Vector2(-430, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Layout/BossWalls/Left Wall"]
 
@@ -2349,7 +2368,7 @@ bus = &"Sfx"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Layout/BossWalls/Left Wall"]
 material = SubResource("CanvasItemMaterial_3tqxg")
-position = Vector2(-56, -520)
+position = Vector2(-80, -520)
 emitting = false
 amount = 256
 process_material = SubResource("ParticleProcessMaterial_df5w4")
@@ -2357,7 +2376,7 @@ texture = ExtResource("18_i0kwi")
 visibility_rect = Rect2(-500, -500, 1000, 1000)
 
 [node name="Right Wall" type="Node2D" parent="Layout/BossWalls"]
-position = Vector2(424, 0)
+position = Vector2(430, 0)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Layout/BossWalls/Right Wall"]
 
@@ -2373,7 +2392,7 @@ bus = &"Sfx"
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Layout/BossWalls/Right Wall"]
 material = SubResource("CanvasItemMaterial_3tqxg")
-position = Vector2(64, -520)
+position = Vector2(96, -520)
 emitting = false
 amount = 256
 process_material = SubResource("ParticleProcessMaterial_df5w4")
@@ -2384,6 +2403,10 @@ visibility_rect = Rect2(-500, -500, 1000, 1000)
 libraries = {
 "": SubResource("AnimationLibrary_v55is")
 }
+
+[node name="BossArenaMiddlePointUpper" type="Marker2D" parent="Layout/BossWalls"]
+unique_name_in_owner = true
+position = Vector2(0, -1056)
 
 [node name="Foreground" type="Node" parent="."]
 

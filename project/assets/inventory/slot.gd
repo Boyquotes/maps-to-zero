@@ -7,6 +7,8 @@ signal slot_clicked(index: int, button: int)
 
 @onready var _icon := %Icon as TextureRect
 @onready var _quantity_label := %QuantityLabel as Label
+@onready var _cool_down_label := %CoolDownLabel as Label
+@onready var _cover := %Cover as ColorRect
 
 
 var _current_slot_data: SlotData
@@ -23,6 +25,18 @@ func set_slot_data(slot_data: SlotData) -> void:
 	tooltip_text = "%s\n%s" % [item_data.name, item_data.description]
 	
 	_set_quantity_label(slot_data.quantity)
+
+
+func set_cooldown_label(time_left: float) -> void:
+	if time_left > 0:
+		_cool_down_label.visible = true
+		_cool_down_label.text = str(ceili(time_left))
+	else:
+		_cool_down_label.visible = false
+
+
+func set_cover_visible(visible: bool) -> void:
+	_cover.visible = not visible
 
 
 func _on_slot_data_quantity_updated(new_quantity: int, _old_quantity: int) -> void:

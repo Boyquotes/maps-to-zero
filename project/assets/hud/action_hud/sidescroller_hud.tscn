@@ -1,13 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://cq4u36n2dswf"]
+[gd_scene load_steps=16 format=3 uid="uid://cq4u36n2dswf"]
 
 [ext_resource type="Script" path="res://assets/hud/action_hud/sidescroller_hud.gd" id="1_1pnwk"]
 [ext_resource type="Texture2D" uid="uid://b1sa36rld5x2" path="res://assets/hud/hp_bar/hp.png" id="1_a66kq"]
 [ext_resource type="Texture2D" uid="uid://d0sku8ddtj3wb" path="res://assets/hud/hp_bar/hp_bg.png" id="2_swpb2"]
 [ext_resource type="Texture2D" uid="uid://d0loroy86cdr3" path="res://assets/hud/hp_bar/blue.png" id="3_spae1"]
-[ext_resource type="Texture2D" uid="uid://dc4c3cp56vdbr" path="res://assets/hud/hp_bar/green.png" id="4_2abeb"]
 [ext_resource type="Texture2D" uid="uid://brd1nae16owjr" path="res://assets/hud/hp_bar/bg.png" id="4_khe4e"]
 [ext_resource type="Texture2D" uid="uid://pwlaxiv48ovm" path="res://assets/hud/action_hud/player_icon_frame_2.png" id="7_3tmi2"]
 [ext_resource type="Texture2D" uid="uid://clpitfr141db2" path="res://assets/dialog/characters/alisa/alisa_icon.jpg" id="7_bhegd"]
+[ext_resource type="Texture2D" uid="uid://cu6n3d1elkdsx" path="res://assets/characters/alisa/sprites/star_glow.png" id="8_0vafr"]
+[ext_resource type="Texture2D" uid="uid://6mj1tyofwkjj" path="res://assets/characters/alisa/sprites/star.png" id="9_8mtaa"]
 [ext_resource type="PackedScene" uid="uid://b0vjb5bn3scc6" path="res://assets/inventory/inventory_interface.tscn" id="11_r37im"]
 [ext_resource type="PackedScene" uid="uid://tyolpjgbnmvl" path="res://assets/inventory/hot_bar_inventory.tscn" id="13_5wpii"]
 
@@ -165,46 +166,35 @@ mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Display/PlayerHUD"]
 layout_mode = 0
-offset_right = 300.0
-offset_bottom = 20.0
+offset_right = 306.0
+offset_bottom = 42.0
+rotation = -0.0523599
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Display/PlayerHUD"]
+layout_mode = 0
+offset_left = 324.0
+offset_top = -56.0
+offset_right = 380.0
+offset_bottom = 18.0
+rotation = 1.04894
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="Display/PlayerHUD"]
 layout_mode = 0
 offset_left = 228.0
-offset_top = 27.0
+offset_top = 40.0
 offset_right = 308.0
-offset_bottom = 42.0
+offset_bottom = 55.0
 rotation = -0.261799
-
-[node name="SPBar" type="TextureProgressBar" parent="Display/PlayerHUD"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 80.0
-offset_top = 27.0
-offset_right = 336.0
-offset_bottom = 75.0
-rotation = -0.0349066
-scale = Vector2(0.75, 0.75)
-size_flags_horizontal = 0
-size_flags_vertical = 0
-value = 50.0
-texture_progress = ExtResource("4_2abeb")
-
-[node name="Background" type="TextureRect" parent="Display/PlayerHUD/SPBar"]
-show_behind_parent = true
-layout_mode = 0
-offset_right = 256.0
-offset_bottom = 48.0
-texture = ExtResource("4_khe4e")
 
 [node name="MPBar" type="TextureProgressBar" parent="Display/PlayerHUD"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 85.0
-offset_top = 20.0
-offset_right = 341.0
-offset_bottom = 68.0
+offset_left = 80.0
+offset_top = 38.0
+offset_right = 336.0
+offset_bottom = 86.0
 rotation = -0.0349066
 scale = Vector2(0.756, 0.756)
 size_flags_horizontal = 0
@@ -219,13 +209,41 @@ offset_right = 256.0
 offset_bottom = 48.0
 texture = ExtResource("4_khe4e")
 
+[node name="100MPDivider" type="ColorRect" parent="Display/PlayerHUD/MPBar"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.0
+offset_right = -41.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+
+[node name="100MPDivider2" type="ColorRect" parent="Display/PlayerHUD/MPBar"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 42.0
+offset_right = 44.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+
 [node name="HPBar" type="TextureProgressBar" parent="Display/PlayerHUD"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 99.0
-offset_top = 9.0
+offset_top = 23.0
 offset_right = 317.0
-offset_bottom = 46.0
+offset_bottom = 60.0
 rotation = -0.0872665
 value = 50.0
 nine_patch_stretch = true
@@ -280,14 +298,145 @@ patch_margin_top = 37
 patch_margin_right = 37
 patch_margin_bottom = 37
 
+[node name="SP" type="Control" parent="Display/PlayerHUD"]
+anchors_preset = 0
+offset_left = 316.0
+offset_top = 40.0
+offset_right = 404.0
+offset_bottom = 64.0
+
+[node name="ColorRect" type="ColorRect" parent="Display/PlayerHUD/SP"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.101961, 0.101961, 1)
+
+[node name="SP1" type="Control" parent="Display/PlayerHUD/SP"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="Glow" type="TextureRect" parent="Display/PlayerHUD/SP/SP1"]
+modulate = Color(1, 0.0901961, 0.647059, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_0vafr")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Sprite" type="TextureRect" parent="Display/PlayerHUD/SP/SP1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_8mtaa")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SP2" type="Control" parent="Display/PlayerHUD/SP"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 24.0
+offset_top = -20.0
+offset_right = 64.0
+offset_bottom = 20.0
+
+[node name="Glow" type="TextureRect" parent="Display/PlayerHUD/SP/SP2"]
+modulate = Color(1, 0.0901961, 0.647059, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_0vafr")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Sprite" type="TextureRect" parent="Display/PlayerHUD/SP/SP2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_8mtaa")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SP3" type="Control" parent="Display/PlayerHUD/SP"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 56.0
+offset_top = -7.0
+offset_right = 96.0
+offset_bottom = 33.0
+
+[node name="Glow" type="TextureRect" parent="Display/PlayerHUD/SP/SP3"]
+modulate = Color(1, 0.0901961, 0.647059, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_0vafr")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Sprite" type="TextureRect" parent="Display/PlayerHUD/SP/SP3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_8mtaa")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="InventoryInterface" parent="Display" instance=ExtResource("11_r37im")]
 unique_name_in_owner = true
+offset_left = -8.0
+offset_right = -8.0
 
 [node name="HotBarInventory" parent="Display" instance=ExtResource("13_5wpii")]
 unique_name_in_owner = true
-offset_left = 128.0
-offset_top = 64.0
-offset_right = 168.0
-offset_bottom = 104.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -512.0
+offset_top = -637.0
+offset_right = -296.0
+offset_bottom = -533.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

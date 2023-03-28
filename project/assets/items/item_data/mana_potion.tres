@@ -15,4 +15,4 @@ name = "Mana Potion"
 description = "Tastes like candy. You don't like the feeling of drinking liquid candy."
 stackable = true
 texture = SubResource("AtlasTexture_tw6ew")
-cooldown = 0.0
+cooldown = 30.0

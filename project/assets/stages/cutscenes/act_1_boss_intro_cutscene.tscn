@@ -108,6 +108,20 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(1.5, 1.5)]
 }
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("KannaAnimator")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable_cutscene_mode"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_ie8tw"]
 resource_name = "end"
@@ -279,6 +293,20 @@ tracks/9/keys = {
 "values": [{
 "args": [],
 "method": &"teleport"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("KannaAnimator")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable_cutscene_mode"
 }]
 }
 
@@ -694,10 +722,10 @@ zoom = Vector2(1.5, 1.5)
 line_color = Color(0.94902, 0, 0.027451, 1)
 
 [node name="TopLeft" type="Marker2D" parent="BossFightCameraSettings"]
-position = Vector2(-424, -840)
+position = Vector2(-430, -840)
 
 [node name="BottomRight" type="Marker2D" parent="BossFightCameraSettings"]
-position = Vector2(424, 96)
+position = Vector2(430, 96)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
 

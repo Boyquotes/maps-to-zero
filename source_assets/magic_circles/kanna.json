@@ -1,0 +1,212 @@
+[
+  {
+    "seed": 0.010296132182702422,
+    "rotation": 0,
+    "rotationSpeed": 1,
+    "offsetX": -161,
+    "offsetY": 830,
+    "width": 1024,
+    "height": 1024,
+    "id": 0,
+    "borderWidth": "7",
+    "margin": "32",
+    "borderSpace": "66",
+    "lineWidth": "7",
+    "tier": 2,
+    "symmetryCount": 6,
+    "drawTextRing": true,
+    "wrapTextInLines": true,
+    "ringText": "X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT X MARKS THE SPOT ",
+    "lineText": "antiquitatum semper Finis est Nicolai per est litterarum Creatio cum cincinnos vera est historicos spirituales spes Postrema creata spiraculum spiraculum examinis complexi exoteristas Germani faciendo septem principalissimum opus ad lucrari Cum metalla exotericis Nicolai Creatio",
+    "pointList": [
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      },
+      {
+        "x": null,
+        "y": null
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "parentID": 0,
+    "parentPointIndex": -1,
+    "tier": 2,
+    "symmetryCount": 6,
+    "radius": 414,
+    "rotation": 0,
+    "rotationSpeed": 1,
+    "originRelativeToParent": true,
+    "offsetY": 0,
+    "offsetX": 0,
+    "lineWidth": "7",
+    "minSectionDelta": 83.45907746877108,
+    "maxSectionDelta": 207,
+    "sectionSize": 170.1187551788529,
+    "carveSpace": false,
+    "outerRing": false,
+    "connectBorder": false,
+    "connectMidPoints": false,
+    "connectPoints": false,
+    "drawTextLines": false,
+    "textLinesOverlap": true,
+    "connectPointsSkip": 1,
+    "inscribePoints": false,
+    "doubleinscribedPoints": false,
+    "linesToCenter": false,
+    "symbolRing": false,
+    "drawTextRing": false,
+    "wrapTextInLines": false,
+    "symbolsAtPoints": false,
+    "symbolsSize": 170.1187551788529,
+    "ringText": "spiraculum S. psychologos doctrinae Potestatem spiraculum Creatio immortalitatis arcana Cum claves technologiam perpetuam Quaere S. est sunt Flamel complexi Graecorum",
+    "lineText": "Creatio occulto Graecorum idem secretum immortalitatis technologiam doctrinae compositae faciendo historicos principalissimum in faciendo per Graecorum doctrinae et exoteristas mutationem",
+    "symbolText": "🜵🜺🝈🝊🜦🜑🜳🜛🜾🜑🜺🜜",
+    "pointList": [
+      {
+        "x": 300,
+        "y": -300
+      },
+      {
+        "x": 600,
+        "y": 200
+      },
+      {
+        "x": 2.535018874235021e-14,
+        "y": 414
+      },
+      {
+        "x": -600,
+        "y": 200
+      },
+      {
+        "x": -300,
+        "y": -300
+      },
+      {
+        "x": -7.605056622705063e-14,
+        "y": -414
+      }
+    ],
+    "hidden": true
+  },
+  {
+    "id": 2,
+    "parentID": 1,
+    "parentPointIndex": 0,
+    "tier": 1,
+    "symmetryCount": 3,
+    "radius": 160,
+    "rotation": -8,
+    "rotationSpeed": 2,
+    "originRelativeToParent": true,
+    "offsetY": 0,
+    "offsetX": 0,
+    "lineWidth": 3.5,
+    "minSectionDelta": 21.37260887632308,
+    "maxSectionDelta": 85.90997136532071,
+    "sectionSize": 65.1052235096883,
+    "carveSpace": true,
+    "outerRing": false,
+    "connectBorder": false,
+    "connectMidPoints": false,
+    "connectPoints": false,
+    "drawTextLines": true,
+    "textLinesOverlap": false,
+    "connectPointsSkip": 1,
+    "inscribePoints": true,
+    "doubleinscribedPoints": true,
+    "linesToCenter": true,
+    "symbolRing": true,
+    "drawTextRing": true,
+    "wrapTextInLines": true,
+    "symbolsAtPoints": false,
+    "symbolsSize": 65.1052235096883,
+    "ringText": " ",
+    "lineText": "",
+    "symbolText": " ",
+    "pointList": [
+      {
+        "x": 148.80043528152288,
+        "y": 85.90997136532069
+      },
+      {
+        "x": -148.80043528152285,
+        "y": 85.90997136532077
+      },
+      {
+        "x": -3.1562811434214234e-14,
+        "y": -171.81994273064143
+      }
+    ],
+    "hidden": false
+  },
+  {
+    "id": 3,
+    "parentID": 1,
+    "parentPointIndex": 4,
+    "tier": 1,
+    "symmetryCount": 3,
+    "radius": 160,
+    "rotation": 8,
+    "rotationSpeed": 2,
+    "originRelativeToParent": true,
+    "offsetY": 0,
+    "offsetX": 0,
+    "lineWidth": 3.5,
+    "minSectionDelta": 43.11761437602609,
+    "maxSectionDelta": 85.90997136532071,
+    "sectionSize": 74.64096727934079,
+    "carveSpace": true,
+    "outerRing": false,
+    "connectBorder": false,
+    "connectMidPoints": false,
+    "connectPoints": false,
+    "drawTextLines": true,
+    "textLinesOverlap": false,
+    "connectPointsSkip": 1,
+    "inscribePoints": true,
+    "doubleinscribedPoints": true,
+    "linesToCenter": true,
+    "symbolRing": true,
+    "drawTextRing": true,
+    "wrapTextInLines": true,
+    "symbolsAtPoints": false,
+    "symbolsSize": 74.64096727934079,
+    "ringText": " ",
+    "lineText": " ",
+    "symbolText": " ",
+    "pointList": [
+      {
+        "x": 148.80043528152288,
+        "y": 85.90997136532069
+      },
+      {
+        "x": -148.80043528152285,
+        "y": 85.90997136532077
+      },
+      {
+        "x": -3.1562811434214234e-14,
+        "y": -171.81994273064143
+      }
+    ]
+  }
+]

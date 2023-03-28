@@ -16,3 +16,4 @@ func use(target) -> void:
 		slot_data.quantity = 1
 		pick_up_item.slot_data = slot_data
 		character.throw_pick_up_item(pick_up_item, force, throw_direction)
+	super.use(target)

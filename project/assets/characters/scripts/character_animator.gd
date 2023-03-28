@@ -196,6 +196,10 @@ func set_look_direction(target_direction: Vector2) -> void:
 		look_direction = 1
 
 
+func face_target() -> void:
+	_character.face_target()
+
+
 func _move_character_to_global_position() -> void:
 	var move_to_position_state = _character.input_state_machine.get_state("MoveToPosition")
 	move_to_position_state.target_global_position = global_position

@@ -7,5 +7,8 @@ class_name ItemDataSkill
 
 func use(target) -> void:
 	var character := target as Character
+	var success := false
 	if character:
-		character.request_skill_use(skill_name)
+		success = character.request_skill_use(skill_name)
+	if success:
+		super.use(target)

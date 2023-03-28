@@ -271,7 +271,7 @@ texture = ExtResource("6_0484o")
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 4
 script = ExtResource("4_6rg3k")
-base_value = 20.0
+base_value = 10.0
 hit_particles = ExtResource("4_w1xhv")
 hit_sfx = ExtResource("6_w1rf8")
 frame_freeze_duration_milliseconds = 33

@@ -1,15 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://tyolpjgbnmvl"]
+[gd_scene load_steps=3 format=3 uid="uid://tyolpjgbnmvl"]
 
 [ext_resource type="Script" path="res://assets/inventory/hot_bar_inventory.gd" id="1_akcrh"]
+[ext_resource type="PackedScene" uid="uid://8mm46dcfs6w4" path="res://assets/inventory/hot_bar_slot.tscn" id="2_fecdj"]
 
 [node name="HotBarInventory" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 216.0
+offset_bottom = 104.0
 script = ExtResource("1_akcrh")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="Control" parent="."]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+offset_right = 204.0
+offset_bottom = 48.0
+
+[node name="HotBarSlot1" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HotBarSlot2" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HotBarSlot3" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HotBarSlot4" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+offset_left = 12.0
+offset_top = 56.0
+offset_right = 216.0
+offset_bottom = 104.0
+
+[node name="HotBarSlot5" parent="MarginContainer/HBoxContainer2" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HotBarSlot6" parent="MarginContainer/HBoxContainer2" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HotBarSlot7" parent="MarginContainer/HBoxContainer2" instance=ExtResource("2_fecdj")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HotBarSlot8" parent="MarginContainer/HBoxContainer2" instance=ExtResource("2_fecdj")]
 unique_name_in_owner = true
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=3 uid="uid://duso0ahb6lxjg"]
+[gd_scene load_steps=160 format=3 uid="uid://duso0ahb6lxjg"]
 
 [ext_resource type="PackedScene" uid="uid://dsbj0ecnkoa4m" path="res://assets/characters/scripts/character.tscn" id="1_j3c5v"]
 [ext_resource type="Texture2D" uid="uid://dl8h482l6y7u5" path="res://assets/characters/alisa/sprites/attack_3.png" id="2_tmpp0"]
@@ -47,6 +47,7 @@
 [ext_resource type="Script" path="res://core/triggers/hide_speed_lines_trigger.gd" id="44_vut77"]
 [ext_resource type="AudioStream" uid="uid://c4uao3itaj2xs" path="res://assets/sfx/defeat_explosion_default.wav" id="45_mg4cx"]
 [ext_resource type="PackedScene" uid="uid://b8337f0s5pw3q" path="res://assets/characters/alisa/alisa_rune_crash.tscn" id="46_x7euw"]
+[ext_resource type="PackedScene" uid="uid://du6odnmfdw7mg" path="res://assets/characters/scripts/flinches/still_second.tscn" id="47_ajirs"]
 [ext_resource type="AudioStream" uid="uid://ci8v0tm22uego" path="res://assets/sfx/hit_impact_default.wav" id="47_sx4sk"]
 [ext_resource type="Script" path="res://core/triggers/show_skill_frame_trigger.gd" id="48_bmfyq"]
 [ext_resource type="AudioStream" uid="uid://dy5pt4o6nla5e" path="res://assets/sfx/stomp.wav" id="48_ndf8c"]
@@ -107,7 +108,7 @@ func _ready():
 		hitbox.set_character(_character)
 		hitbox.set_team(_character.team)
 		hitbox.hit.connect(func(_hit_character):
-			_character.change_stat_by(CharacterStats.Types.MP, 5)
+			_character.change_stat_by(CharacterStats.Types.MP, 1)
 			)
 		)
 "
@@ -9605,7 +9606,7 @@ on_hit_resource_gain_type = 2
 on_hit_resource_gain_amount = 1.0
 frame_freeze_duration_milliseconds = 100
 screen_shake_trauma = 0.2
-flinch = ExtResource("37_oymof")
+flinch = ExtResource("47_ajirs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox" index="0"]
 position = Vector2(72, -32)
@@ -9621,7 +9622,7 @@ on_hit_resource_gain_type = 2
 on_hit_resource_gain_amount = 1.0
 frame_freeze_duration_milliseconds = 200
 screen_shake_trauma = 0.8
-flinch = ExtResource("37_oymof")
+flinch = ExtResource("47_ajirs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Inner/Attacks/Rune Crash/Hitbox2" index="0"]
 position = Vector2(72, -31)

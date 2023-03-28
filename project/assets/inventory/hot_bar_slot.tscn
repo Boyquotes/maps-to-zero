@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3 uid="uid://8mm46dcfs6w4"]
+
+[ext_resource type="Script" path="res://assets/inventory/slot.gd" id="1_6dv1b"]
+[ext_resource type="Texture2D" uid="uid://bdpmvx0514br7" path="res://assets/hud/action_hud/skill_icon_frame_filled.png" id="2_nk5ct"]
+
+[node name="HotBarSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(48, 48)
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_6dv1b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Icon" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cover" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.627451)
+
+[node name="Border" type="Control" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Border"]
+modulate = Color(1, 0.113725, 0.384314, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 63.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_nk5ct")
+patch_margin_left = 38
+patch_margin_top = 38
+patch_margin_right = 38
+patch_margin_bottom = 38
+
+[node name="CoolDownLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuantityLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_type_variation = &"ItemQuantityLabel"
+text = "x99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="InputKeyContainer" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="InputKeyContainer"]
+anchors_preset = 0
+offset_left = -12.0
+offset_top = -18.0
+offset_right = 28.0
+offset_bottom = 22.0
+
+[node name="ColorRect" type="ColorRect" parent="InputKeyContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -11.0
+offset_right = 19.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[node name="InputKeyLabel" type="Label" parent="InputKeyContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
