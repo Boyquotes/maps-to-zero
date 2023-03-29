@@ -5,7 +5,7 @@ class_name PickUpItem
 @export var slot_data: SlotData
 
 
-@onready var hitbox := %Hitbox as Hitbox
+@onready var hitbox := %Hitbox as Hitbox if has_node("%Hitbox") else null
 
 @onready var _sprite := $Sprite2D as Sprite2D
 @onready var _area_collision_shape := $Area2D/CollisionShape2D as CollisionShape2D

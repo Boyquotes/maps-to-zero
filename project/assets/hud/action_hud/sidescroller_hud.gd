@@ -93,8 +93,8 @@ func _on_player_resource_changed(type, new_value, _old_value, max_value) -> void
 		CharacterStats.Types.SP:
 			for i in range(3):
 				if i + 1 <= new_value:
-					get_node("%SP" + str(i + 1) + "/Glow").show()
+					get_node("%SP" + str(i + 1) + "/Glow").modulate = Color(1, 0.09019608050585, 0.64705884456635)
 					get_node("%SP" + str(i + 1) + "/Sprite").modulate = Color.WHITE
 				else:
-					get_node("%SP" + str(i + 1) + "/Glow").hide()
+					get_node("%SP" + str(i + 1) + "/Glow").modulate = Color.BLACK
 					get_node("%SP" + str(i + 1) + "/Sprite").modulate = Color(0.27058824896812, 0.27058824896812, 0.27058824896812)

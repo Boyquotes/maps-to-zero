@@ -61,13 +61,16 @@ func use_slot_data(index: int) -> void:
 	if not slot_data:
 		return
 	
-	if slot_data.item_data is ItemDataConsumable \
-			or slot_data.item_data is ItemDataThrowable:
-		slot_data.quantity -= 1
-		if slot_data.quantity < 1:
-			slot_datas[index] = null
+	var player := GameUtilities.get_player()
+	var item_data = slot_data.item_data
+	if player.can_use_item(item_data):
+		if item_data is ItemDataConsumable \
+				or item_data is ItemDataThrowable:
+			slot_data.quantity -= 1
+			if slot_data.quantity < 1:
+				slot_datas[index] = null
 	
-	GameUtilities.get_player().use_item_slot_data(slot_data)
+	player.use_item_slot_data(slot_data)
 	
 	inventory_updated.emit(self)
 
@@ -90,10 +93,17 @@ func pick_up_slot_data(slot_data: SlotData) -> bool:
 	return false
 
 
-
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
 
 
 func get_slot_data(index: int) -> SlotData:
 	return slot_datas[index]
+
+
+func remove_slot_data(slot_data: SlotData) -> void:
+	slot_datas.remove_at(slot_datas.find(slot_data))
+
+
+func clear_slot_data(slot_data: SlotData) -> void:
+	slot_datas[slot_datas.find(slot_data)] = null

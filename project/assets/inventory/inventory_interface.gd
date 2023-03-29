@@ -12,7 +12,7 @@ const MAX_CHEST_DISTANCE = 64.0
 @onready var _inventory := %Inventory as Inventory
 @onready var _equipment_inventory := %EquipmentInventory as Inventory
 @onready var _external_inventory := %ExternalInventory as Inventory
-@onready var _hot_bar_setter := %HotBarSetter as Inventory
+@onready var _hot_bar_setter := %HotBarSetter as HotBarInventory
 @onready var _grabbed_slot := %GrabbedSlot as Slot
 @onready var _skills := %Skills as Inventory
 
@@ -96,7 +96,6 @@ func _on_inventory_interact(inventory_data: InventoryData, index: int, button: i
 			if _grabbed_original_inventory_data == _hot_bar_inventory_data:
 				_grabbed_slot_data = null
 				return
-			
 			var temp := inventory_data.drop_slot_data(_grabbed_slot_data, index)
 			if inventory_data == _hot_bar_inventory_data and _grabbed_original_inventory_data:
 				_grabbed_original_inventory_data.drop_slot_data(_grabbed_slot_data, _grabbed_slot_original_index)

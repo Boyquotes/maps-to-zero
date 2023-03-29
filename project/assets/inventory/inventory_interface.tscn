@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0vjb5bn3scc6"]
+[gd_scene load_steps=5 format=3 uid="uid://b0vjb5bn3scc6"]
 
 [ext_resource type="Script" path="res://assets/inventory/inventory_interface.gd" id="1_nngjp"]
 [ext_resource type="PackedScene" uid="uid://1jibijyrmdml" path="res://assets/inventory/inventory.tscn" id="2_lx6mc"]
 [ext_resource type="PackedScene" uid="uid://drkn65mo0wkn8" path="res://assets/inventory/slot.tscn" id="3_wu2t0"]
+[ext_resource type="PackedScene" uid="uid://tyolpjgbnmvl" path="res://assets/inventory/hot_bar_inventory.tscn" id="5_1io8h"]
 
 [node name="InventoryInterface" type="Control"]
 layout_mode = 3
@@ -40,14 +41,6 @@ offset_right = 368.0
 offset_bottom = 456.0
 columns = 8
 
-[node name="HotBarSetter" parent="." instance=ExtResource("2_lx6mc")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 112.0
-offset_top = 80.0
-offset_right = 152.0
-offset_bottom = 120.0
-
 [node name="ExternalInventory" parent="." instance=ExtResource("2_lx6mc")]
 unique_name_in_owner = true
 layout_mode = 0
@@ -64,6 +57,15 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
+
+[node name="HotBarSetter" parent="." instance=ExtResource("5_1io8h")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 114.0
+offset_top = 67.0
+offset_right = 330.0
+offset_bottom = 171.0
+use_input = false
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

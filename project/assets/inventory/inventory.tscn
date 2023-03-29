@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://1jibijyrmdml"]
+[gd_scene load_steps=3 format=3 uid="uid://1jibijyrmdml"]
 
 [ext_resource type="Script" path="res://assets/inventory/inventory.gd" id="1_tqhih"]
+[ext_resource type="PackedScene" uid="uid://drkn65mo0wkn8" path="res://assets/inventory/slot.tscn" id="2_ukyu7"]
 
 [node name="Inventory" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_tqhih")
+slot_scene = ExtResource("2_ukyu7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

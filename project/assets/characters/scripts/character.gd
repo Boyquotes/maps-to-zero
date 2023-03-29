@@ -325,20 +325,20 @@ func get_state(state_name: StringName) -> State:
 	return state_machine.get_state(state_name)
 
 
-func use_item_slot_data(item_slot_data: SlotData) -> void:
+func use_item_slot_data(item_slot_data: SlotData) -> bool:
 	var item_data := item_slot_data.item_data
 	
 	var can_use_item = can_use_item(item_slot_data.item_data)
 	if not can_use_item:
-		return
+		return false
 	
 	if _item_cooldowns.has(item_data) and _item_cooldowns[item_data].time_left > 0.5:
-		return
+		return false
 	
 	item_data.use(self)
 	
 	if is_zero_approx(item_data.cooldown):
-		return
+		return true
 	
 	var timer: Timer
 	if _item_cooldowns.has(item_data):
@@ -354,6 +354,8 @@ func use_item_slot_data(item_slot_data: SlotData) -> void:
 	_item_cooldowns[item_data] = timer
 	
 	item_used.emit(item_data)
+	
+	return true
 
 
 func throw_pick_up_item(pick_up_item: PickUpItem, force:=500.0, \
@@ -419,6 +421,9 @@ func can_use_item(item_data: ItemData) -> bool:
 	if item_data is ItemDataSkill:
 		var cooling_down = _item_cooldowns.has(item_data) and _item_cooldowns[item_data].time_left > 0
 		return not cooling_down and _check_if_can_attack(item_data.skill_name)
+	elif item_data is ItemDataConsumable:
+		var cooling_down = _item_cooldowns.has(item_data) and _item_cooldowns[item_data].time_left > 0
+		return not cooling_down
 	return true
 
 

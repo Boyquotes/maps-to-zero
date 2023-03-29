@@ -32,7 +32,8 @@ func _ready():
 	await get_tree().create_timer(1.1).timeout
 	_is_ready = true
 	
-	_animation_player.animation_finished.connect(_on_animation_finished)
+	if not _animation_player.animation_finished.is_connected(_on_animation_finished):
+		_animation_player.animation_finished.connect(_on_animation_finished)
 	
 	for child in get_children():
 		if child is DialogTrigger:

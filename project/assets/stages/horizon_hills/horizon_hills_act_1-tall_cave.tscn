@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bfqenr2gqptvc" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_04.png" id="9_jojst"]
 [ext_resource type="Texture2D" uid="uid://bygi5isn1tc6q" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_05.png" id="10_6stxi"]
 [ext_resource type="Texture2D" uid="uid://4ki428pr2grq" path="res://assets/stages/horizon_hills/objects/horizon_hills_cave/006_crystal_06.png" id="11_sl5vv"]
-[ext_resource type="PackedScene" path="res://assets/stages/horizon_hills/objects/horizon_hills_torch.tscn" id="16_684s5"]
+[ext_resource type="PackedScene" uid="uid://dkx3i5sqnqfdt" path="res://assets/stages/horizon_hills/objects/horizon_hills_torch.tscn" id="16_684s5"]
 [ext_resource type="Texture2D" uid="uid://wyag5x76vwad" path="res://assets/other_sprites/blurred_white_circle.png" id="17_82n4i"]
 [ext_resource type="Texture2D" uid="uid://bowqwuqhvx2vf" path="res://assets/stages/horizon_hills/objects/horizon_hills_forest/plx-5.png" id="19_8th7n"]
 [ext_resource type="PackedScene" uid="uid://byg3unuyga2h8" path="res://assets/stages/scripts/stage_entry_point.tscn" id="20_rdvs5"]
@@ -991,7 +991,6 @@ shape = SubResource("RectangleShape2D_7txlc")
 [node name="CameraSettingsTrigger" type="Node2D" parent="Triggers"]
 z_index = 100
 script = ExtResource("39_mh6v4")
-zoom = Vector2(1.5, 1.5)
 line_color = Color(0.94902, 0, 0.027451, 1)
 line_width = 10.0
 

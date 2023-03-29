@@ -5,6 +5,7 @@ const MAX_STACK_SIZE: int = 999
 
 
 signal quantity_updated(new_quantity: int, old_quantity: int)
+signal removed_from_inventory(slot_data: SlotData)
 
 
 @export var item_data: ItemData
@@ -45,3 +46,8 @@ func set_quantity(value: int) -> void:
 		quantity = 1
 		push_error("%s is not stackable, setting quantity to 1" % item_data.name)
 	quantity_updated.emit(quantity, old_quantity)
+
+
+func remove_from_inventory() -> void:
+	removed_from_inventory.emit(self)
+	

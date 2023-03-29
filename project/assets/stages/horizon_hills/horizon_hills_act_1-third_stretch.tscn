@@ -1832,7 +1832,6 @@ shape = SubResource("RectangleShape2D_7txlc")
 [node name="CameraSettingsTrigger" type="Node2D" parent="Triggers"]
 z_index = 100
 script = ExtResource("35_kyjn7")
-zoom = Vector2(1.5, 1.5)
 line_color = Color(0.94902, 0, 0.027451, 1)
 line_width = 10.0
 

@@ -7,15 +7,18 @@
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 216.0
 offset_bottom = 104.0
+mouse_filter = 2
 script = ExtResource("1_akcrh")
 
 [node name="MarginContainer" type="Control" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 offset_right = 204.0
 offset_bottom = 48.0
+mouse_filter = 2
 
 [node name="HotBarSlot1" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_fecdj")]
 unique_name_in_owner = true
@@ -39,6 +42,7 @@ offset_left = 12.0
 offset_top = 56.0
 offset_right = 216.0
 offset_bottom = 104.0
+mouse_filter = 2
 
 [node name="HotBarSlot5" parent="MarginContainer/HBoxContainer2" instance=ExtResource("2_fecdj")]
 unique_name_in_owner = true

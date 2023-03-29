@@ -420,23 +420,24 @@ texture = ExtResource("9_8mtaa")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="InventoryInterface" parent="Display" instance=ExtResource("11_r37im")]
+[node name="HotBarInventory" parent="Display/PlayerHUD" instance=ExtResource("13_5wpii")]
 unique_name_in_owner = true
-offset_left = -8.0
-offset_right = -8.0
-
-[node name="HotBarInventory" parent="Display" instance=ExtResource("13_5wpii")]
-unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -512.0
-offset_top = -637.0
-offset_right = -296.0
-offset_bottom = -533.0
+offset_left = 108.0
+offset_top = 43.0
+offset_right = 324.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="InventoryInterface" parent="Display" instance=ExtResource("11_r37im")]
+unique_name_in_owner = true
+offset_left = -8.0
+offset_right = -8.0
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

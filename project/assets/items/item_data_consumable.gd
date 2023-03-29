@@ -9,6 +9,9 @@ class_name ItemDataConsumable
 func use(target) -> void:
 	# Heal the player
 	var character := target as Character
-	if character and not value == 0:
+	var can_use := false
+	if character:
+		can_use = character.can_use_item(self)
+	if can_use:
 		character.change_stat_by(type, value)
-	super.use(target)
+		super.use(target)
