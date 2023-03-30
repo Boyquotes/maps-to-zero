@@ -6,4 +6,5 @@
 script = ExtResource("1_nk2g6")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 bus = &"Music"

@@ -92,10 +92,6 @@ func change_stage(stage_scene: PackedScene, player_entry_point: int, player_resp
 	if currently_loaded_stage.normal_entry:
 		var entry_point: StageEntryPoint = currently_loaded_stage.entry_points[player_entry_point]
 		entry_point.enter(player)
-	
-		if player_respawning:
-			player_respawn_cutscene()
-			return
 
 
 func player_defeated() -> void:
@@ -124,57 +120,13 @@ func toggle_inventory_interface(external_inventory_owner) -> void:
 	sidescroller_hud.toggle_inventory_interface(external_inventory_owner)
 
 
-func _input(event):
-	if event.is_action_pressed("debug"):
+#func _input(event):
+#	if event.is_action_pressed("debug"):
 #		SaveData.player_data = player.save_data
 #		SaveData.player_saved_position = player.global_position
 #		SaveData.camera_zoom = gameplay_camera.zoom
 #		SaveData.stage_id = GameManager.current_stage_id
 #		player.defeat()
-		
-		get_tree().root.mode = Window.MODE_FULLSCREEN
-
-
-func player_respawn_cutscene() -> void:
-#	respawn_cutscene_playing = true
-#
-#	ScreenEffects.cover_screen(ScreenEffectsClass.CoverAnimations.FADE_TO_BLACK, 0)
-#	if MusicManager.current_song != currently_loaded_stage.song:
-#		MusicManager.play(Music.Songs.SILENCE, 1.0)
-#	player.global_position = SaveData.player_saved_position
-#	player.save_data = SaveData.player_data
-#
-#	gameplay_camera.current = true
-#	gameplay_camera.zoom = Vector2(99, 99)
-#
-#	await get_tree().create_timer(0.1).timeout
-#
-#	player.set_cutscene_mode(true)
-#	player.play_animation("ragged_breathing")
-#	GameManager.show_cutscene_bars(0)
-#
-#	var tween = create_tween()
-#	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom * 3, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-#
-#	ScreenEffects.uncover_screen(ScreenEffectsClass.UncoverAnimations.FADE_OUT_BLACK, 0.2)
-#	await ScreenEffects.uncovered_finished
-#	await get_tree().create_timer(1.0).timeout
-#
-#	player.play_animation("focus")
-#
-#	tween = create_tween()
-#	tween.tween_property(gameplay_camera, "zoom", SaveData.camera_zoom, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-#
-#	await get_tree().create_timer(1.0).timeout
-#
-#	player.set_cutscene_mode(false)
-#	player.play_animation("idle")
-#	GameManager.hide_cutscene_bars()
-#	currently_loaded_stage.start_music()
-#
-#	respawn_cutscene_playing = false
-#	respawn_cutscene_finished.emit()
-	pass
 
 
 func _initialize_item_chests() -> void:

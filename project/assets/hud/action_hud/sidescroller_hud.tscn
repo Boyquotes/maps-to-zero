@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cq4u36n2dswf"]
+[gd_scene load_steps=17 format=3 uid="uid://cq4u36n2dswf"]
 
 [ext_resource type="Script" path="res://assets/hud/action_hud/sidescroller_hud.gd" id="1_1pnwk"]
 [ext_resource type="Texture2D" uid="uid://b1sa36rld5x2" path="res://assets/hud/hp_bar/hp.png" id="1_a66kq"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cu6n3d1elkdsx" path="res://assets/characters/alisa/sprites/star_glow.png" id="8_0vafr"]
 [ext_resource type="Texture2D" uid="uid://6mj1tyofwkjj" path="res://assets/characters/alisa/sprites/star.png" id="9_8mtaa"]
 [ext_resource type="PackedScene" uid="uid://b0vjb5bn3scc6" path="res://assets/inventory/inventory_interface.tscn" id="11_r37im"]
+[ext_resource type="PackedScene" uid="uid://rw7gdui8lu3n" path="res://addons/EasyMenus/Scenes/pause_menu.tscn" id="12_eauy0"]
 [ext_resource type="PackedScene" uid="uid://tyolpjgbnmvl" path="res://assets/inventory/hot_bar_inventory.tscn" id="13_5wpii"]
 
 [sub_resource type="Animation" id="Animation_k6cti"]
@@ -17,7 +18,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Display/PlayerHUD:position")
+tracks/0/path = NodePath("PlayerHUD:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -29,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Display/PlayerHUD:rotation")
+tracks/1/path = NodePath("PlayerHUD:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -41,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Display/PlayerHUD:visible")
+tracks/2/path = NodePath("PlayerHUD:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -56,7 +57,7 @@ resource_name = "hide"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Display/PlayerHUD:position")
+tracks/0/path = NodePath("PlayerHUD:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +69,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Display/PlayerHUD:rotation")
+tracks/1/path = NodePath("PlayerHUD:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -80,7 +81,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Display/PlayerHUD:visible")
+tracks/2/path = NodePath("PlayerHUD:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -95,7 +96,7 @@ resource_name = "show"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Display/PlayerHUD:position")
+tracks/0/path = NodePath("PlayerHUD:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -107,7 +108,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Display/PlayerHUD:rotation")
+tracks/1/path = NodePath("PlayerHUD:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -119,7 +120,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Display/PlayerHUD:visible")
+tracks/2/path = NodePath("PlayerHUD:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -136,16 +137,8 @@ _data = {
 "show": SubResource("Animation_0huha")
 }
 
-[node name="SidescrollerHUD" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="SidescrollerHUD" type="CanvasLayer"]
+layer = 100
 script = ExtResource("1_1pnwk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -154,24 +147,24 @@ libraries = {
 "": SubResource("AnimationLibrary_xwd3s")
 }
 
-[node name="Display" type="CanvasLayer" parent="."]
-layer = 100
+[node name="PauseMenu" parent="." instance=ExtResource("12_eauy0")]
+visible = false
 
-[node name="PlayerHUD" type="Control" parent="Display"]
+[node name="PlayerHUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Display/PlayerHUD"]
+[node name="ColorRect" type="ColorRect" parent="PlayerHUD"]
 layout_mode = 0
 offset_right = 306.0
 offset_bottom = 42.0
 rotation = -0.0523599
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="Display/PlayerHUD"]
+[node name="ColorRect3" type="ColorRect" parent="PlayerHUD"]
 layout_mode = 0
 offset_left = 324.0
 offset_top = -56.0
@@ -180,7 +173,7 @@ offset_bottom = 18.0
 rotation = 1.04894
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="Display/PlayerHUD"]
+[node name="ColorRect2" type="ColorRect" parent="PlayerHUD"]
 layout_mode = 0
 offset_left = 228.0
 offset_top = 40.0
@@ -188,7 +181,7 @@ offset_right = 308.0
 offset_bottom = 55.0
 rotation = -0.261799
 
-[node name="MPBar" type="TextureProgressBar" parent="Display/PlayerHUD"]
+[node name="MPBar" type="TextureProgressBar" parent="PlayerHUD"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 80.0
@@ -202,14 +195,14 @@ size_flags_vertical = 0
 value = 50.0
 texture_progress = ExtResource("3_spae1")
 
-[node name="Background" type="TextureRect" parent="Display/PlayerHUD/MPBar"]
+[node name="Background" type="TextureRect" parent="PlayerHUD/MPBar"]
 show_behind_parent = true
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 48.0
 texture = ExtResource("4_khe4e")
 
-[node name="100MPDivider" type="ColorRect" parent="Display/PlayerHUD/MPBar"]
+[node name="100MPDivider" type="ColorRect" parent="PlayerHUD/MPBar"]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 1
 anchors_preset = 13
@@ -223,7 +216,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 
-[node name="100MPDivider2" type="ColorRect" parent="Display/PlayerHUD/MPBar"]
+[node name="100MPDivider2" type="ColorRect" parent="PlayerHUD/MPBar"]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 1
 anchors_preset = 13
@@ -237,7 +230,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0862745, 0.0862745, 0.0862745, 1)
 
-[node name="HPBar" type="TextureProgressBar" parent="Display/PlayerHUD"]
+[node name="HPBar" type="TextureProgressBar" parent="PlayerHUD"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 99.0
@@ -249,7 +242,7 @@ value = 50.0
 nine_patch_stretch = true
 texture_progress = ExtResource("1_a66kq")
 
-[node name="TextureRect" type="TextureRect" parent="Display/PlayerHUD/HPBar"]
+[node name="TextureRect" type="TextureRect" parent="PlayerHUD/HPBar"]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -33.0
@@ -258,7 +251,7 @@ offset_bottom = 37.0
 texture = ExtResource("2_swpb2")
 expand_mode = 1
 
-[node name="PlayerIcon" type="TextureRect" parent="Display/PlayerHUD"]
+[node name="PlayerIcon" type="TextureRect" parent="PlayerHUD"]
 texture_filter = 2
 layout_mode = 0
 offset_left = -2.0
@@ -270,7 +263,7 @@ texture = ExtResource("7_bhegd")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="Display/PlayerHUD/PlayerIcon"]
+[node name="ColorRect" type="ColorRect" parent="PlayerHUD/PlayerIcon"]
 modulate = Color(0.415686, 0, 0.352941, 1)
 show_behind_parent = true
 layout_mode = 1
@@ -280,7 +273,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Frame" type="NinePatchRect" parent="Display/PlayerHUD/PlayerIcon"]
+[node name="Frame" type="NinePatchRect" parent="PlayerHUD/PlayerIcon"]
 modulate = Color(1, 0.258824, 0.458824, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -298,14 +291,14 @@ patch_margin_top = 37
 patch_margin_right = 37
 patch_margin_bottom = 37
 
-[node name="SP" type="Control" parent="Display/PlayerHUD"]
+[node name="SP" type="Control" parent="PlayerHUD"]
 anchors_preset = 0
 offset_left = 316.0
 offset_top = 40.0
 offset_right = 404.0
 offset_bottom = 64.0
 
-[node name="ColorRect" type="ColorRect" parent="Display/PlayerHUD/SP"]
+[node name="ColorRect" type="ColorRect" parent="PlayerHUD/SP"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -315,7 +308,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.101961, 0.101961, 0.101961, 1)
 
-[node name="SP1" type="Control" parent="Display/PlayerHUD/SP"]
+[node name="SP1" type="Control" parent="PlayerHUD/SP"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_left = -8.0
@@ -323,7 +316,7 @@ offset_top = -8.0
 offset_right = 32.0
 offset_bottom = 32.0
 
-[node name="Glow" type="TextureRect" parent="Display/PlayerHUD/SP/SP1"]
+[node name="Glow" type="TextureRect" parent="PlayerHUD/SP/SP1"]
 modulate = Color(1, 0.0901961, 0.647059, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -339,7 +332,7 @@ texture = ExtResource("8_0vafr")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="Display/PlayerHUD/SP/SP1"]
+[node name="Sprite" type="TextureRect" parent="PlayerHUD/SP/SP1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -350,7 +343,7 @@ texture = ExtResource("9_8mtaa")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="SP2" type="Control" parent="Display/PlayerHUD/SP"]
+[node name="SP2" type="Control" parent="PlayerHUD/SP"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_left = 24.0
@@ -358,7 +351,7 @@ offset_top = -20.0
 offset_right = 64.0
 offset_bottom = 20.0
 
-[node name="Glow" type="TextureRect" parent="Display/PlayerHUD/SP/SP2"]
+[node name="Glow" type="TextureRect" parent="PlayerHUD/SP/SP2"]
 modulate = Color(1, 0.0901961, 0.647059, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -374,7 +367,7 @@ texture = ExtResource("8_0vafr")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="Display/PlayerHUD/SP/SP2"]
+[node name="Sprite" type="TextureRect" parent="PlayerHUD/SP/SP2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -385,7 +378,7 @@ texture = ExtResource("9_8mtaa")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="SP3" type="Control" parent="Display/PlayerHUD/SP"]
+[node name="SP3" type="Control" parent="PlayerHUD/SP"]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_left = 56.0
@@ -393,7 +386,7 @@ offset_top = -7.0
 offset_right = 96.0
 offset_bottom = 33.0
 
-[node name="Glow" type="TextureRect" parent="Display/PlayerHUD/SP/SP3"]
+[node name="Glow" type="TextureRect" parent="PlayerHUD/SP/SP3"]
 modulate = Color(1, 0.0901961, 0.647059, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -409,7 +402,7 @@ texture = ExtResource("8_0vafr")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Sprite" type="TextureRect" parent="Display/PlayerHUD/SP/SP3"]
+[node name="Sprite" type="TextureRect" parent="PlayerHUD/SP/SP3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -420,7 +413,7 @@ texture = ExtResource("9_8mtaa")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="HotBarInventory" parent="Display/PlayerHUD" instance=ExtResource("13_5wpii")]
+[node name="HotBarInventory" parent="PlayerHUD" instance=ExtResource("13_5wpii")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -435,9 +428,7 @@ offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="InventoryInterface" parent="Display" instance=ExtResource("11_r37im")]
+[node name="InventoryInterface" parent="." instance=ExtResource("11_r37im")]
 unique_name_in_owner = true
 offset_left = -8.0
 offset_right = -8.0
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

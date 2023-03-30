@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 class_name SidescrollerHUD
 
 signal show_finished
@@ -10,14 +10,18 @@ signal hide_finished
 @onready var _inventory_interface := %InventoryInterface as InventoryInterface
 @onready var _hot_bar_inventory := %HotBarInventory as HotBarInventory
 @onready var _animation_player := %AnimationPlayer as AnimationPlayer
+@onready var _pause_menu := $PauseMenu
 
 
 var hud_displaying : bool = true
+var _paused : bool = false
 
 
 func _ready():
 	Events.player_resource_changed.connect(_on_player_resource_changed)
 	_inventory_interface.hide()
+	
+	_pause_menu.resume.connect(_unpause)
 
 
 func show_hud(duration:= 1.0):
@@ -50,8 +54,9 @@ func hide_hud(duration:= 1.0):
 
 
 func toggle_menu() -> void:
-	# TODO: For now just toggle the inventory
-	toggle_inventory_interface()
+#	toggle_inventory_interface()
+	_toggle_pause_menu()
+
 
 
 func toggle_inventory_interface(external_inventory_owner=null) -> void:
@@ -98,3 +103,15 @@ func _on_player_resource_changed(type, new_value, _old_value, max_value) -> void
 				else:
 					get_node("%SP" + str(i + 1) + "/Glow").modulate = Color.BLACK
 					get_node("%SP" + str(i + 1) + "/Sprite").modulate = Color(0.27058824896812, 0.27058824896812, 0.27058824896812)
+
+
+func _toggle_pause_menu() -> void:
+	_paused = not _paused
+	if _paused:
+		_pause_menu.open_pause_menu()
+	else:
+		_pause_menu.close_pause_menu()
+
+
+func _unpause() -> void:
+	_paused = false

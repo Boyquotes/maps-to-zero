@@ -24,6 +24,7 @@ Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 CameraTransition="*res://core/classes/camera/camera_transition.tscn"
 ScreenEffects="*res://core/autoloads/screen_effects/screen_effects.tscn"
 GameManager="*res://core/autoloads/game_manager.gd"
+MenuTemplateManager="*res://addons/EasyMenus/Nodes/menu_template_manager.tscn"
 
 [dialogic]
 
