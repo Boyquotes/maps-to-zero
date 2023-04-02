@@ -265,6 +265,8 @@ func request_attack_transition(target_state_name: String, msg: Dictionary = {}) 
 
 
 func request_skill_use(skill_name: String) -> bool:
+	if input_state_machine.state.name != "PlayerInput":
+		return false
 	return request_attack_transition(skill_name)
 
 
