@@ -1305,9 +1305,6 @@ libraries = {
 "": SubResource("AnimationLibrary_1uyk0")
 }
 
-[node name="Idle" parent="StateMachine" index="1"]
-can_flinch = false
-
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Idle" index="0"]
 script = ExtResource("26_u14du")
 action = "action_1"
@@ -1315,7 +1312,6 @@ go_to_state = "Attack"
 
 [node name="Run" parent="StateMachine" index="2"]
 animation = "bounce"
-can_flinch = false
 
 [node name="InputKeyTransition" type="Node" parent="StateMachine/Run" index="0"]
 script = ExtResource("26_u14du")
@@ -1326,7 +1322,6 @@ go_to_state = "Attack"
 jump_animation = "bounce"
 background_jump_animation = "bounce"
 background_fall_animation = "bounce"
-can_flinch = false
 
 [node name="Attack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("27_exxdp")

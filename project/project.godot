@@ -29,9 +29,9 @@ MenuTemplateManager="*res://addons/EasyMenus/Nodes/menu_template_manager.tscn"
 [dialogic]
 
 editor/character_preview_mode=1
-editor/current_editor=&"Settings"
+editor/current_editor=&"Timeline Editor"
 editor/current_resources={
-"Character Editor": "res://assets/dialog/characters/kanna.dch",
+"Character Editor": "res://assets/dialog/characters/alisa.dch",
 "Timeline Editor": "res://assets/dialog/timelines/horizon_hills_act_1_boss_start.dtl"
 }
 editor/current_timeline_path="res://assets/dialog/timelines/horizon_hills_act_1_boss_start.dtl"
@@ -52,7 +52,7 @@ save/autosave_delay=60.0
 text/speed=0.01
 text/skippable=true
 text/autocontinue_delay=1.0
-editor/timeline_editor_mode=1
+editor/timeline_editor_mode=0
 portrait_mode=0
 text/autocolor_names=false
 translation/enabled=false
