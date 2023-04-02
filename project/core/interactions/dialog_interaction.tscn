@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhakswn4i108b"]
+
+[ext_resource type="Script" path="res://core/interactions/dialog_interaction.gd" id="1_bwpqt"]
+[ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="2_nlkbu"]
+[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="3_06hrj"]
+[ext_resource type="Texture2D" uid="uid://ygxoousvnt4o" path="res://assets/hud/keys/jumbo/dark/Z.png" id="5_f4vxg"]
+[ext_resource type="PackedScene" uid="uid://b820aic0deq0s" path="res://core/interactions/interaction_area_2d.tscn" id="6_5r63t"]
+
+[node name="DialogInteraction" type="Node2D"]
+script = ExtResource("1_bwpqt")
+
+[node name="PlayerAnimator" type="Marker2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_nlkbu")
+actor_name = "PLAYER"
+look_direction = 0
+animation = "stand"
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -64)
+zoom = Vector2(2, 2)
+script = ExtResource("3_06hrj")
+
+[node name="InteractionArea2D" parent="." instance=ExtResource("6_5r63t")]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractionArea2D/Visuals" index="0"]
+texture = ExtResource("5_f4vxg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+
+[editable path="InteractionArea2D"]
