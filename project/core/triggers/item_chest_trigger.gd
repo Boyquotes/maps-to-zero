@@ -14,3 +14,4 @@ func _ready():
 func trigger(_dummy_var=null) -> void:
 	super.trigger()
 	toggle_inventory.emit(self)
+	print_debug("TRIGGER")

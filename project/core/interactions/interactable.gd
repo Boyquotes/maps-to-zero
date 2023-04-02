@@ -2,7 +2,10 @@ class_name Interactable
 extends Node2D
 
 
-var interactions: Array
+@onready var _triggers_node := %Triggers
+@onready var _requirements_node := %Requirements
+@onready var _interaction_area := %InteractionArea2D as InteractionArea2D
+
 var is_ready : bool:
 	get:
 		if $Requirements.get_child_count() == 0:
@@ -15,11 +18,10 @@ var is_ready : bool:
 
 
 func _ready() -> void:
-	for child in $Triggers.get_children():
-		assert(child is Trigger)
-		interactions.append(child)
+	_interaction_area.triggered.connect(trigger)
 
 
 func trigger(_dummy=null):
-	for interaction in interactions:
-		interaction.trigger()
+	for trigger in _triggers_node.get_children():
+		assert(trigger is Trigger)
+		trigger.trigger()

@@ -11,11 +11,15 @@ signal triggered
 		if value == false:
 			listening_to_input = false
 
+
+@onready var _visuals := %Visuals as Node2D
+
+
 var listening_to_input: bool = false:
 	set(value):
 		listening_to_input = value
 		set_process_input(value)
-		$InteractionEnabledVisuals.visible = value
+		_visuals.visible = value
 
 var interacted : bool = false
 
@@ -37,7 +41,7 @@ func _ready():
 	set_collision_mask_value(4, true)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
-	$InteractionEnabledVisuals.hide()
+	_visuals.hide()
 
 
 func _on_area_entered(_area: Area2D) -> void:

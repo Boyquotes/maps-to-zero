@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b820aic0deq0s"]
+[gd_scene load_steps=2 format=3 uid="uid://b820aic0deq0s"]
 
 [ext_resource type="Script" path="res://core/interactions/interaction_area_2d.gd" id="1_nqcao"]
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tlhih"]
 
 [node name="InteractionArea2D" type="Area2D"]
 collision_layer = 0
@@ -10,10 +8,6 @@ collision_mask = 8
 monitorable = false
 script = ExtResource("1_nqcao")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tlhih")
-}
-
-[node name="InteractionEnabledVisuals" type="Node2D" parent="."]
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
 visible = false

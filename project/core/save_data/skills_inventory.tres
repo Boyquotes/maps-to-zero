@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="InventoryDataSkills" load_steps=2 format=3 uid="uid://dlm7mn41m6p2v"]
+[gd_resource type="Resource" script_class="InventoryDataSkills" load_steps=5 format=3 uid="uid://dlm7mn41m6p2v"]
 
 [ext_resource type="Script" path="res://assets/inventory/inventory_data_skills.gd" id="1_wh1s6"]
+[ext_resource type="Resource" uid="uid://dnkq7uomgahgy" path="res://assets/items/item_data/rune_crash.tres" id="2_ssrqk"]
+[ext_resource type="Script" path="res://assets/inventory/slot_data.gd" id="3_ti3vq"]
+
+[sub_resource type="Resource" id="Resource_w5t3o"]
+script = ExtResource("3_ti3vq")
+item_data = ExtResource("2_ssrqk")
+quantity = 1
 
 [resource]
 script = ExtResource("1_wh1s6")
-slot_datas = Array[Resource("res://assets/inventory/slot_data.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("3_ti3vq")]([SubResource("Resource_w5t3o"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])

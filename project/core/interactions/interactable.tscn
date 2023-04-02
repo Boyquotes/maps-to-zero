@@ -6,5 +6,7 @@
 script = ExtResource("1_2fxg6")
 
 [node name="Triggers" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Requirements" type="Node2D" parent="."]
+unique_name_in_owner = true
