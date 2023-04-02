@@ -176,10 +176,28 @@ func move_right() -> void:
 	set_physics_process(false)
 
 
+func walk_right() -> void:
+	_movement_mode = MovementModes.MOVE_RIGHT
+	_character.input_state_machine.transition_to("MoveDirection", {
+		"direction": Vector2.RIGHT,
+		"walking": true,
+	})
+	set_physics_process(false)
+
+
 func move_left() -> void:
 	_movement_mode = MovementModes.MOVE_LEFT
 	_character.input_state_machine.transition_to("MoveDirection", {
 		"direction": Vector2.LEFT
+	})
+	set_physics_process(false)
+
+
+func walk_left() -> void:
+	_movement_mode = MovementModes.MOVE_LEFT
+	_character.input_state_machine.transition_to("MoveDirection", {
+		"direction": Vector2.LEFT,
+		"walking": true,
 	})
 	set_physics_process(false)
 

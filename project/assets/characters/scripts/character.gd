@@ -63,6 +63,9 @@ var target:
 var input_direction : Vector2 :
 	get:
 		return input_state_machine.state.input_direction
+var walk_modifer_pressed : bool :
+	get:
+		return input_state_machine.state.get_walk_modifer_pressed()
 var look_direction : Vector2 :
 	set(value):
 		look_direction = value

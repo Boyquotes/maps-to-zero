@@ -42,7 +42,7 @@ func update(_delta: float) -> void:
 	# the character to fall.
 	if not _character.is_on_floor() and _coyote_timer.time_left <= 0:
 		_coyote_timer.start(coyote_time)
-	if not is_equal_approx(_character.input_direction.x, 0):
+	if not is_zero_approx(_character.input_direction.x):
 		state_machine.transition_to("Run")
 
 

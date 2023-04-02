@@ -13,6 +13,10 @@ func get_input_direction() -> Vector2:
 	return Vector2.ZERO
 
 
+func get_walk_modifer_pressed() -> bool:
+	return false
+
+
 func simulate_input(event: InputEvent) -> void:
 	_character.unhandled_input(event)
 

@@ -3,10 +3,10 @@ extends CharacterState
 
 
 @export var animation := "run"
+@export var walk_animation := "walk"
 @export var coyote_time := 0.1
 
 var _coyote_timer : Timer
-
 
 func _ready():
 	_coyote_timer = Timer.new()
@@ -16,7 +16,10 @@ func _ready():
 
 
 func enter(_msg := {}) -> void:
-	_character.play_animation(animation)
+	if _character.walk_modifer_pressed:
+		_character.play_animation(walk_animation)
+	else:
+		_character.play_animation(animation)
 
 
 func exit() -> void:
@@ -30,20 +33,24 @@ func handle_input(event: InputEvent) -> void:
 
 
 func physics_update(delta: float) -> void:
-	# Notice how we have some code duplication between states. That's inherent to the pattern,
-	# although in production, your states will tend to be more complex and duplicate code
-	# much more rare.
 	if not _character.is_on_floor() and _coyote_timer.time_left <= 0:
 		_coyote_timer.start(coyote_time)
 	
-	# We move the run-specific input code to the state.
-	_character.velocity.x = _character.speed * _character.input_direction.x
+	if _character.walk_modifer_pressed:
+		var speed = _character.speed / 4
+		_character.play_animation(walk_animation, false)
+		_character.velocity.x = speed * _character.input_direction.x
+	else:
+		var speed = _character.speed
+		_character.play_animation(animation, false)
+		_character.velocity.x = speed * _character.input_direction.x
 	_character.velocity.y += _character.gravity * delta
 	
-	if sign(_character.velocity.x) != 0 and sign(_character.velocity.x) != sign(_character.look_direction.x):
+	if sign(_character.velocity.x) != 0 and \
+			sign(_character.velocity.x) != sign(_character.look_direction.x):
 		_character.look_direction = Vector2(sign(_character.velocity.x), 0)
 	
-	if is_equal_approx(_character.input_direction.x, 0.0):
+	if is_zero_approx(_character.input_direction.x):
 		state_machine.transition_to("Idle")
 
 

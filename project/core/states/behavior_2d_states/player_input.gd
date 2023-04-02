@@ -30,3 +30,7 @@ func get_input_direction() -> Vector2:
 	)
 	
 	return Vector2(input_direction_x, input_direction_y)
+
+
+func get_walk_modifer_pressed() -> bool:	
+	return Input.is_action_pressed("walk_modifier")

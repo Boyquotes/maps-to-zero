@@ -134,6 +134,7 @@ can_flinch = true
 [node name="Run" parent="StateMachine" instance=ExtResource("3_ljg6w")]
 script = ExtResource("5_q4uhh")
 animation = "run"
+walk_animation = "walk"
 coyote_time = 0.1
 can_flinch = true
 
