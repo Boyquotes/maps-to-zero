@@ -9,7 +9,7 @@ enum MovementModes { DISABLED, MATCH, MOVE_TO_GLOBAL_POSITION, MOVE_RIGHT, MOVE_
 @export_enum("Right", "Left") var look_direction:
 	set(value):
 		look_direction = value
-		update_look_direction()
+		match_look_direction()
 @export var animation := "":
 	set(value):
 		animation = value
@@ -149,7 +149,7 @@ func move_to_global_position() -> void:
 	set_physics_process(true)
 
 
-func update_look_direction() -> void:
+func match_look_direction() -> void:
 	if not _character:
 		return
 	match look_direction:
@@ -207,5 +207,5 @@ func _move_character_to_global_position() -> void:
 	if abs(position_difference.x) < _move_to_position_buffer.x and \
 			abs(position_difference.y) < _move_to_position_buffer.y:
 		_character.global_position = (global_position - center_offset)
-		update_look_direction()
-		enable()
+		match_look_direction()
+		enable_cutscene_mode()

@@ -1370,12 +1370,13 @@ next/move_to_enemies = &"enemies_loop"
 script = ExtResource("23_alu5g")
 actor_name = "PLAYER"
 look_direction = 0
-animation = "stand"
+animation = "idle"
 
 [node name="CloudBlueCutsceneTransformer" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]
 position = Vector2(656, 0)
 script = ExtResource("23_alu5g")
 actor_name = "CloudBlue"
+look_direction = 0
 animation = "idle"
 
 [node name="CloudBlueCutsceneTransformer2" type="Marker2D" parent="Cutscenes/SkillsTutorialCutscene"]

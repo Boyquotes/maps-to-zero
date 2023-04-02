@@ -11,6 +11,7 @@ signal hide_finished
 @onready var _hot_bar_inventory := %HotBarInventory as HotBarInventory
 @onready var _animation_player := %AnimationPlayer as AnimationPlayer
 @onready var _pause_menu := $PauseMenu
+@onready var _player_hud := %PlayerHUD as Control
 
 
 var hud_displaying : bool = true
@@ -32,7 +33,7 @@ func show_hud(duration:= 1.0):
 	if is_equal_approx(duration, 0.0):
 		_animation_player.speed_scale = 1.0
 		_animation_player.play("RESET")
-		$Display/PlayerHUD.visible = true
+		_player_hud.visible = true
 		show_finished.emit()
 	else:
 		_animation_player.speed_scale = 1.0 / duration
@@ -44,7 +45,7 @@ func show_hud(duration:= 1.0):
 func hide_hud(duration:= 1.0):
 	hud_displaying = false
 	if is_equal_approx(duration, 0.0):
-		$Display/PlayerHUD.visible = false
+		_player_hud.visible = false
 		hide_finished.emit()
 	else:
 		_animation_player.speed_scale = 1.0 / duration
