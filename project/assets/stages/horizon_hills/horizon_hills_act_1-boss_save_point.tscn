@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cuepstcwa2h7c"]
+[gd_scene load_steps=33 format=3 uid="uid://cuepstcwa2h7c"]
 
 [ext_resource type="AudioStream" uid="uid://blv4k48djtp8y" path="res://assets/music/horizon_hills_rest_area.ogg" id="1_ksl0b"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="2_0r6nf"]
@@ -11,14 +11,12 @@
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="7_qu2vh"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="8_rtj3t"]
 [ext_resource type="AnimationLibrary" uid="uid://dj88tv48ew0tp" path="res://assets/stages/background_jump_area_visuals_animation_library.tres" id="9_sd6us"]
+[ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particles/sprites/exclamation_mark.png" id="11_g87sr"]
 [ext_resource type="Script" path="res://core/classes/cutscene.gd" id="15_glr2v"]
+[ext_resource type="PackedScene" uid="uid://bhakswn4i108b" path="res://core/interactions/dialog_interaction.tscn" id="15_q2s36"]
 [ext_resource type="Script" path="res://assets/characters/scripts/character_animator.gd" id="16_1eja0"]
 [ext_resource type="PackedScene" uid="uid://bt2undvgnfxph" path="res://assets/misc/guiding_light.tscn" id="16_n2dom"]
 [ext_resource type="PackedScene" uid="uid://bnw8pebx4vyk" path="res://assets/characters/frog_green/frog_green.tscn" id="17_4jljn"]
-[ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="17_huyn4"]
-[ext_resource type="PackedScene" uid="uid://b820aic0deq0s" path="res://core/interactions/interaction_area_2d.tscn" id="17_ktgku"]
-[ext_resource type="Texture2D" uid="uid://lmgaoec1q72v" path="res://assets/particles/sprites/exclamation_mark.png" id="18_af8h6"]
-[ext_resource type="Script" path="res://core/triggers/dialog_trigger.gd" id="18_s4vf7"]
 [ext_resource type="PackedScene" uid="uid://bir8uc6rhrdnq" path="res://assets/characters/slime_blue/slime_blue.tscn" id="18_xkhur"]
 [ext_resource type="PackedScene" uid="uid://csn4qxvuyb07i" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="19_bjdco"]
 [ext_resource type="Resource" path="res://assets/dialog/timelines/horizon_hills_act_1_boss_rest_area.dtl" id="19_iflsq"]
@@ -64,184 +62,8 @@ size = Vector2(112, 2188)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
 size = Vector2(1504, 768)
 
-[sub_resource type="Animation" id="Animation_sp76l"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GuidingLight:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_sa1x1"]
-resource_name = "end"
-length = 2.0
-tracks/0/type = "animation"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GuidingLight/GuidingLight/Inner/AnimationPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": PackedStringArray("fly_out"),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_50dhm"]
-resource_name = "finished"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GuidingLight:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameplayCamera2D")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false, 1.0],
-"method": &"set_current"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_old8c"]
-resource_name = "start"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GuidingLight:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "animation"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GuidingLight/GuidingLight/Inner/AnimationPlayer")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": PackedStringArray("appear"),
-"times": PackedFloat32Array(1.3)
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CharacterAnimator")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"disable_input"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CharacterAnimator")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reset_speed"
-}]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterAnimator")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"look_towards_position"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CharacterAnimator")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"play_animation"
-}]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("GameplayCamera2D")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [true, 1.0],
-"method": &"set_current"
-}]
-}
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("DialogTrigger")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [null],
-"method": &"trigger"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ynnse"]
-_data = {
-"RESET": SubResource("Animation_sp76l"),
-"end": SubResource("Animation_sa1x1"),
-"finished": SubResource("Animation_50dhm"),
-"start": SubResource("Animation_old8c")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gebm1"]
-size = Vector2(256, 138)
+[sub_resource type="CircleShape2D" id="CircleShape2D_x7jcu"]
+radius = 120.0
 
 [sub_resource type="Animation" id="Animation_ddicb"]
 length = 0.001
@@ -2598,58 +2420,33 @@ position = Vector2(3960, 0)
 shape = SubResource("RectangleShape2D_aqax7")
 debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 
-[node name="GuidingLightDialog" type="Node2D" parent="Triggers"]
-position = Vector2(3456, 128)
-script = ExtResource("15_glr2v")
-enable_character_transformers_on_start = false
-cutscene_name = "horizon_hills_act_1_boss_save_point"
-queue_free_if_watched = true
+[node name="GuidingLight" type="Marker2D" parent="Triggers"]
+position = Vector2(3456, 32)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Triggers/GuidingLightDialog"]
-libraries = {
-"": SubResource("AnimationLibrary_ynnse")
-}
+[node name="GuidingLight" parent="Triggers/GuidingLight" instance=ExtResource("16_n2dom")]
 
-[node name="GuidingLight" type="Marker2D" parent="Triggers/GuidingLightDialog"]
-position = Vector2(0, -96)
-
-[node name="GuidingLight" parent="Triggers/GuidingLightDialog/GuidingLight" instance=ExtResource("16_n2dom")]
-
-[node name="GPUParticles2D" parent="Triggers/GuidingLightDialog/GuidingLight/GuidingLight/Inner/BobUpAndDown" index="1"]
+[node name="GPUParticles2D" parent="Triggers/GuidingLight/GuidingLight/Inner/BobUpAndDown" index="1"]
 scale = Vector2(1e-05, 1e-05)
 
-[node name="PointLight2D" parent="Triggers/GuidingLightDialog/GuidingLight/GuidingLight/Inner/BobUpAndDown" index="2"]
+[node name="PointLight2D" parent="Triggers/GuidingLight/GuidingLight/Inner/BobUpAndDown" index="2"]
 scale = Vector2(1e-05, 1e-05)
 
-[node name="CharacterAnimator" type="Marker2D" parent="Triggers/GuidingLightDialog"]
-script = ExtResource("16_1eja0")
-actor_name = "PLAYER"
-look_direction = 0
-animation = "stand"
-
-[node name="GameplayCamera2D" type="Camera2D" parent="Triggers/GuidingLightDialog"]
-position = Vector2(0, -96)
-zoom = Vector2(2, 2)
-script = ExtResource("17_huyn4")
-
-[node name="DialogTrigger" type="Node2D" parent="Triggers/GuidingLightDialog"]
-script = ExtResource("18_s4vf7")
+[node name="DialogInteraction" parent="Triggers/GuidingLight" instance=ExtResource("15_q2s36")]
 timeline = ExtResource("19_iflsq")
-finished_cutscene_animation_name = "end"
 
-[node name="InteractionArea2D" parent="Triggers/GuidingLightDialog" instance=ExtResource("17_ktgku")]
-reenable_after_interaction = false
-
-[node name="InteractionEnabledVisuals" parent="Triggers/GuidingLightDialog/InteractionArea2D" index="1"]
+[node name="Visuals" parent="Triggers/GuidingLight/DialogInteraction/InteractionArea2D" index="0"]
 visible = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Triggers/GuidingLightDialog/InteractionArea2D/InteractionEnabledVisuals" index="0"]
-position = Vector2(0, -144)
-texture = ExtResource("18_af8h6")
+[node name="Sprite2D" parent="Triggers/GuidingLight/DialogInteraction/InteractionArea2D/Visuals" index="0"]
+position = Vector2(0, -32)
+texture = ExtResource("11_g87sr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/GuidingLightDialog/InteractionArea2D"]
-position = Vector2(0, -59)
-shape = SubResource("RectangleShape2D_gebm1")
+[node name="Sprite2D" parent="Triggers/GuidingLight/DialogInteraction/InteractionArea2D/Visuals" index="1"]
+texture = ExtResource("11_g87sr")
+
+[node name="CollisionShape2D" parent="Triggers/GuidingLight/DialogInteraction/InteractionArea2D" index="1"]
+position = Vector2(0, 80)
+shape = SubResource("CircleShape2D_x7jcu")
 
 [node name="Layout" type="Node2D" parent="."]
 
@@ -2735,6 +2532,7 @@ script = ExtResource("15_glr2v")
 cutscene_name = "horizon_hills_act_1_boss_save_point_enemies_knocked_out"
 show_cutscene_hud = false
 hide_cutscene_hud_on_finish = false
+skippable = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemies/KnockedOutEnemies"]
 root_node = NodePath("../../..")
@@ -2876,10 +2674,9 @@ animation = "knocked_out"
 [node name="Cutscenes" type="Node2D" parent="."]
 
 [connection signal="area_entered" from="Triggers/CameraSettingsTrigger/Area2d" to="Triggers/CameraSettingsTrigger" method="trigger"]
-[connection signal="animation_finished" from="Triggers/GuidingLightDialog/AnimationPlayer" to="Triggers/GuidingLightDialog" method="_on_animation_finished"]
-[connection signal="triggered" from="Triggers/GuidingLightDialog/InteractionArea2D" to="Triggers/GuidingLightDialog" method="start"]
 
 [editable path="ExitPoints/StageExitPoint"]
 [editable path="ExitPoints/StageExitPoint2"]
-[editable path="Triggers/GuidingLightDialog/GuidingLight/GuidingLight"]
-[editable path="Triggers/GuidingLightDialog/InteractionArea2D"]
+[editable path="Triggers/GuidingLight/GuidingLight"]
+[editable path="Triggers/GuidingLight/DialogInteraction"]
+[editable path="Triggers/GuidingLight/DialogInteraction/InteractionArea2D"]

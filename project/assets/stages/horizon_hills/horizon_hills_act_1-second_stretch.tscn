@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cyxerfv5bf2eo"]
+[gd_scene load_steps=65 format=3 uid="uid://cyxerfv5bf2eo"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_0qeoe"]
 [ext_resource type="AudioStream" uid="uid://c0kfks0f06757" path="res://assets/sfx/ambience/forest.ogg" id="1_200cg"]
@@ -36,7 +36,9 @@
 [ext_resource type="Resource" path="res://assets/dialog/timelines/parkour_tutorial_timeline.dtl" id="36_8iqku"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="36_o0fow"]
 [ext_resource type="Script" path="res://core/triggers/tutorial_trigger.gd" id="36_we068"]
+[ext_resource type="PackedScene" uid="uid://dtiet717nmh4w" path="res://assets/items/item_chest/item_chest.tscn" id="38_8oxk6"]
 [ext_resource type="Script" path="res://core/triggers/increase_background_jumps_trigger.gd" id="38_ifo1r"]
+[ext_resource type="Resource" uid="uid://dlm7mn41m6p2v" path="res://core/save_data/skills_inventory.tres" id="39_avaia"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_4l3wq"]
 [ext_resource type="PackedScene" uid="uid://csn4qxvuyb07i" path="res://assets/characters/cloud_blue/cloud_blue.tscn" id="41_rt6hm"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="42_t2rg6"]
@@ -1514,6 +1516,10 @@ debug_color = Color(0, 0.6, 0.701961, 0.0313726)
 position = Vector2(3960, 0)
 shape = SubResource("RectangleShape2D_aqax7")
 debug_color = Color(0, 0.6, 0.701961, 0.0313726)
+
+[node name="ItemChest" parent="Triggers" instance=ExtResource("38_8oxk6")]
+position = Vector2(-256, 248)
+inventory_data = ExtResource("39_avaia")
 
 [node name="Layout" type="Node2D" parent="."]
 

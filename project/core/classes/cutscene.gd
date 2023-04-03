@@ -111,3 +111,4 @@ func _on_finished() -> void:
 	if hide_cutscene_hud_on_finish:
 		ScreenEffects.hide_cutscene_bars(hide_cutscene_hud_duration)
 		GameManager.sidescroller_main.sidescroller_hud.show_hud(hide_cutscene_hud_duration)
+
