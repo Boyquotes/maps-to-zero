@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://drsq4tihw4ps0"]
+[gd_scene load_steps=49 format=3 uid="uid://drsq4tihw4ps0"]
 
 [ext_resource type="Script" path="res://assets/stages/scripts/stage_2d.gd" id="1_x4off"]
 [ext_resource type="AudioStream" uid="uid://blv4k48djtp8y" path="res://assets/music/horizon_hills_rest_area.ogg" id="2_n72ii"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" path="res://core/triggers/tutorial_trigger.gd" id="28_0b6vb"]
 [ext_resource type="Script" path="res://core/classes/camera/gameplay_camera_2d.gd" id="29_4ad52"]
 [ext_resource type="PackedScene" uid="uid://dclenp1hn5wih" path="res://assets/generic_props/save_point/save_point.tscn" id="30_cie6i"]
+[ext_resource type="PackedScene" uid="uid://b820aic0deq0s" path="res://core/interactions/interaction_area_2d.tscn" id="31_qel0d"]
 [ext_resource type="Script" path="res://core/triggers/camera_settings_trigger.gd" id="39_nshan"]
 [ext_resource type="TileSet" uid="uid://c87fvj5c7rxmn" path="res://assets/stages/horizon_hills/tilesets/horizon_hills_tileset.tres" id="40_xxk7e"]
 [ext_resource type="TileSet" uid="uid://cvwomvdflffly" path="res://assets/stages/whitebox.tres" id="41_iao2w"]
@@ -77,55 +78,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GuidingLight:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GuidingLight:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GuidingLight:z_index")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [25]
+"values": [Vector2(0, -40)]
 }
 
 [sub_resource type="Animation" id="Animation_k1l4h"]
@@ -140,7 +93,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
-"values": [Vector2(-128, -64), Vector2(-312, -288)]
+"values": [Vector2(0, -64), Vector2(-312, -288)]
 }
 
 [sub_resource type="Animation" id="Animation_2vita"]
@@ -189,63 +142,28 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_bl8as"]
 resource_name = "start"
-tracks/0/type = "value"
+length = 0.001
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GuidingLight:position")
+tracks/0/path = NodePath("DialogTrigger")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 1),
-"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-16, -8), Vector2(24, -24), Vector2(-24, -40), Vector2(24, -48), Vector2(-128, -64)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GuidingLight:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GuidingLight:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("DialogTrigger")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [null],
 "method": &"trigger"
 }]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GameplayCamera2D")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GameplayCamera2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -253,67 +171,31 @@ tracks/4/keys = {
 "method": &"set_current"
 }]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimator:look_direction")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimator:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": ["stand"]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimator:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimator:animation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": ["stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand"]
-}
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimator")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerAnimator")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"move_to_global_position"
+"method": &"look_towards_position"
 }]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Area2D/CollisionShape2D:disabled")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rq1w5"]
@@ -324,8 +206,8 @@ _data = {
 "start": SubResource("Animation_bl8as")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rain"]
-size = Vector2(120, 170)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_anxk8"]
+size = Vector2(128, 168)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqax7"]
 size = Vector2(1504, 768)
@@ -745,7 +627,7 @@ shape = SubResource("RectangleShape2D_7txlc")
 [node name="Cutscenes" type="Node2D" parent="."]
 
 [node name="SavePointTutorialCutscene" type="Node2D" parent="Cutscenes"]
-position = Vector2(-256, 96)
+position = Vector2(-104, 96)
 script = ExtResource("22_kytgm")
 enable_character_transformers_on_start = false
 cutscene_name = "save_point_tutorial"
@@ -763,8 +645,8 @@ look_direction = 1
 animation = "stand"
 
 [node name="GuidingLight" type="Marker2D" parent="Cutscenes/SavePointTutorialCutscene"]
-visible = false
 z_index = 25
+position = Vector2(0, -40)
 
 [node name="GuidingLight" parent="Cutscenes/SavePointTutorialCutscene/GuidingLight" instance=ExtResource("24_2imdm")]
 
@@ -782,12 +664,6 @@ limit_bottom = 352
 editor_draw_limits = true
 script = ExtResource("29_4ad52")
 
-[node name="Area2D" type="Area2D" parent="Cutscenes/SavePointTutorialCutscene"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cutscenes/SavePointTutorialCutscene/Area2D"]
-position = Vector2(0, -80)
-shape = SubResource("RectangleShape2D_0rain")
-
 [node name="TutorialTrigger" type="Node2D" parent="Cutscenes/SavePointTutorialCutscene"]
 script = ExtResource("28_0b6vb")
 tutorial = 5
@@ -795,6 +671,14 @@ tutorial = 5
 [node name="TutorialTrigger2" type="Node2D" parent="Cutscenes/SavePointTutorialCutscene"]
 script = ExtResource("28_0b6vb")
 tutorial = 6
+
+[node name="InteractionArea2D" parent="Cutscenes/SavePointTutorialCutscene" instance=ExtResource("31_qel0d")]
+position = Vector2(0, -80)
+reenable_after_interaction = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cutscenes/SavePointTutorialCutscene/InteractionArea2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_anxk8")
 
 [node name="Triggers" type="Node2D" parent="."]
 
@@ -942,9 +826,10 @@ texture = ExtResource("7_bypn5")
 flip_h = true
 flip_v = true
 
-[connection signal="area_entered" from="Cutscenes/SavePointTutorialCutscene/Area2D" to="Cutscenes/SavePointTutorialCutscene" method="start"]
 [connection signal="closed" from="Cutscenes/SavePointTutorialCutscene/TutorialTrigger" to="Cutscenes/SavePointTutorialCutscene/TutorialTrigger2" method="trigger"]
+[connection signal="triggered" from="Cutscenes/SavePointTutorialCutscene/InteractionArea2D" to="Cutscenes/SavePointTutorialCutscene" method="start"]
 [connection signal="area_entered" from="Triggers/CameraSettingsTrigger/Area2d" to="Triggers/CameraSettingsTrigger" method="trigger"]
 
 [editable path="ExitPoints/StageExitPoint"]
 [editable path="ExitPoints/StageExitPoint2"]
+[editable path="Cutscenes/SavePointTutorialCutscene/InteractionArea2D"]
