@@ -501,6 +501,7 @@ func _on_hurtbox_entered(area: Area2D) -> void:
 	hit_sfx.play()
 	
 	if hitbox.frame_freeze_duration_milliseconds > 0:
+		print_debug(hitbox.frame_freeze_duration_milliseconds)
 		FrameFreeze.request(hitbox.frame_freeze_duration_milliseconds)
 	if hitbox.screen_shake_trauma > 0:
 		GameManager.screen_shake(hitbox.screen_shake_trauma)
