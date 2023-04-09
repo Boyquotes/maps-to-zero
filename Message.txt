@@ -1,0 +1,9 @@
+Hello,
+
+I couldn't find a better way to contact you, so I'm making a pull request to reach you. I'll get right to the point.
+
+Can you please make this repository private? Some of the assets in the repository are from asset packs online and shouldn't have been in the repository to begin with. That's my bad.
+
+Feel free to copy the code and use it however you want, but can you leave the assets out? (The sprites, sound effects, and music files)
+
+Thank you.
